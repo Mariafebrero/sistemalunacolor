@@ -2,7 +2,7 @@
         <div class="pull-right hidden-xs">
           <b>Version</b> 1.0
         </div>
-        <strong>Copyright &copy; 2020 Luna Color</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2020 Lunca Color</a>.</strong> All rights reserved.
     </footer>    
     <!-- jQuery -->
     <script src="../public/js/jquery-3.1.1.min.js"></script>
