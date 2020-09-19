@@ -41,7 +41,7 @@
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" name="usuario">
 						<span class="focus-input100"></span>
-						<span class="label-input100">NOM</span>
+						<span class="label-input100">Nombre</span>
 					</div>
 					
 					
