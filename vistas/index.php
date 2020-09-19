@@ -25,7 +25,7 @@
                 <nav class="menu" style="background-color: rgb(61,61,61)">
                    
                    <!-- Boton de inicio de secion -->
-                    <a href="login.php"><i class="far fa-user"></i> Iniciar Sesion</a>
+                    <a href="login.php"><i class="far fa-user"></i> Iniciar</a>
 
                    <!-- Boton de registrar -->
                     <a href="registro.php"><i class="fas fa-sign-in-alt"></i> Registrate</a>
