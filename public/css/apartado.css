@@ -1,0 +1,31 @@
+#apartado h3, h4 {
+    text-align: center;
+}
+
+#apartado .contenedor{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#apartado article {
+    margin: 15px;
+}
+
+#apartado img {
+    width: 100%;
+    max-width: 280px;
+}
+
+@media (min-width:480px) {
+    .apartado-pet {
+        width: 40%;
+    }
+}
+
+@media (min-width:1024px) {
+    .apartado-pet {
+        width: auto;
+    }
+}
+
