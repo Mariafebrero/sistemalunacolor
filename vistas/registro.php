@@ -135,7 +135,7 @@
 					var pass2 = document.getElementById("clave1").value;
 					var pass1 = document.getElementById("password").value;
 					if (pass1 != pass2)
-						document.getElementById("clave1").setCustomValidity("La clave no counside");
+						document.getElementById("clave1").setCustomValidity("La clave no coincide");
 					else
 						document.getElementById("clave1").setCustomValidity('');
 					//empty string means no validation error
