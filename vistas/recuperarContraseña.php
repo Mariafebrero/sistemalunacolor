@@ -36,55 +36,33 @@
 
 				<!--Validacion base de datos -->
 				<form class="login100-form validate-form" method="post" action="../../../database/loguear2.php" autocomplete="off">
-					
-					<!--Usuario -->
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+
+
+					  <!-- Boton modificado para que ni pida validacion -->
+					<div class="wrap-input100">
 						<input class="input100" type="text" name="usuario">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Nombre</span>
+						<span class="label-input100">Nombre del usuario</span>
 					</div>
-					
-					
-					<!--Contraseña -->
-					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="clave"  data-toggle="password">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Contraseña</span>
-					</div>
-	
-
+        
+					<!-- Boton enviar contraseña por correo -->
 					<div class="flex-sb-m w-full p-t-3 p-b-32">
-						
+					 <a href="RecuperarContra/ContraCorreo.php"> <h4><i class="fa fa-envelope" aria-hidden="true"> Enviar contraseña por correo</i></h4></a>
+					</div>
 
-					<!-- Boton ¿Olvidó La Contraseña? -->	
-						<div>
-							<a href="recuperarContraseña.php" class="txt1">
-							¿Olvidó La Contraseña?
-							</a>
-						</div>
+					<div class="flex-sb-m w-full p-t-3 p-b-32"> 
+					  <!-- Boton Recuperar via pregunta secreta -->
+					<a href="RecuperarContra/ContraPregun.php"> <h4><i class="fa fa-question-circle" aria-hidden="true"> Recuperar via pregunta secreta</i></h4></a>
 					</div>
-                      
-                      <!-- Boton entrar -->
-					<div class="container-login100-form-btn"  >
-						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
-						<button type="submit" value="Ingresar" class="login100-form-btn">
-							Entrar
-						</button>
-					</div>
+
+					  <!-- Boton Autogenerar contraseña -->
+					<a href="RecuperarContra/ContraAuto.php"> <h4><i class="fa fa-unlock" aria-hidden="true"> Autogenerar contraseña</i></h4></a>
 					
-					 <!-- Boton de direccionamiento a registrarse -->
-					<div class="text-center p-t-46 p-b-20">
-						<span class="txt2">
-						<h4><p class="text-dark"> <a href="registro.php" class="bg-gradient-dark" > REGISTRARME</p></a></h4>
-						</span>
-					</div>
-
-
-
+					
 				</form>
 
 				 <!-- Fondo de login -->
-				<div class="login100-more" style="background-image: url('../public/img/FONDO LOGIN.PNG');">
+				<div class="login100-more" style="background-image: url('../public/img/FONDO REC.PNG');">
 				</div>
 			</div>
 		</div>
@@ -118,8 +96,6 @@
 
 
 <!--===============================================================================================-->
-
-
 
 
 </body>
