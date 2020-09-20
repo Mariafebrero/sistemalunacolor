@@ -169,9 +169,15 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
+<<<<<<< Updated upstream
                 <li><a href="consultaventas.php"><i class="fa fa-circle-o"></i> Permisos</a></li>                
+=======
+                <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Permisos </a></li>                
+>>>>>>> Stashed changes
               </ul>
             </li>
+
+           
 
              <!-- REPORTE -->
              <li class="treeview">
@@ -184,6 +190,8 @@
               </ul>
             </li>
             
+          
+
                         
           </ul>
         </section>

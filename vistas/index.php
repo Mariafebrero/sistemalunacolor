@@ -19,7 +19,7 @@
 <body>
 <header style="background-color: rgb(61,61,61)">
         <div class="contenedor" style="background-color: rgb(61,61,61)">
-        <h1 class="" style="background-color: rgb(61,61,61)">Sistema Luna Color</h1 >
+        <h1 class="" style="background-color: rgb(61,61,61)"> Sistema Luna Color</h1 >
         <input type="checkbox" id="menu-bar" style="background-color: rgb(61,61,61)">
         <label class="icon-menu-outline" for="menu-bar" style="background-color: rgb(61,61,61)"></label>
                 <nav class="menu" style="background-color: rgb(61,61,61)">
