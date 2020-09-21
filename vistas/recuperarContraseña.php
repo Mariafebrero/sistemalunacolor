@@ -47,23 +47,25 @@
         
 					<!-- Boton enviar contraseña por correo -->
 					<div class="flex-sb-m w-full p-t-3 p-b-32">
-					 <a href="RecuperarContra/ContraCorreo.php"> <h4><i class="fa fa-envelope" aria-hidden="true"> Enviar contraseña por correo</i></h4></a>
+					 <a href="RecuContra/ContraCorreo.php"> <h4><i class="fa fa-envelope" aria-hidden="true"> Enviar contraseña por correo</i></h4></a>
 					</div>
 
 					<div class="flex-sb-m w-full p-t-3 p-b-32"> 
 					  <!-- Boton Recuperar via pregunta secreta -->
-					<a href="RecuperarContra/ContraPregun.php"> <h4><i class="fa fa-question-circle" aria-hidden="true"> Recuperar via pregunta secreta</i></h4></a>
+					<a href="RecuContra/ContraPregun.php"> <h4><i class="fa fa-question-circle" aria-hidden="true"> Recuperar via pregunta secreta</i></h4></a>
 					</div>
+
 
                     <div class="flex-sb-m w-full p-t-3 p-b-32"> 
 					  <!-- Boton Autogenerar contraseña -->
 					<a href="RecuperarContra/ContraAuto.php"> <h4><i class="fa fa-unlock" aria-hidden="true"> Autogenerar contraseña</i></h4></a>
 					 </div>
 					
+
 				</form>
 
 				 <!-- Fondo de login -->
-				<div class="login100-more" style="background-image: url('../public/img/FONDO REC.PNG');">
+				<div class="login100-more" display= block margin= 0 auto max-width= 100% width= 80% style="background-image: url('../public/img/FONDO REC.PNG');">
 				</div>
 			</div>
 		</div>
