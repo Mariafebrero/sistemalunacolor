@@ -20,7 +20,7 @@ function mostrarform(flag)
 	{
 		$("#listadoregistros").show();
 		$("#formularioregistros").hide();
-		$("#btnagregar").hide();
+		$("#btnagregar").show();
 	}
 }
 
