@@ -55,9 +55,10 @@
 					<a href="RecuperarContra/ContraPregun.php"> <h4><i class="fa fa-question-circle" aria-hidden="true"> Recuperar via pregunta secreta</i></h4></a>
 					</div>
 
+                    <div class="flex-sb-m w-full p-t-3 p-b-32"> 
 					  <!-- Boton Autogenerar contraseña -->
 					<a href="RecuperarContra/ContraAuto.php"> <h4><i class="fa fa-unlock" aria-hidden="true"> Autogenerar contraseña</i></h4></a>
-					
+					 </div>
 					
 				</form>
 

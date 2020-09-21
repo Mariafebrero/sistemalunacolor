@@ -1,4 +1,24 @@
 
+<?php
+
+
+
+$charset="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+$cad="";
+for($i=0;$i<10;$i++){
+
+
+
+$cad .=substr($charset,rand(0,61),1);
+
+
+
+
+
+
+
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,17 +62,28 @@
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" name="usuario">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Nueva Contraseña</span>
+						<center><span class="label-input100"><?php echo $cad; ?></span></center>
+						
 					</div>
         
 					   <!-- Boton Autogenerar contraseña -->
+              
+
 					<div class="container-login100-form-btn"  >
 						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
-						<button type="submit" value="Ingresar" class="login100-form-btn">
+						<button type="submit" name="Boton_Auto" value="Ingresar" class="login100-form-btn" >
 							Autogenerar contraseña
-						</button>
+							
+
+                
+
+		             
+                  	</button>
+                  	
+                  		
 					</div>
-					
+
+			</form>		
 					
 				</form>
 
