@@ -26,6 +26,10 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../public/css/util.css">
 	<link rel="stylesheet" type="text/css" href="../public/css/main.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script
 <!--===============================================================================================-->
 </head>
 <body style="background-color: #666666;">
@@ -37,26 +41,34 @@
 				<!--Validacion base de datos -->
 				<form class="login100-form validate-form" method="post" action="../../../database/loguear2.php" autocomplete="off">
 					
-					<!--Usuario -->
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="usuario">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Nombre</span>
-					</div>
-					
-					
-					<!--Contraseña -->
-					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="clave"  data-toggle="password">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Contraseña</span>
-					</div>
-	
 
-					<div class="flex-sb-m w-full p-t-3 p-b-32">
-						
+					<!-- Usuario -->	
+					<div class="col-xs-12">
+      				 <p class="text-secondary">Usuario</p>
+       				 <div class="input-group">
+     					<input ID="usuario" type="usuario" Class="form-control">
+      					<div class="input-group-append">
+          				</div>
+    				</div>
+                    </div>
+	                <p></p>
+					
+					<!-- Coontraseña -->	
+					<div class="col-xs-12">
+      				 <p class="text-secondary">Contraseña</p>
+       				 <div class="input-group">
+     					<input ID="txtPassword" type="Password" Class="form-control">
+      					<div class="input-group-append">
+            			<button id="show_password" class="login100-form-btn" type="button" onclick="mostrarPassword()" style="background-color: rgb(233,118,46)"> 
+            				<h5><span class="fa fa-eye-slash icon"></span></h5></button>
+          				</div>
+    				</div>
+                    </div>
+	                <p></p>
+
 
 					<!-- Boton ¿Olvidó La Contraseña? -->	
+					<div class="flex-sb-m w-full p-t-3 p-b-32">
 						<div>
 							<a href="recuperarContraseña.php" class="txt1">
 							¿Olvidó La Contraseña?
@@ -71,15 +83,7 @@
 							Entrar
 						</button>
 					</div>
-					
-					 <!-- Boton de direccionamiento a registrarse -->
-					<div class="text-center p-t-46 p-b-20">
-						<span class="txt2">
-						<h4><p class="text-dark"> <a href="registro.php" class="bg-gradient-dark" > REGISTRARME</p></a></h4>
-						</span>
-					</div>
-
-
+				
 
 				</form>
 
@@ -115,8 +119,25 @@
 <!--===============================================================================================-->
 	<script src="../public/js/main.js"></script>
 <!--===============================================================================================-->
-
-
+<script type="text/javascript">
+function mostrarPassword(){
+		var cambio = document.getElementById("txtPassword");
+		if(cambio.type == "password"){
+			cambio.type = "text";
+			$('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+		}else{
+			cambio.type = "password";
+			$('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+		}
+	} 
+	
+	$(document).ready(function () {
+	//CheckBox mostrar contraseña
+	$('#ShowPassword').click(function () {
+		$('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+	});
+});
+</script>
 <!--===============================================================================================-->
 
 
