@@ -30,31 +30,70 @@
 <!--===============================================================================================-->
 </head>
 <body style="background-color: #666666;">
+	<?php
+
+    if(isset($_POST['enviarcorreo']))
+    {
+        $cuerpo = "Luna color ha confirmado su identidad.Su contrase&ntilde;a es: 1 2 3";
+
+        //para el envío en formato HTML
+        $headers  = "MIME-Version: 1.0\r\n";
+        $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
+
+        //dirección del remitente
+        $headers .= "From: Soporte técnico Luna Color";
+
+        //Una Dirección de respuesta, si queremos que sea distinta que la del remitente
+        $headers .= " soportelunacolor@gmail.com";
+
+        //Direcciones que recibián copia
+        //$headers .= "Cc: ejemplo2@gmail.com\r\n";
+
+        //direcciones que recibirán copia oculta
+        //$headers .= "Bcc: ejemplo3@yahoo.com\r\n";
+        if(mail($_POST['CasillaCorreo'],"Recuperación de contraseña",$cuerpo,$headers)){
+    		echo "<script>alert('Funcion \"mail()\" ejecutada, por favor verifique su bandeja de correo.');</script>";
+    	}else{
+    		echo "<script>alert('No se pudo enviar el mail, por favor verifique su configuracion de correo SMTP saliente.');</script>";
+    	}
+    }
+?>
 	
 	<div class="limiter"  >
 		<div class="container-login100" >
 			<div class="wrap-login100">
 
-				<!--Validacion base de datos -->
-				<form class="login100-form validate-form" method="post" action="../../../database/loguear2.php" autocomplete="off">
+<!-------------------------------------------Casilla de usuario ---------------------------------->
+				<form class="login100-form validate-form" method="post" autocomplete="off">
 
-
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="usuario">
+					<div class="wrap-input100 validate-input" data-validate = "Ingrese un nombre de usuario correcto">
+						<input class="input100" type="text" name="CasillaUusario">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Correo</span>
+						<span class="label-input100">Nombre de usuario </span>
+					</div>
+
+ <!-------------------------------------------Casilla de correo ---------------------------------->
+				<form class="login100-form validate-form" method="post" autocomplete="off">
+
+
+					<div class="wrap-input100 validate-input" data-validate = "Ingrese una dirección de correo válida: ejemplo@yahoo.com">
+						<input class="input100" type="text" name="CasillaCorreo">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Correo Electrónico</span>
 					</div>
       				
 
-					   <!-- Boton Autogenerar contraseña -->
+ <!------------------------------------- Botón enviar correo Comienzo------------------------------------------>
+					
 					<div class="container-login100-form-btn"  >
 						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
-						<button type="submit" value="Ingresar" class="login100-form-btn">
+						<button type="submit" name="enviarcorreo" value="Enviarcorreo" class="login100-form-btn">
 							Enviar
 						</button>
 					</div>
+				
 					
-					
+<!---------------------------------------- Botón enviar correo FIN ---------------------------------------------->
 				</form>
 
 				 <!-- Fondo de login -->
@@ -93,7 +132,7 @@
 
 <!--===============================================================================================-->
 
-
+<!--</form>-->
 </body>
 
 </html>

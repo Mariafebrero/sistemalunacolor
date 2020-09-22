@@ -1,4 +1,5 @@
 <?php 
+/* INICIO CODIGO ORIGINAL
 require_once "global.php";
 
 $conexion = new mysqli(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_NAME);
@@ -43,4 +44,10 @@ if (!function_exists('ejecutarConsulta'))
 		return htmlspecialchars($str);
 	}
 }
+FIN DEL CODIGO ORIGINAL*/ 
+$host="localhost";
+$user="root";
+$password="";
+$db="db_luna_color";
+$con = new mysqli($host,$user,$password,$db);
 ?>
