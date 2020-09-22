@@ -45,6 +45,16 @@ if (!function_exists('ejecutarConsulta'))
 	}
 }
 FIN DEL CODIGO ORIGINAL*/ 
+
+//Union con la prueba
+$mysqli = new MySQLi("localhost", "root","", "db_luna_color");
+if ($mysqli -> connect_errno) 
+{
+die( "ERROR: Intente de nuevo: (" . $mysqli -> mysqli_connect_errno() 
+	. ") " . $mysqli -> mysqli_connect_error());
+}
+else
+
 $host="localhost";
 $user="root";
 $password="";
