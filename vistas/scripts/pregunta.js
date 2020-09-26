@@ -9,34 +9,13 @@ function init(){
 	{
 		guardaryeditar(e);	
 	})
-
-	$("#imagenmuestra").hide();  
-
-	//Mostramos los permisos
-	$.post("../ajax/usuario.php?op=permisos&id=",function(r){
-	        $("#permisos").html(r);
-	});    
-
-	        //Cargamos los items al select categoria
-	$.post("../ajax/usuario.php?op=selectRol", function(t){
-	            $("#id_rol").html(t);
-	            $('#id_rol').selectpicker('refresh');
-
-   });    
 }
 
 //Función limpiar
 function limpiar()
 {
-	$("#id_rol").val("");
-	$("#usuario").val("");
-	$("#nombre_usuario").val("");
-	$("#contrasena").val("");
-	$("#imagenmuestra").attr("src","");//ojo
-	$("#imagenactual").val(""); //ojo
-	$("#correo_electronico").val("");	
-	$("#id_usuario").val("");
-
+	$("#id_pregunta").val("");
+	$("#pregunta").val("");
 }
 
 //Función mostrar formulario
@@ -49,8 +28,6 @@ function mostrarform(flag)
 		$("#formularioregistros").show();
 		$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
-
-
 	}
 	else
 	{
@@ -83,7 +60,7 @@ function listar()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/usuario.php?op=listar',
+					url: '../ajax/pregunta.php?op=listar',
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -104,7 +81,7 @@ function guardaryeditar(e)
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/usuario.php?op=guardaryeditar",
+		url: "../ajax/pregunta.php?op=guardaryeditar",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
@@ -121,36 +98,27 @@ function guardaryeditar(e)
 	limpiar();
 }
 
-function mostrar(id_usuario)
+function mostrar(id_pregunta)
 {
-	$.post("../ajax/usuario.php?op=mostrar",{id_usuario : id_usuario}, function(data, status)
+	$.post("../ajax/pregunta.php?op=mostrar",{id_pregunta : id_pregunta}, function(data, status)
 	{
 		data = JSON.parse(data);		
 		mostrarform(true);
 
-		$("#id_rol").val(data.id_rol);
-		$("#usuario").val(data.usuario);
-		$("#nombre_usuario").val(data.nombre_usuario);
-		$("#contrasena").val(data.contrasena);
-		$("#imagenmuestra").show();
-		$("#imagenmuestra").attr("src","../files/usuarios/"+data.imagen);
-		$("#imagenactual").val(data.imagen);
-		$("#correo_electronico").val(data.correo_electronico);
-		$("#id_usuario").val(data.id_usuario);
+		
+		$("#pregunta").val(data.pregunta);
+ 		$("#id_pregunta").val(data.id_pregunta);
 
-	});
-	$.post("../ajax/usuario.php?op=permisos&id="+id_usuario,function(r){
-	        $("#permisos").html(r);
-	});
+ 	})
 }
 
 //Función para desactivar registros
-function desactivar(id_usuario)
+function desactivar(id_pregunta)
 {
-	bootbox.confirm("¿Está Seguro de desactivar el usuario?", function(result){
+	bootbox.confirm("¿Está Seguro de desactivar la pregunta?", function(result){
 		if(result)
         {
-        	$.post("../ajax/usuario.php?op=desactivar", {id_usuario : id_usuario}, function(e){
+        	$.post("../ajax/pregunta.php?op=desactivar", {id_pregunta : id_pregunta}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
@@ -159,17 +127,18 @@ function desactivar(id_usuario)
 }
 
 //Función para activar registros
-function activar(id_usuario)
+function activar(id_pregunta)
 {
-	bootbox.confirm("¿Está Seguro de activar el Usuario?", function(result){
+	bootbox.confirm("¿Está Seguro de activar la pregunta?", function(result){
 		if(result)
         {
-        	$.post("../ajax/usuario.php?op=activar", {id_usuario : id_usuario}, function(e){
+        	$.post("../ajax/pregunta.php?op=activar", {id_pregunta : id_pregunta}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
         }
 	})
 }
+
 
 init();

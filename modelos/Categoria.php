@@ -52,6 +52,7 @@ Class Categoria
 		$sql="SELECT * FROM categoria";
 		return ejecutarConsulta($sql);		
 	}
+	
 }
 
 ?>
