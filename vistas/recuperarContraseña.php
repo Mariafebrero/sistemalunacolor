@@ -55,9 +55,6 @@
 					<a href="RecuContra/ContraPregun.php"> <h4><i class="fa fa-question-circle" aria-hidden="true"> Recuperar via pregunta secreta</i></h4></a>
 					</div>
 
-
-                    
-
 				</form>
 
 				 <!-- Fondo de login -->

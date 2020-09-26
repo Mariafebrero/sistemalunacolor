@@ -1,21 +1,18 @@
 <?php 
 require_once "../modelos/Permiso.php";
 
-$categoria=new Permiso();
-
+$permiso=new Permiso();
 
 switch ($_GET["op"]){
 	
 	case 'listar':
-		$rspta=$Permiso->listar();
+		$rspta=$permiso->listar();
  		//Vamos a declarar un array
  		$data= Array();
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				
- 				"0"=>$reg->nombre,
- 
+ 				"0"=>$reg->nombre
  				);
  		}
  		$results = array(

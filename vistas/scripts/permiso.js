@@ -4,6 +4,7 @@ var tabla;
 function init(){
 	mostrarform(false);
 	listar();
+}
 
 //Función mostrar formulario
 function mostrarform(flag)
@@ -20,7 +21,7 @@ function mostrarform(flag)
 	{
 		$("#listadoregistros").show();
 		$("#formularioregistros").hide();
-		$("#btnagregar").show();
+		$("#btnagregar").hide();
 	}
 }
 
@@ -53,5 +54,6 @@ function listar()
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
+
 
 init();

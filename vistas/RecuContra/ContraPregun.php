@@ -37,17 +37,30 @@
 				<!--Validacion base de datos -->
 				<form class="login100-form validate-form" method="post" action="../../../database/loguear2.php" autocomplete="off">
 
-<select class="form-control selectpicker" data-live-search="true" required></select>
 
-<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+					<select class="form-control selectpicker" data-live-search="true" required></select>
+
+
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" name="usuario">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Repuesta</span>
 					</div>
 
-					
-					
-       
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<input class="input100" type="text" name="usuario">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Contraseña Nueva</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<input class="input100" type="text" name="usuario">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Confirmar Contraseña</span>
+					</div>
+        
+
+
 					   <!-- Boton Autogenerar contraseña -->
 					<div class="container-login100-form-btn"  >
 						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
