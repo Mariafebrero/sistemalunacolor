@@ -73,7 +73,7 @@ if ($_SESSION['usuario']==1)
                           <!-- Nombre usuario -->
                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <label>Nombre usuario(*):</label>
-                            <input type="text" class="form-control" name="nombre_usuario" id="nombre_usuario" maxlength="100" placeholder="Nombre Usuario" required>
+                            <input type="text" class="form-control" name="nombre_usuario" id="nombre_usuario" maxlength="100" placeholder="Nombre Usuario" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                           </div>
 
                           <!-- Contraseña -->

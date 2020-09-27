@@ -57,7 +57,7 @@
 				</form>
 
 				 <!-- Fondo de login -->
-				<div class="login100-more" style="background-image: url('../../public/img/FONDO REC AUTO.png');">
+				<div class="login100-more" style="background-image: url('../../public/img/FONDOS-05.SVG');">
 				</div>
 			</div>
 		</div>

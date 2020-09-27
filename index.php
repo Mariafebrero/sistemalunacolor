@@ -28,16 +28,18 @@
 
                     
                 </nav>
+            </input>
             </div>
 </header>
 
 <main>
-
+<section></section>
+<section></section>
+<section></section>
+<section>   <img src="public/img/INDEX-07.SVG" class="col-xs-12"></section>
             <!-- Imagen de fondo -->
-            <section id="banner" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <img src="public/img/FONDO3.PNG" class="col-lg-12 col-md-12 col-sm-12 col-xs-12>
-                <div class="contenedor"> 
-                </div>
+            <section  class="col-xs-12">
+                <img src="public/img/F4-07.SVG" class="col-xs-12">
             </section>
 
              <!-- Imagenes de iconos -->
@@ -61,13 +63,14 @@
             </section>
             
              
-        <!-- Letras redes sociales-->  
-        </main>
+        <!-- Letras redes sociales--> 
+
+</main>
+
            <footer>
             <div class="contenedor">
-                <div class="sociales"> <h4>@lunacolor</h4>
-                  
-                   <p class="copy">© 2020 Luna Color</p> 
+                <div class="sociales"> <h4>© 2020 Luna Color</h4>
+                 
                 </div>
             </div>
         </footer>

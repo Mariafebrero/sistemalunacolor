@@ -58,7 +58,7 @@
 				</form>
 
 				 <!-- Fondo de login -->
-				<div class="login100-more" display= block margin= 0 auto max-width= 100% width= 80% style="background-image: url('../public/img/FONDO REC.PNG');">
+				<div class="login100-more" display= block margin= 0 auto max-width= 100% width= 80% style="background-image: url('../public/img/FONDOS-02.SVG');">
 				</div>
 			</div>
 		</div>

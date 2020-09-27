@@ -11,10 +11,9 @@ Class Usuario
 	}
 	//Implementamos un método para insertar registros
 	public function insertar($id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$permisos)
-	{ 	//CAMBIO MARIA PRIMERO INGRESO
-		
-		$sql="INSERT INTO tbl_usuarios (id_rol,usuario,nombre_usuario,contrasena,imagen,correo_electronico,condicion,primer_ingreso)
-			VALUES ('$id_rol','$usuario','$nombre_usuario','$contrasena','$imagen','$correo_electronico','1', '1')";
+	{ 	
+		$sql="INSERT INTO tbl_usuarios (id_rol,usuario,nombre_usuario,contrasena,imagen,correo_electronico,condicion)
+			VALUES ('$id_rol','$usuario','$nombre_usuario','$contrasena','$imagen','$correo_electronico','1')";
 			//return ejecutarConsulta($sql);
 			$idusuarionew=ejecutarConsulta_retornarID($sql);
 
@@ -91,7 +90,7 @@ Class Usuario
 	//Función para verificar el acceso al sistema
 	public function verificar($usuario,$contrasena)
     {
-    	$sql="SELECT id_usuario,usuario,nombre_usuario,contrasena,imagen,correo_electronico FROM tbl_usuarios WHERE usuario='$usuario' AND contrasena='$contrasena' AND condicion='1' AND Primer_ingreso='0'"; 
+    	$sql="SELECT id_usuario,usuario,nombre_usuario,contrasena,imagen,correo_electronico FROM tbl_usuarios WHERE usuario='$usuario' AND contrasena='$contrasena' AND condicion='1'"; 
     	return ejecutarConsulta($sql);  
     	
     }

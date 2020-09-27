@@ -1,9 +1,5 @@
-
-
 $("#frmAcceso").on('submit',function(e)
 {
-
-
 	e.preventDefault();
     usuariolog=$("#usuariolog").val();
     contrasenalog=$("#contrasenalog").val();
@@ -18,7 +14,7 @@ $("#frmAcceso").on('submit',function(e)
         }
         else
         {
-            $(location).attr("href","preguntaingreso.php");
+            bootbox.alert("Usuario y/o Password incorrectos");
         }
     });
 })
