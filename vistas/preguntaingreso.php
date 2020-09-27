@@ -1,10 +1,9 @@
-
 <?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<title>Sistema Luna Color</title>
+	<title>Preguntas Secretas</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -35,92 +34,50 @@
 <!--===============================================================================================-->
 </head>
 <body style="background-color: #666666;">
-	<?php
 
-    if(isset($_POST['casillausuario']))
 
-    {
-        if(!empty($_POST))
 
-{
-	if(isset($_POST["casillausuario"]) &&isset($_POST["casillacontra"]))
 
-	{
-		if($_POST["casillausuario"]!=""&&$_POST["casillacontra"]!="")
-		{
-			
-			include "../config/conexion.php";
-
-			$user_id=null;
-			$sql1= "select * from tbl_usuarios where (usuario=\"$_POST[casillausuario]\" or correo_electronico=\"$_POST[casillausuario]\") and contraseña=\"$_POST[casillacontra]\" ";
-			$query = $con->query($sql1);
-
-			while ($r=$query->fetch_array()) 
-			{
-				$user_id=$r["id_usuario"];
-				break;
-			}
-
-			if($user_id==null)
-			{ 
-				
-				print "<script>alert(\"Usuario ó Contraseña Incorrecta\");window.location='login.php';</script>";
-			}
-			else
-			{
-				//session_start();
-				//$_SESSION["user_id"]=$user_id;
-				//print "<script>window.location='../barber_shop.php';</script>";
-			
-				print "<script>alert(\"Usuario y Contraseña correcta\");window.location='categoria.php';</script>";			
-			}
-		}
-	}
-}
-    }
-
-?>
 	<div class="limiter"  >
 		<div class="container-login100" >
 			<div class="wrap-login100">
 
 				<!--Validacion base de datos -->
 				<form class="login100-form validate-form" method="post" autocomplete="off">
-					
 
 					<!-- Usuario -->	
 					<div class="col-xs-12">
-      				 <p class="text-secondary">Usuario</p>
-       				 <div class="input-group">
-     					<input ID="usuario" type="usuario" name="casillausuario" Class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();">
-      					<div class="input-group-append">
-          				</div>
-    				</div>
+						
+      				 <p class="text-secondary">Preguntas #1</p>
+       				 
+     					<div class="form-group col-lg-10 col-md-6 col-sm-6 col-xs-12">
+                            <select id="Pregunta1" name="Pregunta1" 
+                            class="form-control selectpicker" data-live-search="true" required></select>
+                          </div>
+    				
                     </div>
 	                <p></p>
-					
-					<!-- Coontraseña -->	
 					<div class="col-xs-12">
-      				 <p class="text-secondary">Contraseña</p>
-       				 <div class="input-group">
-     					<input ID="txtPassword" type="Password" name="casillacontra"Class="form-control">
-      					<div class="input-group-append">
-            			<button id="show_password" class="login100-form-btn" name="botonentrar" type="button" onclick="mostrarPassword()" style="background-color: rgb(233,118,46)"> 
-            				<h5><span class="fa fa-eye-slash icon"></span></h5></button>
-          				</div>
-    				</div>
+      				 <p class="text-secondary">Preguntas #2</p>
+       				 
+     					<div class="form-group col-lg-10 col-md-6 col-sm-6 col-xs-12">
+                            <select id="Pregunta2" name="Pregunta2" class="form-control selectpicker" data-live-search="true" required></select>
+                          </div>
+    				
                     </div>
 	                <p></p>
 
+	                <div class="col-xs-12">
+      				 <p class="text-secondary">Preguntas #3</p>
+       				 
+     					<div class="form-group col-lg-10 col-md-6 col-sm-6 col-xs-12">
+                            <select id="Pregunta3" name="Pregunta3" class="form-control selectpicker" data-live-search="true" required></select>
+                          </div>
+    				
+                    </div>
+	                <p></p>
+	                <p></p>
 
-					<!-- Boton ¿Olvidó La Contraseña? -->	
-					<div class="flex-sb-m w-full p-t-3 p-b-32">
-						<div>
-							<a href="recuperarContraseña.php" class="txt1">
-							¿Has olvidado tu correo electrónico?
-							</a>
-						</div>
-					</div>
                       
                       <!-- Boton entrar -->
 					<div class="container-login100-form-btn"  >
@@ -165,25 +122,6 @@
 <!--===============================================================================================-->
 	<script src="../public/js/main.js"></script>
 <!--===============================================================================================-->
-<script type="text/javascript">
-function mostrarPassword(){
-		var cambio = document.getElementById("txtPassword");
-		if(cambio.type == "password"){
-			cambio.type = "text";
-			$('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
-		}else{
-			cambio.type = "password";
-			$('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
-		}
-	} 
-	
-	$(document).ready(function () {
-	//CheckBox mostrar contraseña
-	$('#ShowPassword').click(function () {
-		$('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
-	});
-});
-</script>
 <!--===============================================================================================-->
 
 
