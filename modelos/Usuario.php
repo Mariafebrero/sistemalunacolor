@@ -11,7 +11,8 @@ Class Usuario
 	}
 	//Implementamos un método para insertar registros
 	public function insertar($id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$permisos)
-	{ 	
+	{ 	//CAMBIO MARIA PRIMERO INGRESO
+		
 		$sql="INSERT INTO tbl_usuarios (id_rol,usuario,nombre_usuario,contrasena,imagen,correo_electronico,condicion,primer_ingreso)
 			VALUES ('$id_rol','$usuario','$nombre_usuario','$contrasena','$imagen','$correo_electronico','1', '1')";
 			//return ejecutarConsulta($sql);
