@@ -9,26 +9,25 @@ $descripcion=isset($_POST["descripcion"])? limpiarCadena($_POST["descripcion"]):
 
 
 switch ($_GET["op"]){
-
 	case 'guardaryeditar':
 		if (empty($id_rol)){
 			$rspta=$roles->insertar($rol,$descripcion);
-			echo $rspta ? "Rol registrada" : "Rol no se pudo registrar";
+			echo $rspta ? "Rol registrado" : "Rol no se pudo registrar";
 		}
 		else {
 			$rspta=$roles->editar($id_rol,$rol,$descripcion);
-			echo $rspta ? "Rol actualizada" : "Rol no se pudo actualizar";
+			echo $rspta ? "Rol actualizado" : "Rol no se pudo actualizar";
 		}
 	break;
 
 	case 'desactivar':
 		$rspta=$roles->desactivar($id_rol);
- 		echo $rspta ? "Rol Desactivada" : "Rol no se puede desactivar";
+ 		echo $rspta ? "Rol Desactivado" : "Rol no se puede desactivar";
 	break;
 
 	case 'activar':
 		$rspta=$roles->activar($id_rol);
- 		echo $rspta ? "Rol activada" : "Rol no se puede activar";
+ 		echo $rspta ? "Rol activado" : "Rol no se puede activar";
 	break;
 
 	case 'mostrar':
@@ -36,8 +35,7 @@ switch ($_GET["op"]){
  		//Codificar el resultado utilizando json
  		echo json_encode($rspta);
 	break;
-	//new
-	
+
 	case 'listar':
 		$rspta=$roles->listar();
  		//Vamos a declarar un array

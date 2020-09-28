@@ -9,34 +9,32 @@ Class Rol
 	{
 
 	}
-
-	//new
-//Implementamos un método para insertar registros
+	//Implementamos un método para insertar registros
 	public function insertar($rol,$descripcion)
-	{
+	{ 	
 		$sql="INSERT INTO tbl_roles (rol,descripcion,condicion)
-		VALUES ('$rol','$descripcion','1')";
-		return ejecutarConsulta($sql);
+			VALUES ('$rol','$descripcion','1')";
+			return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para editar registros
 	public function editar($id_rol,$rol,$descripcion)
 	{
-		$sql="UPDATE tbl_roles SET rol='$rol',descripcion='$descripcion' WHERE id_rol='$id_rol'";
-		return ejecutarConsulta($sql);
+		$sql="UPDATE tbl_roles SET rol='$rol', descripcion='$descripcion' WHERE id_rol='$id_rol'";
+		ejecutarConsulta($sql);
 	}
 
-	//Implementamos un método para desactivar categorías
+	//Implementamos un método para desactivar preguntas
 	public function desactivar($id_rol)
 	{
 		$sql="UPDATE tbl_roles SET condicion='0' WHERE id_rol='$id_rol'";
 		return ejecutarConsulta($sql);
 	}
 
-	//Implementamos un método para activar categorías
+	//Implementamos un método para activar preguntas
 	public function activar($id_rol)
 	{
-		$sql="UPDATE tbl_roles SET condicion='1' WHERE id_rol='$id_rol'";
+		$sql="UPDATE tbl_roles SET condicion ='1' WHERE id_rol='$id_rol'";
 		return ejecutarConsulta($sql);
 	}
 
@@ -46,7 +44,6 @@ Class Rol
 		$sql="SELECT * FROM tbl_roles WHERE id_rol='$id_rol'";
 		return ejecutarConsultaSimpleFila($sql);
 	}
-	//new
 
 	//Implementar un método para listar los registros
 	public function listar()
@@ -66,4 +63,3 @@ Class Rol
 }
 
 ?>
- 

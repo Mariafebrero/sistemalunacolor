@@ -5,7 +5,6 @@ function init(){
 	mostrarform(false);
 	listar();
 
-
 	$("#formulario").on("submit",function(e)
 	{
 		guardaryeditar(e);	
@@ -19,8 +18,6 @@ function limpiar()
 	$("#rol").val("");
 	$("#descripcion").val("");
 }
-
-
 
 //Función mostrar formulario
 function mostrarform(flag)
@@ -41,14 +38,12 @@ function mostrarform(flag)
 	}
 }
 
-
 //Función cancelarform
 function cancelarform()
 {
 	limpiar();
 	mostrarform(false);
 }
-
 
 //Función Listar
 function listar()
@@ -78,6 +73,7 @@ function listar()
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
+//Función para guardar o editar
 
 function guardaryeditar(e)
 {
@@ -105,14 +101,15 @@ function guardaryeditar(e)
 
 function mostrar(id_rol)
 {
-	$.post("../ajax/categoria.php?op=mostrar",{id_rol : id_rol}, function(data, status)
+	$.post("../ajax/rol.php?op=mostrar",{id_rol : id_rol}, function(data, status)
 	{
 		data = JSON.parse(data);		
 		mostrarform(true);
 
+		$("#id_rol").val(data.id_rol);
 		$("#rol").val(data.rol);
 		$("#descripcion").val(data.descripcion);
- 		$("#id_rol").val(data.id_rol);
+ 		
 
  	})
 }
@@ -120,7 +117,7 @@ function mostrar(id_rol)
 //Función para desactivar registros
 function desactivar(id_rol)
 {
-	bootbox.confirm("¿Está Seguro de desactivar la rol?", function(result){
+	bootbox.confirm("¿Está Seguro de desactivar el rol?", function(result){
 		if(result)
         {
         	$.post("../ajax/rol.php?op=desactivar", {id_rol : id_rol}, function(e){
@@ -134,7 +131,7 @@ function desactivar(id_rol)
 //Función para activar registros
 function activar(id_rol)
 {
-	bootbox.confirm("¿Está Seguro de activar la rol?", function(result){
+	bootbox.confirm("¿Está Seguro de activar el rol?", function(result){
 		if(result)
         {
         	$.post("../ajax/rol.php?op=activar", {id_rol : id_rol}, function(e){

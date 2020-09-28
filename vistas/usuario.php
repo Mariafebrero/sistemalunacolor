@@ -17,6 +17,7 @@ if ($_SESSION['usuario']==1)
 
 ?>
 
+
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">        
@@ -76,11 +77,21 @@ if ($_SESSION['usuario']==1)
                             <input type="text" class="form-control" name="nombre_usuario" id="nombre_usuario" maxlength="100" placeholder="Nombre Usuario" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                           </div>
 
-                          <!-- Contraseña -->
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Contraseña(*):</label>
-                            <input type="password" class="form-control" name="contrasena" id="contrasena" maxlength="100" placeholder="Contrasena" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$" required>
-                          </div>
+                       
+
+                        <!-- Coontraseña -->  
+          <div class="col-xs-12">
+              <label>Contraseña(*):</label>
+               <div class="input-group">
+              <input ID="contrasena" type="Password" name="contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$" required>
+          <!-- boton monstrar Contraseña -->
+                <div class="input-group-append">
+                  <button id="show_password" class="login100-form-btn" name="botonentrar" type="button" onclick="mostrarPassword()" style="background-color: rgb(233,118,46)"> 
+                    <h5><span class="fa fa-eye-slash icon"></span></h5></button>
+                  </div>
+            </div>
+                    </div>
+                  <p></p> 
 
                            <!-- Permisos -->
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -128,6 +139,10 @@ if ($_SESSION['usuario']==1)
 
     </div><!-- /.content-wrapper -->
   <!--Fin-Contenido-->
+
+
+
+
 <?php
 }
 else
@@ -138,8 +153,31 @@ else
 require 'footer.php';
 ?>
 <script type="text/javascript" src="scripts/usuario.js"></script>
+<script type="text/javascript" src="scripts/contrausuario.js"></script>
+
+<script type="text/javascript">
+function mostrarPassword(){
+    var cambio = document.getElementById("contrasena");
+    if(cambio.type == "password"){
+      cambio.type = "text";
+      $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+    }else{
+      cambio.type = "password";
+      $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+    }
+  } 
+  
+  $(document).ready(function () {
+  //CheckBox mostrar contraseña
+  $('#ShowPassword').click(function () {
+    $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+  });
+});
+</script>
+
 
 <?php 
 }
 ob_end_flush();
 ?>
+

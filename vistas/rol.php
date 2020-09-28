@@ -1,4 +1,3 @@
-
 <?php
 //Activamos el almacenamiento en el buffer
 ob_start();
@@ -34,15 +33,15 @@ if ($_SESSION['usuario']==1)
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
                             <th>Opciones</th>
-                            <th>Role</th>
+                            <th>Rol</th>
                             <th>Descripcion</th>
                             <th>Estado</th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                            <th>Opciones</th>
-                            <th>Role</th>
+                             <th>Opciones</th>
+                            <th>Rol</th>
                             <th>Descripcion</th>
                             <th>Estado</th>
                           </tfoot>
@@ -51,22 +50,29 @@ if ($_SESSION['usuario']==1)
                     <div class="panel-body" style="height: 400px;" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Rol:</label>
+                              
                             <input type="hidden" name="id_rol" id="id_rol">
 
-                            <input type="text" class="form-control" name="rol" id="rol" maxlength="50" placeholder="Rol" required>
+                            <!-- Contraseña -->
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Rol(*):</label>
+                            <input type="text" class="form-control" name="rol" id="rol" maxlength="30" placeholder="Rol" required>
                           </div>
 
+                           <!-- Contraseña -->
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Descripción:</label>
-                            <input type="text" class="form-control" name="descripcion" id="descripcion" maxlength="100" placeholder="Descripción">
+                            <label>Descripcion(*):</label>
+                            <input type="text" class="form-control" name="descripcion" id="descripcion" maxlength="100" placeholder="descripcion" required>
                           </div>
+                          
 
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
 
-                            <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar
-                    
+                            <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
+                          </div>
+                        </form>
+                    </div>
                     <!--Fin centro -->
                   </div><!-- /.box -->
               </div><!-- /.col -->
@@ -81,12 +87,13 @@ else
 {
   require 'noacceso.php';
 }
+
 require 'footer.php';
 ?>
-
 <script type="text/javascript" src="scripts/rol.js"></script>
-
 <?php 
 }
 ob_end_flush();
 ?>
+
+
