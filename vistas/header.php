@@ -98,7 +98,7 @@ if (strlen(session_id()) < 1)
 
             
              <?php
-            if ($_SESSION['escritorio']==1)
+            if ($_SESSION['Escritorio']==1)
             {
               echo '<li>
               <a href="escritorio.php">
@@ -109,7 +109,7 @@ if (strlen(session_id()) < 1)
             ?>
 
             <?php
-            if ($_SESSION['cliente']==1)
+            if ($_SESSION['Cliente']==1)
             {
               echo '<li class="treeview">
               <a href="#">
@@ -126,7 +126,7 @@ if (strlen(session_id()) < 1)
             ?>
 
              <?php
-            if ($_SESSION['cotizacion']==1)
+            if ($_SESSION['Cotizacion']==1)
             {
               echo '<li class="treeview">
               <a href="#">
@@ -145,7 +145,7 @@ if (strlen(session_id()) < 1)
             ?>
 
              <?php
-            if ($_SESSION['pedido']==1)
+            if ($_SESSION['Pedido']==1)
             {
               echo '<li class="treeview">
               <a href="#">
@@ -161,7 +161,7 @@ if (strlen(session_id()) < 1)
             ?>
 
              <?php
-            if ($_SESSION['factura']==1)
+            if ($_SESSION['Factura']==1)
             {
               echo '<li class="treeview">
               <a href="#">
@@ -176,7 +176,7 @@ if (strlen(session_id()) < 1)
             ?>
 
              <?php
-            if ($_SESSION['inventario']==1)
+            if ($_SESSION['Inventario']==1)
             {
               echo '<li class="treeview">
               <a href="#">
@@ -192,7 +192,7 @@ if (strlen(session_id()) < 1)
             ?>
 
              <?php
-            if ($_SESSION['compras']==1)
+            if ($_SESSION['Compras']==1)
             {
               echo '<li class="treeview">
               <a href="#">
@@ -207,7 +207,7 @@ if (strlen(session_id()) < 1)
             ?>
 
               <?php
-            if ($_SESSION['usuario']==1)
+            if ($_SESSION['Usuario']==1)
             {
               echo '<li class="treeview">
               <a href="#">
@@ -225,7 +225,7 @@ if (strlen(session_id()) < 1)
             ?>
 
               <?php
-            if ($_SESSION['reporte']==1)
+            if ($_SESSION['Reporte']==1)
             {
               echo ' <li class="treeview">
               <a href="#">
@@ -241,7 +241,7 @@ if (strlen(session_id()) < 1)
             ?>
 
               <?php
-            if ($_SESSION['seguridad']==1)
+            if ($_SESSION['Seguridad']==1)
             {
               echo ' <li class="treeview">
               <a href="#">

@@ -38,15 +38,15 @@ switch ($_GET["op"]){
 			}
 		}
 		//Hash SHA256 en la contraseña
-		$clavehash=hash("SHA256",$contrasena);
+		//$clavehash=hash("SHA256",$contrasena);
 
 
 		if (empty($id_usuario)){
-			$rspta=$usuarios->insertar($id_rol,$usuario,$nombre_usuario,$clavehash,$imagen,$correo_electronico,$_POST['permiso'],$fecha,$id_objeto,$accion,$descripcion);
+			$rspta=$usuarios->insertar($id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$_POST['permiso'],$fecha,$id_objeto,$accion,$descripcion);
 			echo $rspta ? "Usuario registrado" : "No se pudieron registrar todos los datos del usuario";
 		}
 		else {
-			$rspta=$usuarios->editar($id_usuario,$id_rol,$usuario,$nombre_usuario,$clavehash,$imagen,$correo_electronico,$_POST['permiso']);
+			$rspta=$usuarios->editar($id_usuario,$id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$_POST['permiso']);
 			echo $rspta ? "Usuario actualizado" : "Usuario no se pudo actualizar";
 		}
 	break;
@@ -142,9 +142,9 @@ switch ($_GET["op"]){
 	    $contrasenalog=$_POST['contrasenalog'];
 
 	    //Hash SHA256 en la contraseña
-		$clavehash=hash("SHA256",$contrasenalog);
+		//$clavehash=hash("SHA256",$contrasenalog);
 
-		$rspta=$usuarios->verificar($usuariolog, $clavehash);
+		$rspta=$usuarios->verificar($usuariolog, $contrasenalog);
 
 		$fetch=$rspta->fetch_object();
 
