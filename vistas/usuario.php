@@ -74,7 +74,7 @@ if ($_SESSION['usuario']==1)
                           <!-- Nombre usuario -->
                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <label>Nombre usuario(*):</label>
-                            <input type="text" class="form-control" name="nombre_usuario" id="nombre_usuario" maxlength="100" placeholder="Nombre Usuario" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
+                            <input type="text" class="form-control" name="nombre_usuario" id="nombre_usuario" maxlength="100" placeholder="Nombre Usuario" required>
                           </div>
 
                        
@@ -83,7 +83,7 @@ if ($_SESSION['usuario']==1)
           <div class="col-xs-12">
               <label>Contraseña(*):</label>
                <div class="input-group">
-              <input ID="contrasena" type="Password" name="contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$" required>
+              <input ID="contrasena" type="Password" name="contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$"  minlength="5" maxlength="10" required>
           <!-- boton monstrar Contraseña -->
                 <div class="input-group-append">
                   <button id="show_password" class="login100-form-btn" name="botonentrar" type="button" onclick="mostrarPassword()" style="background-color: rgb(233,118,46)"> 

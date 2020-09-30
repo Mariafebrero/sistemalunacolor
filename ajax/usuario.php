@@ -14,6 +14,11 @@ $contrasena=isset($_POST["contrasena"])? limpiarCadena($_POST["contrasena"]):"";
 $imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
 $correo_electronico=isset($_POST["correo_electronico"])? limpiarCadena($_POST["correo_electronico"]):"";
 
+$fecha=isset($_POST["fecha"])? limpiarCadena($_POST["fecha"]):"";
+$id_objeto=isset($_POST["id_objeto"])? limpiarCadena($_POST["id_objeto"]):"";
+$accion=isset($_POST["accion"])? limpiarCadena($_POST["accion"]):"";
+$descripcion=isset($_POST["descripcion"])? limpiarCadena($_POST["descripcion"]):"";
+
 
 
 switch ($_GET["op"]){
@@ -37,7 +42,7 @@ switch ($_GET["op"]){
 
 
 		if (empty($id_usuario)){
-			$rspta=$usuarios->insertar($id_rol,$usuario,$nombre_usuario,$clavehash,$imagen,$correo_electronico,$_POST['permiso']);
+			$rspta=$usuarios->insertar($id_rol,$usuario,$nombre_usuario,$clavehash,$imagen,$correo_electronico,$_POST['permiso'],$fecha,$id_objeto,$accion,$descripcion);
 			echo $rspta ? "Usuario registrado" : "No se pudieron registrar todos los datos del usuario";
 		}
 		else {
@@ -186,7 +191,7 @@ switch ($_GET["op"]){
         //Destruìmos la sesión
         session_destroy();
         //Redireccionamos al login
-        header("Location: ../index.php");
+        header("Location: ../index.html");
 
 	break;
 }

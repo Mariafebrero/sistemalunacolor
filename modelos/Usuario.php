@@ -10,7 +10,7 @@ Class Usuario
 
 	}
 	//Implementamos un método para insertar registros
-	public function insertar($id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$permisos)
+	public function insertar($id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$permisos,$fecha,$id_objeto,$accion,$descripcion)
 	{ 	
 		$sql="INSERT INTO tbl_usuarios (id_rol,usuario,nombre_usuario,contrasena,imagen,correo_electronico,condicion)
 			VALUES ('$id_rol','$usuario','$nombre_usuario','$contrasena','$imagen','$correo_electronico','1')";
@@ -28,6 +28,9 @@ Class Usuario
 		}
 		return $sw;
 
+		//bitacora
+		$sql_bitacora = "INSERT INTO  tbl_bitacora (fecha,id_usuario,id_objeto,accion,descripcion) VALUES('$fecha','$id_usuario','$id_objeto','$accion','$descripcion')";
+			return ejecutarConsulta($sql_bitacora);
 	}
 
 	//Implementamos un método para editar registros

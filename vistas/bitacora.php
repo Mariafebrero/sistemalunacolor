@@ -10,7 +10,7 @@ if (!isset($_SESSION["nombre_usuario"]))
 else
 {
 require 'header.php';
-if ($_SESSION['usuario']==1)
+if ($_SESSION['seguridad']==1)
 {
 ?>
 <!--Contenido-->
@@ -22,7 +22,7 @@ if ($_SESSION['usuario']==1)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Permiso <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                          <h1 class="box-title">Bitacora <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -31,12 +31,22 @@ if ($_SESSION['usuario']==1)
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
-                            <th>Nombre</th>
+                            <th>Id_bitacora</th>
+                            <th>fecha</th>
+                            <th>id_usuario</th>
+                            <th>id_objeto</th>
+                            <th>accion</th>
+                            <th>descripcion</th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                            <th>Nombre</th>
+                            <th>Id_bitacora</th>
+                            <th>fecha</th>
+                            <th>id_usuario</th>
+                            <th>id_objeto</th>
+                            <th>accion</th>
+                            <th>descripcion</th>
                           </tfoot>
                         </table>
                     </div>
@@ -58,7 +68,7 @@ else
 require 'footer.php';
 ?>
 
-<script type="text/javascript" src="scripts/Permiso.js"></script>
+<script type="text/javascript" src="scripts/bitacora.js"></script>
 
 <?php 
 }
