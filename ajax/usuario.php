@@ -169,16 +169,16 @@ switch ($_GET["op"]){
 				}
 
 			//Determinamos los accesos del usuario
-			in_array(1,$valores)?$_SESSION['escritorio']=1:$_SESSION['escritorio']=0;
-			in_array(2,$valores)?$_SESSION['cliente']=1:$_SESSION['cliente']=0;
-			in_array(3,$valores)?$_SESSION['cotizacion']=1:$_SESSION['cotizacion']=0;
-			in_array(4,$valores)?$_SESSION['pedido']=1:$_SESSION['pedido']=0;
-			in_array(5,$valores)?$_SESSION['factura']=1:$_SESSION['factura']=0;
-			in_array(6,$valores)?$_SESSION['inventario']=1:$_SESSION['inventario']=0;
-			in_array(7,$valores)?$_SESSION['compras']=1:$_SESSION['compras']=0;
-			in_array(8,$valores)?$_SESSION['usuario']=1:$_SESSION['usuario']=0;
-			in_array(9,$valores)?$_SESSION['reporte']=1:$_SESSION['reporte']=0;
-			in_array(10,$valores)?$_SESSION['seguridad']=1:$_SESSION['seguridad']=0;
+			in_array(1,$valores)?$_SESSION['Escritorio']=1:$_SESSION['Escritorio']=0;
+			in_array(2,$valores)?$_SESSION['Cliente']=1:$_SESSION['Cliente']=0;
+			in_array(3,$valores)?$_SESSION['Cotizacion']=1:$_SESSION['Cotizacion']=0;
+			in_array(4,$valores)?$_SESSION['Pedido']=1:$_SESSION['Pedido']=0;
+			in_array(5,$valores)?$_SESSION['Factura']=1:$_SESSION['Factura']=0;
+			in_array(6,$valores)?$_SESSION['Inventario']=1:$_SESSION['Inventario']=0;
+			in_array(7,$valores)?$_SESSION['Compras']=1:$_SESSION['Compras']=0;
+			in_array(8,$valores)?$_SESSION['Usuario']=1:$_SESSION['Usuario']=0;
+			in_array(9,$valores)?$_SESSION['Reporte']=1:$_SESSION['Reporte']=0;
+			in_array(10,$valores)?$_SESSION['Seguridad']=1:$_SESSION['Seguridad']=0;
 
 	    }
 	    echo json_encode($fetch);

@@ -12,7 +12,7 @@ else
 {
 require 'header.php';
 
-if ($_SESSION['pedido']==1)
+if ($_SESSION['Pedido']==1)
 {
 
 ?>
