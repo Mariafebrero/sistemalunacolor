@@ -23,6 +23,8 @@ if (strlen(session_id()) < 1)
     <link rel="apple-touch-icon" href="../public/img/ICONOSLC.png">
     <link rel="shortcut icon" href="../public/img/favicon.ico">
 
+    <!-- ICONOS fontawesome -->
+    <link rel="stylesheet" type="text/css" href="../public/iconosfontawesome/css/all.css">
     
 
     <!-- DATATABLES -->
@@ -72,14 +74,26 @@ if (strlen(session_id()) < 1)
                       Sistema Luna Color
                       <small>LSC</small>
                     </p>
-                  </li>
+                  
                   
                   <!-- Menu Footer-->
                   <li class="user-footer" >
                     <div class="pull-right">
-                    <a href="../ajax/usuario.php?op=salir" class="btn btn-danger"> Cerrar sesión</a>
+
+                   
+                    <a href="../ajax/usuario.php?op=salir" class="btn btn-danger"> <i class="far fa-times-circle"> Cerrar sesión</a></i>
+
+
+                   
+
+                    <!-- INCIO MODAL-->
+                      
+                    
+                    <!-- FIN MODAL-->
+
                     </div>
                   </li>
+
                 </ul>
               </li>
               
