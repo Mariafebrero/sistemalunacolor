@@ -117,7 +117,7 @@ if ($_SESSION['Usuario']==1)
                           <!-- Correo electronico -->
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Correo electronico:</label>
-                            <input type="email" class="form-control" name="correo_electronico" id="correo_electronico" maxlength="50" placeholder="Correo electronico">
+                            <input type="email" class="form-control" name="correo_electronico" id="correo_electronico" maxlength="50" placeholder="Correo electronico" required>
                           </div>
 
                           
