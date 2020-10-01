@@ -78,7 +78,7 @@ else
 
 require 'footer.php';
 ?>
-<script type="text/javascript" src="scripts/rol.js"></script>
+<script type="text/javascript" src="scripts/pregunta.js"></script>
 <?php 
 }
 ob_end_flush();

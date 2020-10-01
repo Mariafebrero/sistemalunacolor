@@ -32,6 +32,7 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../../public/css/util.css">
 	<link rel="stylesheet" type="text/css" href="../../public/css/main.css">
+	 <link rel="stylesheet" type="text/css" href="../../public/css/bootstrap-select.min.css">
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -59,12 +60,12 @@
 					<!-- Usuario -->	
 					<div class="col-xs-12">
 						
-      				 <p class="text-secondary">Preguntas #1</p>
-       				 
-     					<div class="form-group col-lg-10 col-md-6 col-sm-6 col-xs-12">
-                            <select id="Pregunta1" name="Pregunta1" 
-                            class="form-control selectpicker" data-live-search="true" required></select>
-                          </div>
+
+                     <!-- Pregunta -->
+                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Preguntas #1(*):</label>
+                            <select id="id_pregunta" name="id_pregunta" class="form-control selectpicker" data-live-search="true" required></select>
+                          </div>     
 
                     <div class="wrap-input100 validate-input">
 						<input class="input100" type="text" name="usuario">
@@ -151,6 +152,28 @@
 	<script src="../../public/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="../../public/js/main.js"></script>
+	 <script src="../../public/js/jquery-3.1.1.min.js"></script>
+	  <!-- jQuery -->
+    <!-- Bootstrap 3.3.5 -->
+    <script src="../../public/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../../public/js/app.min.js"></script>
+
+    <!-- DATATABLES -->
+    <script src="../../public/datatables/jquery.dataTables.min.js"></script>    
+    <script src="../../public/datatables/dataTables.buttons.min.js"></script>
+    <script src="../../public/datatables/buttons.html5.min.js"></script>
+    <script src="../../public/datatables/buttons.colVis.min.js"></script>
+    <script src="../../public/datatables/jszip.min.js"></script>
+    <script src="../../public/datatables/pdfmake.min.js"></script>
+    <script src="../../public/datatables/vfs_fonts.js"></script> 
+
+    <script src="../../public/js/bootbox.min.js"></script> 
+    <script src="../../public/js/bootstrap-select.min.js"></script>  
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+	<script type="text/javascript" src="../scripts/preguntaIngreso.js"></script>
+
 
 	</script>
 					<style type="text/css">

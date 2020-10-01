@@ -17,7 +17,7 @@ function init(){
 	        $("#permisos").html(r);
 	});    
 
-	        //Cargamos los items al select categoria
+	        //Cargamos los items al select Rol
 	$.post("../ajax/usuario.php?op=selectRol", function(t){
 	            $("#id_rol").html(t);
 	            $('#id_rol').selectpicker('refresh');

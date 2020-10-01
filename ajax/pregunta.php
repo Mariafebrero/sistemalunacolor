@@ -35,6 +35,17 @@ switch ($_GET["op"]){
  		echo json_encode($rspta);
 	break;
 
+	case "selectPregunta":
+		
+	
+		$rspta = $preguntas->select();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_pregunta . '>' . $reg->pregunta . '</option>';
+				}
+	break;
+
 	case 'listar':
 		$rspta=$preguntas->listar();
  		//Vamos a declarar un array

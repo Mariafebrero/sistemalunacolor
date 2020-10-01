@@ -52,6 +52,12 @@ Class Pregunta
 		return ejecutarConsulta($sql);		
 	}
 
+	public function select()
+	{
+		$sql="SELECT * FROM tbl_preguntas where condicion=1";
+		return ejecutarConsulta($sql);		
+	}
+
 
 }
 
