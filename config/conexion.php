@@ -1,4 +1,6 @@
 <?php 
+$mysqli=mysqli_connect("localhost","root","","db_luna_color");
+
 require_once "global.php";
 
 $conexion = new mysqli(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_NAME);

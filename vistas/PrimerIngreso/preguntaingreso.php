@@ -1,5 +1,22 @@
-<?php session_start(); ?>
+<?php
 
+ob_start();
+session_start();
+
+$usuario1 = $sql="SELECT id_usuario FROM tbl_usuarios WHERE usuario=$usuario";
+		return ejecutarConsulta($sql);
+
+
+		$sql="INSERT INTO tbl_preguntas_usuarios (id_pregunta, id_usuario ,respuesta)
+			VALUES ($id_usuario, $respuesta)";
+			return ejecutarConsulta($sql);
+
+    include '../../config/conexion.php';
+    $query=mysqli_query($mysqli,"SELECT id_pregunta, pregunta FROM tbl_preguntas");
+    $query1=mysqli_query($mysqli,"SELECT id_pregunta, pregunta FROM tbl_preguntas");
+    $query2=mysqli_query($mysqli,"SELECT id_pregunta, pregunta FROM tbl_preguntas");
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,17 +57,18 @@
 <!--===============================================================================================-->
 </head>
 <body  style="background-color: rgb(63,63,63)">
-	<!-- Botones atras y adelante -->
-	<center>
 
+<center>
 			<!-- Boton atras -->
 		<a href="javascript:history.go(-1)" class="previous"><i class="fas fa-chevron-circle-left fa-2x" aria-hidden="true"></a></i>
 			<!-- Boton adelante -->
 		<a href="javascript:history.go(1)" class="previous"><i class="fas fa-chevron-circle-right fa-2x" aria-hidden="true"></a></i>
 
-	</center>
+ </center>
 
-	<div class="limiter"  >
+
+
+	<div class="limiter">
 		<div class="container-login100" >
 			<div class="wrap-login100">
 
@@ -58,58 +76,84 @@
 				<form class="login100-form validate-form" method="post" autocomplete="off">
 
 					<!-- Usuario -->	
-					<div class="col-xs-12">
+		          <div class="col-xs-12">
 						
+						<div class="wrap-input100 validate-input">
+						<input class="input100" type="text" name="usuario">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Nombre Usuario</span>
 
-                     <!-- Pregunta -->
-                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Preguntas #1(*):</label>
-                            <select id="id_pregunta" name="id_pregunta" class="form-control selectpicker" data-live-search="true" required></select>
-                          </div>     
+
+					</div>
+
+						<!--Combobox Pregunta #1 -->
+                   <p class="text-secondary">Preguntas #1</p>
+                    <select name="pregunta1" select id="Pregunta1" required>
+                    <?php 
+                        while($tbl_preguntas = mysqli_fetch_array($query))
+                        {
+                    ?>
+                            <option value="<?php echo $tbl_preguntas['pregunta']?>"> <?php echo $tbl_preguntas['pregunta']?> </option>
+                    <?php
+                        }
+                    ?> 
+                    </select>
+                          
 
                     <div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="usuario">
+						<input class="input100" type="text" name="respuesta1">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Repuesta #1</span>
 					</div>
+       			   </div>
 
-    				
-                    </div>
-	                <p></p>
-					<div class="col-xs-12">
-      				 <p class="text-secondary">Preguntas #2</p>
-     					<div class="form-group col-lg-10 col-md-6 col-sm-6 col-xs-12">
-                            <select id="Pregunta2" name="Pregunta2" class="form-control selectpicker" data-live-search="true" required></select>
-                          </div>
-                    </div>
+                    <p></p>
+
+                    <!--Combobox Pregunta #2 -->
+    				<p class="text-secondary">Preguntas #2</p>
+                    <select name="pregunta2" select id="Pregunta2" required>
+                    <?php 
+                        while($tbl_preguntas = mysqli_fetch_array($query1))
+                        {
+                    ?>
+                            <option value="<?php echo $tbl_preguntas['pregunta']?>"> <?php echo $tbl_preguntas['pregunta']?> </option>
+                    <?php
+                        }
+                    ?> 
+                    </select>
+                          
 
                     <div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="usuario">
+						<input class="input100" type="text" name="respuesta2">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Repuesta #2</span>
 					</div>
 
-	                <p></p>
+	               <p></p>
 
-	                <div class="col-xs-12">
-      				 <p class="text-secondary">Preguntas #3</p>
-       				 
-     					<div class="form-group col-lg-10 col-md-6 col-sm-6 col-xs-12">
-                            <select id="Pregunta3" name="Pregunta3" class="form-control selectpicker" data-live-search="true" required></select>
-                          </div>
-                    </div>
+	               <!--Combobox Pregunta #3 -->
+	               <p class="text-secondary">Preguntas #3</p>
 
-                     <div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="usuario">
+                    <select name="pregunta3" select id="Pregunta3" required>
+                    <?php 
+                        while($tbl_preguntas = mysqli_fetch_array($query2))
+                        {
+                    ?>
+                            <option value="<?php echo $tbl_preguntas['pregunta']?>"> <?php echo $tbl_preguntas['pregunta']?> </option>
+                    <?php
+                        }
+                    ?> 
+                    </select>
+                          
+
+                    <div class="wrap-input100 validate-input">
+						<input class="input100" type="text" name="respuesta3">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Repuesta #3</span>
 					</div>
 
-
-	                <p></p>
 	                <p></p>
 
-                      
                       <!-- Boton entrar -->
 					<div class="container-login100-form-btn"  >
 						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
@@ -124,6 +168,7 @@
 				 <!-- Fondo de login -->
 				<div class="login100-more" style="background-image: url('../../public/img/EDIT2.SVG');">
 				</div>
+
 			</div>
 		</div>
 	</div>
@@ -132,7 +177,6 @@
 
 	
 	<!--===============================================================================================-->	
-
 
 <script src="https://www.google.com/recaptcha/api.js"></script>
  <!--catcha-->
@@ -171,8 +215,6 @@
     <script src="../../public/js/bootbox.min.js"></script> 
     <script src="../../public/js/bootstrap-select.min.js"></script>  
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-	<script type="text/javascript" src="../scripts/preguntaIngreso.js"></script>
 
 
 	</script>
