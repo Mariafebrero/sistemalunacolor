@@ -46,45 +46,78 @@
 
 			<!-- Boton atras -->
 		<a href="javascript:history.go(-1)" class="previous"><i class="fas fa-chevron-circle-left fa-2x" aria-hidden="true"></a></i>
-			<!-- Boton adelante -->
-		<a href="javascript:history.go(1)" class="previous"><i class="fas fa-chevron-circle-right fa-2x" aria-hidden="true"></a></i>
 
 	</center>
+<!------------------------------ Inicio código para LOGIN---------------------------------->
+	<?php
 
+     if(isset($_POST["botonentrar"]))
+      {
+      if($_POST["casillausuario"]!=""&&$_POST["casillacontra"]!="")
+		{
+			include "../config/Conglobal.php";
+
+			$user_id=null;
+			$sql1= "select * from tbl_usuarios where (usuario=\"$_POST[casillausuario]\" or correo_electronico=\"$_POST[casillausuario]\") and contraseña=\"$_POST[casillacontra]\" ";
+			$query = $con->query($sql1);
+
+			while ($r=$query->fetch_array()) 
+			{
+				$user_id=$r["id_usuario"];
+				break;
+			}
+
+			if($user_id==null)
+			{ 
+				
+				print "<script>alert(\"Usuario ó Contraseña Incorrecta\");window.location='login.php';</script>";
+			}
+			else
+			{
+				
+			print "<script>alert(\"Usuario y Contraseña correcta\");window.location='categoria.php';</script>";	
+			//falta validar que solo pueda tener 3 intentos		
+			}
+		}
+      }
+		
+
+?>
+	<!------------------------------ FIN código para LOGIN---------------------------------->
 	<div class="limiter"  >
 		<div class="container-login100" >
 
 			<div class="wrap-login100">
 
- 				
-				<!--Validacion base de datos -->
 				<form class="login100-form validate-form" method="post" id="frmAcceso">
 
-
-					<!-- Usuario -->	
+ <!------------------------------------- Casilla nombre de Usuario --------------------------------------->	
 					<div class="col-xs-12">
-      				 <p class="text-secondary float-left">Usuario</p>
+      				 <p class="text-secondary float-left">Nombre de usuario</p>
        				 <div class="input-group">
-     					<input ID="usuariolog" type="usuario" name="usuariolog" Class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
+     					<input ID="usuariolog" type="usuario" name="casillausuario" Class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
       					<div class="input-group-append"></div>
     				</div>
                     </div>
 	                <p></p>
 					
-					<!-- Coontraseña -->	
+ <!------------------------------------- Casilla Contraseña --------------------------------------->		
 					<div class="col-xs-12">
       				 <p class="text-secondary float-left">Contraseña</p>
        				 <div class="input-group">
-     					<input ID="contrasenalog" type="Password" name="contrasenalog" Class="form-control" required>
-					<!-- boton monstrar Contraseña -->
+     					<input ID="contrasenalog" type="Password" name="casillacontra" Class="form-control" required>
+ <!------------------------------------- Casilla boton entrar --------------------------------------->	
       					<div class="input-group-append">
-            			<button id="show_password" class="login100-form-btn" name="botonentrar" type="button" onclick="mostrarPassword()" style="background-color: rgb(233,118,46)"> 
-            				<h5><span class="fas fa-eye-slash icon"></span></h5></button>
+            			<button id="show_password" class="login100-form-btn" name="botonentrar" type="submit" onclick="mostrarPassword()" style="background-color: rgb(233,118,46)"> 
+            				<h5><span class="fas fa-eye-slash icon">
+            				</span></h5>
+            			</button>
 
           				</div>
     				</div>
                     </div>
-	                <p></p>
+	                <p>
+	                </p>
 
 					<!-- Boton ¿Olvidó La Contraseña? -->	
 					<div class="flex-sb-m w-full p-t-3 p-b-32">
