@@ -30,82 +30,43 @@
 </head>
 <body style="background-color: #666666;">
 	
-	<?php
-    include "../../config/Conglobal.php";
-	?>
-
-	<?php
-	if(isset($_POST["BotonValidar"]))
-
-	{
-		if($_POST["Contranueva"]!="" &&$_POST["Contraconfir"]!="")
-            $ContraNueva = ($_POST['Contranueva']);
-            $Contraconfir = ($_POST['Contraconfir']);
-		{
-			if($ContraNueva === $Contraconfir)
-			{
-				include "../../config/Conglobal.php"; 
-		session_start();
-		$NombreRecu = "$_SESSION[nombre_usuario]";
-
-		$sql= "update tbl_usuarios set contrasena =(\"$_POST[Contranueva]\") WHERE usuario=(\"$NombreRecu\") ";
-		$query = $con->query($sql);
-
-		print "<script>alert('¡El cambio se ha realizado con éxito!'); window.location='../Login.php';</script>";		
-			}
-			
-			else
-			  {
-			  	//NO DEBE RECARGAR LA PÁGINA
-		print "<script>alert(\"ERROR: Las contraseñas no coinciden entre si. Intentélo de nuevo o contacte a su soporte técnico.\")</script>";	
-			  }
-	}
-}
-	?>
-
 	<div class="limiter"  >
 		<div class="container-login100" >
 			<div class="wrap-login100">
+
+				<!--Validacion base de datos -->
+				<form class="login100-form validate-form" method="post" action="../../../database/loguear2.php" autocomplete="off">
+
+
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<input class="input100" type="text" name="usuario">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Contraseña Nueva</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<input class="input100" type="text" name="usuario">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Confirmar Contraseña</span>
+					</div>
+
+			
 				
-				<form class="login100-form validate-form" method="post" autocomplete="off">
-				<h2> <center>¡Bienvenido
-				<?php 
-				session_start();
-				print " $_SESSION[nombre_usuario]";
-				?>!
-				</h2> </center>
-				<hr>
-				<br>
-				<br>
-
-		<!----------------------- Casilla de contraseña nueva---------------------------->
-					<div class="wrap-input100 validate-input" data-validate = "Ingrese su contraseña nueva" >
-						<input class="input100" type="text" name="Contranueva" >
-						<span class="focus-input100"></span>
-						<span class="label-input100">Contraseña nueva</span>
-					</div>
-		<!----------------------- Casilla de confirmación---------------------------->
-					<div class="wrap-input100 validate-input" data-validate = "Ingrese la confirmación de su contraseña nueva"  >
-						<input class="input100" type="text" name="Contraconfir">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Confirmar contraseña</span>
-					</div>
 
 
-			<!----------------------- Botón actualizar---------------------------->
+					   <!-- Boton Autogenerar contraseña -->
 					<div class="container-login100-form-btn"  >
 						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
-						<button type="submit" name ="BotonValidar" class="login100-form-btn">
-							Actualizar
+						<button type="submit" value="Ingresar" class="login100-form-btn">
+							Aceptar
 						</button>
 					</div>
 					
 					
 				</form>
 
-
 				 <!-- Fondo de login -->
-				<div class="login100-more" style="background-image: url('../../public/img/FONDOS-03.SVG');">
+				<div class="login100-more" style="background-image: url('../../public/img/FONDO REC PREGU.PNG');">
 				</div>
 			</div>
 		</div>

@@ -3,7 +3,6 @@ $("#frmAcceso").on('submit',function(e)
 	e.preventDefault();
     usuariolog=$("#usuariolog").val();
     contrasenalog=$("#contrasenalog").val();
-    primeringreso=$("#primeringreso").val();
 
     $.post("../ajax/usuario.php?op=verificar",
         {"usuariolog":usuariolog,"contrasenalog":contrasenalog},
@@ -11,7 +10,7 @@ $("#frmAcceso").on('submit',function(e)
     {
         if (data!="null")
         {
-            $(location).attr("href","Escritorio.php");            
+            $(location).attr("href","escritorio.php");            
         }
         else
         {
