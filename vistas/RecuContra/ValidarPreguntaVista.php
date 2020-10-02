@@ -66,7 +66,7 @@
 				</form>
 
 				 <!-- Fondo de login -->
-				<div class="login100-more" style="background-image: url('../../public/img/FONDO REC PREGU.PNG');">
+				<div class="login100-more" style="background-image: url('../../public/img/FONDOS-03.SVG');">
 				</div>
 			</div>
 		</div>

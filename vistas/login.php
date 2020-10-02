@@ -1,5 +1,3 @@
-
-<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +9,10 @@
 	<link rel="icon" type="image/png" href="../public/img/icons/favicon.ico"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../public/vendor/bootstrap/css/bootstrap.min.css">
+
+<!-- ICONOS fontawesome -->
+	<link rel="stylesheet" type="text/css" href="../public/iconosfontawesome/css/all.css">
+
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../public/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
@@ -31,131 +33,96 @@
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
 <!--===============================================================================================-->
+
 </head>
-<body style="background-color: #666666;">
-	<?php
+<body  style="background-color: rgb(63,63,63)">
+	<!-- Botones atras y adelante -->
+	<center>
 
-    if(isset($_POST['casillausuario']))
+			<!-- Boton atras -->
+		<a href="javascript:history.go(-1)" class="previous"><i class="fas fa-chevron-circle-left fa-2x" aria-hidden="true"></a></i>
+			<!-- Boton adelante -->
+		<a href="javascript:history.go(1)" class="previous"><i class="fas fa-chevron-circle-right fa-2x" aria-hidden="true"></a></i>
 
-    {
-        if(!empty($_POST))
+	</center>
 
-{
-	if(isset($_POST["casillausuario"]) &&isset($_POST["casillacontra"]))
-
-	{
-		if($_POST["casillausuario"]!=""&&$_POST["casillacontra"]!="")
-		{
-			
-			include "../config/conexion.php";
-
-			$user_id=null;
-			$sql1= "select * from tbl_usuarios where (usuario=\"$_POST[casillausuario]\" or correo_electronico=\"$_POST[casillausuario]\") and contraseña=\"$_POST[casillacontra]\" ";
-			$query = $con->query($sql1);
-
-			while ($r=$query->fetch_array()) 
-			{
-				$user_id=$r["id_usuario"];
-				break;
-			}
-
-			if($user_id==null)
-			{ 
-				
-				print "<script>alert(\"Usuario ó Contraseña Incorrecta\");window.location='login.php';</script>";
-			}
-			else
-			{
-				//session_start();
-				//$_SESSION["user_id"]=$user_id;
-				//print "<script>window.location='../barber_shop.php';</script>";
-			
-				print "<script>alert(\"Usuario y Contraseña correcta\");window.location='categoria.php';</script>";			
-			}
-		}
-	}
-}
-    }
-
-?>
 	<div class="limiter"  >
 		<div class="container-login100" >
+
 			<div class="wrap-login100">
 
+ 				
 				<!--Validacion base de datos -->
-				<form class="login100-form validate-form" method="post" autocomplete="off">
-					
+				<form class="login100-form validate-form" method="post" id="frmAcceso">
+
 
 					<!-- Usuario -->	
 					<div class="col-xs-12">
-      				 <p class="text-secondary">Usuario</p>
+      				 <p class="text-secondary float-left">Usuario</p>
        				 <div class="input-group">
-     					<input ID="usuario" type="usuario" name="casillausuario" Class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();">
-      					<div class="input-group-append">
-          				</div>
+     					<input ID="usuariolog" type="usuario" name="usuariolog" Class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
+      					<div class="input-group-append"></div>
     				</div>
                     </div>
 	                <p></p>
 					
 					<!-- Coontraseña -->	
 					<div class="col-xs-12">
-      				 <p class="text-secondary">Contraseña</p>
+      				 <p class="text-secondary float-left">Contraseña</p>
        				 <div class="input-group">
-     					<input ID="txtPassword" type="Password" name="casillacontra"Class="form-control">
+     					<input ID="contrasenalog" type="Password" name="contrasenalog" Class="form-control" required>
+					<!-- boton monstrar Contraseña -->
       					<div class="input-group-append">
             			<button id="show_password" class="login100-form-btn" name="botonentrar" type="button" onclick="mostrarPassword()" style="background-color: rgb(233,118,46)"> 
-            				<h5><span class="fa fa-eye-slash icon"></span></h5></button>
+            				<h5><span class="fas fa-eye-slash icon"></span></h5></button>
+
           				</div>
     				</div>
                     </div>
 	                <p></p>
 
-
 					<!-- Boton ¿Olvidó La Contraseña? -->	
 					<div class="flex-sb-m w-full p-t-3 p-b-32">
 						<div>
 							<a href="recuperarContraseña.php" class="txt1">
-							¿Has olvidado tu correo electrónico?
+							¿Has olvidado tu contraseña?
 							</a>
 						</div>
 					</div>
                       
-                      <!-- Boton entrar -->
-					<div class="container-login100-form-btn"  >
-						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
-						<button type="submit" value="Ingresar" nombre="botonentrar" class="login100-form-btn" >
-							Entrar
-						</button>
-					</div>
-				
+                       <!-- Boton entrar -->
+					<div class="container-login100-form-btn"><button  type="submit" class="login100-form-btn" >Entrar </button> </div>
 
 				</form>
 
-				 <!-- Fondo de login -->
-				<div class="login100-more" style="background-image: url('../public/img/FONDO LOGIN.PNG');">
+				<!-- Fondo de login -->
+				<div class="login100-more" style="background-image: url('../public/img/FONDOS-01.SVG');">
 				</div>
+				
 			</div>
 		</div>
 	</div>
-	
-	
-
-	
 	<!--===============================================================================================-->	
 
 
 <script src="https://www.google.com/recaptcha/api.js"></script>
  <!--catcha-->
+<!--=========================MENSAJES================================================================-->
+	<script src="../public/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../public/vendor/bootstrap/js/popper.js"></script>
+	<script src="../public/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../public/plugins/sweetAlert2/sweetalert2.all.min.js"></script>
+	<script src="CodigoJS.js"></script> 
 <!--===============================================================================================-->
-	<script src="../public/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
 	<script src="../public/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-	<script src="../public/vendor/bootstrap/js/popper.js"></script>
-	<script src="../public/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
+
 	<script src="../public/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
 	<script src="../public/vendor/daterangepicker/moment.min.js"></script>
@@ -165,15 +132,27 @@
 <!--===============================================================================================-->
 	<script src="../public/js/main.js"></script>
 <!--===============================================================================================-->
+
+<script type="text/javascript">
+
+	<script type="text/javascript" src="scripts/login.js"></script>
+
+	<script type="text/javascript" src="scripts/login.js"></script>
+
+
+</script>
+
+
+<!--============================= script PARA VER CONTRASENA ====================================-->
 <script type="text/javascript">
 function mostrarPassword(){
-		var cambio = document.getElementById("txtPassword");
+		var cambio = document.getElementById("contrasenalog");
 		if(cambio.type == "password"){
 			cambio.type = "text";
-			$('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+			$('.icon').removeClass('fas fa-eye-slash').addClass('fas fa-eye');
 		}else{
 			cambio.type = "password";
-			$('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+			$('.icon').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
 		}
 	} 
 	
@@ -184,11 +163,45 @@ function mostrarPassword(){
 	});
 });
 </script>
+					<style type="text/css">
+						a{
+							text-decoration: none;
+							display: inline-flex;
+							padding: 10px 10px;
+						}
+						a:hover{
+							background-color: black;
+							color: white;
+							transition: 0.3s; 
+							border-radius: 200px 200px 200px 200px;
+                            -moz-border-radius: 200px 200px 200px 200px;
+                            -webkit-border-radius: 200px 200px 200px 200px;
+                            border: 0px solid #000000;
+						}
+						.previous{
+							background-color: #E9762E;
+							color:white;
+							border-radius: 200px 200px 200px 200px;
+                            -moz-border-radius: 200px 200px 200px 200px;
+                            -webkit-border-radius: 200px 200px 200px 200px; 
+                            border: 0px solid #000000;
+						}
+						.round{
+							border-radius:100%;
+						}
+
+						.fas fa-eye-slash icon{
+							background-color: #E9762E;
+							color:white;
+							border-radius: 200px 200px 200px 200px;
+                            -moz-border-radius: 200px 200px 200px 200px;
+                            -webkit-border-radius: 200px 200px 200px 200px; 
+                            border: 0px solid #000000;
+						}
+					</style>
+
+
+
 <!--===============================================================================================-->
-
-
-
-
 </body>
-
 </html>
