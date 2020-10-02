@@ -32,52 +32,111 @@
 <!--===============================================================================================-->
 </head>
 <body  style="background-color: rgb(63,63,63)">
+	<?php
+		include "../../config/Conglobal.php";
+	?>
 	<!-- Botones atras y adelante -->
 	<center>
 
 			<!-- Boton atras -->
 		<a href="javascript:history.go(-1)" class="previous"><i class="fas fa-chevron-circle-left fa-2x" aria-hidden="true"></a></i>
-			<!-- Boton adelante -->
-		<a href="javascript:history.go(1)" class="previous"><i class="fas fa-chevron-circle-right fa-2x" aria-hidden="true"></a></i>
 
 	</center>
+	<?php
+
+    $ContadorPreg = 0;	
+	if(isset($_POST["BotonRespuesta"]))
+
+	{
+		if($_POST["UsuarioPre"]!="" &&$_POST["RespuestaPre"]!="")
+		{
+			include "../../config/Conglobal.php";
+
+
+			$respuestaB =null;
+            $respuestaI = $_POST['RespuestaPre'];
+
+			$sql= "select respuesta from tbl_preguntas_usuarios where (usuario=\"$_POST[UsuarioPre]\" or usuario=\"$_POST[UsuarioPre]\") and id_pregunta=\"$_POST[SelectPre]\" ";
+
+
+			$query = $con->query($sql);
+
+			while ($r=$query->fetch_array()) 
+			{
+				$respuestaB=$r["respuesta"];
+				break;
+			}
+
+
+			if($respuestaB === $respuestaI)
+			{ 
+					session_start();
+					$_SESSION["nombre_usuario"] = ($_POST['UsuarioPre']);
+					print "<script>alert('¡Identificación exitosa!'); window.location='ValidarPreguntaVista.php';</script>";	
+				
+			}
+			else
+
+			  {
+			  	//solo debe contar si el usuario existe 
+			  	 $ContadorPreg = $ContadorPreg + 1;	
+			  		print "<script>alert(\"ERROR: Datos incorrectos. Inténtelo de nuevo o contacte a su soporte técnico. NÚMERO DE INTENTOS: $ContadorPreg \")</script>";	
+
+			  }
+	    }
+	    else 
+	    {
+			print "<script>alert(\"Por favor, llene los espacios requeridos. \")</script>";
+	    }
+	}
+    
+
+?>			  
+					
+
 
 	<div class="limiter"  >
 		<div class="container-login100" >
 			<div class="wrap-login100">
 
-				<!--Validacion base de datos -->
-				<form class="login100-form validate-form" method="post" action="../../../database/loguear2.php" autocomplete="off">
+				<form class="login100-form validate-form" method="post" autocomplete="off">
 
+	<!--------------------- Llenar Select picker desde la base de datos Inicio -------------------------------->
+		<select name ="SelectPre" class="form-control selectpicker" data-live-search="true" required>
+        <option value="0">Seleccione:</option>
 
-					<select class="form-control selectpicker" data-live-search="true" required></select>
+           <?php
+         	 $query = $con -> query ("SELECT * FROM `tbl_preguntas` ");
+          	while ($valores = mysqli_fetch_array($query)) 
+          	 {
+                 echo '<option value="'.$valores[id_pregunta].'">'.$valores[pregunta].'</option>';
+             }
+           ?>
+      		</select>
+ <!----------------------- Llenar Select picker desde la base de datos Fin  ------------------------------------>
 
-
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="usuario">
+					<br>
+	   <!------------------------ Casilla de usuario a la pregunta personal ---------------------------->
+					<div class="wrap-input100 validate-input" data-validate = "No puede dejar este campo vacío">
+						<input class="input100" type="text" name="UsuarioPre" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
 						<span class="focus-input100"></span>
-						<span class="label-input100">Repuesta</span>
+						<span class="label-input100">Ingrese su nombre de usuario </span>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="usuario">
+
+		<!------------------------ Casilla de respuesta a la pregunta personal ---------------------------->
+					<div class="wrap-input100 validate-input" data-validate = "No puede dejar este campo vacío">
+						<input class="input100" type="text" name="RespuestaPre">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Contraseña Nueva</span>
+						<span class="label-input100">Ingrese su respuesta </span>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="usuario">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Confirmar Contraseña</span>
-					</div>
-        
 
-
-					   <!-- Boton Autogenerar contraseña -->
+		<!---------------------------- Botón Ingresar Respuesta ----------------------------------->
 					<div class="container-login100-form-btn"  >
 						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
-						<button type="submit" value="Ingresar" class="login100-form-btn">
-							Aceptar
+						<button type="submit" name ="BotonRespuesta"  class="login100-form-btn">
+							Ingresar
 						</button>
 					</div>
 					
