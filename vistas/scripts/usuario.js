@@ -111,8 +111,14 @@ function guardaryeditar(e)
 	    processData: false,
 
 	    success: function(datos)
-	    {                    
-	          bootbox.alert(datos);	          
+	    {      
+	    swal({
+  			title: "",
+  			text: datos,
+  			icon: "success",
+  			button: "OK",
+			});              
+	         //bootbox.alert(datos);	          
 	          mostrarform(false);
 	          tabla.ajax.reload();
 	    }
@@ -150,8 +156,15 @@ function desactivar(id_usuario)
 	bootbox.confirm("¿Está Seguro de desactivar el usuario?", function(result){
 		if(result)
         {
-        	$.post("../ajax/usuario.php?op=desactivar", {id_usuario : id_usuario}, function(e){
-        		bootbox.alert(e);
+        	$.post("../ajax/usuario.php?op=desactivar", {id_usuario : id_usuario}, 
+        		function(e){
+        		swal({
+  			title: "",
+  			text: e,
+  			icon: "warning",
+  			button: "OK",
+			});  
+        		//bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
         }
@@ -164,8 +177,15 @@ function activar(id_usuario)
 	bootbox.confirm("¿Está Seguro de activar el Usuario?", function(result){
 		if(result)
         {
-        	$.post("../ajax/usuario.php?op=activar", {id_usuario : id_usuario}, function(e){
-        		bootbox.alert(e);
+        	$.post("../ajax/usuario.php?op=activar", {id_usuario : id_usuario}, 
+        		function(e){
+        			swal({
+  			title: "",
+  			text: e,
+  			icon: "success",
+  			button: "OK",
+			});  
+        		//bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
         }

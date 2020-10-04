@@ -51,10 +51,16 @@ switch ($_GET["op"]){
 
       if (mysqli_num_rows($result)>0)
  	{
-		echo 'El usuario o correo ya existen';
+		echo '<script>swal({
+  			title: "",
+  			text: "El usuario y correo ya existen",
+  			icon: "warning",
+  			button: "OK",
+			});</script>';
 		return;
-		}
 
+		}
+    
 			$rspta=$usuarios->insertar($id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$_POST['permiso'],$fecha,$id_objeto,$accion,$descripcion);
 			echo $rspta ? "Usuario registrado" : "No se pudieron registrar todos los datos del usuario";
 		}
