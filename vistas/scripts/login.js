@@ -3,7 +3,6 @@ $("#frmAcceso").on('submit',function(e)
 	e.preventDefault();
     usuariolog=$("#usuariolog").val();
     contrasenalog=$("#contrasenalog").val();
-    primeringreso=$("#primeringreso").val();
 
     $.post("../ajax/usuario.php?op=verificar",
         {"usuariolog":usuariolog,"contrasenalog":contrasenalog},

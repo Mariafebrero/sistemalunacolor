@@ -4,10 +4,6 @@ ob_start();
 session_start();
 
     include '../../config/conexion.php';
-    $query=mysqli_query($mysqli,"SELECT * FROM tbl_preguntas WHERE condicion = '1'");
-    $query1=mysqli_query($mysqli,"SELECT * FROM tbl_preguntas WHERE condicion = '1'");
-    $query2=mysqli_query($mysqli,"SELECT * FROM tbl_preguntas WHERE condicion = '1'");
-   
 
 ?>
 <!DOCTYPE html>
@@ -72,35 +68,17 @@ session_start();
 		          <div class="col-xs-12">
 						
 						<div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="usuario" onkeyup="javascript:this.value=this.value.toUpperCase();"required>
+						<input class="input100" type="text" name="UsuarioIng" onkeyup="javascript:this.value=this.value.toUpperCase();"required >
 						<span class="focus-input100"></span>
 						<span class="label-input100">Usuario</span>
 
 					</div>
-
-						<!--Combobox Pregunta #1 -->
-                   <p class="text-secondary">Preguntas #1</p>
-                    <select name="pregunta1" select id="Pregunta1" required>
-                    	<option value="0">Seleccione:</option>
-                    <?php 
-
-
-                        while($tbl_preguntas = mysqli_fetch_array($query))
-                        {
-                    ?>      
-
-                            <option value="<?php echo $tbl_preguntas['pregunta']?>"> <?php echo $tbl_preguntas['pregunta']?> </option>
-                            
-                    <?php
-                        }
-                    ?> 
-                    </select>
                           
 
                     <div class="wrap-input100 validate-input">
-						<input id="respuesta1" class="input100" type="text" name="respuesta1">
+						<input id="nueva_contrasena" class="input100" type="text" name="nueva_contrasena"  pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$" required>
 						<span class="focus-input100"></span>
-						<span class="label-input100">Respuesta #1</span>
+						<span class="label-input100">Nueva contraseña</span>
 
 
 					</div>
@@ -108,59 +86,24 @@ session_start();
                    
                     <p></p>
 
-                    <!--Combobox Pregunta #2 -->
-    				<p class="text-secondary">Preguntas #2</p>
-                    <select name="pregunta2" select id="Pregunta2" required>
-                    	<option value="0">Seleccione:</option>
-                    <?php 
-                        while($tbl_preguntas = mysqli_fetch_array($query1))
-                        {
-                    ?>
-                            <option value="<?php echo $tbl_preguntas['pregunta']?>"> <?php echo $tbl_preguntas['pregunta']?> </option>
-                    <?php
-                        }
-                    ?> 
-                    </select>
                           
 
                     <div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="respuesta2">
+						<input class="input100" type="text" name="confirmar_contrasena"  pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$" required>
 						<span class="focus-input100"></span>
-						<span class="label-input100">Repuesta #2</span>
+						<span class="label-input100">Confirmar contraseña</span>
 					</div>
 
 	               <p></p>
-
-	               <!--Combobox Pregunta #3 -->
-	              
-	               <p class="text-secondary">Preguntas #3</p>
-
-                    <select name="pregunta3" select id="Pregunta3" required>
-                    	<option value="0">Seleccione:</option>
-                    <?php 
-                        while($tbl_preguntas = mysqli_fetch_array($query2))
-                        {
-                    ?>
-                            <option value="<?php echo $tbl_preguntas['pregunta']?>"> <?php echo $tbl_preguntas['pregunta']?> </option>
-                    <?php
-                        }
-                    ?> 
-                    </select>
                           
-
-                    <div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="respuesta3">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Repuesta #3</span>
-					</div>
 
 	                <p></p>
 
                       <!-- Boton entrar -->
 					<div class="container-login100-form-btn"  >
 						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
-						<button type="submit" value="Ingresar" name="botonentrar" class="login100-form-btn">
-							Siguiente
+						<button type="submit" value="Ingresar" name="btn_restablecer" class="login100-form-btn">
+							Restablecer
 						</button>
 					</div>
 				
@@ -255,31 +198,67 @@ session_start();
 
 </html>
 
+
 <?php
 
 
-$query3=mysqli_query($mysqli,"SELECT id_usuario FROM tbl_usuarios WHERE usuario = \"$_POST[usuario]\"");
+$query3=mysqli_query($mysqli,"SELECT id_usuario, usuario FROM tbl_usuarios WHERE usuario = \"$_POST[UsuarioIng]\"");
 
-  
-
-//Suponiendo que ya tienes creada la conexión a la BD paso directamente al query MySQL y su ejecución
-    /* $conexion es la variable de la conexión a la BD */
 while($tbl_usuarios = mysqli_fetch_array($query3))
                         {
                     ?> 
-                            <?php $id_usuario=$tbl_usuarios['id_usuario']?>
+                    		<?php $id_usuario1=$tbl_usuarios['id_usuario']?>
+                            <?php $usuario=$tbl_usuarios['usuario']?>
+                    <?php
+
+                        }
+$query4=mysqli_query($mysqli,"SELECT contrasena FROM tbl_hist_contrasena WHERE id_usuario = $id_usuario1");
+
+while($tbl_hist_contrasena = mysqli_fetch_array($query4))
+                        {
+                    ?> 
+                            <?php $contrasena_exist=$tbl_hist_contrasena['contrasena_exist']?>
                     <?php
 
                         }
 
-if (isset($_POST['botonentrar'])) {
-   mysqli_query($mysqli, "INSERT INTO tbl_preguntas_usuarios ( id_usuario, id_pregunta, respuesta) VALUES ('$id_usuario',(SELECT id_pregunta FROM tbl_preguntas WHERE pregunta = \"$_POST[pregunta1]\"), \"$_POST[respuesta1]\")");
 
-   mysqli_query($mysqli, "INSERT INTO tbl_preguntas_usuarios ( id_usuario, id_pregunta, respuesta) VALUES ('$id_usuario',(SELECT id_pregunta FROM tbl_preguntas WHERE pregunta = \"$_POST[pregunta2]\"), \"$_POST[respuesta2]\")");
+	if(isset($_POST["btn_restablecer"]))
 
-   mysqli_query($mysqli, "INSERT INTO tbl_preguntas_usuarios ( id_usuario, id_pregunta, respuesta) VALUES ('$id_usuario',(SELECT id_pregunta FROM tbl_preguntas WHERE pregunta = \"$_POST[pregunta3]\"), \"$_POST[respuesta3]\")");
+	{
 
-echo "<script>window.location='../PrimerIngreso/ConfirmarContrasena.php';</script>";
+		if($_POST["UsuarioIng"] = $usuario)
+		{
+				 if($_POST["nueva_contrasena"]!="" &&$_POST["confirmar_contrasena"]!="")
+            	$nueva_contrasena = ($_POST["nueva_contrasena"]);
+            	$confirmar_contrasena = ($_POST["confirmar_contrasena"]);
+			{ 
+				if($nueva_contrasena === $confirmar_contrasena)
+				{
+					if ($nueva_contrasena = $contrasena_exist)
+					{
+						Print "<script>alert(\"ERROR: No puedes usar una contraseña antigua.\")</script>";		
+					}
+					else
+			  		{ 
+			  				mysqli_query($mysqli, "UPDATE tbl_usuarios SET contrasena =(\"$_POST[nueva_contrasena]\")  WHERE usuario=(\"$_POST[UsuarioIng]\")");
+							 mysqli_query($mysqli, "UPDATE tbl_usuarios SET primer_ingreso = '0'  WHERE usuario=(\"$_POST[UsuarioIng]\")");
+							 mysqli_query($mysqli, "INSERT INTO tbl_hist_contrasena (id_usuario, contrasena) VALUES ('$id_usuario1','$confirmar_contrasena')");
+					
+		          	
+			  		}
+			  }
+			  else
+			  {
+			  	print "<script>alert(\"ERROR: Las contraseñas no coinciden entre si. Intentélo de nuevo o contacte a su soporte técnico.\")</script>";	
+			  }
+	 		}
+			
+		}
+
+		
+
+echo "<script>window.location='../login.html';</script>";
 
 }
 

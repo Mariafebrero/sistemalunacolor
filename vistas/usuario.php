@@ -176,6 +176,9 @@ function mostrarPassword(){
 </script>
 
 
+
+
+
 <?php 
 }
 ob_end_flush();
