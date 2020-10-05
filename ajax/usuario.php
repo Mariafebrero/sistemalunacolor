@@ -21,6 +21,9 @@ $descripcion=isset($_POST["descripcion"])? limpiarCadena($_POST["descripcion"]):
 
 
 
+
+
+
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 
@@ -42,6 +45,22 @@ switch ($_GET["op"]){
 
 
 		if (empty($id_usuario)){
+
+     $sql1= "Select usuario, correo_electronico from tbl_usuarios where usuario ='$usuario' or correo_electronico ='$correo_electronico'";
+     $result =mysqli_query($conexion,$sql1);
+
+      if (mysqli_num_rows($result)>0)
+ 	{
+		echo '<script>swal({
+  			title: "",
+  			text: "El usuario y correo ya existen",
+  			icon: "warning",
+  			button: "OK",
+			});</script>';
+		return;
+
+		}
+    
 			$rspta=$usuarios->insertar($id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$_POST['permiso'],$fecha,$id_objeto,$accion,$descripcion);
 			echo $rspta ? "Usuario registrado" : "No se pudieron registrar todos los datos del usuario";
 		}

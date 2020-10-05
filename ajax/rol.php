@@ -16,7 +16,7 @@ switch ($_GET["op"]){
 		}
 		else {
 			$rspta=$roles->editar($id_rol,$rol,$descripcion);
-			echo $rspta ? "Rol actualizado" : "Rol no se pudo actualizar";
+			echo $rspta ? "Rol no se pudo actualizar" : "Rol actualizado";
 		}
 	break;
 

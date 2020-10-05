@@ -89,7 +89,13 @@ function guardaryeditar(e)
 
 	    success: function(datos)
 	    {                    
-	          bootbox.alert(datos);	          
+	    	swal({
+  			title: "",
+  			text: datos,
+  			icon: "success",
+  			button: "OK",
+			});  
+	          //bootbox.alert(datos);	          
 	          mostrarform(false);
 	          tabla.ajax.reload();
 	    }
@@ -115,11 +121,27 @@ function mostrar(id_pregunta)
 //Función para desactivar registros
 function desactivar(id_pregunta)
 {
+
+
+//CODIGO PARA ALERTA quitar ; y agregar .
+	/*swal("Are you sure?", {
+  dangerMode: true,
+  buttons: true,
+});*/ 
+
+
 	bootbox.confirm("¿Está Seguro de desactivar la pregunta?", function(result){
+
 		if(result)
         {
         	$.post("../ajax/pregunta.php?op=desactivar", {id_pregunta : id_pregunta}, function(e){
-        		bootbox.alert(e);
+        		swal({
+  			title: "",
+  			text: e,
+  			icon: "warning",
+  			button: "OK",
+			});  
+        		//bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
         }
@@ -133,7 +155,13 @@ function activar(id_pregunta)
 		if(result)
         {
         	$.post("../ajax/pregunta.php?op=activar", {id_pregunta : id_pregunta}, function(e){
-        		bootbox.alert(e);
+        		swal({
+  			title: "",
+  			text: e,
+  			icon: "success",
+  			button: "OK",
+			});  
+        		//bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
         }
