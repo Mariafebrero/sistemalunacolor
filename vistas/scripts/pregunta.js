@@ -121,7 +121,17 @@ function mostrar(id_pregunta)
 //Función para desactivar registros
 function desactivar(id_pregunta)
 {
+
+
+//CODIGO PARA ALERTA quitar ; y agregar .
+	/*swal("Are you sure?", {
+  dangerMode: true,
+  buttons: true,
+});*/ 
+
+
 	bootbox.confirm("¿Está Seguro de desactivar la pregunta?", function(result){
+
 		if(result)
         {
         	$.post("../ajax/pregunta.php?op=desactivar", {id_pregunta : id_pregunta}, function(e){
