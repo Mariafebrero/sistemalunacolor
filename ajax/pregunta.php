@@ -1,4 +1,5 @@
 <?php 
+
 require_once "../modelos/Pregunta.php";
 
 $preguntas = new Pregunta();
@@ -15,7 +16,7 @@ switch ($_GET["op"]){
 		}
 		else {
 			$rspta=$preguntas->editar($id_pregunta,$pregunta);
-			echo $rspta ? "Pregunta actualizada" : "Pregunta no se pudo actualizar";
+			echo $rspta ? "Pregunta no se pudo actualizar" : "Pregunta actualizada";
 		}
 	break;
 
@@ -53,9 +54,9 @@ switch ($_GET["op"]){
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				"0"=>($reg->condicion)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_pregunta.')"><i class="fa fa-pencil"></i></button>'.
+ 				"0"=>($reg->condicion)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_pregunta.')"><i class="fas fa-edit"></i></button>'.
  					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_pregunta.')"><i class="fa fa-close"></i></button>':
- 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_pregunta.')"><i class="fa fa-pencil"></i></button>'.
+ 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_pregunta.')"><i class="fas fa-edit"></i></button>'.
  					' <button class="btn btn-primary" onclick="activar('.$reg->id_pregunta.')"><i class="fa fa-check"></i></button>',
  				"1"=>$reg->pregunta,
  				"2"=>($reg->condicion)?'<span class="label bg-green">Activado</span>':

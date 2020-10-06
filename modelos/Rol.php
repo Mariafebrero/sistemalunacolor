@@ -1,4 +1,5 @@
 <?php 
+session_start();
 //Incluímos inicialmente la conexión a la base de datos
 require "../config/Conexion.php";
 
@@ -14,6 +15,17 @@ Class Rol
 	{ 	
 		$sql="INSERT INTO tbl_roles (rol,descripcion,condicion)
 			VALUES ('$rol','$descripcion','1')";
+
+
+			 //Bitacora
+			//Incializamos las variables de seccion 
+ 			$id_usuario1=$_SESSION['id_usuario'];
+	        $usuario1=$_SESSION['usuario']; 
+			//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
+			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion,modificado_por,fecha_modificacion) 
+			VALUES('$id_usuario1','3',(select now()),'Insertar','Insertó un rol',' $usuario1',(select now()),'','')";
+			ejecutarConsulta($sql_bitacora);	
+
 			return ejecutarConsulta($sql);
 	}
 
@@ -21,6 +33,16 @@ Class Rol
 	public function editar($id_rol,$rol,$descripcion)
 	{
 		$sql="UPDATE tbl_roles SET rol='$rol', descripcion='$descripcion' WHERE id_rol='$id_rol'";
+
+			//Bitacora
+			//Incializamos las variables de seccion 
+ 			$id_usuario1=$_SESSION['id_usuario'];
+	        $usuario1=$_SESSION['usuario']; 
+			//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
+			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion,modificado_por,fecha_modificacion) 
+			VALUES('$id_usuario1','3',(select now()),'Actualizar','Editó un rol','','','$usuario1',(select now()))";
+			ejecutarConsulta($sql_bitacora);	
+
 		ejecutarConsulta($sql);
 	}
 
@@ -28,6 +50,16 @@ Class Rol
 	public function desactivar($id_rol)
 	{
 		$sql="UPDATE tbl_roles SET condicion='0' WHERE id_rol='$id_rol'";
+
+		 //Bitacora
+			//Incializamos las variables de seccion 
+ 			$id_usuario1=$_SESSION['id_usuario'];
+	        $usuario1=$_SESSION['usuario']; 
+			//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
+			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion,modificado_por,fecha_modificacion) 
+			VALUES('$id_usuario1','3',(select now()),'Actualizar','Desactivó un rol',' $usuario1',(select now()),'','')";
+			ejecutarConsulta($sql_bitacora);	
+
 		return ejecutarConsulta($sql);
 	}
 
@@ -35,6 +67,16 @@ Class Rol
 	public function activar($id_rol)
 	{
 		$sql="UPDATE tbl_roles SET condicion ='1' WHERE id_rol='$id_rol'";
+
+		 //Bitacora
+			//Incializamos las variables de seccion 
+ 			$id_usuario1=$_SESSION['id_usuario'];
+	        $usuario1=$_SESSION['usuario']; 
+			//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
+			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion,modificado_por,fecha_modificacion) 
+			VALUES('$id_usuario1','3',(select now()),'Actualizar','Activó un rol',' $usuario1',(select now()),'','')";
+			ejecutarConsulta($sql_bitacora);	
+
 		return ejecutarConsulta($sql);
 	}
 

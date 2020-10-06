@@ -12,23 +12,12 @@ function init(){
 
 	$("#imagenmuestra").hide();  
 
-	//Mostramos los permisos
-	$.post("../ajax/usuario.php?op=permisos&id=",function(r){
-	        $("#permisos").html(r);
-	});    
-
-	        //Cargamos los items al select Rol
-	$.post("../ajax/usuario.php?op=selectRol", function(t){
-	            $("#id_rol").html(t);
-	            $('#id_rol').selectpicker('refresh');
-
-   });    
 }
 
 //Función limpiar
 function limpiar()
 {
-	$("#id_rol").val("");
+	
 	$("#usuario").val("");
 	$("#nombre_usuario").val("");
 	$("#contrasena").val("");
@@ -76,14 +65,11 @@ function listar()
 	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
 	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
 	    buttons: [		          
-		            'copyHtml5',
-		            'excelHtml5',
-		            'csvHtml5',
-		            'pdf'
+		            
 		        ],
 		"ajax":
 				{
-					url: '../ajax/usuario.php?op=listar',
+					url: '../ajax/usuarioescritorio.php?op=listarEscritorio',
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -104,18 +90,18 @@ function guardaryeditar(e)
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/usuario.php?op=guardaryeditar",
+		url: "../ajax/usuarioescritorio.php?op=guardaryeditar",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
 	    processData: false,
 
-	    success: function(datos)
-	    {                    
-	          bootbox.alert(datos);	          
-	          mostrarform(false);
-	          tabla.ajax.reload();
-	    }
+	   // success: function(datos)
+	   // {                    
+	         // bootbox.alert(datos);	          
+	         // mostrarform(false);
+	         //tabla.ajax.reload();
+	   // }
 
 	});
 	limpiar();
@@ -123,12 +109,11 @@ function guardaryeditar(e)
 
 function mostrar(id_usuario)
 {
-	$.post("../ajax/usuario.php?op=mostrar",{id_usuario : id_usuario}, function(data, status)
+	$.post("../ajax/usuarioescritorio.php?op=mostrar",{id_usuario : id_usuario}, function(data, status)
 	{
 		data = JSON.parse(data);		
 		mostrarform(true);
 
-		$("#id_rol").val(data.id_rol);
 		$("#usuario").val(data.usuario);
 		$("#nombre_usuario").val(data.nombre_usuario);
 		$("#contrasena").val(data.contrasena);
@@ -139,9 +124,6 @@ function mostrar(id_usuario)
 		$("#id_usuario").val(data.id_usuario);
 
 	});
-	$.post("../ajax/usuario.php?op=permisos&id="+id_usuario,function(r){
-	        $("#permisos").html(r);
-	});
 }
 
 //Función para desactivar registros
@@ -150,7 +132,7 @@ function desactivar(id_usuario)
 	bootbox.confirm("¿Está Seguro de desactivar el usuario?", function(result){
 		if(result)
         {
-        	$.post("../ajax/usuario.php?op=desactivar", {id_usuario : id_usuario}, function(e){
+        	$.post("../ajax/usuarioescritorio.php?op=desactivar", {id_usuario : id_usuario}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
@@ -164,7 +146,7 @@ function activar(id_usuario)
 	bootbox.confirm("¿Está Seguro de activar el Usuario?", function(result){
 		if(result)
         {
-        	$.post("../ajax/usuario.php?op=activar", {id_usuario : id_usuario}, function(e){
+        	$.post("../ajax/usuarioescritorio.php?op=activar", {id_usuario : id_usuario}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	

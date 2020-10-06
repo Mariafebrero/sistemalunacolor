@@ -5,7 +5,7 @@ session_start();
 
 if (!isset($_SESSION["nombre_usuario"]))
 {
-  header("Location: login.html");
+  header("Location: login.php");
 }
 else
 {
@@ -32,21 +32,33 @@ if ($_SESSION['Seguridad']==1)
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
                             <th>Id_bitacora</th>
-                            <th>fecha</th>
-                            <th>id_usuario</th>
-                            <th>id_objeto</th>
-                            <th>accion</th>
-                            <th>descripcion</th>
+                            <th>Fecha</th>
+                            <th>Id_usuario</th>
+                            <th>Id_objeto</th>
+                            <th>Pantalla</th>
+                            <th>Descripcion</th>
+                            <th>Accion</th>
+                            <th>Descripcion</th>
+                            <th>Creado_por</th>
+                            <th>Fecha_creacion</th>
+                            <th>Modificado_por</th>
+                            <th>Fecha_modificacion</th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                            <th>Id_bitacora</th>
-                            <th>fecha</th>
-                            <th>id_usuario</th>
-                            <th>id_objeto</th>
-                            <th>accion</th>
-                            <th>descripcion</th>
+                             <th>Id_bitacora</th>
+                            <th>Fecha</th>
+                            <th>Id_usuario</th>
+                            <th>Id_objeto</th>
+                            <th>Pantalla</th>
+                            <th>Descripcion</th>
+                            <th>Accion</th>
+                            <th>Descripcion</th>
+                            <th>Creado_por</th>
+                            <th>Fecha_creacion</th>
+                            <th>Modificado_por</th>
+                            <th>Fecha_modificacion</th>
                           </tfoot>
                         </table>
                     </div>

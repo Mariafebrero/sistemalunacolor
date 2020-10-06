@@ -6,7 +6,7 @@ session_start();
 //nombre new variable para secion
 if (!isset($_SESSION["nombre_usuario"]))
 {
-  header("Location: login.html");
+  header("Location: login.php");
 }
 else
 {

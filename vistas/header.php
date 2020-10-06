@@ -80,7 +80,6 @@ if (strlen(session_id()) < 1)
                   <li class="user-footer" >
                     <div class="pull-right">
 
-                   
                     <a href="../ajax/usuario.php?op=salir" class="btn btn-danger"> <i class="far fa-times-circle"> Cerrar sesión</a></i>
 
 
@@ -235,6 +234,7 @@ if (strlen(session_id()) < 1)
                 <li><a href="preguntas.php"><i class="fa fa-circle-o"></i> Preguntas</a></li>
               </ul>
             </li>';
+             
             }
             ?>
 

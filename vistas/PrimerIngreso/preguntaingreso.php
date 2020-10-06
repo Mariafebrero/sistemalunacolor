@@ -3,18 +3,11 @@
 ob_start();
 session_start();
 
-$usuario1 = $sql="SELECT id_usuario FROM tbl_usuarios WHERE usuario=$usuario";
-		return ejecutarConsulta($sql);
-
-
-		$sql="INSERT INTO tbl_preguntas_usuarios (id_pregunta, id_usuario ,respuesta)
-			VALUES ($id_usuario, $respuesta)";
-			return ejecutarConsulta($sql);
-
     include '../../config/conexion.php';
-    $query=mysqli_query($mysqli,"SELECT id_pregunta, pregunta FROM tbl_preguntas");
-    $query1=mysqli_query($mysqli,"SELECT id_pregunta, pregunta FROM tbl_preguntas");
-    $query2=mysqli_query($mysqli,"SELECT id_pregunta, pregunta FROM tbl_preguntas");
+    $query=mysqli_query($mysqli,"SELECT * FROM tbl_preguntas WHERE condicion = '1'");
+    $query1=mysqli_query($mysqli,"SELECT * FROM tbl_preguntas WHERE condicion = '1'");
+    $query2=mysqli_query($mysqli,"SELECT * FROM tbl_preguntas WHERE condicion = '1'");
+   
 
 ?>
 <!DOCTYPE html>
@@ -79,21 +72,25 @@ $usuario1 = $sql="SELECT id_usuario FROM tbl_usuarios WHERE usuario=$usuario";
 		          <div class="col-xs-12">
 						
 						<div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="usuario">
+						<input class="input100" type="text" name="usuario" onkeyup="javascript:this.value=this.value.toUpperCase();"required>
 						<span class="focus-input100"></span>
-						<span class="label-input100">Nombre Usuario</span>
-
+						<span class="label-input100">Usuario</span>
 
 					</div>
 
 						<!--Combobox Pregunta #1 -->
                    <p class="text-secondary">Preguntas #1</p>
                     <select name="pregunta1" select id="Pregunta1" required>
+                    	<option value="0">Seleccione:</option>
                     <?php 
+
+
                         while($tbl_preguntas = mysqli_fetch_array($query))
                         {
-                    ?>
+                    ?>      
+
                             <option value="<?php echo $tbl_preguntas['pregunta']?>"> <?php echo $tbl_preguntas['pregunta']?> </option>
+                            
                     <?php
                         }
                     ?> 
@@ -101,17 +98,20 @@ $usuario1 = $sql="SELECT id_usuario FROM tbl_usuarios WHERE usuario=$usuario";
                           
 
                     <div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="respuesta1">
+						<input id="respuesta1" class="input100" type="text" name="respuesta1">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Repuesta #1</span>
+						<span class="label-input100">Respuesta #1</span>
+
+
 					</div>
        			   </div>
-
+                   
                     <p></p>
 
                     <!--Combobox Pregunta #2 -->
     				<p class="text-secondary">Preguntas #2</p>
                     <select name="pregunta2" select id="Pregunta2" required>
+                    	<option value="0">Seleccione:</option>
                     <?php 
                         while($tbl_preguntas = mysqli_fetch_array($query1))
                         {
@@ -132,9 +132,11 @@ $usuario1 = $sql="SELECT id_usuario FROM tbl_usuarios WHERE usuario=$usuario";
 	               <p></p>
 
 	               <!--Combobox Pregunta #3 -->
+	              
 	               <p class="text-secondary">Preguntas #3</p>
 
                     <select name="pregunta3" select id="Pregunta3" required>
+                    	<option value="0">Seleccione:</option>
                     <?php 
                         while($tbl_preguntas = mysqli_fetch_array($query2))
                         {
@@ -157,12 +159,11 @@ $usuario1 = $sql="SELECT id_usuario FROM tbl_usuarios WHERE usuario=$usuario";
                       <!-- Boton entrar -->
 					<div class="container-login100-form-btn"  >
 						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
-						<button type="submit" value="Ingresar" nombre="botonentrar" class="login100-form-btn" >
-							Entrar
+						<button type="submit" value="Ingresar" name="botonentrar" class="login100-form-btn">
+							Siguiente
 						</button>
 					</div>
 				
-
 				</form>
 
 				 <!-- Fondo de login -->
@@ -172,8 +173,7 @@ $usuario1 = $sql="SELECT id_usuario FROM tbl_usuarios WHERE usuario=$usuario";
 			</div>
 		</div>
 	</div>
-	
-	
+
 
 	
 	<!--===============================================================================================-->	
@@ -254,3 +254,33 @@ $usuario1 = $sql="SELECT id_usuario FROM tbl_usuarios WHERE usuario=$usuario";
 </body>
 
 </html>
+
+<?php
+
+
+$query3=mysqli_query($mysqli,"SELECT id_usuario FROM tbl_usuarios WHERE usuario = \"$_POST[usuario]\"");
+
+  
+
+//Suponiendo que ya tienes creada la conexión a la BD paso directamente al query MySQL y su ejecución
+    /* $conexion es la variable de la conexión a la BD */
+while($tbl_usuarios = mysqli_fetch_array($query3))
+                        {
+                    ?> 
+                            <?php $id_usuario=$tbl_usuarios['id_usuario']?>
+                    <?php
+
+                        }
+
+if (isset($_POST['botonentrar'])) {
+   mysqli_query($mysqli, "INSERT INTO tbl_preguntas_usuarios ( id_usuario, id_pregunta, respuesta) VALUES ('$id_usuario',(SELECT id_pregunta FROM tbl_preguntas WHERE pregunta = \"$_POST[pregunta1]\"), \"$_POST[respuesta1]\")");
+
+   mysqli_query($mysqli, "INSERT INTO tbl_preguntas_usuarios ( id_usuario, id_pregunta, respuesta) VALUES ('$id_usuario',(SELECT id_pregunta FROM tbl_preguntas WHERE pregunta = \"$_POST[pregunta2]\"), \"$_POST[respuesta2]\")");
+
+   mysqli_query($mysqli, "INSERT INTO tbl_preguntas_usuarios ( id_usuario, id_pregunta, respuesta) VALUES ('$id_usuario',(SELECT id_pregunta FROM tbl_preguntas WHERE pregunta = \"$_POST[pregunta3]\"), \"$_POST[respuesta3]\")");
+
+echo "<script>window.location='../PrimerIngreso/ConfirmarContrasena.php';</script>";
+
+}
+
+?>

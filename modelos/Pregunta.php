@@ -1,4 +1,6 @@
 <?php 
+session_start();
+
 //Incluímos inicialmente la conexión a la base de datos
 require "../config/Conexion.php";
 
@@ -14,20 +16,56 @@ Class Pregunta
 	{ 	
 		$sql="INSERT INTO tbl_preguntas (pregunta,condicion)
 			VALUES ('$pregunta','1')";
+
+		    //Bitacora
+			//Incializamos las variables de seccion 
+ 			$id_usuario1=$_SESSION['id_usuario'];
+	        $usuario1=$_SESSION['usuario']; 
+			//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
+			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion,modificado_por,fecha_modificacion) 
+			VALUES('$id_usuario1','2',(select now()),'Insertar','Insertó nueva pregunta',' $usuario1',(select now()),'','')";
+			ejecutarConsulta($sql_bitacora);	
+
+			//Return insertar pregunta
 			return ejecutarConsulta($sql);
+
+		   	
 	}
 
 	//Implementamos un método para editar registros
 	public function editar($id_pregunta,$pregunta)
 	{
 		$sql="UPDATE tbl_preguntas SET pregunta='$pregunta' WHERE id_pregunta='$id_pregunta'";
-		ejecutarConsulta($sql);
+
+ 			//Bitacora
+			//Incializamos las variables de seccion 
+ 			$id_usuario1=$_SESSION['id_usuario'];
+	        $usuario1=$_SESSION['usuario']; 
+			//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
+			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion,modificado_por,fecha_modificacion) 
+			VALUES('$id_usuario1','2',(select now()),'Actualizar','Editó una pregunta','','','$usuario1',(select now()))";
+			ejecutarConsulta($sql_bitacora);	
+
+
+
+		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para desactivar preguntas
 	public function desactivar($id_pregunta)
 	{
 		$sql="UPDATE tbl_preguntas SET condicion='0' WHERE id_pregunta='$id_pregunta'";
+
+
+		    //Bitacora
+			//Incializamos las variables de seccion 
+ 			$id_usuario1=$_SESSION['id_usuario'];
+	        $usuario1=$_SESSION['usuario']; 
+			//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
+			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion,modificado_por,fecha_modificacion) 
+			VALUES('$id_usuario1','2',(select now()),'Actualizar','Desactivó una pregunta',' $usuario1',(select now()),'','')";
+			ejecutarConsulta($sql_bitacora);	
+
 		return ejecutarConsulta($sql);
 	}
 
@@ -35,6 +73,16 @@ Class Pregunta
 	public function activar($id_pregunta)
 	{
 		$sql="UPDATE tbl_preguntas SET condicion ='1' WHERE id_pregunta='$id_pregunta'";
+
+		  //Bitacora
+			//Incializamos las variables de seccion 
+ 			$id_usuario1=$_SESSION['id_usuario'];
+	        $usuario1=$_SESSION['usuario']; 
+			//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
+			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion,modificado_por,fecha_modificacion) 
+			VALUES('$id_usuario1','2',(select now()),'Actualizar','Activó una pregunta',' $usuario1',(select now()),'','')";
+			ejecutarConsulta($sql_bitacora);	
+
 		return ejecutarConsulta($sql);
 	}
 

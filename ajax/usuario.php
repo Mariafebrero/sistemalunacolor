@@ -5,7 +5,6 @@ require_once "../modelos/Usuario.php";
 $usuarios=new Usuario();
 
 
-
 $id_usuario=isset($_POST["id_usuario"])? limpiarCadena($_POST["id_usuario"]):"";
 $id_rol=isset($_POST["id_rol"])? limpiarCadena($_POST["id_rol"]):"";
 $usuario=isset($_POST["usuario"])? limpiarCadena($_POST["usuario"]):"";
@@ -14,10 +13,7 @@ $contrasena=isset($_POST["contrasena"])? limpiarCadena($_POST["contrasena"]):"";
 $imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
 $correo_electronico=isset($_POST["correo_electronico"])? limpiarCadena($_POST["correo_electronico"]):"";
 
-$fecha=isset($_POST["fecha"])? limpiarCadena($_POST["fecha"]):"";
-$id_objeto=isset($_POST["id_objeto"])? limpiarCadena($_POST["id_objeto"]):"";
-$accion=isset($_POST["accion"])? limpiarCadena($_POST["accion"]):"";
-$descripcion=isset($_POST["descripcion"])? limpiarCadena($_POST["descripcion"]):"";
+
 
 
 
@@ -42,10 +38,43 @@ switch ($_GET["op"]){
 
 
 		if (empty($id_usuario)){
-			$rspta=$usuarios->insertar($id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$_POST['permiso'],$fecha,$id_objeto,$accion,$descripcion);
+
+		$sql1= "Select usuario,contrasena,correo_electronico from tbl_usuarios where usuario ='$usuario' or correo_electronico ='$correo_electronico'";
+    	 $result =mysqli_query($conexion,$sql1);
+
+      if (mysqli_num_rows($result)>0)
+ 	{
+		echo '<script>swal({
+  			title: "",
+  			text: "El usuario y correo ya existen",
+  			icon: "warning",
+  			button: "OK",
+			});</script>';
+		return;
+
+    }
+		
+    
+			$rspta=$usuarios->insertar($id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$_POST['permiso'],$id_usuario);
 			echo $rspta ? "Usuario registrado" : "No se pudieron registrar todos los datos del usuario";
 		}
-		else {
+
+		else 
+		{
+    	
+    	$sql2="Select contrasena from tbl_usuarios where id_usuario ='$id_usuario'";
+    	$result1 = mysqli_query($sql2);
+    	if (mysqli_num_rows($result1)>0)
+ 				{
+			echo '<script>swal({
+  			title: "",
+  			text: "Esta contrasena ya ha sido utilizada",
+  			icon: "warning",
+  			button: "OK",
+			});</script>';
+				return;
+    			}
+
 			$rspta=$usuarios->editar($id_usuario,$id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$_POST['permiso']);
 			echo $rspta ? "Usuario actualizado" : "Usuario no se pudo actualizar";
 		}
@@ -74,9 +103,9 @@ switch ($_GET["op"]){
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				"0"=>($reg->condicion)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_usuario.')"><i class="fa fa-pencil"></i></button>'.
+ 				"0"=>($reg->condicion)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_usuario.')"><i class="fas fa-user-edit"></i></button>'.
  					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_usuario.')"><i class="fa fa-close"></i></button>':
- 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_usuario.')"><i class="fa fa-pencil"></i></button>'.
+ 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_usuario.')"><i class="fas fa-user-edit"></i></button>'.
  					' <button class="btn btn-primary" onclick="activar('.$reg->id_usuario.')"><i class="fa fa-check"></i></button>',
  				"1"=>$reg->rol,
  				"2"=>$reg->usuario,
@@ -181,11 +210,27 @@ switch ($_GET["op"]){
 			in_array(10,$valores)?$_SESSION['Seguridad']=1:$_SESSION['Seguridad']=0;
 
 	    }
+
+	    $id_usuario1=$_SESSION['id_usuario'];
+  		$usuario1=$_SESSION['usuario']; 
+  		//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
+ 		$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion,modificado_por,fecha_modificacion) 
+      	VALUES('$id_usuario1','1',(select now()),'Entrada','Entró al Sistema','$usuario1',(select now()),'','')";
+      	ejecutarConsulta($sql_bitacora);
+
 	    echo json_encode($fetch);
 
 	break;
 
 	case 'salir':
+
+	  $id_usuario1=$_SESSION['id_usuario'];
+      $usuario1=$_SESSION['usuario']; 
+      //Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
+      $sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion,modificado_por,fecha_modificacion) 
+      VALUES('$id_usuario1','1',(select now()),'Salida','Salió del sistema','$usuario1',(select now()),'','')";
+      ejecutarConsulta($sql_bitacora);
+
 		//Limpiamos las variables de sesión   
         session_unset();
         //Destruìmos la sesión

@@ -3,10 +3,13 @@
 ob_start();
 session_start();
 
+
+
+
 //nombre new variable para secion
 if (!isset($_SESSION["nombre_usuario"]))
 {
-  header("Location: login.html");
+  header("Location: login.php");
 }
 else
 {
@@ -14,6 +17,7 @@ require 'header.php';
 
 if ($_SESSION['Usuario']==1)
 {
+
 
 ?>
 
@@ -83,7 +87,7 @@ if ($_SESSION['Usuario']==1)
           <div class="col-xs-12">
               <label>Contraseña(*):</label>
                <div class="input-group">
-              <input ID="contrasena" type="Password" name="contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$"  minlength="5" maxlength="10" required>
+              <input ID="contrasena" type="Password" name="contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$"  minlength="5" maxlength="11" required>
           <!-- boton monstrar Contraseña -->
                 <div class="input-group-append">
                   <button id="show_password" class="login100-form-btn" name="botonentrar" type="button" onclick="mostrarPassword()" style="background-color: rgb(233,118,46)"> 
@@ -92,6 +96,9 @@ if ($_SESSION['Usuario']==1)
             </div>
                     </div>
                   <p></p> 
+
+
+        
 
                            <!-- Permisos -->
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -121,6 +128,8 @@ if ($_SESSION['Usuario']==1)
                           </div>
 
                           
+
+              
 
 
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -176,8 +185,13 @@ function mostrarPassword(){
 </script>
 
 
+
+
+
 <?php 
 }
+
+
 ob_end_flush();
 ?>
 
