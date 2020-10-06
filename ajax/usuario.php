@@ -37,6 +37,9 @@ switch ($_GET["op"]){
 		//$clavehash=hash("SHA256",$contrasena);
 
 
+	
+
+
 		if (empty($id_usuario)){
 
 		$sql1= "Select usuario,contrasena,correo_electronico from tbl_usuarios where usuario ='$usuario' or correo_electronico ='$correo_electronico'";
@@ -52,29 +55,14 @@ switch ($_GET["op"]){
 			});</script>';
 		return;
 
-    }
-		
-    
+    }	
+  
 			$rspta=$usuarios->insertar($id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$_POST['permiso'],$id_usuario);
 			echo $rspta ? "Usuario registrado" : "No se pudieron registrar todos los datos del usuario";
 		}
 
 		else 
 		{
-    	
-    	$sql2="Select contrasena from tbl_usuarios where id_usuario ='$id_usuario'";
-    	$result1 = mysqli_query($sql2);
-    	if (mysqli_num_rows($result1)>0)
- 				{
-			echo '<script>swal({
-  			title: "",
-  			text: "Esta contrasena ya ha sido utilizada",
-  			icon: "warning",
-  			button: "OK",
-			});</script>';
-				return;
-    			}
-
 			$rspta=$usuarios->editar($id_usuario,$id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$_POST['permiso']);
 			echo $rspta ? "Usuario actualizado" : "Usuario no se pudo actualizar";
 		}

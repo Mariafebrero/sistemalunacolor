@@ -110,13 +110,13 @@ function guardaryeditar(e)
 	    contentType: false,
 	    processData: false,
 
-	   // success: function(datos)
-	    //{     
+	    success: function(datos)
+	    {     
 
-	         // bootbox.alert(datos);	          
-	         // mostrarform(false);
-	         //tabla.ajax.reload();
-	    //}
+	          bootbox.alert(datos);	          
+	          mostrarform(false);
+	         tabla.ajax.reload();
+	    }
 
 	});
 	limpiar();
