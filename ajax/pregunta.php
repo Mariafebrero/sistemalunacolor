@@ -15,7 +15,7 @@ switch ($_GET["op"]){
 		}
 		else {
 			$rspta=$preguntas->editar($id_pregunta,$pregunta);
-			echo $rspta ? "Pregunta no se pudo actualizar" : "Pregunta actualizada";
+			echo $rspta ? "Pregunta actualizada" : "Pregunta no se pudo actualizar";
 		}
 	break;
 

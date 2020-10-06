@@ -19,7 +19,7 @@
     <script src="../public/datatables/jszip.min.js"></script>
     <script src="../public/datatables/pdfmake.min.js"></script>
     <script src="../public/datatables/vfs_fonts.js"></script> 
-    <script src="../public/plugins/sweetalert/sweetalert.min.js"></script>
+
     <script src="../public/js/bootbox.min.js"></script> 
     <script src="../public/js/bootstrap-select.min.js"></script>  
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

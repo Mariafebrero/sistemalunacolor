@@ -39,8 +39,6 @@
 
 			<!-- Boton atras -->
 		<a href="javascript:history.go(-1)" class="previous"><i class="fas fa-chevron-circle-left fa-2x" aria-hidden="true"></a></i>
-			<!-- Boton adelante -->
-		<a href="javascript:history.go(1)" class="previous"><i class="fas fa-chevron-circle-right fa-2x" aria-hidden="true"></a></i>
 
 	</center>
 
@@ -51,13 +49,6 @@
 				<!--Validacion base de datos -->
 				<form class="login100-form validate-form" method="post" action="../../../database/loguear2.php" autocomplete="off">
 
-
-					  <!-- Boton modificado para que ni pida validacion -->
-					<div class="wrap-input100">
-						<input class="input100" type="text" name="usuario">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Nombre del usuario</span>
-					</div>
         
 					<!-- Boton enviar contraseña por correo -->
 					<div class="flex-sb-m w-full p-t-3 p-b-32">
