@@ -88,8 +88,14 @@ function guardaryeditar(e)
 	    processData: false,
 
 	    success: function(datos)
-	    {                    
-	          bootbox.alert(datos);	          
+	    {      
+	    	swal({
+  			title: "",
+  			text: datos,
+  			icon: "success",
+  			button: "OK",
+			});                
+	          //bootbox.alert(datos);	          
 	          mostrarform(false);
 	          tabla.ajax.reload();
 	    }
@@ -115,30 +121,67 @@ function mostrar(id_pregunta)
 //Función para desactivar registros
 function desactivar(id_pregunta)
 {
-	bootbox.confirm("¿Está Seguro de desactivar la pregunta?", function(result){
-		if(result)
-        {
-        	$.post("../ajax/pregunta.php?op=desactivar", {id_pregunta : id_pregunta}, function(e){
-        		bootbox.alert(e);
+
+
+swal({
+  title: "¿Está Seguro de desactivar la pregunta?",
+  text: "",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+  	$.post("../ajax/pregunta.php?op=desactivar", {id_pregunta : id_pregunta}, function(e){
+        		swal({
+  			title: "",
+  			text: e,
+  			icon: "success",
+  			button: "OK",
+			});  
+        		//bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
-        }
-	})
+    
+  } else {
+    swal("No se ha desactivado");
+  }
+});
+	
 }
 
 //Función para activar registros
 function activar(id_pregunta)
 {
-	bootbox.confirm("¿Está Seguro de activar la pregunta?", function(result){
-		if(result)
-        {
-        	$.post("../ajax/pregunta.php?op=activar", {id_pregunta : id_pregunta}, function(e){
-        		bootbox.alert(e);
+
+
+swal({
+  title: "¿Está Seguro de activar la pregunta?",
+  text: "",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+  	$.post("../ajax/pregunta.php?op=activar", {id_pregunta : id_pregunta}, function(e){
+        		swal({
+  			title: "",
+  			text: e,
+  			icon: "success",
+  			button: "OK",
+			});  
+        		//bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
-        }
-	})
+    
+  } else {
+    swal("No se ha activado");
+  }
+});
+	
 }
+
 
 
 init();

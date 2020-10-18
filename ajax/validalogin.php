@@ -36,12 +36,13 @@ $usuario1=$_SESSION['usuario'];
 // die();
 if (isset($_POST["btningresar"])){
 		//if ($usuario && $contrasena){
-	    
+	   
+	    $clavehash=hash("SHA256",$contrasena);
 
-		$rspta=$usuarios1->verificar($usuario,$contrasena);
+		$rspta=$usuarios1->verificar($usuario,$clavehash);
 		$fetch=$rspta->fetch_object();
 		
-	       $rsptaa=$usuarios2->verifica_ingreso($usuario,$contrasena);
+	       $rsptaa=$usuarios2->verifica_ingreso($usuario,$clavehash);
 	       $fetchh=$rsptaa->fetch_object();
 
 	       		

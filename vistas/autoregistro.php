@@ -365,7 +365,15 @@ function mostrarPassword2(){
 
 //FALTA LA VALIDACION SI EL USUARIO YA EXISTE EN EL SISTEMA 
 
-if(isset($_POST["btnGuardar"])) { 	
+if(isset($_POST["btnGuardar"])) { 
+	
+	$contra2=$_POST['contrasena'];
+    $clavehash2=hash("SHA256",$contra2);
+
+	$contra =$_POST['contrasena'];
+	$clavehash=hash("SHA256",$contra);
+	//$clavehash2=hash("SHA256",$contra2);
+	//$clavehash3=hash("SHA256",$contra3);
 
 	if(isset($_POST["btnGuardar"])) {
 
@@ -386,10 +394,10 @@ if(isset($_POST["btnGuardar"])) {
 	   else{
 
 	   	mysqli_query($mysqli, "INSERT INTO tbl_usuarios (id_rol,usuario,nombre_usuario,contrasena,imagen,correo_electronico,id_estado_usuario,fecha_ultima_conexion,preguntas_contestadas,fecha_creacion,intentos,fecha_vencimiento,token,fecha_inicio,fecha_final)
-			VALUES ('1',\"$_POST[usuario]\",\"$_POST[nombre_usuario]\",\"$_POST[contrasena]\",'',\"$_POST[correo_electronico]\",'5','','0','','1','','','','')");
+			VALUES ('1',\"$_POST[usuario]\",\"$_POST[nombre_usuario]\",'$clavehash','',\"$_POST[correo_electronico]\",'5','','0','$fecha_creacion','1','$fecha_vencimiento','','','')");
 
 
-	mysqli_query($mysqli, "INSERT INTO tbl_hist_contrasena (id_usuario, contrasena) VALUES ((select id_usuario from tbl_usuarios where usuario =\"$_POST[nombre_usuario]\"),\"$_POST[contrasena]\")");
+	mysqli_query($mysqli, "INSERT INTO tbl_hist_contrasena (id_usuario,contrasena) VALUES ((select id_usuario from tbl_usuarios where usuario =\"$_POST[nombre_usuario]\"),'$clavehash2')");
 
 
 		 $sql_bitacora4= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
@@ -407,7 +415,7 @@ if(isset($_POST["btnGuardar"])) {
 
 	echo "<script >
            swal({ title: '¡Resistro exitoso!',
-           text: 'Para finalizar su proceso de registro debera Logearse y responder las Preguntas de Seguridad',
+           text: 'Para finalizar su proceso de registro debera Loguearse y responder las Preguntas de Seguridad', 
            icon:'success',
            type: 'success'}).then(okay => {
            if (okay) 

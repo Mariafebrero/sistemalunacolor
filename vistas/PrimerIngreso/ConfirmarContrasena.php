@@ -12,6 +12,8 @@ error_reporting(0);
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<script src="../../public/js/bootbox.min.js"></script> 
+	<script src="../../public/plugins/sweetalert/sweetalert.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<title>Preguntas Secretas</title>
 	<meta charset="UTF-8">
@@ -322,19 +324,31 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
 
 
 	if(isset($_POST["btn_restablecer"]))
-
 	{
 				if($_POST["nueva_contrasena"]!="" &&$_POST["confirmar_contrasena"]!="")
-            	$nueva_contrasena = ($_POST["nueva_contrasena"]);
-            	$confirmar_contrasena = ($_POST["confirmar_contrasena"]);
+            	
+            	
 			{ 
 				$contrasena_anterior= ($_POST["contrasena_anterior"]);
+	            $clavehash=hash("SHA256",$contrasena_anterior);
+                
 
-				if ($contrasena_anterior == $contrasena_exist)
+                $nueva_contrasena= ($_POST["nueva_contrasena"]);
+	            $clavehash1=hash("SHA256",$nueva_contrasena);
+                
+                
+
+
+	            $confirmar_contrasena= ($_POST["confirmar_contrasena"]);
+	            $clavehash2=hash("SHA256",$confirmar_contrasena);
+	           
+                
+
+				if ($clavehash == $contrasena_exist)
 				{
-					if($nueva_contrasena == $confirmar_contrasena)
+					if($clavehash1 == $clavehash2)
 					{
-						if ($nueva_contrasena == $contrasena_exist)
+						if ($clavehash1== $contrasena_exist)
 						{
 							//echo 
            
@@ -342,9 +356,9 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
 						}
 						else
 			  			{ 
-			  				mysqli_query($mysqli, "UPDATE tbl_usuarios SET contrasena =(\"$_POST[nueva_contrasena]\")  WHERE id_usuario='$id_usuario1'");
+			  				mysqli_query($mysqli, "UPDATE tbl_usuarios SET contrasena ='$clavehash2'  WHERE id_usuario='$id_usuario1'");
 							mysqli_query($mysqli, "UPDATE tbl_usuarios SET 	id_estado_usuario = '2'  WHERE id_usuario='$id_usuario1'");
-							mysqli_query($mysqli, "INSERT INTO tbl_hist_contrasena (id_usuario, contrasena) VALUES ('$id_usuario1','$confirmar_contrasena')");
+							mysqli_query($mysqli, "INSERT INTO tbl_hist_contrasena (id_usuario, contrasena) VALUES ('$id_usuario1','$clavehash2')");
 
 							//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
 		  					$sql_bitacora1= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
@@ -368,6 +382,16 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
 
 				else
 				{
+               
+
+				/*echo '<script>swal({
+  			    title: "",
+  			    text: "La contraseña anterior no existe. Por favor ingrese una contraseña valida",
+  			    icon: "warning",
+  			    button: "OK",
+			    });window.location.href="ConfirmarContrasena.php";</script>';*/
+
+
 				echo "<script>alert('La contraseña anterior no existe. Por favor ingrese una contraseña valida');window.location.href='ConfirmarContrasena.php';</script>";
 				}
 			

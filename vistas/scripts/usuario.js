@@ -118,8 +118,14 @@ function guardaryeditar(e)
 	    processData: false,
 
 	    success: function(datos)
-	    {                    
-	          bootbox.alert(datos);	          
+	    {      
+	    	swal({
+  			title: "",
+  			text: datos,
+  			icon: "success",
+  			button: "OK",
+			});                
+	          //bootbox.alert(datos);	          
 	          mostrarform(false);
 	          tabla.ajax.reload();
 	    }
@@ -156,15 +162,31 @@ function mostrar(id_usuario)
 //Función para desactivar registros
 function eliminar(id_usuario)
 {
-	bootbox.confirm("¿Estás Seguro de eliminar el usuario?", function(result){
-		if(result)
-        {
-        	$.post("../ajax/usuario.php?op=eliminar", {id_usuario : id_usuario}, function(e){
-        		bootbox.alert(e);
+swal({
+  title:"¿Está Seguro de eliminar el usuario?",
+  text: "",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+  	$.post("../ajax/usuario.php?op=eliminar", {id_usuario : id_usuario}, function(e){
+        		swal({
+  			title: "",
+  			text: e,
+  			icon: "success",
+  			button: "OK",
+			});  
+        		//bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
-        }
-	})
+    
+  } else {
+    swal("No se ha eliminado");
+  }
+});
+	
 }
 
 

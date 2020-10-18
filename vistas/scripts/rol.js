@@ -88,9 +88,15 @@ function guardaryeditar(e)
 	    contentType: false,
 	    processData: false,
 
-	    success: function(datos)
-	    {                    
-	          bootbox.alert(datos);	          
+	   success: function(datos)
+	    {      
+	    	swal({
+  			title: "",
+  			text: datos,
+  			icon: "success",
+  			button: "OK",
+			});                
+	          //bootbox.alert(datos);	          
 	          mostrarform(false);
 	          tabla.ajax.reload();
 	    }
@@ -117,30 +123,65 @@ function mostrar(id_rol)
 //Función para desactivar registros
 function desactivar(id_rol)
 {
-	bootbox.confirm("¿Está Seguro de desactivar el rol?", function(result){
-		if(result)
-        {
-        	$.post("../ajax/rol.php?op=desactivar", {id_rol : id_rol}, function(e){
-        		bootbox.alert(e);
+swal({
+  title:"¿Está Seguro de desactivar el rol?",
+  text: "",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+  	$.post("../ajax/rol.php?op=desactivar", {id_rol : id_rol}, function(e){
+        		swal({
+  			title: "",
+  			text: e,
+  			icon: "success",
+  			button: "OK",
+			});  
+        		//bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
-        }
-	})
+    
+  } else {
+    swal("No se ha desactivado");
+  }
+});
+	
 }
 
 //Función para activar registros
 function activar(id_rol)
 {
-	bootbox.confirm("¿Está Seguro de activar el rol?", function(result){
-		if(result)
-        {
-        	$.post("../ajax/rol.php?op=activar", {id_rol : id_rol}, function(e){
-        		bootbox.alert(e);
+
+
+swal({
+  title:"¿Está Seguro de activar el rol?",
+  text: "",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+  	$.post("../ajax/rol.php?op=activar", {id_rol : id_rol}, function(e){
+        		swal({
+  			title: "",
+  			text: e,
+  			icon: "success",
+  			button: "OK",
+			});  
+        		//bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
-        }
-	})
+    
+  } else {
+    swal("No se ha activado");
+  }
+});
+	
 }
+
 
 
 init();

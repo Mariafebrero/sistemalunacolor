@@ -42,8 +42,8 @@ Class Usuario
 			VALUES ('$id_rol','$usuario','$nombre_usuario','$contrasena','$imagen','$correo_electronico','$id_estado_usuario','','0','$fecha_creacion','1','$fecha_vencimiento','','','')";
 		
 			//$idusuarionew=ejecutarConsulta_retornarID($sql);
-
-			$sql_contra= "INSERT INTO tbl_hist_contrasena (id_usuario, contrasena) VALUES ((select id_usuario from tbl_usuarios where usuario ='$usuario'),'$contrasena')"; 
+           $clavehash=hash("SHA256",$contrasena);
+			$sql_contra= "INSERT INTO tbl_hist_contrasena (id_usuario, contrasena) VALUES ((select id_usuario from tbl_usuarios where usuario ='$usuario'),'$clavehash')"; 
 			ejecutarConsulta($sql_contra);
 
 			//Bitacora
