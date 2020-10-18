@@ -401,15 +401,15 @@ if(isset($_POST["btnGuardar"])) {
 
 
 		 $sql_bitacora4= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-		  VALUES((SELECT MAX(id_usuario) AS id FROM tbl_usuarios),'1',(select now()),'Insertó','Un usuario se Autoregistro',\"$_POST[usuario]\",(select now()))";
+		  VALUES((SELECT MAX(id_usuario) AS id FROM tbl_usuarios),'7',(select now()),'Insertó','Un usuario se Autoregistro',\"$_POST[usuario]\",(select now()))";
  		  ejecutarConsulta($sql_bitacora4);
 
  		  $sql_bitacora5= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-		  VALUES((SELECT MAX(id_usuario) AS id FROM tbl_usuarios),'1',(select now()),'Salió','Salió del Autoregistro',\"$_POST[usuario]\",(select now()))";
+		  VALUES((SELECT MAX(id_usuario) AS id FROM tbl_usuarios),'7',(select now()),'Salió','Salió del Autoregistro',\"$_POST[usuario]\",(select now()))";
  		  ejecutarConsulta($sql_bitacora5);
 
  		   $sql_bitacora6= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-		  VALUES((SELECT MAX(id_usuario) AS id FROM tbl_usuarios),'1',(select now()),'Entró','Entró al login',\"$_POST[usuario]\",(select now()))";
+		  VALUES((SELECT MAX(id_usuario) AS id FROM tbl_usuarios),'5',(select now()),'Entró','Entró al login',\"$_POST[usuario]\",(select now()))";
  		  ejecutarConsulta($sql_bitacora6);
 
 

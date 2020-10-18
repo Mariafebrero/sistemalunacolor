@@ -217,27 +217,27 @@ $encryption = openssl_encrypt($Contraconfir, $ciphering,
 
      	 $sql= 
      	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$NombreID','1',(select now()),'Entró','Entró a Validación de Recuperación Contraseña por Pregunta Secreta','$usuario1',(select now()))";
+     	 VALUES('$NombreID','9',(select now()),'Entró','Entró a Validación de Recuperación Contraseña por Pregunta Secreta','$usuario1',(select now()))";
  		 $con->query($sql);
 
  		 $sql= 
      	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$NombreID','1',(select now()),'Actualizó','Actualizó contraseña','$userbase',(select now()))";
+     	 VALUES('$NombreID','9',(select now()),'Actualizó','Actualizó contraseña','$userbase',(select now()))";
  		 $con->query($sql);
 
  		  $sql= 
      	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$NombreID','1',(select now()),'Actualizó','Actualizó estado de usuario a: Activo','$usuario1',(select now()))";
+     	 VALUES('$NombreID','9',(select now()),'Actualizó','Actualizó estado de usuario a: Activo','$usuario1',(select now()))";
  		 $con->query($sql);
 
  		  $sql= 
      	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$NombreID','1',(select now()),'Salió','Salió de Validación de Recuperación Contraseña por Pregunta Secreta','$usuario1',(select now()))";
+     	 VALUES('$NombreID','9',(select now()),'Salió','Salió de Validación de Recuperación Contraseña por Pregunta Secreta','$usuario1',(select now()))";
  		 $con->query($sql);
 
  		  $sql= 
      	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$NombreID','1',(select now()),'Entró','Entró al login','$usuario1',(select now()))";
+     	 VALUES('$NombreID','5',(select now()),'Entró','Entró al login','$usuario1',(select now()))";
  		 $con->query($sql);
 
 		//print "<script>alert('¡El cambio se ha realizado con éxito!'); window.location='../Login.php';</script>";		

@@ -89,11 +89,11 @@ if (isset($_POST["btningresar"])){
 		$usuario1=$_SESSION['usuario'];
 
 		 $sql_bitacora4= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-		  VALUES('$id_usuario1','1',(select now()),'Salió','Salió de login','$usuario1',(select now()))";
+		  VALUES('$id_usuario1','5',(select now()),'Salió','Salió de login','$usuario1',(select now()))";
  		  ejecutarConsulta($sql_bitacora4);
   		//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
  		$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-      	VALUES('$id_usuario1','1',(select now()),'Entrada','Entró al Sistema','$usuario1',(select now()))";
+      	VALUES('$id_usuario1','5',(select now()),'Entrada','Entró al Sistema','$usuario1',(select now()))";
       	ejecutarConsulta($sql_bitacora);
 
 
@@ -114,11 +114,11 @@ if (isset($_POST["btningresar"])){
 		  $usuario1=$_SESSION['usuario'];
 		  
   		  $sql_bitacora4= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-		  VALUES('$id_usuario1','1',(select now()),'Salió','Salió de login','$usuario1',(select now()))";
+		  VALUES('$id_usuario1','5',(select now()),'Salió','Salió de login','$usuario1',(select now()))";
  		  ejecutarConsulta($sql_bitacora4);
 
 	      $sql_bitacora3= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-		  VALUES('$id_usuario1','1',(select now()),'Entró','Preguntas Primer Ingreso','$usuario1',(select now()))";
+		  VALUES('$id_usuario1','6',(select now()),'Entró','Preguntas Primer Ingreso','$usuario1',(select now()))";
 		  ejecutarConsulta($sql_bitacora3);
 
               header("Location: ../vistas/PrimerIngreso/preguntaingreso.php");
@@ -177,7 +177,7 @@ if (isset($_POST["btningresar"])){
    								
 
    								 $sql_bitacora4= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-		 						 VALUES('$id_usuario2','1',(select now()),'Actualizó','Actualizó Estado a: Bloqueado','$usuario',(select now()))";
+		 						 VALUES('$id_usuario2','5',(select now()),'Actualizó','Actualizó Estado a: Bloqueado','$usuario',(select now()))";
  		 	 						ejecutarConsulta($sql_bitacora4);
 							}
 							else
@@ -234,7 +234,7 @@ if (isset($_POST["btningresar"])){
 								mysqli_query($mysqli, "UPDATE tbl_usuarios SET intentos = (intentos + 1) WHERE usuario = '$usuario'");
 
 								$sql_bitacora5= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-		 				 		VALUES('$id_usuario2','1',(select now()),'Actualizó','Actualizó Intentos/contraseña','$usuario',(select now()))";
+		 				 		VALUES('$id_usuario2','5',(select now()),'Actualizó','Actualizó Intentos/contraseña','$usuario',(select now()))";
  		 	 					ejecutarConsulta($sql_bitacora5);	
 
 								}

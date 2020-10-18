@@ -54,7 +54,7 @@ while($tbl_usuarios2 = mysqli_fetch_array($query5))
 		else
 		{
 			$sql_bitacora3= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-		    VALUES('$id_usuario1','1',(select now()),'Entró','Confirmar contraseña en Preguntas primer ingreso','$usuario1',(select now()))";
+		    VALUES('$id_usuario1','6',(select now()),'Entró','Confirmar contraseña en Preguntas primer ingreso','$usuario1',(select now()))";
 		 	ejecutarConsulta($sql_bitacora3);
 		 	mysqli_query($mysqli, "UPDATE tbl_preguntas SET estado = 1");
 		    echo "<script>window.location='ConfirmarContrasena.php';</script>";
@@ -343,11 +343,11 @@ if (isset($_POST['botonentrar'])) {
 
 		  //Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
 		  $sql_bitacora2= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-		  VALUES('$id_usuario1','1',(select now()),'Insertó','Insertó preguntas primer ingreso','$usuario1',(select now()))";
+		  VALUES('$id_usuario1','6',(select now()),'Insertó','Insertó preguntas primer ingreso','$usuario1',(select now()))";
 		  ejecutarConsulta($sql_bitacora2);
 
 		   $sql_bitacora3= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-		  VALUES('$id_usuario1','1',(select now()),'Actualizó','Actualizó preguntas constestadas','$usuario1',(select now()))";
+		  VALUES('$id_usuario1','6',(select now()),'Actualizó','Actualizó preguntas constestadas','$usuario1',(select now()))";
 		  ejecutarConsulta($sql_bitacora3);
 
 		 echo "<script>window.location='preguntaingreso.php';</script>";

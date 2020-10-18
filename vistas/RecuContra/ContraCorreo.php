@@ -172,22 +172,22 @@
 
      	 $sql= 
      	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$user_id','1',(select now()),'Entró','Entró a Recuperación Contraseña por Correo','$user',(select now()))";
+     	 VALUES('$user_id','8',(select now()),'Entró','Entró a Recuperación Contraseña por Correo','$user',(select now()))";
  		 $con->query($sql);
 
  		 $sql= 
      	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$user_id','1',(select now()),'Enviado','El correo de Recuperación de Contraseña fue enviado correctamente','$user',(select now()))";
+     	 VALUES('$user_id','8',(select now()),'Enviado','El correo de Recuperación de Contraseña fue enviado correctamente','$user',(select now()))";
  		 $con->query($sql);
 
  		  $sql= 
      	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$user_id','1',(select now()),'Salió','Salió de Recuperación Contraseña por Correo','$user',(select now()))";
+     	 VALUES('$user_id','8',(select now()),'Salió','Salió de Recuperación Contraseña por Correo','$user',(select now()))";
  		 $con->query($sql);
 
  		  $sql= 
      	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$user_id','1',(select now()),'Entró','Entró al login','$user',(select now()))";
+     	 VALUES('$user_id','5',(select now()),'Entró','Entró al login','$user',(select now()))";
  		 $con->query($sql);
 
     	}

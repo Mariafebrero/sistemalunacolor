@@ -115,18 +115,20 @@
 
      	 $sql= 
      	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$user_id','1',(select now()),'Entró','Entró a Recuperación Contraseña por Pregunta Secreta','$user',(select now()))";
+     	 VALUES('$user_id','9',(select now()),'Entró','Entró a Recuperación Contraseña por Pregunta Secreta','$user',(select now()))";
  		 $con->query($sql);
 
  		   $sql= 
      	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$user_id','1',(select now()),'Contestó','Contestó Pregunta Secreta','$user',(select now()))";
+     	 VALUES('$user_id','9',(select now()),'Contestó','Contestó Pregunta Secreta','$user',(select now()))";
  		 $con->query($sql);
 
  		  $sql= 
      	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$user_id','1',(select now()),'Salió','Salió de Recuperación Contraseña por Pregunta Secreta','$user',(select now()))";
+     	 VALUES('$user_id','9',(select now()),'Salió','Salió de Recuperación Contraseña por Pregunta Secreta','$user',(select now()))";
  		 $con->query($sql);
+
+ 		 
 
  			 
 

@@ -285,27 +285,27 @@ $encryption = openssl_encrypt($Contraconfir, $ciphering,
 
      	 $sql= 
      	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$userid','1',(select now()),'Entró','Entró a Validación de Recuperación Contraseña por Correo','$userbase',(select now()))";
+     	 VALUES('$userid','8',(select now()),'Entró','Entró a Validación de Recuperación Contraseña por Correo','$userbase',(select now()))";
  		 $con->query($sql);
 
  		 $sql= 
      	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$userid','1',(select now()),'Actualizó','Actualizó contraseña','$userbase',(select now()))";
+     	 VALUES('$userid','8',(select now()),'Actualizó','Actualizó contraseña','$userbase',(select now()))";
  		 $con->query($sql);
 
  		  $sql= 
      	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$userid','1',(select now()),'Actualizó','Actualizó estado de usuario a: Activo','$userbase',(select now()))";
+     	 VALUES('$userid','8',(select now()),'Actualizó','Actualizó estado de usuario a: Activo','$userbase',(select now()))";
  		 $con->query($sql);
 
  		  $sql= 
      	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$userid','1',(select now()),'Salió','Salió de Validación de Recuperación Contraseña por Correo','$userbase',(select now()))";
+     	 VALUES('$userid','8',(select now()),'Salió','Salió de Validación de Recuperación Contraseña por Correo','$userbase',(select now()))";
  		 $con->query($sql);
 
  		  $sql= 
      	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$userid','1',(select now()),'Entró','Entró al login','$userbase',(select now()))";
+     	 VALUES('$userid','5',(select now()),'Entró','Entró al login','$userbase',(select now()))";
  		 $con->query($sql);
 
 		//print "<script>alert('¡El cambio se ha realizado con éxito!'); window.location='../Login.php';</script>";		

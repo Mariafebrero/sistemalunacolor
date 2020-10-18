@@ -57,6 +57,9 @@ function mostrarform(flag)
 		$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
 
+		//SHOW PARA MONSTRAR EL CAMPO USUARIO CUANDO SE AGREGA UN USUARIO
+		$("#usuario").show();
+
 
 	}
 	else
@@ -142,7 +145,13 @@ function mostrar(id_usuario)
 		mostrarform(true);
 
 		$("#id_rol").val(data.id_rol);
-		$("#usuario").val(data.usuario);
+		//$("#usuario").val(data.usuario);
+
+
+		//HIDE PARA OCULTAR EL CAMPO USUARIO CUANDO SE TENGA QUE EDITAR UN USUARIO
+		$("#usuario").hide(data.usuario);
+
+
 		$("#nombre_usuario").val(data.nombre_usuario);
 		$("#contrasena").val(data.contrasena);
 		$("#imagenmuestra").show();

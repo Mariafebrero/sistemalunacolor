@@ -362,14 +362,14 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
 
 							//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
 		  					$sql_bitacora1= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-		 						 VALUES('$id_usuario1','1',(select now()),'Actualizó','Actualizó contraseña','$usuario1',(select now()))";
+		 						 VALUES('$id_usuario1','6',(select now()),'Actualizó','Actualizó contraseña','$usuario1',(select now()))";
 		 						 ejecutarConsulta($sql_bitacora1);
 
 		 					$sql_bitacora2= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-		 						 VALUES('$id_usuario1','1',(select now()),'Actualizó','Actualizó Primer ingreso a usuario Activo','$usuario1',(select now()))";
+		 						 VALUES('$id_usuario1','6',(select now()),'Actualizó','Actualizó Primer ingreso a usuario Activo','$usuario1',(select now()))";
 		 						 ejecutarConsulta($sql_bitacora2);
 		 					$sql_bitacora3= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-		 						 VALUES('$id_usuario1','1',(select now()),'Insertó','Insertó contraseña a historial de contraseñas','$usuario1',(select now()))";
+		 						 VALUES('$id_usuario1','6',(select now()),'Insertó','Insertó contraseña a historial de contraseñas','$usuario1',(select now()))";
 		 						 ejecutarConsulta($sql_bitacora3);	 
 		          	
 			  			}
@@ -397,10 +397,10 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
 			
 		
  $sql_bitacora4= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-		  VALUES('$id_usuario1','1',(select now()),'Salió','Salió de Primer ingreso/Confirmar contraseña','$usuario1',(select now()))";
+		  VALUES('$id_usuario1','6',(select now()),'Salió','Salió de Primer ingreso/Confirmar contraseña','$usuario1',(select now()))";
  		  ejecutarConsulta($sql_bitacora4);
  $sql_bitacora5= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-		  VALUES('$id_usuario1','1',(select now()),'Entró','Entró a login','$usuario1',(select now()))";
+		  VALUES('$id_usuario1','5',(select now()),'Entró','Entró a login','$usuario1',(select now()))";
  		  ejecutarConsulta($sql_bitacora5); 		  
 		
 

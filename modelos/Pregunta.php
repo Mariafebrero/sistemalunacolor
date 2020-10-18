@@ -23,7 +23,7 @@ Class Pregunta
 	        $usuario1=$_SESSION['usuario']; 
 			//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
 			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-			VALUES('$id_usuario1','1',(select now()),'Insertar','Insertó nueva pregunta',' $usuario1',(select now()))";
+			VALUES('$id_usuario1','3',(select now()),'Insertar','Insertó nueva pregunta',' $usuario1',(select now()))";
 			ejecutarConsulta($sql_bitacora);	
 
 			//Return insertar pregunta
@@ -43,7 +43,7 @@ Class Pregunta
 	        $usuario1=$_SESSION['usuario']; 
 			//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
 			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-			VALUES('$id_usuario1','1',(select now()),'Actualizar','Editó una pregunta','$usuario1',(select now()))";
+			VALUES('$id_usuario1','3',(select now()),'Actualizar','Editó una pregunta','$usuario1',(select now()))";
 			ejecutarConsulta($sql_bitacora);	
 
 
@@ -63,7 +63,7 @@ Class Pregunta
 	        $usuario1=$_SESSION['usuario']; 
 			//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
 			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-			VALUES('$id_usuario1','1',(select now()),'Actualizar','Desactivó una pregunta',' $usuario1',(select now()))";
+			VALUES('$id_usuario1','3',(select now()),'Actualizar','Desactivó una pregunta',' $usuario1',(select now()))";
 			ejecutarConsulta($sql_bitacora);	
 
 		return ejecutarConsulta($sql);
@@ -80,7 +80,7 @@ Class Pregunta
 	        $usuario1=$_SESSION['usuario']; 
 			//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
 			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-			VALUES('$id_usuario1','1',(select now()),'Actualizar','Activó una pregunta',' $usuario1',(select now()),'','')";
+			VALUES('$id_usuario1','3',(select now()),'Actualizar','Activó una pregunta',' $usuario1',(select now()),'','')";
 			ejecutarConsulta($sql_bitacora);	
 
 		return ejecutarConsulta($sql);
