@@ -13,7 +13,7 @@ Class Rol
 	//Implementamos un método para insertar registros
 	public function insertar($rol,$descripcion)
 	{ 	
-		$sql="INSERT INTO tbl_roles (rol,descripcion,condicion)
+		$sql="INSERT INTO tbl_roles (rol,descripcion,estado)
 			VALUES ('$rol','$descripcion','1')";
 
 
@@ -22,8 +22,8 @@ Class Rol
  			$id_usuario1=$_SESSION['id_usuario'];
 	        $usuario1=$_SESSION['usuario']; 
 			//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
-			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion,modificado_por,fecha_modificacion) 
-			VALUES('$id_usuario1','3',(select now()),'Insertar','Insertó un rol',' $usuario1',(select now()),'','')";
+			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+			VALUES('$id_usuario1','1',(select now()),'Insertar','Insertó un rol',' $usuario1',(select now()))";
 			ejecutarConsulta($sql_bitacora);	
 
 			return ejecutarConsulta($sql);
@@ -39,8 +39,8 @@ Class Rol
  			$id_usuario1=$_SESSION['id_usuario'];
 	        $usuario1=$_SESSION['usuario']; 
 			//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
-			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion,modificado_por,fecha_modificacion) 
-			VALUES('$id_usuario1','3',(select now()),'Actualizar','Editó un rol','','','$usuario1',(select now()))";
+			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+			VALUES('$id_usuario1','1',(select now()),'Actualizar','Editó un rol','$usuario1',(select now()))";
 			ejecutarConsulta($sql_bitacora);	
 
 		ejecutarConsulta($sql);
@@ -49,15 +49,15 @@ Class Rol
 	//Implementamos un método para desactivar preguntas
 	public function desactivar($id_rol)
 	{
-		$sql="UPDATE tbl_roles SET condicion='0' WHERE id_rol='$id_rol'";
+		$sql="UPDATE tbl_roles SET estado='0' WHERE id_rol='$id_rol'";
 
 		 //Bitacora
 			//Incializamos las variables de seccion 
  			$id_usuario1=$_SESSION['id_usuario'];
 	        $usuario1=$_SESSION['usuario']; 
 			//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
-			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion,modificado_por,fecha_modificacion) 
-			VALUES('$id_usuario1','3',(select now()),'Actualizar','Desactivó un rol',' $usuario1',(select now()),'','')";
+			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+			VALUES('$id_usuario1','1',(select now()),'Actualizar','Desactivó un rol',' $usuario1',(select now()))";
 			ejecutarConsulta($sql_bitacora);	
 
 		return ejecutarConsulta($sql);
@@ -66,15 +66,15 @@ Class Rol
 	//Implementamos un método para activar preguntas
 	public function activar($id_rol)
 	{
-		$sql="UPDATE tbl_roles SET condicion ='1' WHERE id_rol='$id_rol'";
+		$sql="UPDATE tbl_roles SET estado ='1' WHERE id_rol='$id_rol'";
 
 		 //Bitacora
 			//Incializamos las variables de seccion 
  			$id_usuario1=$_SESSION['id_usuario'];
 	        $usuario1=$_SESSION['usuario']; 
 			//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
-			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion,modificado_por,fecha_modificacion) 
-			VALUES('$id_usuario1','3',(select now()),'Actualizar','Activó un rol',' $usuario1',(select now()),'','')";
+			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+			VALUES('$id_usuario1','1',(select now()),'Actualizar','Activó un rol',' $usuario1',(select now()))";
 			ejecutarConsulta($sql_bitacora);	
 
 		return ejecutarConsulta($sql);
@@ -97,7 +97,7 @@ Class Rol
 	//Implementar un método para listar los registros y mostrar en el select
 	public function select()
 	{
-		$sql="SELECT * FROM tbl_roles where condicion=1";
+		$sql="SELECT * FROM tbl_roles where estado=1";
 		return ejecutarConsulta($sql);		
 	}
 

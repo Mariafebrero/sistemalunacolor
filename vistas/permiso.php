@@ -5,13 +5,14 @@ session_start();
 
 if (!isset($_SESSION["nombre_usuario"]))
 {
-  header("Location: login.php");
+  header("Location: login1.php");
 }
 else
 {
 require 'header.php';
-if ($_SESSION['Usuario']==1)
-{
+
+//if ($_SESSION['Usuario']==1)
+//{
 ?>
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
@@ -50,11 +51,11 @@ if ($_SESSION['Usuario']==1)
     </div><!-- /.content-wrapper -->
   <!--Fin-Contenido-->
 <?php
-}
-else
-{
-  require 'noacceso.php';
-}
+//}
+//else
+//{
+  //require 'noacceso.php';
+//}
 require 'footer.php';
 ?>
 

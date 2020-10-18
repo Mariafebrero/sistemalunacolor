@@ -52,12 +52,12 @@
         
 					<!-- Boton enviar contraseña por correo -->
 					<div class="flex-sb-m w-full p-t-3 p-b-32">
-					 <a href="RecuContra/ContraCorreo.php"> <h4><i class="fa fa-envelope" aria-hidden="true"> Enviar contraseña por correo</i></h4></a>
+					 <a href="RecuContra/ContraCorreo.php"> <h4><i class="fa fa-envelope" aria-hidden="true"> Enviar contraseña por correo electrónico </i></h4></a>
 					</div>
 
 					<div class="flex-sb-m w-full p-t-3 p-b-32"> 
 					  <!-- Boton Recuperar via pregunta secreta -->
-					<a href="RecuContra/ContraPregun.php"> <h4><i class="fa fa-question-circle" aria-hidden="true"> Recuperar via pregunta secreta</i></h4></a>
+					<a href="RecuContra/ContraPregun.php"> <h4><i class="fa fa-question-circle" aria-hidden="true"> Recuperar vía pregunta secreta</i></h4></a>
 					</div>
 
 				</form>

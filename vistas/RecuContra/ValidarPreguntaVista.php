@@ -1,5 +1,6 @@
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 	<title>Sistema Luna Color</title>
@@ -9,6 +10,10 @@
 	<link rel="icon" type="image/png" href="../../public/img/icons/favicon.ico"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../../public/vendor/bootstrap/css/bootstrap.min.css">
+	<!-- ICONOS fontawesome --->
+	<link rel="stylesheet" type="text/css" href="../../public/iconosfontawesome/css/all.css"> 
+	<link rel="stylesheet" type="text/css" href="../../public/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../../public/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../../public/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
@@ -27,8 +32,114 @@
 	<link rel="stylesheet" type="text/css" href="../..//public/css/util.css">
 	<link rel="stylesheet" type="text/css" href="../../public/css/main.css">
 <!--===============================================================================================-->
+<!--=========================Sweet Alert========================================================-->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<!--===============================================================================================-->
 </head>
 <body style="background-color: #666666;">
+
+
+	<div class="limiter"  >
+		<div class="container-login100" >
+			<div class="wrap-login100">
+				
+				<form class="login100-form validate-form" method="post" autocomplete="off">
+
+				<h3 style = "position:relative;  top:-70px;"> <center> ¡Bienvenido
+				<?php 
+				session_start();
+				$NombreID = "$_SESSION[id_usuario]";
+				$usuario1 = "$_SESSION[usuario]";
+				$NombreRecu = "$_SESSION[nombre_usuario]";
+				$NombreRecu = strtoupper($NombreRecu);
+
+				print $NombreRecu;
+				?>!
+				<hr>
+				</h3> </center>
+
+				<?php
+//------------------- Consultas para el parametro de MIN y MAX de la contraseña INICIO -------------------
+	include "../../config/Conglobal.php";
+	$sql= "select valor FROM `tbl_parametros` WHERE parametro = 'MIN_CONTRASENA' ";
+
+	$query = $con->query($sql);
+
+	while ($r=$query->fetch_array()) 
+			{
+				$Mincontra=$r["valor"];
+				break;
+			}
+			// Las usa en la linea 157 de aquí
+			$MincontraLen = "minlength=" . "'" . $Mincontra . "'";
+
+	$sql= "select valor FROM `tbl_parametros` WHERE parametro = 'MAX_CONTRASENA' ";
+
+	$query = $con->query($sql);
+
+	while ($r=$query->fetch_array()) 
+			{
+				$Maxcontra=$r["valor"];
+				break;
+			}
+			// Las usa en la linea 157 de aquí
+			$MaxcontraLen = "maxlength=" . "'" . $Maxcontra . "'";
+//------------------- Consultas para el parametro de MIN y MAX de la contraseña FIN -------------------					
+				?>
+		<!----------------------- Casilla de contraseña nueva--------------------->
+					<div class="col-xs-12"  style = "position:relative;  top:-40px;">
+      				 <p class="text-secondary float-left"> <h6> Ingrese su contraseña nueva </h6></p>
+      				 <!--- posicion del boton-->
+       				 <div class="input-group">
+     					<input ID="Contranueva" type="Password" name="Contranueva" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$"<?php echo $MincontraLen . " " .  $MaxcontraLen; ?> required>
+      					<div class="input-group-append">
+            			<button id="show_password" class="login100-form-btn" name="eye1" type="button" onclick="mostrarPassword()" style="background-color: rgb(233,118,46)"> 
+            				<h5><span class="fas fa-eye-slash icon"></span></h5></button>
+          				</div>
+    				</div>
+                    </div>
+                 
+                   <br>
+		<!---------------------------------- Casilla de confirmación----------------------------->
+					<div class="col-xs-12" style = "position:relative;  top:-40px;">
+      				 <p class="text-secondary float-left"> <h6> Confirme su contraseña nueva </h6></p>
+       				 <div class="input-group">
+     					<input Id="Contraconfir" type="password" name="Contraconfir" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$"<?php echo $MincontraLen . " " .  $MaxcontraLen; ?> required>
+      					<div class="input-group-append">
+            			<button id="show_password2" class="login100-form-btn" name="eye2" type="button" onclick="mostrarPassword2()" style="background-color: rgb(233,118,46)"> 
+            				<h5><span class="fas fa-eye-slash svg"></span></h5></button>
+          				</div>
+    				</div>
+                    </div>
+                    <br>
+
+		<!---- Variables directas de SQL, sin modificar ------>
+		<small style = "position:relative;  top:-50px;" >  *La contraseña debe tener entre <?php echo $Mincontra . " a " .  $Maxcontra; ?> letras, mínimo un número, una letra mayúscula y un símbolo.
+	    </small> 
+	    <br>
+	    <br>
+
+
+
+			<!----------------------- Botón actualizar---------------------------->
+					<div class="container-login100-form-btn"  >
+						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
+						<button type="submit" name ="BotonValidar" class="login100-form-btn">
+							Actualizar
+						</button>
+					</div>
+			
+					
+				</form>
+
+
+				 <!-- Fondo de login -->
+				<div class="login100-more" style="background-image: url('../../public/img/FONDOS-03.SVG');">
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	<?php
     include "../../config/Conglobal.php";
@@ -45,73 +156,105 @@
 			if($ContraNueva === $Contraconfir)
 			{
 				include "../../config/Conglobal.php"; 
-		session_start();
-		$NombreRecu = "$_SESSION[nombre_usuario]";
+//____________________________ Cifrar y descifrar contraseña INICIO ____________________________________ 
+// Método para cifrar
+$ciphering = "AES-128-CTR"; 
+  
+// Uso de OpenSSl para el método de encriptar 
+$iv_length = openssl_cipher_iv_length($ciphering); 
+$options = 0; 
+  
+// Valor de inicio para la encriptación
+$encryption_iv = '1234567891011121'; 
+  
+// Llave para la encriptación
+$encryption_key = "LunaColor"; 
+  
+// usar openssl_encrypt() para encriptar
+$encryption = openssl_encrypt($Contraconfir, $ciphering, 
+            $encryption_key, $options, $encryption_iv); 
+  
+// Mostrar el valor encriptado 
+//echo "Encrypted String: " . $encryption . "\n"; 
+  
+// Valor de inicio para la desencriptación
+//$decryption_iv = '1234567891011121'; 
+  
+//  Llave para la desencriptación 
+//$decryption_key = "LunaColor"; 
+  
+// usar openssl_encrypt() para desencriptar 
+//$decryption=openssl_decrypt ($encryption, $ciphering,  
+//        $decryption_key, $options, $decryption_iv); 
+  
+// Descrifrado 
+//echo "Decrypted String: " . $decryption;  
+//________________________________ Cifrar y descifrar contraseña FIN ____________________________________
 
-		$sql= "update tbl_usuarios set contrasena =(\"$_POST[Contranueva]\") WHERE usuario=(\"$NombreRecu\") ";
+		$sql= "update tbl_usuarios set contrasena =" . "'" . $encryption . "'" . " WHERE usuario=" . "'" .  $NombreRecu. "'". "";
 		$query = $con->query($sql);
 
-		print "<script>alert('¡El cambio se ha realizado con éxito!'); window.location='../Login.php';</script>";		
+		$sql= "update tbl_usuarios set id_estado_usuario =2 WHERE usuario=" . "'" .  $NombreRecu. "'". "";
+		$query = $con->query($sql);
+
+ echo "<script >
+           swal({ title: '¡El cambio se ha realizado con éxito!',
+          text: ' ',
+          icon:'success',
+          type: 'success'}).then(okay => {
+          if (okay)
+          {
+          window.location.href = '../login1.php';
+          }
+          else 
+          {
+ 		 window.location.href = '../login1.php';
+          }
+       });
+      </script>";
+
+       include "../../config/Conglobal.php";
+
+     	 $sql= 
+     	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
+     	 VALUES('$NombreID','1',(select now()),'Entró','Entró a Validación de Recuperación Contraseña por Pregunta Secreta','$usuario1',(select now()))";
+ 		 $con->query($sql);
+
+ 		 $sql= 
+     	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
+     	 VALUES('$NombreID','1',(select now()),'Actualizó','Actualizó contraseña','$userbase',(select now()))";
+ 		 $con->query($sql);
+
+ 		  $sql= 
+     	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
+     	 VALUES('$NombreID','1',(select now()),'Actualizó','Actualizó estado de usuario a: Activo','$usuario1',(select now()))";
+ 		 $con->query($sql);
+
+ 		  $sql= 
+     	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
+     	 VALUES('$NombreID','1',(select now()),'Salió','Salió de Validación de Recuperación Contraseña por Pregunta Secreta','$usuario1',(select now()))";
+ 		 $con->query($sql);
+
+ 		  $sql= 
+     	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
+     	 VALUES('$NombreID','1',(select now()),'Entró','Entró al login','$usuario1',(select now()))";
+ 		 $con->query($sql);
+
+		//print "<script>alert('¡El cambio se ha realizado con éxito!'); window.location='../Login.php';</script>";		
 			}
 			
 			else
 			  {
-			  	//NO DEBE RECARGAR LA PÁGINA
-		print "<script>alert(\"ERROR: Las contraseñas no coinciden entre si. Intentélo de nuevo o contacte a su soporte técnico.\")</script>";	
+
+		echo"<script type='text/javascript'>		
+	    swal('ERROR: Las contraseñas no coinciden entre si. ', 'Intentélo de nuevo o contacte a su soporte técnico.', 'error');
+        </script>";
+
+		
 			  }
 	}
 }
 	?>
-
-	<div class="limiter"  >
-		<div class="container-login100" >
-			<div class="wrap-login100">
-				
-				<form class="login100-form validate-form" method="post" autocomplete="off">
-				<h2> <center>¡Bienvenido
-				<?php 
-				session_start();
-				print " $_SESSION[nombre_usuario]";
-				?>!
-				</h2> </center>
-				<hr>
-				<br>
-				<br>
-
-		<!----------------------- Casilla de contraseña nueva---------------------------->
-					<div class="wrap-input100 validate-input" data-validate = "Ingrese su contraseña nueva" >
-						<input class="input100" type="text" name="Contranueva" >
-						<span class="focus-input100"></span>
-						<span class="label-input100">Contraseña nueva</span>
-					</div>
-		<!----------------------- Casilla de confirmación---------------------------->
-					<div class="wrap-input100 validate-input" data-validate = "Ingrese la confirmación de su contraseña nueva"  >
-						<input class="input100" type="text" name="Contraconfir">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Confirmar contraseña</span>
-					</div>
-
-
-			<!----------------------- Botón actualizar---------------------------->
-					<div class="container-login100-form-btn"  >
-						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
-						<button type="submit" name ="BotonValidar" class="login100-form-btn">
-							Actualizar
-						</button>
-					</div>
-					
-					
-				</form>
-
-
-				 <!-- Fondo de login -->
-				<div class="login100-more" style="background-image: url('../../public/img/FONDOS-03.SVG');">
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	
 
 	
 	<!--===============================================================================================-->	
@@ -140,7 +283,121 @@
 
 <!--===============================================================================================-->
 
+<!--============================= Habilitar ver Nueva contraseña Inicio=================================-->
+<script type="text/javascript">
+function mostrarPassword()
+{
+		var cambio = document.getElementById("Contranueva");
+		if(cambio.type == "password" )
+		{ 
+			cambio.type = "text";
+			$('.icon').removeClass('fas fa-eye-slash').addClass('fas fa-eye');
+		}
+		else
+		{
+			cambio.type = "password";
+			$('.icon').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
+		}
+}  
+	
+</script>
+					<style type="text/css">
+						a{
+							text-decoration: none;
+							display: inline-flex;
+							padding: 10px 10px;
+						}
+						a:hover{
+							background-color: black;
+							color: white;
+							transition: 0.3s; 
+							border-radius: 200px 200px 200px 200px;
+                            -moz-border-radius: 200px 200px 200px 200px;
+                            -webkit-border-radius: 200px 200px 200px 200px;
+                            border: 0px solid #000000;
+						}
+						.previous{
+							background-color: #E9762E;
+							color:white;
+							border-radius: 200px 200px 200px 200px;
+                            -moz-border-radius: 200px 200px 200px 200px;
+                            -webkit-border-radius: 200px 200px 200px 200px; 
+                            border: 0px solid #000000;
+						}
+						.round{
+							border-radius:100%;
+						}
 
+						.fas fa-eye-slash icon{
+							background-color: #E9762E;
+							color:white;
+							border-radius: 200px 200px 200px 200px;
+                            -moz-border-radius: 200px 200px 200px 200px;
+                            -webkit-border-radius: 200px 200px 200px 200px; 
+                            border: 0px solid #000000;
+						}
+					</style>
+
+
+
+<!--============================= Habilitar ver Nueva contraseña FIN=================================-->
+<!--============================= Habilitar ver Confirmar contraseña Inicio==========================-->
+<script type="text/javascript">
+function mostrarPassword2()
+{
+		var cambio2 = document.getElementById("Contraconfir");
+		if(cambio2.type == "password")
+		{
+			cambio2.type = "text";
+			$('.svg').removeClass('fas fa-eye-slash').addClass('fas fa-eye');
+		}
+		else
+		{
+			cambio2.type = "password";
+			$('.svg').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
+		}
+} 
+	
+</script>
+					<style type="text/css">
+						a{
+							text-decoration: none;
+							display: inline-flex;
+							padding: 10px 10px;
+						}
+						a:hover{
+							background-color: black;
+							color: white;
+							transition: 0.3s; 
+							border-radius: 200px 200px 200px 200px;
+                            -moz-border-radius: 200px 200px 200px 200px;
+                            -webkit-border-radius: 200px 200px 200px 200px;
+                            border: 0px solid #000000;
+						}
+						.previous{
+							background-color: #E9762E;
+							color:white;
+							border-radius: 200px 200px 200px 200px;
+                            -moz-border-radius: 200px 200px 200px 200px;
+                            -webkit-border-radius: 200px 200px 200px 200px; 
+                            border: 0px solid #000000;
+						}
+						.round{
+							border-radius:100%;
+						}
+
+						.fas fa-eye-slash icon{
+							background-color: #E9762E;
+							color:white;
+							border-radius: 200px 200px 200px 200px;
+                            -moz-border-radius: 200px 200px 200px 200px;
+                            -webkit-border-radius: 200px 200px 200px 200px; 
+                            border: 0px solid #000000;
+						}
+					</style>
+
+
+<!--============================= Habilitar ver Confirmar contraseña Final=========================-->
 </body>
 
 </html>

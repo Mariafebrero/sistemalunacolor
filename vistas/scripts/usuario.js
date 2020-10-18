@@ -13,14 +13,20 @@ function init(){
 	$("#imagenmuestra").hide();  
 
 	//Mostramos los permisos
-	$.post("../ajax/usuario.php?op=permisos&id=",function(r){
+	/*$.post("../ajax/usuario.php?op=permisos&id=",function(r){
 	        $("#permisos").html(r);
-	});    
+	});*/    
 
 	        //Cargamos los items al select Rol
 	$.post("../ajax/usuario.php?op=selectRol", function(t){
 	            $("#id_rol").html(t);
 	            $('#id_rol').selectpicker('refresh');
+
+   });    
+
+	$.post("../ajax/usuario.php?op=selectEstadoUsuario", function(i){
+	            $("#id_estado_usuario").html(i);
+	            $('#id_estado_usuario').selectpicker('refresh');
 
    });    
 }
@@ -35,6 +41,7 @@ function limpiar()
 	$("#imagenmuestra").attr("src","");//ojo
 	$("#imagenactual").val(""); //ojo
 	$("#correo_electronico").val("");	
+	$("#id_estado_usuario").val("");
 	$("#id_usuario").val("");
 
 }
@@ -111,11 +118,10 @@ function guardaryeditar(e)
 	    processData: false,
 
 	    success: function(datos)
-	    {     
-
+	    {                    
 	          bootbox.alert(datos);	          
 	          mostrarform(false);
-	         tabla.ajax.reload();
+	          tabla.ajax.reload();
 	    }
 
 	});
@@ -137,21 +143,23 @@ function mostrar(id_usuario)
 		$("#imagenmuestra").attr("src","../files/usuarios/"+data.imagen);
 		$("#imagenactual").val(data.imagen);
 		$("#correo_electronico").val(data.correo_electronico);
+		$("#id_estado_usuario").val(data.id_estado_usuario);
 		$("#id_usuario").val(data.id_usuario);
 
 	});
-	$.post("../ajax/usuario.php?op=permisos&id="+id_usuario,function(r){
+	
+	/*$.post("../ajax/usuario.php?op=permisos&id="+id_usuario,function(r){
 	        $("#permisos").html(r);
-	});
+	});*/
 }
 
 //Función para desactivar registros
-function desactivar(id_usuario)
+function eliminar(id_usuario)
 {
-	bootbox.confirm("¿Está Seguro de desactivar el usuario?", function(result){
+	bootbox.confirm("¿Estás Seguro de eliminar el usuario?", function(result){
 		if(result)
         {
-        	$.post("../ajax/usuario.php?op=desactivar", {id_usuario : id_usuario}, function(e){
+        	$.post("../ajax/usuario.php?op=eliminar", {id_usuario : id_usuario}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
@@ -159,18 +167,5 @@ function desactivar(id_usuario)
 	})
 }
 
-//Función para activar registros
-function activar(id_usuario)
-{
-	bootbox.confirm("¿Está Seguro de activar el Usuario?", function(result){
-		if(result)
-        {
-        	$.post("../ajax/usuario.php?op=activar", {id_usuario : id_usuario}, function(e){
-        		bootbox.alert(e);
-	            tabla.ajax.reload();
-        	});	
-        }
-	})
-}
 
 init();

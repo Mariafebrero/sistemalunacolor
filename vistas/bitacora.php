@@ -5,13 +5,14 @@ session_start();
 
 if (!isset($_SESSION["nombre_usuario"]))
 {
-  header("Location: login.php");
+  header("Location: login1.php");
 }
 else
 {
 require 'header.php';
-if ($_SESSION['Seguridad']==1)
-{
+
+//if ($_SESSION['Seguridad']==1)
+//{
 ?>
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
@@ -31,34 +32,34 @@ if ($_SESSION['Seguridad']==1)
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
-                            <th>Id_bitacora</th>
+                            <th>Nº</th>
                             <th>Fecha</th>
-                            <th>Id_usuario</th>
-                            <th>Id_objeto</th>
+                            <th>Nº de Usuario</th>
+                            <th>Imagen</th>
+                            <th>Creado por</th>
+                            <th>Nº de Pantalla</th>
                             <th>Pantalla</th>
                             <th>Descripcion</th>
                             <th>Accion</th>
                             <th>Descripcion</th>
-                            <th>Creado_por</th>
-                            <th>Fecha_creacion</th>
-                            <th>Modificado_por</th>
-                            <th>Fecha_modificacion</th>
+                            <th>Fecha creación</th>
+                           
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                             <th>Id_bitacora</th>
+                            <th>Nº</th>
                             <th>Fecha</th>
-                            <th>Id_usuario</th>
-                            <th>Id_objeto</th>
+                            <th>Nº de Usuario</th>
+                            <th>Imagen</th>
+                            <th>Creado por</th>
+                            <th>Nº de Pantalla</th>
                             <th>Pantalla</th>
                             <th>Descripcion</th>
                             <th>Accion</th>
                             <th>Descripcion</th>
-                            <th>Creado_por</th>
-                            <th>Fecha_creacion</th>
-                            <th>Modificado_por</th>
-                            <th>Fecha_modificacion</th>
+                            <th>Fecha creación</th>
+                           
                           </tfoot>
                         </table>
                     </div>
@@ -72,11 +73,11 @@ if ($_SESSION['Seguridad']==1)
     </div><!-- /.content-wrapper -->
   <!--Fin-Contenido-->
 <?php
-}
-else
-{
-  require 'noacceso.php';
-}
+//}
+//else
+//{
+  //require 'noacceso.php';
+//}
 require 'footer.php';
 ?>
 

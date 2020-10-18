@@ -3179,7 +3179,7 @@ table.text-center th {
 }
 .login-logo a,
 .register-logo a {
-  color: #444;
+  color: #ffff;
 }
 .login-page,
 .register-page {
@@ -3199,14 +3199,19 @@ table.text-center th {
 }
 .login-box-body,
 .register-box-body {
-  background: #fff;
-  padding: 20px;
-  border-top: 0;
-  color: #666;
+ 
+  background-color: #E9762E;
+              color:white;
+              border-radius: 200px 200px 200px 200px;
+                            -moz-border-radius: 200px 200px 200px 200px;
+                            -webkit-border-radius: 200px 200px 200px 200px; 
+                            border: 0px solid #000000;
+  
+  
 }
 .login-box-body .form-control-feedback,
 .register-box-body .form-control-feedback {
-  color: #777;
+  color: #E9762E;
 }
 .login-box-msg,
 .register-box-msg {

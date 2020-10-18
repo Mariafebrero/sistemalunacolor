@@ -50,8 +50,8 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 20,//Paginación
-	    "order": [[ 0, "asc" ]]//Ordenar (columna,orden)
+		"iDisplayLength": 10,//Paginación
+	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
 

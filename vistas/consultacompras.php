@@ -6,14 +6,14 @@ session_start();
 //nombre new variable para secion
 if (!isset($_SESSION["nombre_usuario"]))
 {
-  header("Location: login.php");
+  header("Location: login1.php");
 }
 else
 {
 require 'header.php';
 
-if ($_SESSION['Inventario']==1)
-{
+//if ($_SESSION['Inventario']==1)
+//{
 
 ?>
 <!--Contenido-->
@@ -75,11 +75,11 @@ if ($_SESSION['Inventario']==1)
     </div><!-- /.content-wrapper -->
   <!--Fin-Contenido-->
 <?php
-}
-else
-{
-  require 'noacceso.php';
-}
+//}
+//else
+//{
+ // require 'noacceso.php';
+//}
 
 require 'footer.php';
 ?>

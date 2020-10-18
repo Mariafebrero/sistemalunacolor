@@ -12,9 +12,8 @@ $nombre_usuario=isset($_POST["nombre_usuario"])? limpiarCadena($_POST["nombre_us
 $contrasena=isset($_POST["contrasena"])? limpiarCadena($_POST["contrasena"]):"";
 $imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
 $correo_electronico=isset($_POST["correo_electronico"])? limpiarCadena($_POST["correo_electronico"]):"";
-
-
-
+$id_estado_usuario=isset($_POST["id_estado_usuario"])? limpiarCadena($_POST["id_estado_usuario"]):"";
+$descripcion=isset($_POST["descripcion"])? limpiarCadena($_POST["descripcion"]):"";
 
 
 switch ($_GET["op"]){
@@ -36,17 +35,15 @@ switch ($_GET["op"]){
 		//Hash SHA256 en la contraseña
 		//$clavehash=hash("SHA256",$contrasena);
 
-
-	
-
-
 		if (empty($id_usuario)){
 
-		$sql1= "Select usuario,contrasena,correo_electronico from tbl_usuarios where usuario ='$usuario' or correo_electronico ='$correo_electronico'";
-    	 $result =mysqli_query($conexion,$sql1);
+
+
+		$sql1= "Select usuario,correo_electronico from tbl_usuarios where usuario ='$usuario' or correo_electronico ='$correo_electronico'";
+    	$result =mysqli_query($conexion,$sql1);
 
       if (mysqli_num_rows($result)>0)
- 	{
+ 		{
 		echo '<script>swal({
   			title: "",
   			text: "El usuario y correo ya existen",
@@ -55,27 +52,19 @@ switch ($_GET["op"]){
 			});</script>';
 		return;
 
-    }	
-  
-			$rspta=$usuarios->insertar($id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$_POST['permiso'],$id_usuario);
+   		}	
+   		    //,$_POST['permiso']
+
+			$rspta=$usuarios->insertar($id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$id_estado_usuario);
 			echo $rspta ? "Usuario registrado" : "No se pudieron registrar todos los datos del usuario";
 		}
+		else {
 
-		else 
-		{
-			$rspta=$usuarios->editar($id_usuario,$id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$_POST['permiso']);
+			//,$_POST['permiso']
+
+			$rspta=$usuarios->editar($id_usuario,$id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$id_estado_usuario);
 			echo $rspta ? "Usuario actualizado" : "Usuario no se pudo actualizar";
 		}
-	break;
-
-	case 'desactivar':
-		$rspta=$usuarios->desactivar($id_usuario);
- 		echo $rspta ? "Usuario Desactivado" : "Usuario no se puede desactivar";
-	break;
-
-	case 'activar':
-		$rspta=$usuarios->activar($id_usuario);
- 		echo $rspta ? "Usuario activado" : "Usuario no se puede activar";
 	break;
 
 	case 'mostrar':
@@ -84,6 +73,12 @@ switch ($_GET["op"]){
  		echo json_encode($rspta);
 	break;
 
+	case 'eliminar':
+		$rspta=$usuarios->eliminar($id_usuario);
+ 		echo $rspta ? "El usuario fue eliminado" : "El usuario no se pudo eliminar";
+	break;
+
+
 	case 'listar':
 		$rspta=$usuarios->listar();
  		//Vamos a declarar un array
@@ -91,18 +86,15 @@ switch ($_GET["op"]){
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				"0"=>($reg->condicion)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_usuario.')"><i class="fas fa-user-edit"></i></button>'.
- 					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_usuario.')"><i class="fa fa-close"></i></button>':
- 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_usuario.')"><i class="fas fa-user-edit"></i></button>'.
- 					' <button class="btn btn-primary" onclick="activar('.$reg->id_usuario.')"><i class="fa fa-check"></i></button>',
+ 				"0"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_usuario.')"><i class="fas fa-user-edit"></i></button>'.
+ 					' <button class="btn btn-danger" onclick="eliminar('.$reg->id_usuario.')"><i class="fas fa-trash"></i></button>',
  				"1"=>$reg->rol,
  				"2"=>$reg->usuario,
  				"3"=>$reg->nombre_usuario,
  				"4"=>$reg->contrasena,
  				"5"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px'>",
  				"6"=>$reg->correo_electronico,
- 				"7"=>($reg->condicion)?'<span class="label bg-green">Activado</span>':
- 				'<span class="label bg-red">Desactivado</span>'
+ 				"7"=>$reg->descripcion
  				);
  		}
  		$results = array(
@@ -126,7 +118,19 @@ switch ($_GET["op"]){
 				}
 	break;
 
+	case "selectEstadoUsuario":
+		require_once "../modelos/EstadoUsuario.php";
+		$estado_usuarios = new EstadoUsuario();
 
+		$rspta = $estado_usuarios->select();
+
+		while ($reg = $rspta->fetch_object())
+				{
+					echo '<option value=' . $reg->id_estado_usuario . '>' . $reg->descripcion . '</option>';
+				}
+	break;
+
+	/*
 	case 'permisos':
 		//Obtenemos todos los permisos de la tabla permisos
 		require_once "../modelos/Permiso.php";
@@ -152,6 +156,7 @@ switch ($_GET["op"]){
 					echo '<li> <input type="checkbox" '.$sw.'  name="permiso[]" value="'.$reg->idpermiso.'">'.$reg->nombre.'</li>';
 				}
 	break;
+	*/
 
 
 	case 'verificar':
@@ -161,12 +166,28 @@ switch ($_GET["op"]){
 	    //Hash SHA256 en la contraseña
 		//$clavehash=hash("SHA256",$contrasenalog);
 
-		$rspta=$usuarios->verificar($usuariolog, $contrasenalog);
+		$rspta=$usuarios->verificar($usuariolog,$contrasenalog);
 
 		$fetch=$rspta->fetch_object();
 
 		if (isset($fetch))
+
 	    {
+	    	/*$rspta=$usuarios->verificar_ingreso();
+		   // $fetchh=$rspta->fetch_object();
+		    
+
+		    if(mysqli_num_rows($rspta)>0){
+          echo json_encode(array('success'=> 1));
+          return;
+      }else{
+        echo json_encode(array('success'=> 0));
+        return;
+      }*/
+
+		
+
+
 	        //Declaramos las variables de sesión
 	        $_SESSION['id_usuario']=$fetch->id_usuario;
 	        $_SESSION['nombre_usuario']=$fetch->nombre_usuario;
@@ -183,6 +204,7 @@ switch ($_GET["op"]){
 			while ($per = $marcados->fetch_object())
 				{
 					array_push($valores, $per->idpermiso);
+
 				}
 
 			//Determinamos los accesos del usuario
@@ -205,20 +227,19 @@ switch ($_GET["op"]){
  		$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion,modificado_por,fecha_modificacion) 
       	VALUES('$id_usuario1','1',(select now()),'Entrada','Entró al Sistema','$usuario1',(select now()),'','')";
       	ejecutarConsulta($sql_bitacora);
-
 	    echo json_encode($fetch);
 
 	break;
 
 	case 'salir':
 
-	  $id_usuario1=$_SESSION['id_usuario'];
+	 $id_usuario1=$_SESSION['id_usuario'];
       $usuario1=$_SESSION['usuario']; 
       //Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
-      $sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion,modificado_por,fecha_modificacion) 
-      VALUES('$id_usuario1','1',(select now()),'Salida','Salió del sistema','$usuario1',(select now()),'','')";
+      $sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+      VALUES('$id_usuario1','1',(select now()),'Salida','Salió del sistema','$usuario1',(select now()))";
       ejecutarConsulta($sql_bitacora);
-
+      
 		//Limpiamos las variables de sesión   
         session_unset();
         //Destruìmos la sesión
@@ -228,4 +249,3 @@ switch ($_GET["op"]){
 
 	break;
 }
-?>

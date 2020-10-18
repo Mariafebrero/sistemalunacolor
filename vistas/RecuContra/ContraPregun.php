@@ -30,6 +30,10 @@
 	<link rel="stylesheet" type="text/css" href="../..//public/css/util.css">
 	<link rel="stylesheet" type="text/css" href="../../public/css/main.css">
 <!--===============================================================================================-->
+<!--=========================Sweet Alert========================================================-->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<!--===============================================================================================-->
 </head>
 <body  style="background-color: rgb(63,63,63)">
 	<?php
@@ -43,20 +47,21 @@
 
 	</center>
 	<?php
-
-    $ContadorPreg = 0;	
+			
 	if(isset($_POST["BotonRespuesta"]))
 
-	{
+	{ //  --------------  Si presiona botón inicio --------------------
 		if($_POST["UsuarioPre"]!="" &&$_POST["RespuestaPre"]!="")
-		{
+		{ //  --------------  Si las casillas estan llenas inicio --------------------
 			include "../../config/Conglobal.php";
 
 
 			$respuestaB =null;
             $respuestaI = $_POST['RespuestaPre'];
 
-			$sql= "select respuesta from tbl_preguntas_usuarios where (usuario=\"$_POST[UsuarioPre]\" or usuario=\"$_POST[UsuarioPre]\") and id_pregunta=\"$_POST[SelectPre]\" ";
+			$sql="select pr.respuesta from tbl_preguntas_usuarios pr join tbl_usuarios u on u.id_usuario =pr.id_usuario where (u.usuario =\"$_POST[UsuarioPre]\" and pr.id_pregunta=\"$_POST[SelectPre]\")";
+
+			 //"select respuesta from tbl_preguntas_usuarios where (usuario=\"$_POST[UsuarioPre]\"  and id_pregunta=\"$_POST[SelectPre]\") ";
 
 
 			$query = $con->query($sql);
@@ -69,26 +74,76 @@
 
 
 			if($respuestaB === $respuestaI)
-			{ 
-					session_start();
-					$_SESSION["nombre_usuario"] = ($_POST['UsuarioPre']);
-					print "<script>alert('¡Identificación exitosa!'); window.location='ValidarPreguntaVista.php';</script>";	
-				
+			{ //  --------------  Si las respuestas son iguales inicio --------------------
+			session_start();
+			$_SESSION["nombre_usuario"] = ($_POST['UsuarioPre']);
+
+
+			echo "<script >
+            swal({ title: '¡Identificación exitosa!',
+          	text: '',
+          	icon:'success',
+         	type: 'success'}).then(okay => 
+         	{
+         	if (okay)
+         	{
+       			window.location='ValidarPreguntaVista.php';
+       			exit();
+      	 	}
+      	 	else 
+      	 	{
+      	 		window.location='ValidarPreguntaVista.php';
+      	 		exit();
+      	 	}
+      	 	
+       		});
+     			 </script>";
+
+
+
+     		 $sql= "select * from tbl_usuarios where (usuario=\"$_POST[UsuarioPre]\") ";
+			
+			$query = $con->query($sql);
+
+			while ($r=$query->fetch_array()) 
+			{
+				$user_id=$r["id_usuario"];
+				$user=$r["usuario"];
+				break;
 			}
+
+
+     	 $sql= 
+     	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
+     	 VALUES('$user_id','1',(select now()),'Entró','Entró a Recuperación Contraseña por Pregunta Secreta','$user',(select now()))";
+ 		 $con->query($sql);
+
+ 		   $sql= 
+     	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
+     	 VALUES('$user_id','1',(select now()),'Contestó','Contestó Pregunta Secreta','$user',(select now()))";
+ 		 $con->query($sql);
+
+ 		  $sql= 
+     	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
+     	 VALUES('$user_id','1',(select now()),'Salió','Salió de Recuperación Contraseña por Pregunta Secreta','$user',(select now()))";
+ 		 $con->query($sql);
+
+ 			 
+
+					//print "<script>alert('¡Identificación exitosa!'); window.location='ValidarPreguntaVista.php';</script>";	
+				
+			}  //  --------------  Si las respuestas son iguales inicio --------------------
 			else
 
-			  {
-			  	//solo debe contar si el usuario existe 
-			  	 $ContadorPreg = $ContadorPreg + 1;	
-			  		print "<script>alert(\"ERROR: Datos incorrectos. Inténtelo de nuevo o contacte a su soporte técnico. NÚMERO DE INTENTOS: $ContadorPreg \")</script>";	
+			  {  //  --------------  Si las respuestas no son iguales inicio --------------------
+			  	
+        		echo"<script type='text/javascript'>		
+	   			 swal(\"ERROR: Datos incorrectos. \", ' Inténtelo de nuevo o contacte a su soporte técnico.', 'error');
+        		</script>";
 
-			  }
-	    }
-	    else 
-	    {
-			print "<script>alert(\"Por favor, llene los espacios requeridos. \")</script>";
-	    }
-	}
+			  }  //  --------------  Si las respuestas son iguales final --------------------
+	    } //  --------------  Si las casillas estan llenas final --------------------
+	} //  --------------  Si presiona botón final --------------------
     
 
 ?>			  
@@ -101,31 +156,31 @@
 
 				<form class="login100-form validate-form" method="post" autocomplete="off">
 
-	<!--------------------- Llenar Select picker desde la base de datos Inicio -------------------------------->
-		<select name ="SelectPre" class="form-control selectpicker" data-live-search="true" required>
-        <option value="0">Seleccione:</option>
-
-           <?php
-         	 $query = $con -> query ("SELECT * FROM `tbl_preguntas` ");
-          	while ($valores = mysqli_fetch_array($query)) 
-          	 {
-                 echo '<option value="'.$valores[id_pregunta].'">'.$valores[pregunta].'</option>';
-             }
-           ?>
-      		</select>
- <!----------------------- Llenar Select picker desde la base de datos Fin  ------------------------------------>
-
-					<br>
-	   <!------------------------ Casilla de usuario a la pregunta personal ---------------------------->
-					<div class="wrap-input100 validate-input" data-validate = "No puede dejar este campo vacío">
-						<input class="input100" type="text" name="UsuarioPre" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
+<!------------------------ Casilla de usuario a la pregunta personal ---------------------------->
+					<div class="wrap-input100 validate-input"  style = "position:relative;  top:-90px;" data-validate = "No puede dejar este campo vacío">
+						<input class="input100" style="text-transform: uppercase;"  type="text" name="UsuarioPre">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Ingrese su nombre de usuario </span>
 					</div>
 
+<!--------------------- Llenar Select picker desde la base de datos Inicio -------------------------------->
+		<select name ="SelectPre" class="form-control selectpicker" style = "position:relative;  top:-40px;" data-live-search="true" required>
+        <option value="0">Seleccione:</option>
+
+           <?php
+         	 $query = $con -> query ("SELECT * FROM `tbl_preguntas` WHERE estado = 1 ");
+          	while ($preguntas = mysqli_fetch_array($query)) 
+          	 {
+                 echo '<option value="'.$preguntas[id_pregunta].'">'.$preguntas[pregunta].'</option>';
+             }
+           ?>
+      		</select>
+<!----------------------- Llenar Select picker desde la base de datos Fin  ------------------------------->
+
+					<br>
 
 		<!------------------------ Casilla de respuesta a la pregunta personal ---------------------------->
-					<div class="wrap-input100 validate-input" data-validate = "No puede dejar este campo vacío">
+					<div class="wrap-input100 validate-input" style = "position:relative;  top:-40px;" data-validate = "No puede dejar este campo vacío">
 						<input class="input100" type="text" name="RespuestaPre">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Ingrese su respuesta </span>
@@ -133,7 +188,7 @@
 
 
 		<!---------------------------- Botón Ingresar Respuesta ----------------------------------->
-					<div class="container-login100-form-btn"  >
+					<div class="container-login100-form-btn"  style = "position:relative;  top:-40px;" >
 						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 						<button type="submit" name ="BotonRespuesta"  class="login100-form-btn">
 							Ingresar

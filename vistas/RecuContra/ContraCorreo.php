@@ -1,10 +1,7 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<!---- Para que se pueda leer la letra ñ deben reemplazar la letra por el código "&ntilde;" 
-y para tildar letras es asi: &_acute y donde les puse el _ va la letra que quieren tildar -->
 	<title>Sistema Luna Color</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,64 +26,107 @@ y para tildar letras es asi: &_acute y donde les puse el _ va la letra que quier
 <!--===============================================================================================-->	
 	<link rel="stylesheet" type="text/css" href="../../public/vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../../public/css/util.css">
+	<link rel="stylesheet" type="text/css" href="../..//public/css/util.css">
 	<link rel="stylesheet" type="text/css" href="../../public/css/main.css">
 <!--===============================================================================================-->
+<!--=========================Sweet Alert========================================================-->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<!--===============================================================================================-->
+
 </head>
 <body  style="background-color: rgb(63,63,63)">
 		<!-- Botones atras y adelante -->
 	<center>
-
-			<!-- Boton atras -->
 		<a href="javascript:history.go(-1)" class="previous"><i class="fas fa-chevron-circle-left fa-2x" aria-hidden="true"></a></i>
-
 	</center>
 
 	<?php
-	if(isset($_POST['CasillaUsuario'], $_POST['CasillaCorreo']))
-
-    {
-        if(!empty($_POST))
-
-{
-	if(isset($_POST["CasillaUsuario"]) &&isset($_POST["CasillaCorreo"]))
-
-	{
-		if($_POST["CasillaUsuario"]!=""&&$_POST["CasillaCorreo"]!="")
-		{
+	//Hasta aquí 
+		if(isset($_POST['enviarcorreo']))
+   	    { 	
 			include "../../config/Conglobal.php";
 
 			$user_id=null;
 			$user_name =null;
-			$user_password =null;
-			//Validar el OR
-			$sql= "select * from tbl_usuarios where (usuario=\"$_POST[CasillaUsuario]\") and correo_electronico=\"$_POST[CasillaCorreo]\" and condicion=1";
+			$user_mail =null;
+			$user_token = null;
+
+			$sql= "select * from tbl_usuarios where (usuario=\"$_POST[CasillaUsuario]\") ";
 			
 			$query = $con->query($sql);
 
 			while ($r=$query->fetch_array()) 
 			{
 				$user_id=$r["id_usuario"];
-				$user_name=$r["nombre_usuario"];
-				$user_password=$r["contrasena"];
+				$user=$r["usuario"];
+				$user_mail=$r["correo_electronico"];
+				$user_token = $r["token"];
 				break;
 			}
-
+			strtoupper($user);
 			if($user_id==null)
-			{ 
-				
-				print "<script>alert(\"ERROR: Su nombre de usuario y/o correo eléctronico no coinciden entre sí o su usuario se encuentra bloqueado.Intentélo de nuevo o contacte a su soporte técnico.\")</script>";
-			}
+			{
+
+		echo"<script type='text/javascript'>		
+	    swal('Datos incorrectos ', ' Intentélo de nuevo o contacte a su soporte técnico', 'error');
+        </script>";
+		    }
+
 			else
 			  {
-			  	//--------------------------- Proceso que envía correos INICIO--------------------------------
-    if(isset($_POST['enviarcorreo']))
-    {
-        $cuerpo = "Querido, " . $user_name ."<br>". 
-        "La petici&oacute;n de requerimiento de su contrase&ntilde;a ha sido aceptada." 
+	//--------------------------- Proceso que envía correos INICIO--------------------------------
+		function CrearToken($length = 15) 
+				{ 
+    				return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length); 
+				} 
+		// Creación del token
+		$codigo = CrearToken(); 
+		//$codigo = strval($codigo);
+		// Creación de fechas
+		date_default_timezone_set("America/Tegucigalpa"); 
+		$sql= "SELECT valor FROM `tbl_parametros` WHERE parametro = 'ADMIN_VIGENCIA_CORREO'" ;
+			
+			$query = $con->query($sql);
+
+			while ($r=$query->fetch_array()) 
+			{ //volver a tratar
+				$VigenciaMail=$r["valor"];
+
+				break;
+			}
+		$HorasToken = "+" . $VigenciaMail . " Hours";
+		$fecha_inicio = strtotime("now");
+		$fecha_final = strtotime($HorasToken, $fecha_inicio);
+
+		//Formato de fechas 
+		$fecha_final = date("d-m-Y H:i:s", $fecha_final);
+		$fecha_inicio = date("d-m-Y H:i:s", $fecha_inicio);
+		
+		//echo $fecha_inicio . " ". $fecha_final;
+	
+		$sql= "update tbl_usuarios set token =". "'". $codigo ."'" . " ,fecha_inicio = " . "'". $fecha_inicio . "'". " ,fecha_final=" . "'". $fecha_final . "'". " WHERE usuario=" . "'". $user . "'". " ";
+
+		$con->query($sql);
+				/*
+		echo $sql;
+
+		if ($con -> query($sql) === TRUE) 
+		{
+			echo "exito";
+		}
+			else
+			{
+				echo "error";
+			}
+		*/
+
+        $cuerpo = "Querido, " . $user ."<br>". 
+        "La petici&oacute;n para el restablecimiento de su contrase&ntilde;a ha sido aceptada. El siguiente enlace tiene una duración de ".  $VigenciaMail . "hrs, en caso de que ingrese en un lapso de tiempo mayor, deberá enviar una nueva solicitud." 
         ."<br>".
-         "Su contrase&ntilde;a es: " . $user_password 
-        ."<br>";
+         "<br>".
+         "Para restablecer su contraseña " 
+        . '<a href="http://localhost/4/vistas/RecuContra/ValidarCorreoVista.php?user=' . $user . '&lunaverificationcode=' . $codigo . '">click aquí</a>';
 
         //para el envío en formato HTML
         $headers  = "MIME-Version: 1.0\r\n";
@@ -103,24 +143,66 @@ y para tildar letras es asi: &_acute y donde les puse el _ va la letra que quier
 
         //Si Suzy nos pide enviar copia a otro lado de forma oculta para otros correos
         //$headers .= "Bcc: ejemplo3@yahoo.com\r\n";
-        if(mail($_POST['CasillaCorreo'],"Recuperación de contraseña",$cuerpo,$headers))
+        if(mail($user_mail,"Recuperación de contraseña",$cuerpo,$headers))
         {
-    		echo "<script>alert('¡Envío exitoso! Revise su bandeja de entrada.');window.location='../login.php';</script>";
+           echo 
+           "<script >
+           swal({ title: '¡Envío exitoso!',
+           text: 'Revise su bandeja de entrada.',
+           icon:'success',
+           type: 'success'}).then(okay => {
+           if (okay) 
+           {
+       			window.location.href = '../login1.php';
+           }
+       		  });
+     	   </script>";
+
+     	 $sql= "select * from tbl_usuarios where (usuario=\"$_POST[CasillaUsuario]\") ";
+			
+			$query = $con->query($sql);
+
+			while ($r=$query->fetch_array()) 
+			{
+				$user_id=$r["id_usuario"];
+				$user=$r["usuario"];
+				break;
+			}
+
+
+     	 $sql= 
+     	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
+     	 VALUES('$user_id','1',(select now()),'Entró','Entró a Recuperación Contraseña por Correo','$user',(select now()))";
+ 		 $con->query($sql);
+
+ 		 $sql= 
+     	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
+     	 VALUES('$user_id','1',(select now()),'Enviado','El correo de Recuperación de Contraseña fue enviado correctamente','$user',(select now()))";
+ 		 $con->query($sql);
+
+ 		  $sql= 
+     	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
+     	 VALUES('$user_id','1',(select now()),'Salió','Salió de Recuperación Contraseña por Correo','$user',(select now()))";
+ 		 $con->query($sql);
+
+ 		  $sql= 
+     	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
+     	 VALUES('$user_id','1',(select now()),'Entró','Entró al login','$user',(select now()))";
+ 		 $con->query($sql);
+
     	}
     	else
     	{
-    		echo "<script>alert('ERROR: Ha ocurrido un error inesperado, por favor inténtelo de nuevo o contacte a su soporte técnico.');</script>";
-    	}
+    		echo"<script type='text/javascript'>		
+	    swal('ERROR: No se pudo enviar el correo, por favor inténtelo de nuevo o contacte a su soporte técnico.', '', 'error');
+        </script>";
+    		
+         
+        }
     }			
-			}
-		}
-	}
 }
-    }
-
 			  
-//---------------------------- Proceso que envía correo FIN ----------------------------------------				
-			
+//---------------------------- Proceso que envía correo FIN ----------------------------------------	
 ?>
 	
 	<div class="limiter"  >
@@ -130,23 +212,12 @@ y para tildar letras es asi: &_acute y donde les puse el _ va la letra que quier
 <!-------------------------------------------Casilla de usuario ---------------------------------->
 				<form class="login100-form validate-form" method="post" autocomplete="off">
 
-					<div class="wrap-input100 validate-input" data-validate = "Ingrese su nombre de usuario">
-						<input class="input100" type="text" name="CasillaUsuario" Class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
+					<div class="wrap-input100 validate-input" data-validate = "Este campo no puede quedar vacío">
+						<input class="input100" style="text-transform: uppercase;" type="text"  name="CasillaUsuario">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Nombre de usuario </span>
+						<span class="label-input100"> Ingrese su usuario  </span>
 					</div>
-
- <!-------------------------------------------Casilla de correo ---------------------------------->
-				<form class="login100-form validate-form" method="post" autocomplete="off">
-
-
-					<div class="wrap-input100 validate-input" data-validate = "Ingrese una dirección de correo válida, por ejemplo: usuario@yahoo.es">
-						<input class="input100" type="text" name="CasillaCorreo">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Correo Electrónico</span>
-					</div>
-      				
-
+			
  <!------------------------------------- Botón enviar correo ------------------------------------------>
 					
 					<div class="container-login100-form-btn"  >
@@ -155,7 +226,6 @@ y para tildar letras es asi: &_acute y donde les puse el _ va la letra que quier
 							Enviar
 						</button>
 					</div>
-				
 		
 				</form>
 

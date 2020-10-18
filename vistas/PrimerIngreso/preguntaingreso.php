@@ -1,13 +1,65 @@
 <?php
-
 ob_start();
 session_start();
+//error_reporting(0);
 
     include '../../config/conexion.php';
-    $query=mysqli_query($mysqli,"SELECT * FROM tbl_preguntas WHERE condicion = '1'");
-    $query1=mysqli_query($mysqli,"SELECT * FROM tbl_preguntas WHERE condicion = '1'");
-    $query2=mysqli_query($mysqli,"SELECT * FROM tbl_preguntas WHERE condicion = '1'");
-   
+    
+    //Bitacora
+	//Incializamos las variables de seccion 
+ 	$id_usuario1=$_SESSION['id_usuario'];
+	$usuario1=$_SESSION['usuario']; 
+
+	$query=mysqli_query($mysqli,"SELECT * FROM tbl_preguntas WHERE estado = '1'");
+	$query3=mysqli_query($mysqli,"SELECT id_pregunta FROM tbl_preguntas_usuarios WHERE id_usuario = '$id_usuario1'");
+	$query4=mysqli_query($mysqli,"SELECT valor FROM tbl_parametros WHERE id_parametro = '7'");
+	$query5=mysqli_query($mysqli,"SELECT * FROM tbl_usuarios WHERE id_usuario = '$id_usuario1'");
+
+while($tbl_preguntas_usuarios = mysqli_fetch_array($query3))
+                        {
+                    ?> 
+                            <?php $id_preguntas=$tbl_preguntas_usuarios['id_pregunta']?>
+                    <?php
+
+                        }
+
+while($tbl_parametros2 = mysqli_fetch_array($query4))
+                        {
+                    ?> 
+                            <?php $valor1=$tbl_parametros2['valor']?>
+                    <?php
+
+                        }
+
+
+while($tbl_usuarios2 = mysqli_fetch_array($query5))
+                        {
+                    ?> 
+                    		<?php $id_estado_usuario=$tbl_usuarios2['id_estado_usuario']?>
+                            <?php $preguntas_contestadas2=$tbl_usuarios2['preguntas_contestadas']?>
+                    <?php
+
+                        }  
+
+
+
+	if ($preguntas_contestadas2 == $valor1)
+	{       
+		if ($id_estado_usuario == 5) 
+		{
+			mysqli_query($mysqli, "UPDATE tbl_preguntas SET estado = 1");
+			mysqli_query($mysqli, "UPDATE tbl_usuarios SET 	id_estado_usuario = '1'  WHERE id_usuario='$id_usuario1'");
+			echo "<script>alert('El proceso de registro a finalizado. Por favor contacte al administrador para tener acceso al sistema');window.location.href='../login1.php';</script>";
+		}
+		else
+		{
+			$sql_bitacora3= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+		    VALUES('$id_usuario1','1',(select now()),'Entró','Confirmar contraseña en Preguntas primer ingreso','$usuario1',(select now()))";
+		 	ejecutarConsulta($sql_bitacora3);
+		 	mysqli_query($mysqli, "UPDATE tbl_preguntas SET estado = 1");
+		    echo "<script>window.location='ConfirmarContrasena.php';</script>";
+		}			
+	}   
 
 ?>
 <!DOCTYPE html>
@@ -46,7 +98,9 @@ session_start();
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
 <!--===============================================================================================-->
 </head>
 <body  style="background-color: rgb(63,63,63)">
@@ -55,7 +109,7 @@ session_start();
 			<!-- Boton atras -->
 		<a href="javascript:history.go(-1)" class="previous"><i class="fas fa-chevron-circle-left fa-2x" aria-hidden="true"></a></i>
 			<!-- Boton adelante -->
-		<a href="javascript:history.go(1)" class="previous"><i class="fas fa-chevron-circle-right fa-2x" aria-hidden="true"></a></i>
+	
 
  </center>
 
@@ -70,17 +124,25 @@ session_start();
 
 					<!-- Usuario -->	
 		          <div class="col-xs-12">
-						
-						<div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="usuario" onkeyup="javascript:this.value=this.value.toUpperCase();"required>
-						<span class="focus-input100"></span>
-						<span class="label-input100">Usuario</span>
+ 
+		          	 <center>
+		           <h3><span class="hiddenui"><i class="fas fa-user-lock"> PREGUNTAS DE SEGURIDAD</i></span></h3>
+		           <br>
+		          	 <h3><span class="hidden-xs"><i class="fas fa-user"> <?php echo $_SESSION['nombre_usuario'];?></span></i></h3>
+					</center>
 
-					</div>
+
+
+
+		          	<br>
+                 
+						
+			
 
 						<!--Combobox Pregunta #1 -->
-                   <p class="text-secondary">Preguntas #1</p>
-                    <select name="pregunta1" select id="Pregunta1" required>
+
+					 <p><H4>Pregunta: Nº <?php echo $preguntas_contestadas2 + 1; ?></H4></p>
+                    <select class="selecion" name="pregunta1" select id="Pregunta1" required>
                     	<option value="0">Seleccione:</option>
                     <?php 
 
@@ -96,66 +158,19 @@ session_start();
                     ?> 
                     </select>
                           
-
+                   <br>
+                   <br>
+                  
                     <div class="wrap-input100 validate-input">
 						<input id="respuesta1" class="input100" type="text" name="respuesta1">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Respuesta #1</span>
+						<span class="label-input100">Respuesta</span>
 
 
 					</div>
        			   </div>
                    
-                    <p></p>
-
-                    <!--Combobox Pregunta #2 -->
-    				<p class="text-secondary">Preguntas #2</p>
-                    <select name="pregunta2" select id="Pregunta2" required>
-                    	<option value="0">Seleccione:</option>
-                    <?php 
-                        while($tbl_preguntas = mysqli_fetch_array($query1))
-                        {
-                    ?>
-                            <option value="<?php echo $tbl_preguntas['pregunta']?>"> <?php echo $tbl_preguntas['pregunta']?> </option>
-                    <?php
-                        }
-                    ?> 
-                    </select>
-                          
-
-                    <div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="respuesta2">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Repuesta #2</span>
-					</div>
-
-	               <p></p>
-
-	               <!--Combobox Pregunta #3 -->
-	              
-	               <p class="text-secondary">Preguntas #3</p>
-
-                    <select name="pregunta3" select id="Pregunta3" required>
-                    	<option value="0">Seleccione:</option>
-                    <?php 
-                        while($tbl_preguntas = mysqli_fetch_array($query2))
-                        {
-                    ?>
-                            <option value="<?php echo $tbl_preguntas['pregunta']?>"> <?php echo $tbl_preguntas['pregunta']?> </option>
-                    <?php
-                        }
-                    ?> 
-                    </select>
-                          
-
-                    <div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="respuesta3">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Repuesta #3</span>
-					</div>
-
-	                <p></p>
-
+                   
                       <!-- Boton entrar -->
 					<div class="container-login100-form-btn"  >
 						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
@@ -244,6 +259,56 @@ session_start();
 						.round{
 							border-radius:100%;
 						}
+
+						
+         				.hidden-xs{
+
+         		   color: #3D3D3D;			
+                   width: auto;
+                   padding: 5px 5px;
+                   transition: 0.3s; 
+                   border-radius: 70px 70px 70px 70px;
+				   -moz-border-radius: 70px 70px 70px 70px;
+				   -webkit-border-radius: 70px 70px 70px 70px;
+					border: 0px solid #ffffff;
+								   }
+
+
+						.hiddenui{
+ 				   color: #E8762F;			
+                   width: auto;
+                   padding: 5px 5px;
+                   transition: 0.3s; 
+                   border-radius: 70px 70px 70px 70px;
+				   -moz-border-radius: 70px 70px 70px 70px;
+				   -webkit-border-radius: 70px 70px 70px 70px;
+					border: 0px solid #ffffff;
+
+
+
+						}		   
+
+
+					.selecion{
+    font-size: 16px;
+    font-family: 'Verdana', sans-serif;
+    font-weight: 400;
+    color: #444;
+    line-height: 1.3;
+    padding: .4em 1.4em .3em .8em;
+    width: 400px;
+    max-width: 100%; 
+    box-sizing: border-box;
+    margin: 20px auto;
+    border: 5px solid #E9762E;
+    box-shadow: 0 1px 0 1px rgba(0,0,0,.03);
+    border-radius: .3em;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+
+					}
 					</style>
 <!--===============================================================================================-->
 <!--===============================================================================================-->
@@ -257,29 +322,36 @@ session_start();
 
 <?php
 
-
-$query3=mysqli_query($mysqli,"SELECT id_usuario FROM tbl_usuarios WHERE usuario = \"$_POST[usuario]\"");
-
-  
-
-//Suponiendo que ya tienes creada la conexión a la BD paso directamente al query MySQL y su ejecución
-    /* $conexion es la variable de la conexión a la BD */
-while($tbl_usuarios = mysqli_fetch_array($query3))
+while($tbl_usuarios = mysqli_fetch_array($query5))
                         {
                     ?> 
-                            <?php $id_usuario=$tbl_usuarios['id_usuario']?>
+                            <?php $preguntas_contestadas2=$tbl_usuarios['preguntas_contestadas']?>
                     <?php
 
-                        }
+                        }                        
 
 if (isset($_POST['botonentrar'])) {
-   mysqli_query($mysqli, "INSERT INTO tbl_preguntas_usuarios ( id_usuario, id_pregunta, respuesta) VALUES ('$id_usuario',(SELECT id_pregunta FROM tbl_preguntas WHERE pregunta = \"$_POST[pregunta1]\"), \"$_POST[respuesta1]\")");
+	if ($preguntas_contestadas2 == $valor1)
+	{       
+		
+	}
+	else
+	{
+		 mysqli_query($mysqli, "INSERT INTO tbl_preguntas_usuarios ( id_usuario, id_pregunta, respuesta) VALUES ('$id_usuario1',(SELECT id_pregunta FROM tbl_preguntas WHERE pregunta = \"$_POST[pregunta1]\"), \"$_POST[respuesta1]\")");
+		 mysqli_query($mysqli, "UPDATE tbl_usuarios SET preguntas_contestadas= (preguntas_contestadas + 1) WHERE id_usuario = '$id_usuario1'");
+		 mysqli_query($mysqli, "UPDATE tbl_preguntas SET estado = 0 WHERE id_pregunta = (SELECT id_pregunta FROM tbl_preguntas WHERE pregunta = \"$_POST[pregunta1]\")");
 
-   mysqli_query($mysqli, "INSERT INTO tbl_preguntas_usuarios ( id_usuario, id_pregunta, respuesta) VALUES ('$id_usuario',(SELECT id_pregunta FROM tbl_preguntas WHERE pregunta = \"$_POST[pregunta2]\"), \"$_POST[respuesta2]\")");
+		  //Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
+		  $sql_bitacora2= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+		  VALUES('$id_usuario1','1',(select now()),'Insertó','Insertó preguntas primer ingreso','$usuario1',(select now()))";
+		  ejecutarConsulta($sql_bitacora2);
 
-   mysqli_query($mysqli, "INSERT INTO tbl_preguntas_usuarios ( id_usuario, id_pregunta, respuesta) VALUES ('$id_usuario',(SELECT id_pregunta FROM tbl_preguntas WHERE pregunta = \"$_POST[pregunta3]\"), \"$_POST[respuesta3]\")");
+		   $sql_bitacora3= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+		  VALUES('$id_usuario1','1',(select now()),'Actualizó','Actualizó preguntas constestadas','$usuario1',(select now()))";
+		  ejecutarConsulta($sql_bitacora3);
 
-echo "<script>window.location='../PrimerIngreso/ConfirmarContrasena.php';</script>";
+		 echo "<script>window.location='preguntaingreso.php';</script>";
+	}
 
 }
 

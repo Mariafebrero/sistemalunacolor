@@ -24,7 +24,7 @@ function limpiar()
 	$("#imagenmuestra").attr("src","");//ojo
 	$("#imagenactual").val(""); //ojo
 	$("#correo_electronico").val("");	
-	$("#id_usuario").val("");
+	$("#id_usuario2").val("");
 
 }
 
@@ -107,9 +107,9 @@ function guardaryeditar(e)
 	limpiar();
 }
 
-function mostrar(id_usuario)
+function mostrar(id_usuario2)
 {
-	$.post("../ajax/usuarioescritorio.php?op=mostrar",{id_usuario : id_usuario}, function(data, status)
+	$.post("../ajax/usuarioescritorio.php?op=mostrar",{id_usuario2 : id_usuario2}, function(data, status)
 	{
 		data = JSON.parse(data);		
 		mostrarform(true);
@@ -121,37 +121,9 @@ function mostrar(id_usuario)
 		$("#imagenmuestra").attr("src","../files/usuarios/"+data.imagen);
 		$("#imagenactual").val(data.imagen);
 		$("#correo_electronico").val(data.correo_electronico);
-		$("#id_usuario").val(data.id_usuario);
+		$("#id_usuario2").val(data.id_usuario2);
 
 	});
-}
-
-//Función para desactivar registros
-function desactivar(id_usuario)
-{
-	bootbox.confirm("¿Está Seguro de desactivar el usuario?", function(result){
-		if(result)
-        {
-        	$.post("../ajax/usuarioescritorio.php?op=desactivar", {id_usuario : id_usuario}, function(e){
-        		bootbox.alert(e);
-	            tabla.ajax.reload();
-        	});	
-        }
-	})
-}
-
-//Función para activar registros
-function activar(id_usuario)
-{
-	bootbox.confirm("¿Está Seguro de activar el Usuario?", function(result){
-		if(result)
-        {
-        	$.post("../ajax/usuarioescritorio.php?op=activar", {id_usuario : id_usuario}, function(e){
-        		bootbox.alert(e);
-	            tabla.ajax.reload();
-        	});	
-        }
-	})
 }
 
 init();

@@ -14,8 +14,7 @@ $accion=isset($_POST["accion"])? limpiarCadena($_POST["accion"]):"";
 $descripcion=isset($_POST["descripcion"])? limpiarCadena($_POST["descripcion"]):"";
 $creado_por=isset($_POST["creado_por"])? limpiarCadena($_POST["creado_por"]):"";
 $fecha_creacion=isset($_POST["fecha_creacion"])? limpiarCadena($_POST["fecha_creacion"]):"";
-$modificado_por=isset($_POST["modificado_por"])? limpiarCadena($_POST["modificado_por"]):"";
-$fecha_modificacion=isset($_POST["fecha_modificacion"])? limpiarCadena($_POST["fecha_modificacion"]):"";
+
 
 
 switch ($_GET["op"]){
@@ -36,15 +35,14 @@ switch ($_GET["op"]){
  				"0"=>$reg->id_bitacora,
  				"1"=>$reg->fecha,
  				"2"=>$reg->id_usuario,
- 				"3"=>$reg->id_objeto,
- 				"4"=>$reg->objeto,
- 				"5"=>$reg->descripcion1,
- 				"6"=>$reg->accion,
- 				"7"=>$reg->descripcion,
- 				"8"=>$reg->creado_por,
- 				"9"=>$reg->fecha_creacion,
- 				"10"=>$reg->modificado_por,
- 				"11"=>$reg->fecha_modificacion,
+ 				"3"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px'>",
+ 				"4"=>$reg->creado_por,
+ 				"5"=>$reg->id_objeto,
+ 				"6"=>$reg->objeto,
+ 				"7"=>$reg->descripcion1,
+ 				"8"=>$reg->accion,
+ 				"9"=>$reg->descripcion,
+ 				"10"=>$reg->fecha_creacion,
  				);
  		}
  		$results = array(

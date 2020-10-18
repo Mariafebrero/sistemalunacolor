@@ -2,8 +2,11 @@
 
 ob_start();
 session_start();
-
+error_reporting(0);
     include '../../config/conexion.php';
+
+   $id_usuario1=$_SESSION['id_usuario'];
+   $usuario1=$_SESSION['usuario']; 
 
 ?>
 <!DOCTYPE html>
@@ -42,18 +45,17 @@ session_start();
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!--===============================================================================================-->
+
+<!--=========================Sweet Alert========================================================-->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!--===============================================================================================-->	
+
 </head>
 <body  style="background-color: rgb(63,63,63)">
 
-<center>
-			<!-- Boton atras -->
-		<a href="javascript:history.go(-1)" class="previous"><i class="fas fa-chevron-circle-left fa-2x" aria-hidden="true"></a></i>
-			<!-- Boton adelante -->
-		<a href="javascript:history.go(1)" class="previous"><i class="fas fa-chevron-circle-right fa-2x" aria-hidden="true"></a></i>
 
- </center>
 
 
 
@@ -67,50 +69,70 @@ session_start();
 					<!-- Usuario -->	
 		          <div class="col-xs-12">
 						
-						<div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="UsuarioIng" onkeyup="javascript:this.value=this.value.toUpperCase();"required >
-						<span class="focus-input100"></span>
-						<span class="label-input100">Usuario</span>
-
-					</div>
+						 <center>
+		          		 <h3><span class="hiddenty"><i class="fas fa-user"> <?php echo $_SESSION['nombre_usuario'];?></span></i></h3>
+					</center>
                           
-
-
-					</div>
-
-					<!-- Coontraseña -->	
-					<div class="col-xs-12">
-      				 <p class="text-secondary float-left"> Nueva Contraseña</p>
+					<br>
+                    
+                     <div class="col-xs-12">
+      				 <p class="text-secondary float-left">Contraseña anterior</p>
        				 <div class="input-group">
-     					<input ID="nueva_contrasena" type="Password" name="nueva_contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$" required>
+     					<input ID="contrasena_anterior" type="Password" name="contrasena_anterior" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" required>
 					<!-- boton monstrar Contraseña -->
       					<div class="input-group-append">
-            			<button id="show_password" class="login100-form-btn" name="" type="button" onclick="mostrarPassword()" style="background-color: rgb(233,118,46)"> 
+            			<button id="show_password" class="login100-form-btn" name="" type="button" onclick="mostrarPassword3()" style="background-color: rgb(233,118,46)"> 
             				<h5><span class="fas fa-eye-slash icon"></span></h5></button>
 
           				</div>
     				</div>
                     </div>
-	                <p></p>
-                    <p></p>
+				<!-- NUEVOS -->
 
-
-					<div class="col-xs-12">
-      				 <p class="text-secondary float-left">Confirmar Contraseña</p>
+       			   <div class="col-xs-12">
+      				 <p class="text-secondary float-left">Nueva contraseña</p>
        				 <div class="input-group">
-     					<input ID="confirmar_contrasena" type="Password" name="confirmar_contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$" required>
+     					<input ID="nueva_contrasena" type="Password" name="nueva_contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" required>
 					<!-- boton monstrar Contraseña -->
       					<div class="input-group-append">
             			<button id="show_password" class="login100-form-btn" name="" type="button" onclick="mostrarPassword2()" style="background-color: rgb(233,118,46)"> 
-            				<h5><span class="fas fa-eye-slash icon"></span></h5></button>
+            				<h5><span class="fas fa-eye-slash SVG"></span></h5></button>
 
           				</div>
     				</div>
                     </div>
 
-	               <p></p>
-                          
+                     <p></p>
+                      <p></p>
 
+                     <div class="col-xs-12">
+      				 <p class="text-secondary float-left">Confirmar contraseña</p>
+       				 <div class="input-group">
+     					<input ID="confirmar_contrasena" type="Password" name="confirmar_contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" required>
+					<!-- boton monstrar Contraseña -->
+      					<div class="input-group-append">
+            			<button id="show_password" class="login100-form-btn" name="" type="button" onclick="mostrarPassword()" style="background-color: rgb(233,118,46)"> 
+            				<h5><span class="fas fa-eye-slash png"></span></h5></button>
+
+          				</div>
+    				</div>
+                    </div>
+
+                   
+                    <br>
+				<center>
+                     <small  ><h6>*La contraseña debe tener entre 5 a 10 letras, mínimo un número, una letra mayúscula y un símbolo.
+	    			</h6></small> 
+	    		</center>
+	    		 	<br>
+
+                <!-- FIN -->
+                   
+                    <p></p>
+
+       			   </div>
+
+	               <p></p>
 	                <p></p>
 
                       <!-- Boton entrar -->
@@ -131,6 +153,66 @@ session_start();
 		</div>
 	</div>
 
+<script type="text/javascript">
+function mostrarPassword(){
+		var cambio = document.getElementById("confirmar_contrasena");
+		if(cambio.type == "password"){
+			cambio.type = "text";
+			$('.png').removeClass('fas fa-eye-slash').addClass('fas fa-eye');
+		}else{
+			cambio.type = "password";
+			$('.png').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
+		}
+	} 
+	
+	$(document).ready(function () {
+	//CheckBox mostrar contraseña
+	$('#ShowPassword').click(function () {
+		$('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+	});
+});
+</script>
+
+<script type="text/javascript">
+function mostrarPassword2(){
+		var cambio1 = document.getElementById("nueva_contrasena");
+		if(cambio1.type == "password"){
+			cambio1.type = "text";
+			$('.SVG').removeClass('fas fa-eye-slash').addClass('fas fa-eye');
+		}else{
+			cambio1.type = "password";
+			$('.SVG').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
+		}
+	} 
+	
+	$(document).ready(function () {
+	//CheckBox mostrar contraseña
+	$('#ShowPassword2').click(function () {
+		$('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+	});
+});
+</script>
+
+
+<script type="text/javascript">
+function mostrarPassword3(){
+		var cambio3 = document.getElementById("contrasena_anterior");
+		if(cambio3.type == "password"){
+			cambio3.type = "text";
+			$('.icon').removeClass('fas fa-eye-slash').addClass('fas fa-eye');
+		}else{
+			cambio3.type = "password";
+			$('.icon').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
+		}
+	} 
+	
+	$(document).ready(function () {
+	//CheckBox mostrar contraseña
+	$('#ShowPassword').click(function () {
+		$('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+	});
+});
+</script>
 
 	
 	<!--===============================================================================================-->	
@@ -173,45 +255,6 @@ session_start();
     <script src="../../public/js/bootstrap-select.min.js"></script>  
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<script type="text/javascript">
-function mostrarPassword(){
-		var cambio = document.getElementById("nueva_contrasena");
-		if(cambio.type == "password"){
-			cambio.type = "text";
-			$('.icon').removeClass('fas fa-eye-slash').addClass('fas fa-eye');
-		}else{
-			cambio.type = "password";
-			$('.icon').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
-		}
-	} 
-	
-	$(document).ready(function () {
-	//CheckBox mostrar contraseña
-	$('#ShowPassword').click(function () {
-		$('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
-	});
-});
-</script>
-
-<script type="text/javascript">
-function mostrarPassword2(){
-		var cambio2 = document.getElementById("confirmar_contrasena");
-		if(cambio.type == "password"){
-			cambio.type = "text";
-			$('.icon').removeClass('fas fa-eye-slash').addClass('fas fa-eye');
-		}else{
-			cambio.type = "password";
-			$('.icon').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
-		}
-	} 
-	
-	$(document).ready(function () {
-	//CheckBox mostrar contraseña
-	$('#ShowPassword2').click(function () {
-		$('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
-	});
-});
-</script>
 
 	</script>
 					<style type="text/css">
@@ -240,6 +283,18 @@ function mostrarPassword2(){
 						.round{
 							border-radius:100%;
 						}
+
+						.hiddenty{
+
+         		   color: #3D3D3D;			
+                   width: auto;
+                   padding: 5px 5px;
+                   transition: 0.3s; 
+                   border-radius: 70px 70px 70px 70px;
+				   -moz-border-radius: 70px 70px 70px 70px;
+				   -webkit-border-radius: 70px 70px 70px 70px;
+					border: 0px solid #ffffff;
+								   }
 					</style>
 <!--===============================================================================================-->
 <!--===============================================================================================-->
@@ -251,25 +306,16 @@ function mostrarPassword2(){
 
 </html>
 
+
 <?php
 
 
-$query3=mysqli_query($mysqli,"SELECT id_usuario, usuario FROM tbl_usuarios WHERE usuario = \"$_POST[UsuarioIng]\"");
-
-while($tbl_usuarios = mysqli_fetch_array($query3))
-                        {
-                    ?> 
-                    		<?php $id_usuario1=$tbl_usuarios['id_usuario']?>
-                            <?php $usuario=$tbl_usuarios['usuario']?>
-                    <?php
-
-                        }
-$query4=mysqli_query($mysqli,"SELECT contrasena FROM tbl_hist_contrasena WHERE id_usuario = $id_usuario1");
+$query4=mysqli_query($mysqli,"SELECT contrasena FROM tbl_hist_contrasena WHERE id_usuario = '$id_usuario1'");
 
 while($tbl_hist_contrasena = mysqli_fetch_array($query4))
                         {
                     ?> 
-                            <?php $contrasena_exist=$tbl_hist_contrasena['contrasena_exist']?>
+                            <?php $contrasena_exist=$tbl_hist_contrasena['contrasena']?>
                     <?php
 
                         }
@@ -278,40 +324,64 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
 	if(isset($_POST["btn_restablecer"]))
 
 	{
-
-		if($_POST["UsuarioIng"] = $usuario)
-		{
-				 if($_POST["nueva_contrasena"]!="" &&$_POST["confirmar_contrasena"]!="")
+				if($_POST["nueva_contrasena"]!="" &&$_POST["confirmar_contrasena"]!="")
             	$nueva_contrasena = ($_POST["nueva_contrasena"]);
             	$confirmar_contrasena = ($_POST["confirmar_contrasena"]);
 			{ 
-				if($nueva_contrasena === $confirmar_contrasena)
-				{
-					if ($nueva_contrasena = $contrasena_exist)
-					{
-						Print "<script>alert(\"ERROR: No puedes usar una contraseña antigua.\")</script>";		
-					}
-					else
-			  		{ 
-			  				mysqli_query($mysqli, "UPDATE tbl_usuarios SET contrasena =(\"$_POST[nueva_contrasena]\")  WHERE usuario=(\"$_POST[UsuarioIng]\")");
-							 mysqli_query($mysqli, "UPDATE tbl_usuarios SET primer_ingreso = '0'  WHERE usuario=(\"$_POST[UsuarioIng]\")");
-							 mysqli_query($mysqli, "INSERT INTO tbl_hist_contrasena (id_usuario, contrasena) VALUES ('$id_usuario1','$confirmar_contrasena')");
-					
-		          	
-			  		}
-			  }
-			  else
-			  {
-			  	print "<script>alert(\"ERROR: Las contraseñas no coinciden entre si. Intentélo de nuevo o contacte a su soporte técnico.\")</script>";	
-			  }
-	 		}
-			
-		}
+				$contrasena_anterior= ($_POST["contrasena_anterior"]);
 
+				if ($contrasena_anterior == $contrasena_exist)
+				{
+					if($nueva_contrasena == $confirmar_contrasena)
+					{
+						if ($nueva_contrasena == $contrasena_exist)
+						{
+							//echo 
+           
+							echo "<script>alert('No puede usar una contraseña antigua. Por favor ingrese una nueva.');window.location.href='ConfirmarContrasena.php';</script>";		
+						}
+						else
+			  			{ 
+			  				mysqli_query($mysqli, "UPDATE tbl_usuarios SET contrasena =(\"$_POST[nueva_contrasena]\")  WHERE id_usuario='$id_usuario1'");
+							mysqli_query($mysqli, "UPDATE tbl_usuarios SET 	id_estado_usuario = '2'  WHERE id_usuario='$id_usuario1'");
+							mysqli_query($mysqli, "INSERT INTO tbl_hist_contrasena (id_usuario, contrasena) VALUES ('$id_usuario1','$confirmar_contrasena')");
+
+							//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
+		  					$sql_bitacora1= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+		 						 VALUES('$id_usuario1','1',(select now()),'Actualizó','Actualizó contraseña','$usuario1',(select now()))";
+		 						 ejecutarConsulta($sql_bitacora1);
+
+		 					$sql_bitacora2= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+		 						 VALUES('$id_usuario1','1',(select now()),'Actualizó','Actualizó Primer ingreso a usuario Activo','$usuario1',(select now()))";
+		 						 ejecutarConsulta($sql_bitacora2);
+		 					$sql_bitacora3= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+		 						 VALUES('$id_usuario1','1',(select now()),'Insertó','Insertó contraseña a historial de contraseñas','$usuario1',(select now()))";
+		 						 ejecutarConsulta($sql_bitacora3);	 
+		          	
+			  			}
+			 	 	}
+			  		else
+			  		{
+			  			echo "<script>alert('Las contraseñas no coinciden. Por favor ingrese los datos correctamente.');window.location.href='ConfirmarContrasena.php';</script>";
+			 		}
+	 			}
+
+				else
+				{
+				echo "<script>alert('La contraseña anterior no existe. Por favor ingrese una contraseña valida');window.location.href='ConfirmarContrasena.php';</script>";
+				}
+			
+		
+ $sql_bitacora4= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+		  VALUES('$id_usuario1','1',(select now()),'Salió','Salió de Primer ingreso/Confirmar contraseña','$usuario1',(select now()))";
+ 		  ejecutarConsulta($sql_bitacora4);
+ $sql_bitacora5= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+		  VALUES('$id_usuario1','1',(select now()),'Entró','Entró a login','$usuario1',(select now()))";
+ 		  ejecutarConsulta($sql_bitacora5); 		  
 		
 
-echo "<script>window.location='../login.html';</script>";
-
+echo "<script>window.location='../login1.php';</script>";
+}
 }
 
 ?>
