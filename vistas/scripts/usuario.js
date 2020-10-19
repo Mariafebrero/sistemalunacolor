@@ -125,7 +125,7 @@ function guardaryeditar(e)
 	    	swal({
   			title: "",
   			text: datos,
-  			icon: "success",
+  			icon: "",
   			button: "OK",
 			});                
 	          //bootbox.alert(datos);	          
