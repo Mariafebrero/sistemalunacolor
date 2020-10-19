@@ -44,14 +44,12 @@ switch ($_GET["op"]){
 
       if (mysqli_num_rows($result)>0)
  		{
-
-            echo 'El usuario y/o correo ya existen.';
-            /*echo'<script>swal({
+		echo '<script>swal({
   			title: "",
   			text: "El usuario y correo ya existen",
-  			icon: "success",
+  			icon: "warning",
   			button: "OK",
-			});</script>';*/
+			});</script>';
 		return;
 
    		}	

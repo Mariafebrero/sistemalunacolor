@@ -415,7 +415,7 @@ if(isset($_POST["btnGuardar"])) {
 
 	echo "<script >
            swal({ title: '¡Resistro exitoso!',
-           text: 'Para finalizar este proceso,deberá ingresar al sistema nuevamente y responder las Preguntas de Seguridad', 
+           text: 'Para finalizar su proceso de registro debera Loguearse y responder las Preguntas de Seguridad', 
            icon:'success',
            type: 'success'}).then(okay => {
            if (okay) 
