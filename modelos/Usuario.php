@@ -29,7 +29,6 @@ Class Usuario
 				break;
 			}
 
-
 		$parametroV = "+" . $valor . " Days";
 
 		date_default_timezone_set("America/Tegucigalpa");
@@ -38,11 +37,16 @@ Class Usuario
 		$fecha_creacion = date("d-m-Y H:i:s", $fecha_creacion); 
 		$fecha_vencimiento = date("d-m-Y H:i:s", $fecha_vencimiento); 
 
+		$clavehash=hash("SHA256",$contrasena);
+
 		$sql="INSERT INTO tbl_usuarios (id_rol,usuario,nombre_usuario,contrasena,imagen,correo_electronico,id_estado_usuario,fecha_ultima_conexion,preguntas_contestadas,fecha_creacion,intentos,fecha_vencimiento,token,fecha_inicio,fecha_final)
-			VALUES ('$id_rol','$usuario','$nombre_usuario','$contrasena','$imagen','$correo_electronico','$id_estado_usuario','','0','$fecha_creacion','1','$fecha_vencimiento','','','')";
+			VALUES ('$id_rol','$usuario','$nombre_usuario','$clavehash','$imagen','$correo_electronico','$id_estado_usuario','','0','$fecha_creacion','1','$fecha_vencimiento','','','')";
 		
-			//$idusuarionew=ejecutarConsulta_retornarID($sql);
-           $clavehash=hash("SHA256",$contrasena);
+		   $idusuarionew=ejecutarConsulta_retornarID($sql);
+          
+			/*$sql_contra="INSERT INTO tbl_hist_contrasena (id_usuario, contrasena) VALUES ((SELECT MAX(id_usuario + 1) AS id FROM tbl_usuarios),' $clavehash')"; 
+			ejecutarConsulta($sql_contra);*/
+
 			$sql_contra= "INSERT INTO tbl_hist_contrasena (id_usuario, contrasena) VALUES ((select id_usuario from tbl_usuarios where usuario ='$usuario'),'$clavehash')"; 
 			ejecutarConsulta($sql_contra);
 
@@ -55,19 +59,24 @@ Class Usuario
 			VALUES('$id_usuario1','1',(select now()),'Insertar','Insertó un usuario','$usuario1',(select now()))";
 			ejecutarConsulta($sql_bitacora);
 
-		/*
-			$num_elementos=0;
+
+
+		
+			//$num_elementos=0;
 			$sw=true;
 
-			while ($num_elementos < count($permisos))
-		{
-			$sql_detalle = "INSERT INTO tbl_usuario_permiso(idusuario, idpermiso) VALUES('$idusuarionew','$permisos[$num_elementos]')";
-			ejecutarConsulta($sql_detalle) or $sw = false;
-			$num_elementos=$num_elementos + 1;
-		}
-		return $sw;*/
+			//while ($num_elementos < count($permisos))
+		//{
+			//$sql_detalle = "INSERT INTO tbl_usuario_permiso(idusuario, idpermiso) VALUES('$idusuarionew','$permisos[$num_elementos]')";
+			//ejecutarConsulta($sql_detalle) or $sw = false;
+			//$num_elementos=$num_elementos + 1;
+		//}
 
-		return ejecutarConsulta($sql);
+		return $sw;
+
+		//ejecutarConsulta($sql);
+
+
 
 	}
 
@@ -77,7 +86,9 @@ Class Usuario
 
 	public function editar($id_usuario,$id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$id_estado_usuario)
 	{
-		$sql="UPDATE tbl_usuarios SET id_rol ='$id_rol',nombre_usuario='$nombre_usuario',contrasena='$contrasena',imagen='$imagen',correo_electronico='$correo_electronico',id_estado_usuario='$id_estado_usuario' WHERE id_usuario='$id_usuario'";
+
+		$clavehash=hash("SHA256",$contrasena);
+		$sql="UPDATE tbl_usuarios SET id_rol ='$id_rol',nombre_usuario='$nombre_usuario',contrasena='$clavehash',imagen='$imagen',correo_electronico='$correo_electronico',id_estado_usuario='$id_estado_usuario' WHERE id_usuario='$id_usuario'";
 		
 
 			 //Bitacora
@@ -171,6 +182,8 @@ Class Usuario
 		return ejecutarConsulta($sql);
 	
 	}
+
+
 
 }
 

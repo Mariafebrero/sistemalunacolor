@@ -49,6 +49,8 @@ while($tbl_usuarios2 = mysqli_fetch_array($query5))
 		{
 			mysqli_query($mysqli, "UPDATE tbl_preguntas SET estado = 1");
 			mysqli_query($mysqli, "UPDATE tbl_usuarios SET 	id_estado_usuario = '1'  WHERE id_usuario='$id_usuario1'");
+
+			
 			echo "<script>alert('El proceso de registro a finalizado. Por favor contacte al administrador para tener acceso al sistema');window.location.href='../login1.php';</script>";
 		}
 		else

@@ -33,7 +33,7 @@ switch ($_GET["op"]){
 			}
 		}
 		//Hash SHA256 en la contraseña
-		$clavehash=hash("SHA256",$contrasena);
+		//$clavehash=hash("SHA256",$contrasena);
 
 		if (empty($id_usuario)){
 
@@ -44,25 +44,20 @@ switch ($_GET["op"]){
 
       if (mysqli_num_rows($result)>0)
  		{
-		echo '<script>swal({
-  			title: "",
-  			text: "El usuario y correo ya existen",
-  			icon: "warning",
-  			button: "OK",
-			});</script>';
+		echo 'El usuario y/o correo ya existen.';
 		return;
 
    		}	
    		    //,$_POST['permiso']
 
-			$rspta=$usuarios->insertar($id_rol,$usuario,$nombre_usuario,$clavehash,$imagen,$correo_electronico,$id_estado_usuario);
+			$rspta=$usuarios->insertar($id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$id_estado_usuario);
 			echo $rspta ? "Usuario registrado" : "No se pudieron registrar todos los datos del usuario";
 		}
 		else {
 
 			//,$_POST['permiso']
 
-			$rspta=$usuarios->editar($id_usuario,$id_rol,$usuario,$nombre_usuario,$clavehash,$imagen,$correo_electronico,$id_estado_usuario);
+			$rspta=$usuarios->editar($id_usuario,$id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$id_estado_usuario);
 			echo $rspta ? "Usuario actualizado" : "Usuario no se pudo actualizar";
 		}
 	break;
@@ -91,10 +86,9 @@ switch ($_GET["op"]){
  				"1"=>$reg->rol,
  				"2"=>$reg->usuario,
  				"3"=>$reg->nombre_usuario,
- 				"4"=>$reg->contrasena,
- 				"5"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px'>",
- 				"6"=>$reg->correo_electronico,
- 				"7"=>$reg->descripcion
+ 				"4"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px'>",
+ 				"5"=>$reg->correo_electronico,
+ 				"6"=>$reg->descripcion
  				);
  		}
  		$results = array(
@@ -117,6 +111,8 @@ switch ($_GET["op"]){
 					echo '<option value=' . $reg->id_rol . '>' . $reg->rol . '</option>';
 				}
 	break;
+
+	
 
 	case "selectEstadoUsuario":
 		require_once "../modelos/EstadoUsuario.php";
@@ -233,8 +229,12 @@ switch ($_GET["op"]){
 
 	case 'salir':
 
-	 $id_usuario1=$_SESSION['id_usuario'];
-      $usuario1=$_SESSION['usuario']; 
+	$id_usuario1=$_SESSION['id_usuario'];
+	$usuario1=$_SESSION['usuario']; 
+
+	$sql="UPDATE tbl_usuarios SET fecha_ultima_conexion = (select now()) WHERE id_usuario='$id_usuario1'";
+
+	 
       //Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
       $sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
       VALUES('$id_usuario1','1',(select now()),'Salida','Salió del sistema','$usuario1',(select now()))";

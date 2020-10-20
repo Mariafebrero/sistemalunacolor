@@ -60,6 +60,10 @@ function mostrarform(flag)
 		//SHOW PARA MONSTRAR EL CAMPO USUARIO CUANDO SE AGREGA UN USUARIO
 		$("#usuario").show();
 
+		//SHOW PARA MONSTRAR EL CAMPO FECHA ACTUAL Y VECHA VENCIMIENTO CUANDO SE AGREGA UN USUARIO
+		$("#fa").show();
+		$("#fv").show();
+
 
 	}
 	else
@@ -125,7 +129,7 @@ function guardaryeditar(e)
 	    	swal({
   			title: "",
   			text: datos,
-  			icon: "success",
+  			icon: "",
   			button: "OK",
 			});                
 	          //bootbox.alert(datos);	          
@@ -145,12 +149,13 @@ function mostrar(id_usuario)
 		mostrarform(true);
 
 		$("#id_rol").val(data.id_rol);
+		$("#id_rol").selectpicker('refresh');
 		//$("#usuario").val(data.usuario);
 
 
 		//HIDE PARA OCULTAR EL CAMPO USUARIO CUANDO SE TENGA QUE EDITAR UN USUARIO
 		$("#usuario").hide(data.usuario);
-
+		$("#usuario").val('refresh');
 
 		$("#nombre_usuario").val(data.nombre_usuario);
 		$("#contrasena").val(data.contrasena);
@@ -158,7 +163,19 @@ function mostrar(id_usuario)
 		$("#imagenmuestra").attr("src","../files/usuarios/"+data.imagen);
 		$("#imagenactual").val(data.imagen);
 		$("#correo_electronico").val(data.correo_electronico);
+
+
 		$("#id_estado_usuario").val(data.id_estado_usuario);
+		$("#id_estado_usuario").selectpicker('refresh');
+
+		//FECHAS 
+		//$("#fecha_creacion").val(data.fecha_creacion);
+		//$("#fecha_vencimiento").val(data.fecha_vencimiento);
+
+		$("#fa").hide(data.fa);
+		$("#fv").hide(data.fv);
+
+
 		$("#id_usuario").val(data.id_usuario);
 
 	});

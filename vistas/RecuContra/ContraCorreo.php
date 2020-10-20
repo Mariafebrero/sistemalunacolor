@@ -121,12 +121,12 @@
 			}
 		*/
 
-        $cuerpo = "Querido, " . $user ."<br>". 
+      $cuerpo = "Querido, " . $user ."<br>". 
         "La petici&oacute;n para el restablecimiento de su contrase&ntilde;a ha sido aceptada. El siguiente enlace tiene una duración de ".  $VigenciaMail . "hrs, en caso de que ingrese en un lapso de tiempo mayor, deberá enviar una nueva solicitud." 
         ."<br>".
          "<br>".
          "Para restablecer su contraseña " 
-        . '<a href="http://localhost/4/vistas/RecuContra/ValidarCorreoVista.php?user=' . $user . '&lunaverificationcode=' . $codigo . '">click aquí</a>';
+        . '<a href="http://localhost/sistemalunacolor/sistemalunacolor/vistas/RecuContra/ValidarCorreoVista.php?user=' . $user . '&lunaverificationcode=' . $codigo . '"> click aquí</a>';
 
         //para el envío en formato HTML
         $headers  = "MIME-Version: 1.0\r\n";

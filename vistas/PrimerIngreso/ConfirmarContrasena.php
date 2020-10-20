@@ -366,7 +366,7 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
 		 						 ejecutarConsulta($sql_bitacora1);
 
 		 					$sql_bitacora2= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-		 						 VALUES('$id_usuario1','6',(select now()),'Actualizó','Actualizó Primer ingreso a usuario Activo','$usuario1',(select now()))";
+		 						 VALUES('$id_usuario1','6',(select now()),'Actualizó','Actualizó Primer ingreso a usuario: Activo','$usuario1',(select now()))";
 		 						 ejecutarConsulta($sql_bitacora2);
 		 					$sql_bitacora3= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
 		 						 VALUES('$id_usuario1','6',(select now()),'Insertó','Insertó contraseña a historial de contraseñas','$usuario1',(select now()))";
@@ -404,7 +404,7 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
  		  ejecutarConsulta($sql_bitacora5); 		  
 		
 
-echo "<script>window.location='../login1.php';</script>";
+echo "<script>alert('¡Su Contraseña se ha restablecido exitosamente!');window.location='../login1.php';</script>";
 }
 }
 

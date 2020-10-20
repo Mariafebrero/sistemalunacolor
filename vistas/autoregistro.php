@@ -384,7 +384,7 @@ if(isset($_POST["btnGuardar"])) {
  									{
 		echo '<script>swal({
   			title: "",
-  			text: "El usuario y correo ya existen",
+  			text: "El usuario y/o correo ya existen.",
   			icon: "warning",
   			button: "OK",
 			});</script>';
@@ -399,7 +399,10 @@ if(isset($_POST["btnGuardar"])) {
 
 	mysqli_query($mysqli, "INSERT INTO tbl_hist_contrasena (id_usuario,contrasena) VALUES ((select id_usuario from tbl_usuarios where usuario =\"$_POST[nombre_usuario]\"),'$clavehash2')");
 
-
+		 $sql_bitacora4= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+		  VALUES((SELECT MAX(id_usuario) AS id FROM tbl_usuarios),'7',(select now()),'Entró','Entró en Auto registro',\"$_POST[usuario]\",(select now()))";
+ 		  ejecutarConsulta($sql_bitacora4);
+		 
 		 $sql_bitacora4= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
 		  VALUES((SELECT MAX(id_usuario) AS id FROM tbl_usuarios),'7',(select now()),'Insertó','Un usuario se Autoregistro',\"$_POST[usuario]\",(select now()))";
  		  ejecutarConsulta($sql_bitacora4);
@@ -414,8 +417,8 @@ if(isset($_POST["btnGuardar"])) {
 
 
 	echo "<script >
-           swal({ title: '¡Resistro exitoso!',
-           text: 'Para finalizar su proceso de registro debera Loguearse y responder las Preguntas de Seguridad', 
+           swal({ title: '¡Registro exitoso!',
+           text: 'Para finalizar este proceso, deberá ingresar al sistema nuevamente y responder las preguntas de seguridad.', 
            icon:'success',
            type: 'success'}).then(okay => {
            if (okay) 

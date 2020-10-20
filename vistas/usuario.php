@@ -12,8 +12,26 @@ else
 {
 require 'header.php';
 
+
 //if ($_SESSION['Usuario']==1)
 //{
+
+/*
+  include '../../config/conexion.php';
+  
+  $query=mysqli_query($mysqli,"SELECT valor FROM tbl_parametros WHERE id_parametro = '14'");
+
+
+  while($tbl_parametros = mysqli_fetch_array($query))
+                        {
+                    ?> 
+                            <?php $valor=$tbl_parametros['valor']?>
+                    <?php
+
+                        }*/
+
+
+
 
 ?>
 
@@ -45,7 +63,7 @@ require 'header.php';
                             <th>Rol </th>
                             <th>Usuario </th>
                             <th>Nombre usuario</th>
-                            <th>contraseña</th>
+                           
                             <th>Imagen</th>
                             <th>correo_electronico</th>
                             <th>Estado</th>
@@ -58,7 +76,7 @@ require 'header.php';
                             <th>Rol </th>
                             <th>Usuario </th>
                             <th>Nombre usuario</th>
-                            <th>contraseña</th>
+                           
                             <th>Imagen</th>
                             <th>correo_electronico</th>
                             <th>Estado</th>
@@ -149,7 +167,9 @@ require 'header.php';
                            <!-- Rol -->
                            <div class="form-group col-lg-4 col-xs-12">
                             <label>Roles(*):</label>
-                            <select id="id_rol" name="id_rol" class="form-control selectpicker" data-live-search="true" required></select>
+                            <select id="id_rol" name="id_rol" class="form-control selectpicker" data-live-search="true" 
+                            required>
+                            </select>
                           </div>
 
                           <!-- Estado -->
@@ -177,7 +197,19 @@ require 'header.php';
                         </div>
                         <br>
 
-<small style = "position:relative;  top:-10px;" ><h4> *Fecha Creación <?php
+                         <!-- <div class="row">
+                        <div class="form-group col-lg-4 col-xs-12">
+                            <label>Fecha creación(*):</label>
+                            <input type="text" class="form-control" name="fecha_creacion" id="fecha_creacion">
+                        </div>
+
+                        <div class="form-group col-lg-4 col-xs-12">
+                            <label>Fecha Vencimiento(*):</label>
+                            <input type="text" class="form-control" name="fecha_vencimiento" id="fecha_vencimiento">
+                        </div>
+                        </div>-->
+                        
+<small id="fa" name="fa" style = "position:relative;  top:-10px;" ><h4> *Fecha Creación <?php
                             $fecha_creacion=null;
 
 
@@ -192,7 +224,7 @@ require 'header.php';
         <br>
         <br>
 
-        <small style = "position:relative;  top:-10px;" ><h4> *Fecha Vencimiento <?php
+<small id="fv" name="fv" style = "position:relative;  top:-10px;" ><h4> *Fecha Vencimiento <?php
                             $fecha_vencimiento=null;
                         
                         include '../config/conexion.php';
@@ -217,8 +249,6 @@ require 'header.php';
                              echo $fecha_vencimiento; 
                              ?> 
         </h4></small>
-
-
                           
                            <!-- Permisos -->
                          <!-- <div class="form-group col-lg-4 col-xs-12"> -->
