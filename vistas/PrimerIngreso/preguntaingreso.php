@@ -90,9 +90,6 @@ while($tbl_usuarios2 = mysqli_fetch_array($query5))
 
 			
 			//echo "<script>alert('El proceso de registro a finalizado. Por favor contacte al administrador para tener acceso al sistema');window.location.href='../login1.php';</script>";
-
-
-
 			echo "<script >
             swal({ title: '¡El proceso de registro ha finalizado!',
           	text: 'Contacte al administrador para tener acceso al sistema',
@@ -204,11 +201,7 @@ while($tbl_usuarios2 = mysqli_fetch_array($query5))
 					 <p><h5 style = "position:relative;  top:-100px;">Pregunta: Nº <?php echo 
 					 $preguntas_contestadas2 + 1; ?></h5></p>
 
-
                     <select style = "position:relative;  top:-100px;" class="selecion" select id="pregunta1" name="pregunta1" required>
-
-                    <select style = "position:relative;  top:-100px;" class="selecion" name="pregunta1" select id="Pregunta1" required>
-
                     	<option value="0">Seleccione:</option>
                     <?php 
 

@@ -462,7 +462,6 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
 		
 
 //echo "<script>alert('¡Su Contraseña se ha restablecido exitosamente!');window.location='../login1.php';</script>";
-
  		 echo "<script >
            swal({ title: '¡Su contraseña se ha restablecido con éxito!',
           text: 'Ya puede ingresar al sistema',
@@ -478,25 +477,6 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
           }
        });
       </script>";
-
- 		  echo 
-           "<script >
-           swal({ title: '¡Contraseña reestablecida!',
-           text: '',
-           icon:'success',
-           type: 'success'}).then(okay => {
-           if (okay) 
-           {
-       			window.location.href = '../login1.php';
-           }
-           else
-           {
-           	window.location.href = '../login1.php';
-           }
-       		  });
-           }
-     	   </script>";
-
 }
 }
 
