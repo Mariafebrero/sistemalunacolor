@@ -115,7 +115,7 @@ require 'header.php';
                             <label>Usuario(*):</label>
                             <input type="hidden" name="id_usuario" id="id_usuario">
                             <input type="text" class="form-control" name="usuario" id="usuario" minlength="3" maxlength="15" placeholder="Usuario" onkeyup="javascript:this.value=this.value.toUpperCase();" 
-                            onkeypress="return soloLetras(event)" onpaste="return false" required>
+                           onkeypress="return event.charCode != 32"onpaste="return false"  required>
                           </div> 
 
                           <!-- Nombre usuario -->
