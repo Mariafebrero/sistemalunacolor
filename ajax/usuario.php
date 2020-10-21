@@ -41,9 +41,15 @@ switch ($_GET["op"]){
 
       if (mysqli_num_rows($result)>0)
  		{
+
+		echo "El usuario y/o correo electrónico ingresado ya se encuentra en uso. Inténtelo de nuevo";
+ 		   // echo 
+           //"Mensaje de prueba";
+
 		//echo "El usuario y/o correo electrónico ingresado ya se encuentra en uso. Inténtelo de nuevo";
- 		    echo 
-           "Mensaje de prueba";
+ 		    
+           //"Mensaje de prueba";
+
 
 		return;
 
