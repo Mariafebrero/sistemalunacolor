@@ -127,10 +127,10 @@ function guardaryeditar(e)
 	    success: function(datos)
 	    {      
 	    	swal({
-  			title: "",
-  			text: datos,
+  			title: datos,
+  			text: "",
   			icon: "",
-  			button: "OK",
+  			button: "Ok",
 			});                
 	          //bootbox.alert(datos);	          
 	          mostrarform(false);

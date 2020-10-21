@@ -24,8 +24,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
-
-
   </head>
   <body class="hold-transition login-page" style="background-color: rgb(63,63,63)" >
 
@@ -38,9 +36,9 @@
 
     <div class="login-box">
       <div class="login-logo">
-        <a class="login" href="login1.php"  style="background-image: url('../public/img/FL2.SVG');"></a>
+        <a class="login" href="login1.php"  style="background-image: url('../public/img/FL2.SVG'); position:relative;  top:-30px; " ></a>
       </div><!-- /.login-logo -->
-      <div class="login-box-body">
+      <div class="login-box-body" style = "position:relative;  top:-70px;">
         <H2><p class="login-box-msg">ACCESO</p></H2>
 
         <form method="post" action="../ajax/validalogin.php" id="frmAcceso">
@@ -50,7 +48,7 @@
           <!-- Usuario -->  
           <div class="col-xs-12">
               <div class="input-group">
-                <input ID="usuario" type="usuario" name="usuario" Class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();" placeholder="Usuario" required>
+                <input ID="usuario" type="usuario" name="usuario" Class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();" placeholder="Usuario" required >
                     <div class="input-group-append"></div>
               </div>
           </div>
@@ -91,8 +89,6 @@
             
         </p>
         </form>
-
-        <br>
 
 
         <center>
