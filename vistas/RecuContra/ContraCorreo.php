@@ -155,7 +155,12 @@
            {
        			window.location.href = '../login1.php';
            }
+           else
+           {
+           	window.location.href = '../login1.php';
+           }
        		  });
+           }
      	   </script>";
 
      	 $sql= "select * from tbl_usuarios where (usuario=\"$_POST[CasillaUsuario]\") ";

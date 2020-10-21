@@ -1,11 +1,11 @@
+ <?php
+ session_start();
+ ?>
  <?php  
 
  include '../config/conexion.php';
 
  ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,10 +49,10 @@
 <!--===============================================================================================-->
 </head>
 <body  style="background-color: rgb(63,63,63)">
-
+	 <
 <center>
 			<!-- Boton atras -->
-		<a href="login1.php" class="previous"><i class="fas fa-chevron-circle-left fa-2x" aria-hidden="true"></a></i>
+		<a href="../index.html" class="previous"><i class="fas fa-chevron-circle-left fa-2x" aria-hidden="true"></a></i> 
 			<!-- Boton adelante -->
  </center>
 
@@ -64,9 +64,15 @@
 
 				<!--Validacion base de datos -->
 				<form class="login100-form validate-form" name="formulario" id="formulario" method="post">
-                
+					
+				<center>
+		          <h4 style = "position:relative;  top:-120px;" ><span class="hiddenui"><i class="fas fa-user-plus"> CREA TU PERFIL DE USUARIO</i></span></h4>
+		          <h5 style = "position:relative;  top:-120px;" ><span class="hiddenui"><i> ¡Únete a nosotros!</i></span></h5>
+		       </center>
+				
+
 					<!-- Usuario -->	
-		<div class="col-xs-12">
+		<div class="col-xs-12" style = "position:relative;  top:-110px;">
 
 			 			<script>
                               function soloLetras(e) {
@@ -93,13 +99,13 @@
                     	
 						<input class="input100" type="text" name="usuario" id="usuario"  minlength="3" maxlength="15" onkeyup="javascript:this.value=this.value.toUpperCase();" onkeypress="return soloLetras(event)" onpaste="return false" required> 
 						<span class="focus-input100"></span>
-						<span class="label-input100">Usuario</span>
+						<span class="label-input100">Ingrese su usuario</span>
 					</div>
 
 					 <div class="wrap-input100 validate-input">
 						<input class="input100" type="text" name="nombre_usuario" id="nombre_usuario" maxlength="100" onkeyup="javascript:this.value=this.value.toUpperCase();" onkeypress="return soloLetras(event)" onpaste="return false" required>
 						<span class="focus-input100"></span>
-						<span class="label-input100">Nombre Usuario</span>
+						<span class="label-input100">Ingrese su nombre</span>
 					</div>
 
 					<!-- INICIO -->
@@ -132,34 +138,30 @@
           				</div>
     				</div>
                     </div>
-
-                    <br>
-				<center>
-                     <small  ><h6>*La contraseña debe tener entre 5 a 10 letras, mínimo un número, una letra mayúscula y un símbolo.
-	    			</h6></small> 
-	    		</center>
+				<left>
+                     <small>*La contraseña debe tener entre 5 a 10 letras, mínimo un número, una letra mayúscula y un símbolo.
+	    			</small>
+	    		</left>
 	    		 	<br>
-
+	    		 	<br>
 
                 <!-- FIN -->
               
 					 <div class="wrap-input100 validate-input">
 						<input id="correo_electronico" class="input100" type="text" name="correo_electronico" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" required >
 						<span class="focus-input100"></span>
-						<span class="label-input100">Correo Electronico</span>
+						<span class="label-input100">Correo electrónico</span>
 					</div>
-				
-      </div>
-                   
+				   
                    
                       <!-- Boton entrar -->
-					<div class="container-login100-form-btn"  >
+					<div class="container-login100-form-btn"  style = "position:relative;  top:-10px;">
 						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 						<button type="submit" value="Ingresar" name="btnGuardar" class="login100-form-btn">
 							Registrar
 						</button>
 					</div>
-				
+			  </div>	
 				</form>
 
 				 <!-- Fondo de login -->
@@ -376,6 +378,8 @@ if(isset($_POST["btnGuardar"])) {
 	//$clavehash3=hash("SHA256",$contra3);
 
 	if(isset($_POST["btnGuardar"])) {
+		$fecha_creacion=null;
+		$fecha_vencimiento =null;
 
 		$sql1= "Select usuario,correo_electronico from tbl_usuarios where usuario = \"$_POST[usuario]\" or correo_electronico =\"$_POST[correo_electronico]\"";
     	$result =mysqli_query($conexion,$sql1);
@@ -415,18 +419,43 @@ if(isset($_POST["btnGuardar"])) {
 		  VALUES((SELECT MAX(id_usuario) AS id FROM tbl_usuarios),'5',(select now()),'Entró','Entró al login',\"$_POST[usuario]\",(select now()))";
  		  ejecutarConsulta($sql_bitacora6);
 
+ 		 $queryprueba = "SELECT * from tbl_usuarios where usuario= \"$_POST[usuario]\" ";
+		ejecutarConsulta($queryprueba);
+			
+
+           while ($tbl_usuarios=ejecutarConsulta($queryprueba)->fetch_array()) 
+			{
+				$Id_autoR=$tbl_usuarios["id_usuario"];
+				$Nombre_autoR=$tbl_usuarios["usuario"];
+				break;
+			}
+
+			//Punto de referencia: HASTA AQUI FUNCIONA BIEN
+
+     	   $_SESSION['id_usuario_autoregistro'] = $Id_autoR;
+     	   $_SESSION['nombre_usuario_autoregistro'] = $Nombre_autoR;
+     	   $_SESSION['Pagina_Anterior'] = "Autoregistro"; 
 
 	echo "<script >
-           swal({ title: '¡Registro exitoso!',
-           text: 'Para finalizar este proceso, deberá ingresar al sistema nuevamente y responder las preguntas de seguridad.', 
+           swal({ title: '¡Felicidades! Su registro está casi terminado',
+           text: 'Para completar el registro deberá responder las siguientes preguntas de seguridad.', 
            icon:'success',
            type: 'success'}).then(okay => {
            if (okay) 
            {
-       			window.location.href = 'login1.php';
+       			window.location.href = '../vistas/PrimerIngreso/preguntaingreso.php';
            }
+           else
+           {
+           		window.location.href = '../vistas/PrimerIngreso/preguntaingreso.php';
+           }
+
        		  });
      	   </script>";
+     	 
+
+
+     	  
 	   }
 
 }

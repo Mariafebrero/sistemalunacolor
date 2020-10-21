@@ -1,14 +1,52 @@
 <?php
 ob_start();
 session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--=========================Sweet Alert========================================================-->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+</html>
+<?php
 //error_reporting(0);
 
     include '../../config/conexion.php';
-    
     //Bitacora
-	//Incializamos las variables de seccion 
+	//Incializamos las variables de seccion
+    $Pag_Anterior =NULL;
+
+    $Pag_Anterior=$_SESSION['Pagina_Anterior'];
+
+    if ($Pag_Anterior == "validalogin") 
+    {
+    //Sesiones a través del LOGIN
+   	// Los valores son los originales
  	$id_usuario1=$_SESSION['id_usuario'];
 	$usuario1=$_SESSION['usuario']; 
+	// Las variables de autoregistro quedan vacias
+	$Id_autoR = NULL;
+    $Nombre_autoR = NULL;
+    $Userpregunta = $usuario1;
+    }
+    elseif ($Pag_Anterior == "Autoregistro") 
+    {
+    //Sesiones a través de AUTOREGISTRO
+    // Las variables son de autoregistro
+	$Id_autoR = $_SESSION['id_usuario_autoregistro'];
+    $Nombre_autoR =$_SESSION['nombre_usuario_autoregistro'];
+    // y estas nuevas le dan valor a las originales para no mover codigo
+    $id_usuario1 = $Id_autoR;
+    $usuario1 = $Nombre_autoR;
+    $Userpregunta = $Nombre_autoR;
+    }
+    else
+    {
+		exit;
+    }
+    
+
 
 	$query=mysqli_query($mysqli,"SELECT * FROM tbl_preguntas WHERE estado = '1'");
 	$query3=mysqli_query($mysqli,"SELECT id_pregunta FROM tbl_preguntas_usuarios WHERE id_usuario = '$id_usuario1'");
@@ -36,12 +74,12 @@ while($tbl_usuarios2 = mysqli_fetch_array($query5))
                         {
                     ?> 
                     		<?php $id_estado_usuario=$tbl_usuarios2['id_estado_usuario']?>
-                            <?php $preguntas_contestadas2=$tbl_usuarios2['preguntas_contestadas']?>
+                            <?php 
+                            $preguntas_contestadas2 = 0;
+                            $preguntas_contestadas2=$tbl_usuarios2['preguntas_contestadas']?>
                     <?php
 
                         }  
-
-
 
 	if ($preguntas_contestadas2 == $valor1)
 	{       
@@ -51,7 +89,28 @@ while($tbl_usuarios2 = mysqli_fetch_array($query5))
 			mysqli_query($mysqli, "UPDATE tbl_usuarios SET 	id_estado_usuario = '1'  WHERE id_usuario='$id_usuario1'");
 
 			
-			echo "<script>alert('El proceso de registro a finalizado. Por favor contacte al administrador para tener acceso al sistema');window.location.href='../login1.php';</script>";
+			//echo "<script>alert('El proceso de registro a finalizado. Por favor contacte al administrador para tener acceso al sistema');window.location.href='../login1.php';</script>";
+
+			echo "<script >
+            swal({ title: '¡El proceso de registro ha finalizado!',
+          	text: 'Contacte al administrador para tener acceso al sistema',
+          	icon:'success',
+         	type: 'success'}).then(okay => 
+         	{
+         	if (okay)
+         	{
+       			window.location='../login1.php';
+       			exit();
+      	 	}
+      	 	else 
+      	 	{
+      	 		window.location='../login1.php';
+      	 		exit();
+      	 	}
+      	 	
+       		});
+     			 </script>";
+     			 exit();
 		}
 		else
 		{
@@ -128,23 +187,22 @@ while($tbl_usuarios2 = mysqli_fetch_array($query5))
 		          <div class="col-xs-12">
  
 		          	 <center>
-		           <h3><span class="hiddenui"><i class="fas fa-user-lock"> PREGUNTAS DE SEGURIDAD</i></span></h3>
+		          <h4 style = "position:relative;  top:-120px;" ><span class="hiddenui"><i class="fas fa-user-lock"> PREGUNTAS DE SEGURIDAD</i></span></h4>
+		          <h6 style = "position:relative;  top:-120px;" ><span class="hiddenui"><i> ¡En el caso de que olvides tu contraseña!</i></span></h6>
+		       </center>
 		           <br>
-		          	 <h3><span class="hidden-xs"><i class="fas fa-user"> <?php echo $_SESSION['nombre_usuario'];?></span></i></h3>
-					</center>
-
-
-
+		          	 <h4 style = "position:relative;  top:-100px;" ><span class="hidden-xs"><i class="fas fa-user"> <?php echo $Userpregunta;
+		          	 ?></span></i></h4>
+					   
 
 		          	<br>
                  
-						
-			
-
 						<!--Combobox Pregunta #1 -->
 
-					 <p><H4>Pregunta: Nº <?php echo $preguntas_contestadas2 + 1; ?></H4></p>
-                    <select class="selecion" name="pregunta1" select id="Pregunta1" required>
+					 <p><h5 style = "position:relative;  top:-100px;">Pregunta: Nº <?php echo 
+					 $preguntas_contestadas2 + 1; ?></h5></p>
+
+                    <select style = "position:relative;  top:-100px;" class="selecion" name="pregunta1" select id="Pregunta1" required>
                     	<option value="0">Seleccione:</option>
                     <?php 
 
@@ -163,10 +221,10 @@ while($tbl_usuarios2 = mysqli_fetch_array($query5))
                    <br>
                    <br>
                   
-                    <div class="wrap-input100 validate-input">
+                    <div class="wrap-input100 validate-input" style = "position:relative;  top:-110px;" data-validate = "Este campo no puede quedar vacío">
 						<input id="respuesta1" class="input100" type="text" name="respuesta1">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Respuesta</span>
+						<span class="label-input100">Ingrese su respuesta</span>
 
 
 					</div>
@@ -174,7 +232,7 @@ while($tbl_usuarios2 = mysqli_fetch_array($query5))
                    
                    
                       <!-- Boton entrar -->
-					<div class="container-login100-form-btn"  >
+					<div class="container-login100-form-btn" style = "position:relative;  top:-120px;" >
 						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 						<button type="submit" value="Ingresar" name="botonentrar" class="login100-form-btn">
 							Siguiente

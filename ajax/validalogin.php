@@ -120,7 +120,7 @@ if (isset($_POST["btningresar"])){
 	      $sql_bitacora3= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
 		  VALUES('$id_usuario1','6',(select now()),'Entró','Preguntas Primer Ingreso','$usuario1',(select now()))";
 		  ejecutarConsulta($sql_bitacora3);
-
+			  $_SESSION['Pagina_Anterior'] = "validalogin"; 
               header("Location: ../vistas/PrimerIngreso/preguntaingreso.php");
 	    }else{
           $query3=mysqli_query($mysqli,"SELECT * FROM tbl_usuarios WHERE usuario = '$usuario'");
