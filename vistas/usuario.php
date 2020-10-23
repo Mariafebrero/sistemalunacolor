@@ -3,6 +3,9 @@
 ob_start();
 session_start();
 
+
+
+
 //nombre new variable para secion
 if (!isset($_SESSION["nombre_usuario"]))
 {
@@ -35,6 +38,19 @@ require 'header.php';
 
 ?>
 
+<?php 
+    
+          $caracteres = '0123456789abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$#@!?=%-+*.[]{}_,;:<>|';
+    
+         $caractereslong = strlen($caracteres);
+          $clave = '';
+           for($i = 0; $i < 10; $i++) 
+          $clave .= $caracteres[rand(0, $caractereslong - 1)];
+        
+
+ ?>
+<!DOCTYPE html>
+<html lang="en">
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
@@ -49,7 +65,9 @@ require 'header.php';
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Usuario <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                          <center> <h1 ><span class="hiddenui"><i class="fas fa-users"> Mantenimiento usuario</i></span></h1> </center>
+                          <br>
+                            <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar nuevo usuario</button>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -114,51 +132,81 @@ require 'header.php';
                           <div class="form-group col-lg-4 col-xs-12">
                             <label>Usuario(*):</label>
                             <input type="hidden" name="id_usuario" id="id_usuario">
-                            <input type="text" class="form-control" name="usuario" id="usuario" minlength="3" maxlength="15" placeholder="Usuario" onkeyup="javascript:this.value=this.value.toUpperCase();" 
-                           onkeypress="return event.charCode != 32"onpaste="return false"  required>
+                            <input type="text" class="form-control" name="usuario" id="usuario" minlength="3" maxlength="15" placeholder="Usuario" onkeyup="javascript:this.value=this.value.toUpperCase();"
+                            required  
+                            onkeypress= "return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) ">
                           </div> 
 
                           <!-- Nombre usuario -->
                            <div class="form-group col-lg-4 col-xs-12">
                             <label>Nombre usuario(*):</label>
-                            <input type="text" class="form-control" name="nombre_usuario" id="nombre_usuario" maxlength="100" placeholder="Nombre Usuario" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
+                            <input type="text" class="form-control" name="nombre_usuario" id="nombre_usuario" maxlength="100" placeholder="Nombre Usuario" keydown ="teclear()" onkeyup="javascript:this.value=this.value.toUpperCase();" required  
+                            onkeypress= "return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) "/>
                           </div>
                          </div>
 
                          <br>
 
                            <div class="row">
-                        <!-- Coontraseña -->  
+                             <!-- Coontraseña -->  
                        <div class="form-group col-lg-4 col-xs-12">
                           <label>Contraseña(*):</label>
                               
-                                 <input ID="confirmar_contrasena" type="Password" name="confirmar_contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$"  minlength="5" maxlength="10" required>
-                                <!-- boton monstrar Contraseña -->
-                                 <div class="input-group-append">
-                                 <button id="show_password" class="login100-form-btn" name="" type="button" onclick="mostrarPassword2()" > 
-                                  <h5><span class="fas fa-eye-slash icon"></span></h5></button>
-                             </div>
-                          
-                       </div>
+                                 <input ID="confirmar_contrasena" type="Password" name="confirmar_contrasena"  Class="form-control"  pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$"  minlength="5"  maxlength="10" 
+                                 required  onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
 
-                        <div class="form-group col-lg-4 col-xs-12">
-                          <label>Confirmar Contraseña(*):</label>
-                               
-                                 <input ID="contrasena" type="Password" name="contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$"  minlength="5" maxlength="10" required>
+
                                 <!-- boton monstrar Contraseña -->
-                                 <div class="input-group-append">
-                                 <button id="show_password" class="login100-form-btn" name="" type="button" onclick="mostrarPassword()" > 
-                                  <h5><span class="fas fa-eye-slash svg"></span></h5></button>
+                             <div class="input-group-append">
+                                 <button id="show_password1" class="login100-form-btn" name="" type="button" onclick="mostrarPassword2()" > 
+                                  <h5><span class="fas fa-eye-slash icon"></span></h5></button>
+                              </div>
+                
+                        </div>
+
+                      <div class="form-group col-lg-4 col-xs-12">
+                          <label id="Etiqueta" name ="Etiqueta">Confirmar Contraseña(*):</label>
+                               
+                                 <input ID="contrasena" type="Password" name="contrasena"  Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$"  minlength="5" maxlength="10" required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
+                                
+                                <!-- boton monstrar Contraseña -->
+                             <div class="input-group-append">
+                                 <button id="show_password" class="login100-form-btn" type="button" onclick="mostrarPassword()" > 
+                                  <h5><span name="Ojito" Id="Ojito"class="fas fa-eye-slash svg"></span></h5></button>
+                                  
                              </div>
                        
                        </div>
+                       
+
                        </div>
 
                          <div class="row">
                             <div class="form-group col-lg-4 col-xs-12">
-                             <center>
+                <!------------------------AUTOGENERAR CONTRASEÑA INICIO----------------------------------->
+                <input type="checkbox" class="form-check-input" id="Autogenerar" name="Autogenerar" value="1" onchange ="comprobar(this);comprobar2(this);comprobar3(this)"  
+                >
+                <!--<input type="checkbox" class="form-check-input" id="conditions" name="conditions" value="1"
+                -->
+                 
+                
+
+                <label class="form-check-label" for="Autogenerar">Autogenerar contraseña</label>
+                
+                <!--<label for="Autogenerar">Autogenerar contraseña</label>-->
+                <!------------------------AUTOGENERAR CONTRASEÑA FINAL----------------------------------->
+              
+
+      
+
+
+
+
+
+                                <br>
+                                <br>
                                 <small style = "position:relative;  top:-20px;"><h6>*La contraseña debe tener entre 5 a 10 letras, mínimo un número, una letra mayúscula y un símbolo.</h6></small> 
-                            </center>
+                           
                             </div>
                             <br>
                          </div>
@@ -225,8 +273,12 @@ require 'header.php';
         <br>
 
 <small id="fv" name="fv" style = "position:relative;  top:-10px;" ><h4> *Fecha Vencimiento <?php
-                            $fecha_vencimiento=null;
-                        
+                            $fecha_vencimiento=null;  ?>
+
+
+                            <?php
+
+                     
                         include '../config/conexion.php';
                             $query4=mysqli_query($mysqli,"SELECT valor FROM tbl_parametros WHERE id_parametro = '14'");
       
@@ -248,8 +300,9 @@ require 'header.php';
                              $fecha_vencimiento = date("d-m-Y H:i:s", $fecha_vencimiento); 
                              echo $fecha_vencimiento; 
                              ?> 
-        </h4></small>
-                          
+        
+</h4>
+</small>                
                            <!-- Permisos -->
                          <!-- <div class="form-group col-lg-4 col-xs-12"> -->
                           <!--   <label>Permisos:</label> -->
@@ -281,21 +334,14 @@ require 'header.php';
 
     </div><!-- /.content-wrapper -->
   <!--Fin-Contenido-->
-
+</html>
 
 
 
 <?php
-
-//}
-//else
-//{
-// require 'noacceso.php';
-
-//}
-
 require 'footer.php';
 ?>
+
 <script type="text/javascript" src="scripts/usuario.js"></script>
 
 
@@ -337,6 +383,77 @@ function mostrarPassword(){
     $('#Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
   });
 });
+
+
+
+document.getElementById("nombre_usuario").addEventListener("keydown", teclear);
+
+var flag = false;
+var teclaAnterior = "";
+
+function teclear(event) {
+  teclaAnterior = teclaAnterior + " " + event.keyCode;
+  var arregloTA = teclaAnterior.split(" ");
+  if (event.keyCode == 32 && arregloTA[arregloTA.length - 2] == 32) {
+    event.preventDefault();
+  }
+}
+
+$(document).ready(function(){
+  $('#Autogenerar').on('change',function(){
+    if (this.checked) {
+     $("#contrasena").hide();
+       $("#Etiqueta").hide();
+         $("#Ojito").hide();
+         $("#Bojito").hide();
+         $("#show_password").hide();
+    } else {
+      $("#contrasena").show();
+       $("#Etiqueta").show();
+         $("#Ojito").show();
+         $("#Bojito").show();
+         $("#show_password").show();
+    }  
+  })
+});
+
+
+  function comprobar(obj)
+{   
+    if (obj.checked)
+      document.getElementById('confirmar_contrasena').readOnly = true;  
+
+    else
+     document.getElementById('confirmar_contrasena').readOnly = false;
+
+
+        
+}
+
+
+function comprobar2(obj)
+{   
+    if (obj.checked)
+      document.getElementById('contrasena').readOnly = true;
+
+    else
+     document.getElementById('contrasena').readOnly = false;  
+        
+}
+
+function comprobar3(obj)
+{   
+
+    function generate(length = 12) 
+  { var uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; var lowercase = 'abcdefghijklmnopqrstuvwxyz'; var numbers = '0123456789'; var symbols = '!#$%&\'*/<=>?@\\'; var all = uppercase + lowercase + numbers + symbols; var password = ''; for (var index = 0; index < length; index++) { var character = Math.floor(Math.random() * all.length); password += all.substring(character, character + 1); } return password; 
+  }
+    if (obj.checked)
+     
+      document.getElementById('confirmar_contrasena').defaultValue = generate();
+      
+}
+
+
 </script>
 
 

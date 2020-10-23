@@ -96,14 +96,16 @@
                         </script>
  
                     <div class="wrap-input100 validate-input">
-                    	
-						<input class="input100" type="text" name="usuario" id="usuario"  minlength="3" maxlength="15" onkeyup="javascript:this.value=this.value.toUpperCase();" onkeypress="return soloLetras(event)" onpaste="return false" required> 
+						<input class="input100" type="text" name="usuario" id="usuario"  minlength="3" maxlength="15" onkeyup="javascript:this.value=this.value.toUpperCase();" required  
+                onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)" min="1"> 
 						<span class="focus-input100"></span>
 						<span class="label-input100">Ingrese su usuario</span>
 					</div>
 
+
 					 <div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="nombre_usuario" id="nombre_usuario" maxlength="100" onkeyup="javascript:this.value=this.value.toUpperCase();" onkeypress="return soloLetras(event)" onpaste="return false" required>
+						<input class="input100" type="text" name="nombre_usuario" id="nombre_usuario" maxlength="100" keydown ="teclear()" onkeyup="javascript:this.value=this.value.toUpperCase();" required  
+                onkeypress= "return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) "/> 
 						<span class="focus-input100"></span>
 						<span class="label-input100">Ingrese su nombre</span>
 					</div>
@@ -113,7 +115,7 @@
        			   <div class="col-xs-12">
       				
        				 <div class="input-group">
-     					<input ID="contrasena" type="Password" name="contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" placeholder="Contraseña" required>
+     					<input ID="contrasena" type="Password" name="contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" placeholder="Contraseña" required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
 					<!-- boton monstrar Contraseña -->
       					<div class="input-group-append">
             			<button id="show_password" class="login100-form-btn" name="" type="button" onclick="mostrarPassword2()" style="background-color: rgb(233,118,46)"> 
@@ -129,7 +131,7 @@
                      <div class="col-xs-12">
       				
        				 <div class="input-group">
-     					<input ID="confirmar_contrasena" type="Password" name="confirmar_contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" placeholder="Confirmar Contraseña" required>
+     					<input ID="confirmar_contrasena" type="Password" name="confirmar_contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" placeholder="Confirmar Contraseña" required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
 					<!-- boton monstrar Contraseña -->
       					<div class="input-group-append">
             			<button id="show_password" class="login100-form-btn" name="" type="button" onclick="mostrarPassword()" style="background-color: rgb(233,118,46)"> 
@@ -138,6 +140,7 @@
           				</div>
     				</div>
                     </div>
+
 				<left>
                      <small>*La contraseña debe tener entre 5 a 10 letras, mínimo un número, una letra mayúscula y un símbolo.
 	    			</small>
@@ -297,6 +300,20 @@
 
 
 <script type="text/javascript">
+
+document.getElementById("nombre_usuario").addEventListener("keydown", teclear);
+
+var flag = false;
+var teclaAnterior = "";
+
+function teclear(event) {
+  teclaAnterior = teclaAnterior + " " + event.keyCode;
+  var arregloTA = teclaAnterior.split(" ");
+  if (event.keyCode == 32 && arregloTA[arregloTA.length - 2] == 32) {
+    event.preventDefault();
+  }
+}
+
 function mostrarPassword(){
 		var cambio = document.getElementById("confirmar_contrasena");
 		if(cambio.type == "password"){
@@ -387,8 +404,8 @@ if(isset($_POST["btnGuardar"])) {
       if (mysqli_num_rows($result)>0)
  									{
 		echo '<script>swal({
-  			title: "",
-  			text: "El usuario y/o correo ya existen.",
+  			title: "El usuario y/o correo ya existen.",
+  			text: "Inténtelo de nuevo",
   			icon: "warning",
   			button: "OK",
 			});</script>';

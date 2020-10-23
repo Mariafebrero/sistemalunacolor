@@ -46,7 +46,7 @@
 				
 				<form class="login100-form validate-form" method="post" autocomplete="off">
 
-				<h3 style = "position:relative;  top:-70px;"> <center> ¡Bienvenido
+				<h3 style = "position:relative;  top:-70px; color:#F27830"> <center> ¡Bienvenido
 				<?php 
 				include "../../config/Conglobal.php";
 				session_start();
@@ -64,7 +64,8 @@
 
 				print $NombreRecu;
 				?>!
-				<hr>
+				<h5 style = "position:relative;  top:10px; color:#F27830" ><span class="hiddenui"><i> ¡Restablece tu contraseña!</i></span><hr></h5>
+				
 				</h3> </center>
 
 				<?php
@@ -100,7 +101,7 @@
       				 <p class="text-secondary float-left"> <h6> Ingrese su contraseña nueva </h6></p>
       				 <!--- posicion del boton-->
        				 <div class="input-group">
-     					<input ID="Contranueva" type="Password" name="Contranueva" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$"<?php echo $MincontraLen . " " .  $MaxcontraLen; ?> required>
+     					<input ID="Contranueva" type="Password" name="Contranueva" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$"<?php echo $MincontraLen . " " .  $MaxcontraLen; ?>  required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
       					<div class="input-group-append">
             			<button id="show_password" class="login100-form-btn" name="eye1" type="button" onclick="mostrarPassword()" style="background-color: rgb(233,118,46)"> 
             				<h5><span class="fas fa-eye-slash icon"></span></h5></button>
@@ -113,7 +114,7 @@
 					<div class="col-xs-12" style = "position:relative;  top:-40px;">
       				 <p class="text-secondary float-left"> <h6> Confirme su contraseña nueva </h6></p>
        				 <div class="input-group">
-     					<input Id="Contraconfir" type="password" name="Contraconfir" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$"<?php echo $MincontraLen . " " .  $MaxcontraLen; ?> required>
+     					<input Id="Contraconfir" type="password" name="Contraconfir" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$"<?php echo $MincontraLen . " " .  $MaxcontraLen; ?>  required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
       					<div class="input-group-append">
             			<button id="show_password2" class="login100-form-btn" name="eye2" type="button" onclick="mostrarPassword2()" style="background-color: rgb(233,118,46)"> 
             				<h5><span class="fas fa-eye-slash svg"></span></h5></button>
@@ -131,7 +132,7 @@
 
 
 			<!----------------------- Botón actualizar---------------------------->
-					<div class="container-login100-form-btn"  >
+					<div class="container-login100-form-btn" style = "position:relative;  top:-70px;" >
 						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 						<button type="submit" name ="BotonValidar" class="login100-form-btn">
 							Actualizar
@@ -172,21 +173,24 @@
 		$sql= "update tbl_usuarios set id_estado_usuario =2 WHERE usuario=" . "'" .  $NombreRecu. "'". "";
 		$query = $con->query($sql);
 
- echo "<script >
-           swal({ title: '¡El cambio se ha realizado con éxito!',
+ 		  echo "<script >
+          swal({ title: '¡El cambio se ha realizado con éxito!',
           text: ' ',
           icon:'success',
           type: 'success'}).then(okay => {
           if (okay)
           {
-          window.location.href = '../login1.php';
+          window.location='../login1.php';
+       			exit();
           }
           else 
           {
- 		 window.location.href = '../login1.php';
+ 		 window.location='../login1.php';
+       			exit();
           }
        });
       </script>";
+      
 
        include "../../config/Conglobal.php";
 

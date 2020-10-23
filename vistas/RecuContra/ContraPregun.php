@@ -160,7 +160,7 @@
 
 <!------------------------ Casilla de usuario a la pregunta personal ---------------------------->
 					<div class="wrap-input100 validate-input"  style = "position:relative;  top:-90px;" data-validate = "No puede dejar este campo vacío">
-						<input class="input100" style="text-transform: uppercase;"  type="text" name="UsuarioPre">
+						<input class="input100" style="text-transform: uppercase;"  type="text" name="UsuarioPre"  id= "UsuarioPre" keydown ="teclear()">
 						<span class="focus-input100"></span>
 						<span class="label-input100">Ingrese su nombre de usuario </span>
 					</div>
@@ -233,6 +233,23 @@
 	<script src="../../public/js/main.js"></script>
 
 	</script>
+	<script type="text/javascript">
+
+document.getElementById("UsuarioPre").addEventListener("keydown", teclear);
+
+var flag = false;
+var teclaAnterior = "";
+
+function teclear(event) {
+  teclaAnterior = teclaAnterior + " " + event.keyCode;
+  var arregloTA = teclaAnterior.split(" ");
+  if (event.keyCode == 32 && arregloTA[arregloTA.length - 2] == 32) {
+    event.preventDefault();
+  }
+}
+
+</script>
+
 					<style type="text/css">
 						a{
 							text-decoration: none;

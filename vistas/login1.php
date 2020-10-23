@@ -42,24 +42,30 @@
         <H2><p class="login-box-msg">ACCESO</p></H2>
 
         <form method="post" action="../ajax/validalogin.php" id="frmAcceso">
-
          <p>
         <div class="row">
-          <!-- Usuario -->  
+          
+
           <div class="col-xs-12">
               <div class="input-group">
-                <input ID="usuario" type="usuario" name="usuario" Class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();" placeholder="Usuario" required >
+
+                <input ID="usuario" type="usuario" name="usuario" Class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();" placeholder="Usuario" required  
+                onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)" min="1">
                     <div class="input-group-append"></div>
-              </div>
+          </div>
+
+
+                
           </div>
         </div>
+
          </p> 
           
           <div class="row">
           <!-- Coontraseña -->  
           <div class="col-xs-12">
                <div class="input-group">
-                <input ID="contrasena" type="Password" name="contrasena" Class="form-control" placeholder="Contraseña" required>
+                <input ID="contrasena" type="Password" name="contrasena" Class="form-control" placeholder="Contraseña" required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
           <!-- boton monstrar Contraseña -->
                   <div class="input-group-append">
                     <button id="show_password" class="login100-form-btn" name="" type="button" onclick="mostrarPassword()"> 

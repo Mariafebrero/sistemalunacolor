@@ -40,7 +40,7 @@ Class Usuario
 		$clavehash=hash("SHA256",$contrasena);
 
 		$sql="INSERT INTO tbl_usuarios (id_rol,usuario,nombre_usuario,contrasena,imagen,correo_electronico,id_estado_usuario,fecha_ultima_conexion,preguntas_contestadas,fecha_creacion,intentos,fecha_vencimiento,token,fecha_inicio,fecha_final)
-			VALUES ('$id_rol','$usuario','$nombre_usuario','$clavehash','$imagen','$correo_electronico','$id_estado_usuario','','0','$fecha_creacion','1','$fecha_vencimiento','','','')";
+			VALUES ('$id_rol','$usuario','$nombre_usuario','$clavehash','$imagen','$correo_electronico','$id_estado_usuario','','0','$fecha_creacion','0','$fecha_vencimiento','','','')";
 		
 		   $idusuarionew=ejecutarConsulta_retornarID($sql);
           

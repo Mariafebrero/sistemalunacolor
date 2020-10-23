@@ -72,14 +72,14 @@ error_reporting(0);
 		          <div class="col-xs-12">
 						
 				<center>
-		          <h4 style = "position:relative;  top:-120px; color:#ff8533;" ><span class="hiddenui"><i class="fas fa-lock ">¡BIENVENIDO <?php echo $_SESSION['nombre_usuario'];?>!</i></span></h4>
-		          <h5 style = "position:relative;  top:-120px; color:#ff8533;" ><span class="hiddenui"><i> ¡Reestablece tu contraseña!</i></span></h5>
+		          <h4 style = "position:relative;  top:-120px; color:#F27830;" ><span class="hiddenui"><i class="fas fa-lock ">¡BIENVENIDO <?php echo $_SESSION['nombre_usuario'];?>!</i></span></h4>
+		          <h5 style = "position:relative;  top:-120px; color:#F27830;" ><span class="hiddenui"><i> ¡Reestablece tu contraseña!</i></span><hr></h5>
 		       	</center>
                           
 
 					<br>
                     
-                     <div class="col-xs-12" style = "position:relative;  top:-90px;">
+                     <div class="col-xs-12" style = "position:relative;  top:-120px;">
       				 <p class="text-secondary float-left">Contraseña anterior</p>
        				 <div class="input-group">
      					<input ID="contrasena_anterior" type="Password" name="contrasena_anterior" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" required>
@@ -93,10 +93,10 @@ error_reporting(0);
                     </div>
 				<!-- NUEVOS -->
 
-       			   <div class="col-xs-12" style = "position:relative;  top:-70px;">
+       			   <div class="col-xs-12" style = "position:relative;  top:-110px;">
       				 <p class="text-secondary float-left">Nueva contraseña</p>
        				 <div class="input-group">
-     					<input ID="nueva_contrasena" type="Password" name="nueva_contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" required>
+     					<input ID="nueva_contrasena" type="Password" name="nueva_contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
 					<!-- boton monstrar Contraseña -->
       					<div class="input-group-append">
             			<button id="show_password" class="login100-form-btn" name="" type="button" onclick="mostrarPassword2()" style="background-color: rgb(233,118,46)"> 
@@ -109,10 +109,10 @@ error_reporting(0);
                      <p></p>
                       <p></p>
 
-                     <div class="col-xs-12" style = "position:relative;  top:-60px;">
+                     <div class="col-xs-12" style = "position:relative;  top:-110px;">
       				 <p class="text-secondary float-left">Confirmar contraseña</p>
        				 <div class="input-group">
-     					<input ID="confirmar_contrasena" type="Password" name="confirmar_contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" required>
+     					<input ID="confirmar_contrasena" type="Password" name="confirmar_contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
 					<!-- boton monstrar Contraseña -->
       					<div class="input-group-append">
             			<button id="show_password" class="login100-form-btn" name="" type="button" onclick="mostrarPassword()" style="background-color: rgb(233,118,46)"> 
@@ -125,7 +125,7 @@ error_reporting(0);
                    
                     <br>
 				
-                    <small style = "position:relative;  top:-75px;">*La contraseña debe tener entre 5 a 10 letras, mínimo un número, una letra mayúscula y un símbolo.
+                    <small style = "position:relative;  top:-135px;">*La contraseña debe tener entre 5 a 10 letras, mínimo un número, una letra mayúscula y un símbolo.
 	    			</small>
 	    	
 	    		 	<br>
@@ -140,7 +140,7 @@ error_reporting(0);
 	                <p></p>
 
                       <!-- Boton entrar -->
-					<div class="container-login100-form-btn" style = "position:relative;  top:-100px;" >
+					<div class="container-login100-form-btn" style = "position:relative;  top:-170px;" >
 						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 						<button type="submit" value="Ingresar" name="btn_restablecer" class="login100-form-btn">
 							Restablecer
