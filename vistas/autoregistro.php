@@ -45,8 +45,13 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
-<!--===============================================================================================-->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!--==========================================ALERT 2==================================================-->
+<script src="sweetalert2.all.min.js"></script>
+<!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
 </head>
 <body  style="background-color: rgb(63,63,63)">
 	 <
@@ -390,6 +395,7 @@ if(isset($_POST["btnGuardar"])) {
     $clavehash2=hash("SHA256",$contra2);
 
 	$contra =$_POST['contrasena'];
+	$ContrasinHash = $contra;
 	$clavehash=hash("SHA256",$contra);
 	//$clavehash2=hash("SHA256",$contra2);
 	//$clavehash3=hash("SHA256",$contra3);
@@ -413,6 +419,20 @@ if(isset($_POST["btnGuardar"])) {
 	   }
 
 	   else{
+	   	date_default_timezone_set("America/Tegucigalpa");
+	   	$queryfechaF=mysqli_query($mysqli,"SELECT valor FROM tbl_parametros WHERE id_parametro = '14'");
+      
+        while($r = mysqli_fetch_array($queryfechaF))
+            {
+                    
+                $valor=$r['valor'];
+                  
+            }
+         $parametroV = "+" . $valor . " Days";
+         $fecha_creacion = strtotime("now"); 
+         $fecha_vencimiento = strtotime($parametroV, $fecha_creacion);
+         $fecha_creacion = date("d-m-Y H:i:s", $fecha_creacion);
+         $fecha_vencimiento = date("d-m-Y H:i:s", $fecha_vencimiento); 
 
 	   	mysqli_query($mysqli, "INSERT INTO tbl_usuarios (id_rol,usuario,nombre_usuario,contrasena,imagen,correo_electronico,id_estado_usuario,fecha_ultima_conexion,preguntas_contestadas,fecha_creacion,intentos,fecha_vencimiento,token,fecha_inicio,fecha_final)
 			VALUES ('1',\"$_POST[usuario]\",\"$_POST[nombre_usuario]\",'$clavehash','',\"$_POST[correo_electronico]\",'5','','0','$fecha_creacion','1','$fecha_vencimiento','','','')");
@@ -451,25 +471,104 @@ if(isset($_POST["btnGuardar"])) {
 
      	   $_SESSION['id_usuario_autoregistro'] = $Id_autoR;
      	   $_SESSION['nombre_usuario_autoregistro'] = $Nombre_autoR;
-     	   $_SESSION['Pagina_Anterior'] = "Autoregistro"; 
+     	   $_SESSION['Pagina_Anterior'] = "Autoregistro";
+   //--------------------------- Proceso que envía correo de bienvenida INICIO------------------------
 
-	echo "<script >
-           swal({ title: '¡Felicidades! Su registro está casi terminado',
-           text: 'Para completar el registro deberá responder las siguientes preguntas de seguridad.', 
-           icon:'success',
-           type: 'success'}).then(okay => {
+			$user_id=null;
+			$user_name =null;
+			$user_mail =null;
+			$user_token = null;
+			
+				  $sqlmail= "select * from tbl_usuarios where (usuario=\"$_POST[usuario]\") ";
+						  ejecutarConsulta($sqlmail);
+							
+
+				           while ($r=ejecutarConsulta($sqlmail)->fetch_array()) 
+							{
+								$user_id=$r["id_usuario"];
+								$user=$r["usuario"];
+								$user_name=$r["nombre_usuario"];
+								$user_mail=$r["correo_electronico"];
+								$user_fechaI = $r["fecha_creacion"];
+								$user_fechaF = $r["fecha_vencimiento"];
+								break;
+							}
+
+  	          $cuerpo = "¡Gracias por registrarte!"  ."<br>". 
+        "Querido " . $user_name . ",". 
+        "<br>".
+        " Te damos la bienvenida al Sistema Luna Color, con fecha de creaci&oacute;n " . $user_fechaI . " y con vigencia hasta ". $user_fechaF. ".".
+        "<br>".
+        "La informaci&oacute;n de tu cuenta es: ".
+         "<br>".
+         "Nombre de usuario: " . $user
+        ."<br>".
+        "Contraseña: " . $ContrasinHash;
+
+        //para el envío en formato HTML
+        $headers  = "MIME-Version: 1.0\r\n";
+        $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
+
+        //Cabecera del emisor - izquierdo
+        $headers .= "From: Soporte técnico Luna Color";
+
+         //Cabecera del emisor - derecho
+        $headers .= " soportelunacolor@gmail.com";
+
+        //Si Suzy nos pide enviar copia a otro lado
+        //$headers .= "Cc: ejemplo2@gmail.com\r\n";
+
+        //Si Suzy nos pide enviar copia a otro lado de forma oculta para otros correos
+        //$headers .= "Bcc: ejemplo3@yahoo.com\r\n";
+      
+       
+
+        mail($user_mail,"Creación de cuenta",$cuerpo,$headers);
+        
+ //--------------------------- Proceso que envía correo de bienvenida FIN------------------------
+
+echo "<script >
+           swal({ title: '¡Te hemos enviado un correo electrónico!',
+           text: 'Revisa tu bandeja de entrada', 
+           icon:'info',
+           type: 'info'}).then(okay => {
            if (okay) 
            {
-       			window.location.href = '../vistas/PrimerIngreso/preguntaingreso.php';
+       			 swal({ title: '¡Felicidades! Su registro está casi terminado!',
+			           text: 'Para completar el registro deberá responder las siguientes preguntas de seguridad.', 
+			           icon:'success',
+			           type: 'success'}).then(okay => {
+			           if (okay) 
+			           {
+			       			window.location.href = '../vistas/PrimerIngreso/preguntaingreso.php';
+			           }
+			           else
+			           {
+			           		window.location.href = '../vistas/PrimerIngreso/preguntaingreso.php';
+			           }
+
+			       		  });
            }
            else
            {
-           		window.location.href = '../vistas/PrimerIngreso/preguntaingreso.php';
+           		swal({ title: '¡Felicidades! Su registro está casi terminado!',
+			           text: 'Para completar el registro deberá responder las siguientes preguntas de seguridad.', 
+			           icon:'success',
+			           type: 'success'}).then(okay => {
+			           if (okay) 
+			           {
+			       			window.location.href = '../vistas/PrimerIngreso/preguntaingreso.php';
+			           }
+			           else
+			           {
+			           		window.location.href = '../vistas/PrimerIngreso/preguntaingreso.php';
+			           }
+
+			       		  });
            }
 
        		  });
      	   </script>";
-     	 
 
 
      	  

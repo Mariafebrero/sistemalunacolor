@@ -48,10 +48,62 @@ switch ($_GET["op"]){
 		return;
 
    		}	
-   		    //,$_POST['permiso']
-
 			$rspta=$usuarios->insertar($id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$id_estado_usuario);
-			echo $rspta ? "Usuario registrado" : "No se pudieron registrar todos los datos del usuario";
+//--------------------------- Proceso que envía correo de bienvenida INICIO------------------------	
+			$user_id=null;
+			$user_name =null;
+			$user_mail =null;
+			$user_token = null;
+			
+				  $sqlmail= "select * from tbl_usuarios where (usuario=\"$_POST[usuario]\") ";
+						  ejecutarConsulta($sqlmail);
+							
+
+				           while ($r=ejecutarConsulta($sqlmail)->fetch_array()) 
+							{
+								$user_id=$r["id_usuario"];
+								$user=$r["usuario"];
+								$user_name=$r["nombre_usuario"];
+								$user_mail=$r["correo_electronico"];
+								$user_fechaI = $r["fecha_creacion"];
+								$user_fechaF = $r["fecha_vencimiento"];
+								break;
+							}
+
+  	          $cuerpo = "¡Gracias por registrarte!"  ."<br>". 
+        "Querido " . $user_name . ",". 
+        "<br>".
+        " Te damos la bienvenida al Sistema Luna Color, con fecha de creaci&oacute;n " . $user_fechaI . " y con vigencia hasta ". $user_fechaF. ".".
+        "<br>".
+        "La informaci&oacute;n de tu cuenta es: ".
+         "<br>".
+         "Nombre de usuario: " . $user
+        ."<br>".
+        "Contraseña: " . "";
+
+        //para el envío en formato HTML
+        $headers  = "MIME-Version: 1.0\r\n";
+        $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
+
+        //Cabecera del emisor - izquierdo
+        $headers .= "From: Soporte técnico Luna Color";
+
+         //Cabecera del emisor - derecho
+        $headers .= " soportelunacolor@gmail.com";
+
+        //Si Suzy nos pide enviar copia a otro lado
+        //$headers .= "Cc: ejemplo2@gmail.com\r\n";
+
+        //Si Suzy nos pide enviar copia a otro lado de forma oculta para otros correos
+        //$headers .= "Bcc: ejemplo3@yahoo.com\r\n";
+      
+       
+
+       		 mail($user_mail,"Creación de cuenta",$cuerpo,$headers);
+        
+ //--------------------------- Proceso que envía correo de bienvenida FIN------------------------
+			echo $rspta ? "Usuario registrado " : "No se pudieron registrar todos los datos del usuario";
+
 		}
 		else {
 
