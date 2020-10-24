@@ -1,11 +1,11 @@
+ <?php
+ session_start();
+ ?>
  <?php  
 
  include '../config/conexion.php';
 
  ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,14 +45,19 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>	
-<!--===============================================================================================-->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!--==========================================ALERT 2==================================================-->
+<script src="sweetalert2.all.min.js"></script>
+<!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
 </head>
 <body  style="background-color: rgb(63,63,63)">
-
+	 <
 <center>
 			<!-- Boton atras -->
-		<a href="login1.php" class="previous"><i class="fas fa-chevron-circle-left fa-2x" aria-hidden="true"></a></i>
+		<a href="../index.html" class="previous"><i class="fas fa-chevron-circle-left fa-2x" aria-hidden="true"></a></i> 
 			<!-- Boton adelante -->
  </center>
 
@@ -64,9 +69,15 @@
 
 				<!--Validacion base de datos -->
 				<form class="login100-form validate-form" name="formulario" id="formulario" method="post">
-                
+					
+				<center>
+		          <h4 style = "position:relative;  top:-120px;" ><span class="hiddenui"><i class="fas fa-user-plus"> CREA TU PERFIL DE USUARIO</i></span></h4>
+		          <h5 style = "position:relative;  top:-120px;" ><span class="hiddenui"><i> ¡Únete a nosotros!</i></span></h5>
+		       </center>
+				
+
 					<!-- Usuario -->	
-		<div class="col-xs-12">
+		<div class="col-xs-12" style = "position:relative;  top:-110px;">
 
 			 			<script>
                               function soloLetras(e) {
@@ -90,16 +101,18 @@
                         </script>
  
                     <div class="wrap-input100 validate-input">
-                    	
-						<input class="input100" type="text" name="usuario" id="usuario"  minlength="3" maxlength="15" onkeyup="javascript:this.value=this.value.toUpperCase();" onkeypress="return soloLetras(event)" onpaste="return false" required> 
+						<input class="input100" type="text" name="usuario" id="usuario"  minlength="3" maxlength="15" onkeyup="javascript:this.value=this.value.toUpperCase();" required  
+                onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)" min="1"> 
 						<span class="focus-input100"></span>
-						<span class="label-input100">Usuario</span>
+						<span class="label-input100">Ingrese su usuario</span>
 					</div>
 
+
 					 <div class="wrap-input100 validate-input">
-						<input class="input100" type="text" name="nombre_usuario" id="nombre_usuario" maxlength="100" onkeyup="javascript:this.value=this.value.toUpperCase();" onkeypress="return soloLetras(event)" onpaste="return false" required>
+						<input class="input100" type="text" name="nombre_usuario" id="nombre_usuario" maxlength="100" keydown ="teclear()" onkeyup="javascript:this.value=this.value.toUpperCase();" required  
+                onkeypress= "return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) "/> 
 						<span class="focus-input100"></span>
-						<span class="label-input100">Nombre Usuario</span>
+						<span class="label-input100">Ingrese su nombre</span>
 					</div>
 
 					<!-- INICIO -->
@@ -107,7 +120,7 @@
        			   <div class="col-xs-12">
       				
        				 <div class="input-group">
-     					<input ID="contrasena" type="Password" name="contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" placeholder="Contraseña" required>
+     					<input ID="contrasena" type="Password" name="contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" placeholder="Contraseña" required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
 					<!-- boton monstrar Contraseña -->
       					<div class="input-group-append">
             			<button id="show_password" class="login100-form-btn" name="" type="button" onclick="mostrarPassword2()" style="background-color: rgb(233,118,46)"> 
@@ -123,7 +136,7 @@
                      <div class="col-xs-12">
       				
        				 <div class="input-group">
-     					<input ID="confirmar_contrasena" type="Password" name="confirmar_contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" placeholder="Confirmar Contraseña" required>
+     					<input ID="confirmar_contrasena" type="Password" name="confirmar_contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" placeholder="Confirmar Contraseña" required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
 					<!-- boton monstrar Contraseña -->
       					<div class="input-group-append">
             			<button id="show_password" class="login100-form-btn" name="" type="button" onclick="mostrarPassword()" style="background-color: rgb(233,118,46)"> 
@@ -133,33 +146,30 @@
     				</div>
                     </div>
 
-                    <br>
-				<center>
-                     <small  ><h6>*La contraseña debe tener entre 5 a 10 letras, mínimo un número, una letra mayúscula y un símbolo.
-	    			</h6></small> 
-	    		</center>
+				<left>
+                     <small>*La contraseña debe tener entre 5 a 10 letras, mínimo un número, una letra mayúscula y un símbolo.
+	    			</small>
+	    		</left>
 	    		 	<br>
-
+	    		 	<br>
 
                 <!-- FIN -->
               
 					 <div class="wrap-input100 validate-input">
 						<input id="correo_electronico" class="input100" type="text" name="correo_electronico" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" required >
 						<span class="focus-input100"></span>
-						<span class="label-input100">Correo Electronico</span>
+						<span class="label-input100">Correo electrónico</span>
 					</div>
-				
-      </div>
-                   
+				   
                    
                       <!-- Boton entrar -->
-					<div class="container-login100-form-btn"  >
+					<div class="container-login100-form-btn"  style = "position:relative;  top:-10px;">
 						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 						<button type="submit" value="Ingresar" name="btnGuardar" class="login100-form-btn">
 							Registrar
 						</button>
 					</div>
-				
+			  </div>	
 				</form>
 
 				 <!-- Fondo de login -->
@@ -295,6 +305,20 @@
 
 
 <script type="text/javascript">
+
+document.getElementById("nombre_usuario").addEventListener("keydown", teclear);
+
+var flag = false;
+var teclaAnterior = "";
+
+function teclear(event) {
+  teclaAnterior = teclaAnterior + " " + event.keyCode;
+  var arregloTA = teclaAnterior.split(" ");
+  if (event.keyCode == 32 && arregloTA[arregloTA.length - 2] == 32) {
+    event.preventDefault();
+  }
+}
+
 function mostrarPassword(){
 		var cambio = document.getElementById("confirmar_contrasena");
 		if(cambio.type == "password"){
@@ -371,11 +395,14 @@ if(isset($_POST["btnGuardar"])) {
     $clavehash2=hash("SHA256",$contra2);
 
 	$contra =$_POST['contrasena'];
+	$ContrasinHash = $contra;
 	$clavehash=hash("SHA256",$contra);
 	//$clavehash2=hash("SHA256",$contra2);
 	//$clavehash3=hash("SHA256",$contra3);
 
 	if(isset($_POST["btnGuardar"])) {
+		$fecha_creacion=null;
+		$fecha_vencimiento =null;
 
 		$sql1= "Select usuario,correo_electronico from tbl_usuarios where usuario = \"$_POST[usuario]\" or correo_electronico =\"$_POST[correo_electronico]\"";
     	$result =mysqli_query($conexion,$sql1);
@@ -383,8 +410,8 @@ if(isset($_POST["btnGuardar"])) {
       if (mysqli_num_rows($result)>0)
  									{
 		echo '<script>swal({
-  			title: "",
-  			text: "El usuario y/o correo ya existen.",
+  			title: "El usuario y/o correo ya existen.",
+  			text: "Inténtelo de nuevo",
   			icon: "warning",
   			button: "OK",
 			});</script>';
@@ -392,6 +419,20 @@ if(isset($_POST["btnGuardar"])) {
 	   }
 
 	   else{
+	   	date_default_timezone_set("America/Tegucigalpa");
+	   	$queryfechaF=mysqli_query($mysqli,"SELECT valor FROM tbl_parametros WHERE id_parametro = '14'");
+      
+        while($r = mysqli_fetch_array($queryfechaF))
+            {
+                    
+                $valor=$r['valor'];
+                  
+            }
+         $parametroV = "+" . $valor . " Days";
+         $fecha_creacion = strtotime("now"); 
+         $fecha_vencimiento = strtotime($parametroV, $fecha_creacion);
+         $fecha_creacion = date("d-m-Y H:i:s", $fecha_creacion);
+         $fecha_vencimiento = date("d-m-Y H:i:s", $fecha_vencimiento); 
 
 	   	mysqli_query($mysqli, "INSERT INTO tbl_usuarios (id_rol,usuario,nombre_usuario,contrasena,imagen,correo_electronico,id_estado_usuario,fecha_ultima_conexion,preguntas_contestadas,fecha_creacion,intentos,fecha_vencimiento,token,fecha_inicio,fecha_final)
 			VALUES ('1',\"$_POST[usuario]\",\"$_POST[nombre_usuario]\",'$clavehash','',\"$_POST[correo_electronico]\",'5','','0','$fecha_creacion','1','$fecha_vencimiento','','','')");
@@ -415,18 +456,122 @@ if(isset($_POST["btnGuardar"])) {
 		  VALUES((SELECT MAX(id_usuario) AS id FROM tbl_usuarios),'5',(select now()),'Entró','Entró al login',\"$_POST[usuario]\",(select now()))";
  		  ejecutarConsulta($sql_bitacora6);
 
+ 		 $queryprueba = "SELECT * from tbl_usuarios where usuario= \"$_POST[usuario]\" ";
+		ejecutarConsulta($queryprueba);
+			
 
-	echo "<script >
-           swal({ title: '¡Registro exitoso!',
-           text: 'Para finalizar este proceso, deberá ingresar al sistema nuevamente y responder las preguntas de seguridad.', 
-           icon:'success',
-           type: 'success'}).then(okay => {
+           while ($tbl_usuarios=ejecutarConsulta($queryprueba)->fetch_array()) 
+			{
+				$Id_autoR=$tbl_usuarios["id_usuario"];
+				$Nombre_autoR=$tbl_usuarios["usuario"];
+				break;
+			}
+
+			//Punto de referencia: HASTA AQUI FUNCIONA BIEN
+
+     	   $_SESSION['id_usuario_autoregistro'] = $Id_autoR;
+     	   $_SESSION['nombre_usuario_autoregistro'] = $Nombre_autoR;
+     	   $_SESSION['Pagina_Anterior'] = "Autoregistro";
+   //--------------------------- Proceso que envía correo de bienvenida INICIO------------------------
+
+			$user_id=null;
+			$user_name =null;
+			$user_mail =null;
+			$user_token = null;
+			
+				  $sqlmail= "select * from tbl_usuarios where (usuario=\"$_POST[usuario]\") ";
+						  ejecutarConsulta($sqlmail);
+							
+
+				           while ($r=ejecutarConsulta($sqlmail)->fetch_array()) 
+							{
+								$user_id=$r["id_usuario"];
+								$user=$r["usuario"];
+								$user_name=$r["nombre_usuario"];
+								$user_mail=$r["correo_electronico"];
+								$user_fechaI = $r["fecha_creacion"];
+								$user_fechaF = $r["fecha_vencimiento"];
+								break;
+							}
+
+  	          $cuerpo = "¡Gracias por registrarte!"  ."<br>". 
+        "Querido " . $user_name . ",". 
+        "<br>".
+        " Te damos la bienvenida al Sistema Luna Color, con fecha de creaci&oacute;n " . $user_fechaI . " y con vigencia hasta ". $user_fechaF. ".".
+        "<br>".
+        "La informaci&oacute;n de tu cuenta es: ".
+         "<br>".
+         "Nombre de usuario: " . $user
+        ."<br>".
+        "Contraseña: " . $ContrasinHash;
+
+        //para el envío en formato HTML
+        $headers  = "MIME-Version: 1.0\r\n";
+        $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
+
+        //Cabecera del emisor - izquierdo
+        $headers .= "From: Soporte técnico Luna Color";
+
+         //Cabecera del emisor - derecho
+        $headers .= " soportelunacolor@gmail.com";
+
+        //Si Suzy nos pide enviar copia a otro lado
+        //$headers .= "Cc: ejemplo2@gmail.com\r\n";
+
+        //Si Suzy nos pide enviar copia a otro lado de forma oculta para otros correos
+        //$headers .= "Bcc: ejemplo3@yahoo.com\r\n";
+      
+       
+
+        mail($user_mail,"Creación de cuenta",$cuerpo,$headers);
+        
+ //--------------------------- Proceso que envía correo de bienvenida FIN------------------------
+
+echo "<script >
+           swal({ title: '¡Te hemos enviado un correo electrónico!',
+           text: 'Revisa tu bandeja de entrada', 
+           icon:'info',
+           type: 'info'}).then(okay => {
            if (okay) 
            {
-       			window.location.href = 'login1.php';
+       			 swal({ title: '¡Felicidades! Su registro está casi terminado!',
+			           text: 'Para completar el registro deberá responder las siguientes preguntas de seguridad.', 
+			           icon:'success',
+			           type: 'success'}).then(okay => {
+			           if (okay) 
+			           {
+			       			window.location.href = '../vistas/PrimerIngreso/preguntaingreso.php';
+			           }
+			           else
+			           {
+			           		window.location.href = '../vistas/PrimerIngreso/preguntaingreso.php';
+			           }
+
+			       		  });
            }
+           else
+           {
+           		swal({ title: '¡Felicidades! Su registro está casi terminado!',
+			           text: 'Para completar el registro deberá responder las siguientes preguntas de seguridad.', 
+			           icon:'success',
+			           type: 'success'}).then(okay => {
+			           if (okay) 
+			           {
+			       			window.location.href = '../vistas/PrimerIngreso/preguntaingreso.php';
+			           }
+			           else
+			           {
+			           		window.location.href = '../vistas/PrimerIngreso/preguntaingreso.php';
+			           }
+
+			       		  });
+           }
+
        		  });
      	   </script>";
+
+
+     	  
 	   }
 
 }
