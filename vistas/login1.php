@@ -24,6 +24,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
+
+
   </head>
   <body class="hold-transition login-page" style="background-color: rgb(63,63,63)" >
 
@@ -36,36 +38,30 @@
 
     <div class="login-box">
       <div class="login-logo">
-        <a class="login" href="login1.php"  style="background-image: url('../public/img/FL2.SVG'); position:relative;  top:-30px; " ></a>
+        <a class="login" href="login1.php"  style="background-image: url('../public/img/FL2.SVG');"></a>
       </div><!-- /.login-logo -->
-      <div class="login-box-body" style = "position:relative;  top:-70px;">
+      <div class="login-box-body">
         <H2><p class="login-box-msg">ACCESO</p></H2>
 
         <form method="post" action="../ajax/validalogin.php" id="frmAcceso">
+
          <p>
         <div class="row">
-          
-
+          <!-- Usuario -->  
           <div class="col-xs-12">
               <div class="input-group">
-
-                <input ID="usuario" type="usuario" name="usuario" Class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();" placeholder="Usuario" required  
-                onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)" min="1">
+                <input ID="usuario" type="usuario" name="usuario" Class="form-control" onkeyup="javascript:this.value=this.value.toUpperCase();" placeholder="Usuario" required>
                     <div class="input-group-append"></div>
-          </div>
-
-
-                
+              </div>
           </div>
         </div>
-
          </p> 
           
           <div class="row">
           <!-- Coontraseña -->  
           <div class="col-xs-12">
                <div class="input-group">
-                <input ID="contrasena" type="Password" name="contrasena" Class="form-control" placeholder="Contraseña" required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
+                <input ID="contrasena" type="Password" name="contrasena" Class="form-control" placeholder="Contraseña" required>
           <!-- boton monstrar Contraseña -->
                   <div class="input-group-append">
                     <button id="show_password" class="login100-form-btn" name="" type="button" onclick="mostrarPassword()"> 
@@ -95,6 +91,8 @@
             
         </p>
         </form>
+
+        <br>
 
 
         <center>

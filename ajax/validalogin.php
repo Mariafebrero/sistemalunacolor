@@ -120,7 +120,7 @@ if (isset($_POST["btningresar"])){
 	      $sql_bitacora3= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
 		  VALUES('$id_usuario1','6',(select now()),'Entró','Preguntas Primer Ingreso','$usuario1',(select now()))";
 		  ejecutarConsulta($sql_bitacora3);
-			  $_SESSION['Pagina_Anterior'] = "validalogin"; 
+
               header("Location: ../vistas/PrimerIngreso/preguntaingreso.php");
 	    }else{
           $query3=mysqli_query($mysqli,"SELECT * FROM tbl_usuarios WHERE usuario = '$usuario'");
@@ -148,25 +148,28 @@ if (isset($_POST["btningresar"])){
                         	if ($intentos == $valor)
 							{
 
+							 
+  		 					
+
 								echo "<script >
-						            swal({ title: 'Has agotado el límite de intentos',
-						          	text: 'Su usuario ha sido bloqueado. Favor contactar al administrador.',
-						          	icon:'error',
-						         	type: 'error'}).then(okay => 
-						         	{
-						         	if (okay)
-						         	{
-						       			window.location='../vistas/login1.php';
-						       			exit();
-						      	 	}
-						      	 	else 
-						      	 	{
-						      	 		window.location='../vistas/login1.php';
-						      	 		exit();
-						      	 	}
-						      	 	
-						       		});
-						     			 </script>";
+            swal({ title: '',
+          	text: 'Has agotado el límite de intentos, su usuario ha sido bloqueado. Favor contactar al administrador.',
+          	icon:'error',
+         	type: 'error'}).then(okay => 
+         	{
+         	if (okay)
+         	{
+       			window.location='../vistas/login1.php';
+       			exit();
+      	 	}
+      	 	else 
+      	 	{
+      	 		window.location='../vistas/login1.php';
+      	 		exit();
+      	 	}
+      	 	
+       		});
+     			 </script>";
 
    								mysqli_query($mysqli, "UPDATE tbl_usuarios SET id_estado_usuario= 4 WHERE usuario = '$usuario'");
 
@@ -181,76 +184,49 @@ if (isset($_POST["btningresar"])){
 							{
 								if ($id_estado_usuario == 1) {
 									echo "<script >
-						            swal({ title: 'Su usuario se encuentra inactivo',
-						          	text: 'Por favor contacte al administrador.',
-						         	type: 'error'}).then(okay => 
-						         	{
-						         	if (okay)
-						         	{
-						       			window.location='../vistas/login1.php';
-						       			exit();
-						      	 	}
-						      	 	else 
-						      	 	{
-						      	 		window.location='../vistas/login1.php';
-						      	 		exit();
-						      	 	}
-						      	 	
-						       		});
-						     			 </script>";
+            swal({ title: '',
+          	text: 'Su usuario se encuentra inactivo, por favor contacte al administrador.',
+         	type: 'error'}).then(okay => 
+         	{
+         	if (okay)
+         	{
+       			window.location='../vistas/login1.php';
+       			exit();
+      	 	}
+      	 	else 
+      	 	{
+      	 		window.location='../vistas/login1.php';
+      	 		exit();
+      	 	}
+      	 	
+       		});
+     			 </script>";
 
 								}
 								else
 								{
 									
-								$limite = $valor -1;
-								if ($intentos == $limite) 
-									//echo "Base:" . $valor . " Usuario " . $intentos;
-								{
 									
-								echo "<script >
-					            swal({ title: 'Aviso',
-					          	text: 'Le queda 1 intento. De no responder correctamente su usuario será bloqueado ',
-					          	icon:'warning',
-					         	type: 'warning'}).then(okay => 
-					         	{
-					         	if (okay)
-					         	{
-					       			window.location='../vistas/login1.php';
-					       			exit();
-					      	 	}
-					      	 	else 
-					      	 	{
-					      	 		window.location='../vistas/login1.php';
-					      	 		exit();
-					      	 	}
-					      	 	
-					       		});
-					     			 </script>";
-								}
-								else 
-								{
-									echo "Base:" . $valor . " Usuario " . $intentos;
+
  		 	 					echo "<script >
-					            swal({ title: 'Usuario y/o Contraseña incorrecta',
-					          	text: 'Por favor ingrese los datos correctamente.',
-					          	icon:'error',
-					         	type: 'error'}).then(okay => 
-					         	{
-					         	if (okay)
-					         	{
-					       			window.location='../vistas/login1.php';
-					       			exit();
-					      	 	}
-					      	 	else 
-					      	 	{
-					      	 		window.location='../vistas/login1.php';
-					      	 		exit();
-					      	 	}
-					      	 	
-					       		});
-					     			 </script>";
-					     		}
+            swal({ title: '',
+          	text: 'Usuario o Contraseña incorrecta. Por favor ingrese los datos correctamente. Lleva $intentos intentos',
+          	icon:'error',
+         	type: 'error'}).then(okay => 
+         	{
+         	if (okay)
+         	{
+       			window.location='../vistas/login1.php';
+       			exit();
+      	 	}
+      	 	else 
+      	 	{
+      	 		window.location='../vistas/login1.php';
+      	 		exit();
+      	 	}
+      	 	
+       		});
+     			 </script>";
 
 
 

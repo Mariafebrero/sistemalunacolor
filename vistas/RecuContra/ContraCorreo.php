@@ -126,7 +126,7 @@
         ."<br>".
          "<br>".
          "Para restablecer su contraseña " 
-        . '<a href="http://localhost/sistemalunacolor/vistas/RecuContra/ValidarCorreoVista.php?user=' . $user . '&lunaverificationcode=' . $codigo . '"> click aquí</a>';
+        . '<a href="http://localhost/sistemalunacolor/sistemalunacolor/vistas/RecuContra/ValidarCorreoVista.php?user=' . $user . '&lunaverificationcode=' . $codigo . '"> click aquí</a>';
 
         //para el envío en formato HTML
         $headers  = "MIME-Version: 1.0\r\n";
@@ -145,28 +145,18 @@
         //$headers .= "Bcc: ejemplo3@yahoo.com\r\n";
         if(mail($user_mail,"Recuperación de contraseña",$cuerpo,$headers))
         {
-           
-
-     	   echo "<script >
-            swal({ title: '¡Envío exitoso!',
-          	text: 'Revise su bandeja de entrada.',
-          	icon:'success',
-         	type: 'success'}).then(okay => 
-         	{
-         	if (okay)
-         	{
+           echo 
+           "<script >
+           swal({ title: '¡Envío exitoso!',
+           text: 'Revise su bandeja de entrada.',
+           icon:'success',
+           type: 'success'}).then(okay => {
+           if (okay) 
+           {
        			window.location.href = '../login1.php';
-       			exit();
-      	 	}
-      	 	else 
-      	 	{
-      	 		window.location.href = '../login1.php';
-      	 		exit();
-      	 	}
-      	 	
-       		});
-     			 </script>";
-
+           }
+       		  });
+     	   </script>";
 
      	 $sql= "select * from tbl_usuarios where (usuario=\"$_POST[CasillaUsuario]\") ";
 			
@@ -223,8 +213,7 @@
 				<form class="login100-form validate-form" method="post" autocomplete="off">
 
 					<div class="wrap-input100 validate-input" data-validate = "Este campo no puede quedar vacío">
-						<input class="input100" style="text-transform: uppercase;" type="text"  name="CasillaUsuario" required  
-                		onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)" min="1" /> 
+						<input class="input100" style="text-transform: uppercase;" type="text"  name="CasillaUsuario">
 						<span class="focus-input100"></span>
 						<span class="label-input100"> Ingrese su usuario  </span>
 					</div>

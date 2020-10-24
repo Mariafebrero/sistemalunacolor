@@ -147,21 +147,17 @@
 			}	
  //------------------------------------- Nombre y token igual fin -------------------------------------		
 	?> 
-
-		
-
-				<h3 style = "position:relative;  top:-70px; color:#F27830"> <center> ¡Bienvenido
-				<?php 	print $userbase;
-	 			 ?>!
-				<h5 style = "position:relative;  top:10px; color:#F27830" ><span class="hiddenui"><i> ¡Restablece tu contraseña!</i></span><hr></h5>
-				
-				</h3> </center>
+	 <h3 style = "position:relative;  top:-90px;"> <center> ¡Bienvenido 
+	 	<?php 	print $userbase;
+	 	?>!
+	 	<hr>
+	 </h3> </center>
 		<!----------------------- Casilla de contraseña nueva--------------------->
 					<div class="col-xs-12"  style = "position:relative;  top:-40px;">
       				 <p class="text-secondary float-left"> <h6> Ingrese su contraseña nueva </h6></p>
       				 <!--- posicion del boton-->
        				 <div class="input-group">
-     					<input ID="Contranueva" type="Password" name="Contranueva" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$"<?php echo $MincontraLen . " " .  $MaxcontraLen; ?>  required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
+     					<input ID="Contranueva" type="Password" name="Contranueva" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$"<?php echo $MincontraLen . " " .  $MaxcontraLen; ?> required>
       					<div class="input-group-append">
             			<button id="show_password" class="login100-form-btn" name="eye1" type="button" onclick="mostrarPassword()" style="background-color: rgb(233,118,46)"> 
             				<h5><span class="fas fa-eye-slash icon"></span></h5></button>
@@ -175,7 +171,7 @@
 					<div class="col-xs-12" style = "position:relative;  top:-40px;">
       				 <p class="text-secondary float-left"> <h6> Confirme su contraseña nueva </h6></p>
        				 <div class="input-group">
-     					<input Id="Contraconfir" type="password" name="Contraconfir" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" <?php echo $Mincontra . " " .  $Maxcontra; ?>  required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
+     					<input Id="Contraconfir" type="password" name="Contraconfir" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" <?php echo $Mincontra . " " .  $Maxcontra; ?> required>
       					<div class="input-group-append">
             			<button id="show_password2" class="login100-form-btn" name="eye2" type="button" onclick="mostrarPassword2()" style="background-color: rgb(233,118,46)"> 
             				<h5><span class="fas fa-eye-slash svg"></span></h5></button>

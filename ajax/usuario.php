@@ -1,14 +1,15 @@
-
 <?php
 session_start(); 
 require_once "../modelos/Usuario.php";
 
 $usuarios=new Usuario();
+
+
 $id_usuario=isset($_POST["id_usuario"])? limpiarCadena($_POST["id_usuario"]):"";
 $id_rol=isset($_POST["id_rol"])? limpiarCadena($_POST["id_rol"]):"";
 $usuario=isset($_POST["usuario"])? limpiarCadena($_POST["usuario"]):"";
 $nombre_usuario=isset($_POST["nombre_usuario"])? limpiarCadena($_POST["nombre_usuario"]):"";
-$contrasena=isset($_POST["confirmar_contrasena"])? limpiarCadena($_POST["confirmar_contrasena"]):"";
+$contrasena=isset($_POST["contrasena"])? limpiarCadena($_POST["contrasena"]):"";
 $imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
 $correo_electronico=isset($_POST["correo_electronico"])? limpiarCadena($_POST["correo_electronico"]):"";
 $id_estado_usuario=isset($_POST["id_estado_usuario"])? limpiarCadena($_POST["id_estado_usuario"]):"";
@@ -36,74 +37,21 @@ switch ($_GET["op"]){
 
 		if (empty($id_usuario)){
 
+
+
 		$sql1= "Select usuario,correo_electronico from tbl_usuarios where usuario ='$usuario' or correo_electronico ='$correo_electronico'";
     	$result =mysqli_query($conexion,$sql1);
 
       if (mysqli_num_rows($result)>0)
  		{
-		//echo "El usuario y/o correo electrónico ingresado ya se encuentra en uso. Inténtelo de nuevo";
- 		    echo 
-           "Mensaje de prueba";
-
+		echo 'El usuario y/o correo ya existen.';
 		return;
 
    		}	
+   		    //,$_POST['permiso']
+
 			$rspta=$usuarios->insertar($id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$id_estado_usuario);
-//--------------------------- Proceso que envía correo de bienvenida INICIO------------------------	
-			$user_id=null;
-			$user_name =null;
-			$user_mail =null;
-			$user_token = null;
-			
-				  $sqlmail= "select * from tbl_usuarios where (usuario=\"$_POST[usuario]\") ";
-						  ejecutarConsulta($sqlmail);
-							
-
-				           while ($r=ejecutarConsulta($sqlmail)->fetch_array()) 
-							{
-								$user_id=$r["id_usuario"];
-								$user=$r["usuario"];
-								$user_name=$r["nombre_usuario"];
-								$user_mail=$r["correo_electronico"];
-								$user_fechaI = $r["fecha_creacion"];
-								$user_fechaF = $r["fecha_vencimiento"];
-								break;
-							}
-
-  	          $cuerpo = "¡Gracias por registrarte!"  ."<br>". 
-        "Querido " . $user_name . ",". 
-        "<br>".
-        " Te damos la bienvenida al Sistema Luna Color, con fecha de creaci&oacute;n " . $user_fechaI . " y con vigencia hasta ". $user_fechaF. ".".
-        "<br>".
-        "La informaci&oacute;n de tu cuenta es: ".
-         "<br>".
-         "Nombre de usuario: " . $user
-        ."<br>".
-        "Contraseña: " . "";
-
-        //para el envío en formato HTML
-        $headers  = "MIME-Version: 1.0\r\n";
-        $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
-
-        //Cabecera del emisor - izquierdo
-        $headers .= "From: Soporte técnico Luna Color";
-
-         //Cabecera del emisor - derecho
-        $headers .= " soportelunacolor@gmail.com";
-
-        //Si Suzy nos pide enviar copia a otro lado
-        //$headers .= "Cc: ejemplo2@gmail.com\r\n";
-
-        //Si Suzy nos pide enviar copia a otro lado de forma oculta para otros correos
-        //$headers .= "Bcc: ejemplo3@yahoo.com\r\n";
-      
-       
-
-       		 mail($user_mail,"Creación de cuenta",$cuerpo,$headers);
-        
- //--------------------------- Proceso que envía correo de bienvenida FIN------------------------
-			echo $rspta ? "Usuario registrado " : "No se pudieron registrar todos los datos del usuario";
-
+			echo $rspta ? "Usuario registrado" : "No se pudieron registrar todos los datos del usuario";
 		}
 		else {
 
@@ -301,4 +249,3 @@ switch ($_GET["op"]){
 
 	break;
 }
-?>
