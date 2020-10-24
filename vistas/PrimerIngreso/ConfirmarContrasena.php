@@ -71,13 +71,15 @@ error_reporting(0);
 					<!-- Usuario -->	
 		          <div class="col-xs-12">
 						
-						 <center>
-		          		 <h3><span class="hiddenty"><i class="fas fa-user"> <?php echo $_SESSION['nombre_usuario'];?></span></i></h3>
-					</center>
+				<center>
+		          <h4 style = "position:relative;  top:-120px; color:#F27830;" ><span class="hiddenui"><i class="fas fa-lock ">¡BIENVENIDO <?php echo $_SESSION['nombre_usuario'];?>!</i></span></h4>
+		          <h5 style = "position:relative;  top:-120px; color:#F27830;" ><span class="hiddenui"><i> ¡Reestablece tu contraseña!</i></span><hr></h5>
+		       	</center>
                           
+
 					<br>
                     
-                     <div class="col-xs-12">
+                     <div class="col-xs-12" style = "position:relative;  top:-120px;">
       				 <p class="text-secondary float-left">Contraseña anterior</p>
        				 <div class="input-group">
      					<input ID="contrasena_anterior" type="Password" name="contrasena_anterior" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" required>
@@ -91,10 +93,10 @@ error_reporting(0);
                     </div>
 				<!-- NUEVOS -->
 
-       			   <div class="col-xs-12">
+       			   <div class="col-xs-12" style = "position:relative;  top:-110px;">
       				 <p class="text-secondary float-left">Nueva contraseña</p>
        				 <div class="input-group">
-     					<input ID="nueva_contrasena" type="Password" name="nueva_contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" required>
+     					<input ID="nueva_contrasena" type="Password" name="nueva_contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
 					<!-- boton monstrar Contraseña -->
       					<div class="input-group-append">
             			<button id="show_password" class="login100-form-btn" name="" type="button" onclick="mostrarPassword2()" style="background-color: rgb(233,118,46)"> 
@@ -107,10 +109,10 @@ error_reporting(0);
                      <p></p>
                       <p></p>
 
-                     <div class="col-xs-12">
+                     <div class="col-xs-12" style = "position:relative;  top:-110px;">
       				 <p class="text-secondary float-left">Confirmar contraseña</p>
        				 <div class="input-group">
-     					<input ID="confirmar_contrasena" type="Password" name="confirmar_contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" required>
+     					<input ID="confirmar_contrasena" type="Password" name="confirmar_contrasena" Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$" minlength="5" maxlength="10" required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
 					<!-- boton monstrar Contraseña -->
       					<div class="input-group-append">
             			<button id="show_password" class="login100-form-btn" name="" type="button" onclick="mostrarPassword()" style="background-color: rgb(233,118,46)"> 
@@ -122,10 +124,10 @@ error_reporting(0);
 
                    
                     <br>
-				<center>
-                     <small  ><h6>*La contraseña debe tener entre 5 a 10 letras, mínimo un número, una letra mayúscula y un símbolo.
-	    			</h6></small> 
-	    		</center>
+				
+                    <small style = "position:relative;  top:-135px;">*La contraseña debe tener entre 5 a 10 letras, mínimo un número, una letra mayúscula y un símbolo.
+	    			</small>
+	    	
 	    		 	<br>
 
                 <!-- FIN -->
@@ -138,7 +140,7 @@ error_reporting(0);
 	                <p></p>
 
                       <!-- Boton entrar -->
-					<div class="container-login100-form-btn"  >
+					<div class="container-login100-form-btn" style = "position:relative;  top:-170px;" >
 						<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 						<button type="submit" value="Ingresar" name="btn_restablecer" class="login100-form-btn">
 							Restablecer
@@ -350,9 +352,27 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
 					{
 						if ($clavehash1== $contrasena_exist)
 						{
-							//echo 
            
-							echo "<script>alert('No puede usar una contraseña antigua. Por favor ingrese una nueva.');window.location.href='ConfirmarContrasena.php';</script>";		
+							//echo "<script>alert('No puede usar una contraseña antigua. Por favor ingrese una nueva.');window.location.href='ConfirmarContrasena.php';</script>";	
+				echo "<script >
+            	swal({ title: '¡Su nueva contraseña no puede ser la actual!',
+          		text: 'Intentélo de nuevo',
+          		icon:'error',
+         		type: 'error'}).then(okay => 
+         		{
+         		if (okay)
+         		{
+       				window.location.href='ConfirmarContrasena.php';
+       				exit();
+      	 		}
+      	 		else 
+      	 		{
+      	 			window.location.href='ConfirmarContrasena.php';
+      	 			exit();
+      	 		}
+      	 	
+       		});
+     			 </script>";
 						}
 						else
 			  			{ 
@@ -376,7 +396,25 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
 			 	 	}
 			  		else
 			  		{
-			  			echo "<script>alert('Las contraseñas no coinciden. Por favor ingrese los datos correctamente.');window.location.href='ConfirmarContrasena.php';</script>";
+//Primero borra los campos de ahi el mensaje preguntar por qué
+			  			echo "<script >
+            			swal({ title: '¡Las contraseñas no coinciden!',
+          				text: 'Intentélo de nuevo',
+          				icon:'error',
+         				type: 'error'}).then(okay => 
+         				{
+         				if (okay)
+         				{
+       					
+      	 				}
+	      	 			else 
+	      	 			{
+		      	 		
+			      	 	}
+			      	 	
+			       		});
+			     			 </script>";
+
 			 		}
 	 			}
 
@@ -392,10 +430,29 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
 			    });window.location.href="ConfirmarContrasena.php";</script>';*/
 
 
-				echo "<script>alert('La contraseña anterior no existe. Por favor ingrese una contraseña valida');window.location.href='ConfirmarContrasena.php';</script>";
+				//echo "<script>alert('La contraseña anterior no existe. Por favor ingrese una contraseña valida');window.location.href='ConfirmarContrasena.php';</script>";
+
+			echo "<script >
+            swal({ title: '¡La contraseña anterior no existe!',
+          	text: 'Intentélo de nuevo',
+          	icon:'error',
+         	type: 'error'}).then(okay => 
+         	{
+         	if (okay)
+         	{
+       			window.location.href='ConfirmarContrasena.php';
+       			exit();
+      	 	}
+      	 	else 
+      	 	{
+      	 		window.location.href='ConfirmarContrasena.php';
+      	 		exit();
+      	 	}
+      	 	
+       		});
+     			 </script>";
 				}
 			
-		
  $sql_bitacora4= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
 		  VALUES('$id_usuario1','6',(select now()),'Salió','Salió de Primer ingreso/Confirmar contraseña','$usuario1',(select now()))";
  		  ejecutarConsulta($sql_bitacora4);
@@ -404,7 +461,22 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
  		  ejecutarConsulta($sql_bitacora5); 		  
 		
 
-echo "<script>alert('¡Su Contraseña se ha restablecido exitosamente!');window.location='../login1.php';</script>";
+//echo "<script>alert('¡Su Contraseña se ha restablecido exitosamente!');window.location='../login1.php';</script>";
+ 		 echo "<script >
+           swal({ title: '¡Su contraseña se ha restablecido con éxito!',
+          text: 'Ya puede ingresar al sistema',
+          icon:'success',
+          type: 'success'}).then(okay => {
+          if (okay)
+          {
+          window.location.href = '../login1.php';
+          }
+          else 
+          {
+ 		 window.location.href = '../login1.php';
+          }
+       });
+      </script>";
 }
 }
 

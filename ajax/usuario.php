@@ -1,15 +1,14 @@
+
 <?php
 session_start(); 
 require_once "../modelos/Usuario.php";
 
 $usuarios=new Usuario();
-
-
 $id_usuario=isset($_POST["id_usuario"])? limpiarCadena($_POST["id_usuario"]):"";
 $id_rol=isset($_POST["id_rol"])? limpiarCadena($_POST["id_rol"]):"";
 $usuario=isset($_POST["usuario"])? limpiarCadena($_POST["usuario"]):"";
 $nombre_usuario=isset($_POST["nombre_usuario"])? limpiarCadena($_POST["nombre_usuario"]):"";
-$contrasena=isset($_POST["contrasena"])? limpiarCadena($_POST["contrasena"]):"";
+$contrasena=isset($_POST["confirmar_contrasena"])? limpiarCadena($_POST["confirmar_contrasena"]):"";
 $imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
 $correo_electronico=isset($_POST["correo_electronico"])? limpiarCadena($_POST["correo_electronico"]):"";
 $id_estado_usuario=isset($_POST["id_estado_usuario"])? limpiarCadena($_POST["id_estado_usuario"]):"";
@@ -37,14 +36,15 @@ switch ($_GET["op"]){
 
 		if (empty($id_usuario)){
 
-
-
 		$sql1= "Select usuario,correo_electronico from tbl_usuarios where usuario ='$usuario' or correo_electronico ='$correo_electronico'";
     	$result =mysqli_query($conexion,$sql1);
 
       if (mysqli_num_rows($result)>0)
  		{
-		echo 'El usuario y/o correo ya existen.';
+		//echo "El usuario y/o correo electrónico ingresado ya se encuentra en uso. Inténtelo de nuevo";
+ 		    echo 
+           "Mensaje de prueba";
+
 		return;
 
    		}	
@@ -249,3 +249,4 @@ switch ($_GET["op"]){
 
 	break;
 }
+?>
