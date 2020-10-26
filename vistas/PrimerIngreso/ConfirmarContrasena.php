@@ -52,12 +52,6 @@ error_reporting(0);
 
 <!--=========================Sweet Alert========================================================-->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-	<script src="sweetalert2.all.min.js"></script>
-<!-- Optional: include a polyfill for ES6 Promises for IE11 -->
-<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
-<script src="sweetalert2.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
 <!--===============================================================================================-->	
 
 </head>
@@ -324,11 +318,19 @@ $query4=mysqli_query($mysqli,"SELECT contrasena FROM tbl_hist_contrasena WHERE i
 
 while($tbl_hist_contrasena = mysqli_fetch_array($query4))
                         {
-                    
-                             $contrasena_exist=$tbl_hist_contrasena['contrasena'];
-                    
+                    ?> 
+                            <?php $contrasena_exist=$tbl_hist_contrasena['contrasena']?>
+                    <?php
+
                         }
 
+
+	if(isset($_POST["btn_restablecer"]))
+	{
+				if($_POST["nueva_contrasena"]!="" &&$_POST["confirmar_contrasena"]!="")
+            	
+            	
+			{ 
 				$contrasena_anterior= ($_POST["contrasena_anterior"]);
 	            $clavehash=hash("SHA256",$contrasena_anterior);
                 
@@ -337,40 +339,43 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
 	            $clavehash1=hash("SHA256",$nueva_contrasena);
                 
                 
+
+
 	            $confirmar_contrasena= ($_POST["confirmar_contrasena"]);
 	            $clavehash2=hash("SHA256",$confirmar_contrasena);
-
-	if(isset($_POST["btn_restablecer"]))
-	{ //If del boton inicio
-		if($_POST["nueva_contrasena"]!="" &&$_POST["confirmar_contrasena"]!="")     	
-            	
-		{ //If si no estan vacios inicio
-			                  
+	           
+                
 
 				if ($clavehash == $contrasena_exist)
 				{
-
 					if($clavehash1 == $clavehash2)
 					{
 						if ($clavehash1== $contrasena_exist)
 						{
            
-							//echo "<script>alert('No puede usar una contraseña antigua. Por favor ingrese una nueva.');window.location.href='ConfirmarContrasena.php';</script>";
-								
-						echo "<script >
-							  Swal.fire({
-							  title: 'Contraseña no es válida',
-							  text: 'No puede usar una contraseña antigua. Por favor ingrese una nueva.',
-							  icon: 'info',
-							  confirmButtonText: 'OK'
-							});
-		     			 </script>";
-     			 
+							//echo "<script>alert('No puede usar una contraseña antigua. Por favor ingrese una nueva.');window.location.href='ConfirmarContrasena.php';</script>";	
+				echo "<script >
+            	swal({ title: '¡Su nueva contraseña no puede ser la actual!',
+          		text: 'Intentélo de nuevo',
+          		icon:'error',
+         		type: 'error'}).then(okay => 
+         		{
+         		if (okay)
+         		{
+       				window.location.href='ConfirmarContrasena.php';
+       				exit();
+      	 		}
+      	 		else 
+      	 		{
+      	 			window.location.href='ConfirmarContrasena.php';
+      	 			exit();
+      	 		}
+      	 	
+       		});
+     			 </script>";
 						}
 						else
 			  			{ 
-			  					
-
 			  				mysqli_query($mysqli, "UPDATE tbl_usuarios SET contrasena ='$clavehash2'  WHERE id_usuario='$id_usuario1'");
 							mysqli_query($mysqli, "UPDATE tbl_usuarios SET 	id_estado_usuario = '2'  WHERE id_usuario='$id_usuario1'");
 							mysqli_query($mysqli, "INSERT INTO tbl_hist_contrasena (id_usuario, contrasena) VALUES ('$id_usuario1','$clavehash2')");
@@ -385,40 +390,30 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
 		 						 ejecutarConsulta($sql_bitacora2);
 		 					$sql_bitacora3= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
 		 						 VALUES('$id_usuario1','6',(select now()),'Insertó','Insertó contraseña a historial de contraseñas','$usuario1',(select now()))";
-		 						 ejecutarConsulta($sql_bitacora3);	
-
-		          	  echo "<script >
-				          swal({ title: '¡El cambio se ha realizado con éxito!',
-				          text: 'Ya puede ingresar al sistema',
-				          icon:'success',
-				          type: 'success'}).then(okay => {
-				          if (okay)
-				          {
-				          window.location='../login1.php';
-				       			exit();
-				          }
-				          else 
-				          {
-				 		 window.location='../login1.php';
-				       			exit();
-				          }
-				       });
-				      </script>";
+		 						 ejecutarConsulta($sql_bitacora3);	 
+		          	
 			  			}
 			 	 	}
 			  		else
 			  		{
-						//Primero borra los campos de ahi el mensaje preguntar por qué
-			  			//echo "<script>alert('Contraseñas no coinciden');window.location.href='ConfirmarContrasena.php';</script>";
-
+//Primero borra los campos de ahi el mensaje preguntar por qué
 			  			echo "<script >
-							  Swal.fire({
-							  title: 'Las contraseñas no coinciden',
-							  text: 'Intentélo de nuevo',
-							  icon: 'info',
-							  confirmButtonText: 'OK'
-							});
-		     			 </script>";
+            			swal({ title: '¡Las contraseñas no coinciden!',
+          				text: 'Intentélo de nuevo',
+          				icon:'error',
+         				type: 'error'}).then(okay => 
+         				{
+         				if (okay)
+         				{
+       					
+      	 				}
+	      	 			else 
+	      	 			{
+		      	 		
+			      	 	}
+			      	 	
+			       		});
+			     			 </script>";
 
 			 		}
 	 			}
@@ -435,15 +430,27 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
 			    });window.location.href="ConfirmarContrasena.php";</script>';*/
 
 
-				echo "<script >
-							  Swal.fire({
-							  title: 'La contraseña anterior no existe',
-							  text: 'Intentélo de nuevo',
-							  icon: 'error',
-							  confirmButtonText: 'OK'
-							});
-		     			 </script>";
-				
+				//echo "<script>alert('La contraseña anterior no existe. Por favor ingrese una contraseña valida');window.location.href='ConfirmarContrasena.php';</script>";
+
+			echo "<script >
+            swal({ title: '¡La contraseña anterior no existe!',
+          	text: 'Intentélo de nuevo',
+          	icon:'error',
+         	type: 'error'}).then(okay => 
+         	{
+         	if (okay)
+         	{
+       			window.location.href='ConfirmarContrasena.php';
+       			exit();
+      	 	}
+      	 	else 
+      	 	{
+      	 		window.location.href='ConfirmarContrasena.php';
+      	 		exit();
+      	 	}
+      	 	
+       		});
+     			 </script>";
 				}
 			
  $sql_bitacora4= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
@@ -453,12 +460,24 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
 		  VALUES('$id_usuario1','5',(select now()),'Entró','Entró a login','$usuario1',(select now()))";
  		  ejecutarConsulta($sql_bitacora5); 		  
 		
-//echo "<script>alert('¡Su Contraseña se ha restablecido exitosamente!');";
- 							
-      				
-		     			
-				 
- 	    } //if si no estan vacios final		
-    }//If del boton final
- 
+
+//echo "<script>alert('¡Su Contraseña se ha restablecido exitosamente!');window.location='../login1.php';</script>";
+ 		 echo "<script >
+           swal({ title: '¡Su contraseña se ha restablecido con éxito!',
+          text: 'Ya puede ingresar al sistema',
+          icon:'success',
+          type: 'success'}).then(okay => {
+          if (okay)
+          {
+          window.location.href = '../login1.php';
+          }
+          else 
+          {
+ 		 window.location.href = '../login1.php';
+          }
+       });
+      </script>";
+}
+}
+
 ?>

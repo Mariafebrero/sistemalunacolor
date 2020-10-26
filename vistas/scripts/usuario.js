@@ -38,7 +38,6 @@ function limpiar()
 	$("#usuario").val("");
 	$("#nombre_usuario").val("");
 	$("#contrasena").val("");
-	$("#confirmar_contrasena").val("");
 	$("#imagenmuestra").attr("src","");//ojo
 	$("#imagenactual").val(""); //ojo
 	$("#correo_electronico").val("");	
@@ -58,13 +57,8 @@ function mostrarform(flag)
 		$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
 
-  		$("#id_rol").val("1");
-  		$("#id_estado_usuario").val("3");
-		
-
 		//SHOW PARA MONSTRAR EL CAMPO USUARIO CUANDO SE AGREGA UN USUARIO
 		$("#usuario").show();
-
 
 		//SHOW PARA MONSTRAR EL CAMPO FECHA ACTUAL Y VECHA VENCIMIENTO CUANDO SE AGREGA UN USUARIO
 		$("#fa").show();
