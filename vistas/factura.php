@@ -3,16 +3,16 @@
 ob_start();
 session_start();
 
-if (!isset($_SESSION["nombre"]))
+if (!isset($_SESSION["nombre_usuario"]))
 {
-  header("Location: login.html");
+  header("Location:factur login1.php");
 }
 else
 {
 require 'header.php';
 
-if ($_SESSION['compras']==1)
-{
+//if ($_SESSION['compras']==1)
+//{
 ?>
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
@@ -180,18 +180,13 @@ if ($_SESSION['compras']==1)
   </div>  
   <!-- Fin modal -->
 <?php
-}
-else
-{
-  require 'header.php';
-}
-
 require 'footer.php';
 ?>
-<script type="text/javascript" src="scripts/factura.js"></script>
+<script type="text/javascript" src="scripts/rol.js"></script>
 <?php 
 }
 ob_end_flush();
 ?>
+
 
 
