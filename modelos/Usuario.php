@@ -43,6 +43,16 @@ Class Usuario
 			VALUES ('$id_rol','$usuario','$nombre_usuario','$clavehash','$imagen','$correo_electronico','$id_estado_usuario','','0','$fecha_creacion','0','$fecha_vencimiento','','','')";
 		
 		   $idusuarionew=ejecutarConsulta_retornarID($sql);
+
+		   if ($id_rol==0) {
+		   	$sql_rol="UPDATE tbl_usuarios SET id_rol = 1 WHERE id_usuario=(SELECT MAX(id_usuario) AS id FROM tbl_usuarios)";
+		   	ejecutarConsulta($sql_rol);
+		   }
+
+		   if ($id_estado_usuario==0) {
+		   	$id_estado_usuario="UPDATE tbl_usuarios SET id_estado_usuario = 3 WHERE id_usuario=(SELECT MAX(id_usuario) AS id FROM tbl_usuarios)";
+		   	ejecutarConsulta($id_estado_usuario);
+		   }
           
 			/*$sql_contra="INSERT INTO tbl_hist_contrasena (id_usuario, contrasena) VALUES ((SELECT MAX(id_usuario + 1) AS id FROM tbl_usuarios),' $clavehash')"; 
 			ejecutarConsulta($sql_contra);*/
@@ -87,8 +97,36 @@ Class Usuario
 	public function editar($id_usuario,$id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$id_estado_usuario)
 	{
 
-		$clavehash=hash("SHA256",$contrasena);
-		$sql="UPDATE tbl_usuarios SET id_rol ='$id_rol',nombre_usuario='$nombre_usuario',contrasena='$clavehash',imagen='$imagen',correo_electronico='$correo_electronico',id_estado_usuario='$id_estado_usuario' WHERE id_usuario='$id_usuario'";
+		//preciono editar usario
+		//me parece la contrasena en confirmar contrasena encriptada
+
+		$query5 = "select contrasena FROM tbl_usuarios WHERE id_usuario='$id_usuario'";
+		ejecutarConsulta($query5);
+			
+
+           while ($tbl_usuarios=ejecutarConsulta($query5)->fetch_array()) 
+			{
+				$clave=$tbl_usuarios["contrasena"];
+				break;
+			}
+
+
+		if ($contrasena==$clave) {
+			$sql_contra="UPDATE tbl_usuarios SET contrasena ='$contrasena' WHERE id_usuario='$id_usuario'";
+			ejecutarConsulta($sql_contra);
+		}else{
+			//$clavehash=password_hash($contrasena, PASSWORD_DEFAULT);
+			$clavehash=hash("SHA256",$contrasena);
+		
+			$sql_contra2="UPDATE tbl_usuarios SET contrasena ='$clavehash' WHERE id_usuario='$id_usuario'";
+			ejecutarConsulta($sql_contra2);
+
+			$sql_contra3= "INSERT INTO tbl_hist_contrasena (id_usuario, contrasena) VALUES ((select id_usuario from tbl_usuarios WHERE id_usuario='$id_usuario'),'$clavehash')"; 
+			ejecutarConsulta($sql_contra3);
+		}
+
+
+		$sql="UPDATE tbl_usuarios SET id_rol ='$id_rol',nombre_usuario='$nombre_usuario',imagen='$imagen',correo_electronico='$correo_electronico',id_estado_usuario='$id_estado_usuario' WHERE id_usuario='$id_usuario'";
 		
 
 			 //Bitacora
@@ -120,6 +158,7 @@ Class Usuario
 
 
 	}
+
 
 	//Implementar un método para mostrar los datos de un registro a modificar
 	public function mostrar($id_usuario)

@@ -4,7 +4,11 @@
  <?php  
 
  include '../config/conexion.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
+// Load Composer's autoloader
+require '../public/phpmailer/vendor/autoload.php';
  ?>
 
 <!DOCTYPE html>
@@ -47,6 +51,7 @@
 
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!--==========================================ALERT 2==================================================-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="sweetalert2.all.min.js"></script>
 <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
 <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
@@ -387,9 +392,41 @@ function mostrarPassword2(){
 
 <?php 
 
-//FALTA LA VALIDACION SI EL USUARIO YA EXISTE EN EL SISTEMA 
 
-if(isset($_POST["btnGuardar"])) { 
+if(isset($_POST["btnGuardar"])) 
+{ 
+	/*
+	echo "<script>
+		let timerInterval
+			  Swal.fire({
+			  title: 'Creación de cuenta',
+			  html: 'Espere un momento...',
+			  timer: 2000,
+			  timerProgressBar: true,
+			  willOpen: () => {
+			    Swal.showLoading()
+			    timerInterval = setInterval(() => {
+			      const content = Swal.getContent()
+			      if (content) {
+			        const b = content.querySelector('b')
+			        if (b) {
+			          b.textContent = Swal.getTimerLeft()
+			        }
+			      }
+			    }, 100)
+			  },
+			  onClose: () => {
+			    clearInterval(timerInterval)
+			  }
+			}).then((result) => {
+			 
+			  if (result.dismiss === Swal.DismissReason.timer) {
+			    console.log('Unos segundos más...')
+			  }
+           });
+</script>";
+*/
+
 	
 	$contra2=$_POST['contrasena'];
     $clavehash2=hash("SHA256",$contra2);
@@ -400,7 +437,10 @@ if(isset($_POST["btnGuardar"])) {
 	//$clavehash2=hash("SHA256",$contra2);
 	//$clavehash3=hash("SHA256",$contra3);
 
-	if(isset($_POST["btnGuardar"])) {
+	if(isset($_POST["btnGuardar"])) 
+	{ 
+		
+
 		$fecha_creacion=null;
 		$fecha_vencimiento =null;
 
@@ -408,7 +448,7 @@ if(isset($_POST["btnGuardar"])) {
     	$result =mysqli_query($conexion,$sql1);
 
       if (mysqli_num_rows($result)>0)
- 									{
+ 		{
 		echo '<script>swal({
   			title: "El usuario y/o correo ya existen.",
   			text: "Inténtelo de nuevo",
@@ -416,9 +456,10 @@ if(isset($_POST["btnGuardar"])) {
   			button: "OK",
 			});</script>';
 		
-	   }
+	    }
 
-	   else{
+	   else
+	   {
 	   	date_default_timezone_set("America/Tegucigalpa");
 	   	$queryfechaF=mysqli_query($mysqli,"SELECT valor FROM tbl_parametros WHERE id_parametro = '14'");
       
@@ -472,14 +513,10 @@ if(isset($_POST["btnGuardar"])) {
      	   $_SESSION['id_usuario_autoregistro'] = $Id_autoR;
      	   $_SESSION['nombre_usuario_autoregistro'] = $Nombre_autoR;
      	   $_SESSION['Pagina_Anterior'] = "Autoregistro";
-   //--------------------------- Proceso que envía correo de bienvenida INICIO------------------------
 
-			$user_id=null;
-			$user_name =null;
-			$user_mail =null;
-			$user_token = null;
-			
-				  $sqlmail= "select * from tbl_usuarios where (usuario=\"$_POST[usuario]\") ";
+//--------------------------- Proceso que envía correos INICIO--------------------------------
+     
+    $sqlmail= "select * from tbl_usuarios where (usuario=\"$_POST[usuario]\") ";
 						  ejecutarConsulta($sqlmail);
 							
 
@@ -493,8 +530,101 @@ if(isset($_POST["btnGuardar"])) {
 								$user_fechaF = $r["fecha_vencimiento"];
 								break;
 							}
+	 $sql= "SELECT valor from tbl_parametros WHERE id_parametro = 17 ";
+          
+     ejecutarConsulta($sql);
 
-  	          $cuerpo = "¡Gracias por registrarte!"  ."<br>". 
+     while ($r=ejecutarConsulta($sql)->fetch_array())
+
+      {
+        $Correo_host=$r["valor"];
+        break;
+      } 
+
+    $sql= "SELECT valor from tbl_parametros WHERE id_parametro = 18 ";
+          
+    ejecutarConsulta($sql);
+
+     while ($r=ejecutarConsulta($sql)->fetch_array())
+
+      {
+        $Correo_username=$r["valor"];
+        break;
+      }
+
+      $sql= "SELECT valor from tbl_parametros WHERE id_parametro = 19 ";
+          
+    ejecutarConsulta($sql);
+
+     while ($r=ejecutarConsulta($sql)->fetch_array())
+
+      {
+        $Correo_password=$r["valor"];
+        break;
+      }
+    $sql= "SELECT valor from tbl_parametros WHERE id_parametro = 20 ";
+          
+    ejecutarConsulta($sql);
+
+     while ($r=ejecutarConsulta($sql)->fetch_array()) 
+
+      {
+        $Correo_smtpsecure=$r["valor"];
+        break;
+      }
+    $sql= "SELECT valor from tbl_parametros WHERE id_parametro = 21 ";
+          
+    ejecutarConsulta($sql);
+
+     while ($r=ejecutarConsulta($sql)->fetch_array())
+
+      {
+        $Correo_port=$r["valor"];
+        break;
+      }
+
+    $sql= "SELECT valor from tbl_parametros WHERE id_parametro = 22 ";
+          
+   ejecutarConsulta($sql);
+
+     while ($r=ejecutarConsulta($sql)->fetch_array())
+
+      {
+        $Correo_nombrefrom=$r["valor"];
+        break;
+      }
+
+   // Instantiation and passing `true` enables exceptions
+$mail = new PHPMailer(true);
+
+try {
+
+    //Server settings
+    $mail->SMTPDebug = 0;                      // Enable verbose debug output
+    $mail->isSMTP();                                            // Send using SMTP
+    $mail->Host       = $Correo_host;                    // Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+    $mail->Username   = $Correo_username;                     // SMTP username
+    $mail->Password   = $Correo_password;                               // SMTP password*
+    $mail->SMTPSecure = $Correo_smtpsecure;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+    $mail->Port       = 587;
+    $mail->SMTPOptions = array(
+        'ssl' => array
+          (
+          'verify_peer' => false,
+          'verify_peer_name' => false,
+          'allow_self_signed' => true
+          )
+        );                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+    //Recipients
+    $mail->setFrom($Correo_username, $Correo_nombrefrom);
+    $mail->addAddress($user_mail);     // Add a recipient
+    //$mail->addAddress('ellen@example.com');               // Name is optional
+    //$mail->addReplyTo('info@example.com', 'Information');
+    //$mail->addCC('cc@example.com');
+    //$mail->addBCC('bcc@example.com');
+    $Body = $cuerpo = "¡Gracias por registrarte!"  ."<br>". 
         "Querido " . $user_name . ",". 
         "<br>".
         " Te damos la bienvenida al Sistema Luna Color, con fecha de creaci&oacute;n " . $user_fechaI . " y con vigencia hasta ". $user_fechaF. ".".
@@ -503,81 +633,87 @@ if(isset($_POST["btnGuardar"])) {
          "<br>".
          "Nombre de usuario: " . $user
         ."<br>".
-        "Contraseña: " . $ContrasinHash;
+        "Contrase&ntilde;a: " . $ContrasinHash;
+    // Attachments
+    //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
-        //para el envío en formato HTML
-        $headers  = "MIME-Version: 1.0\r\n";
-        $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
+    // Content
+    $subject ='Creación de cuenta';
+    $subject = utf8_decode($subject);
+    $mail->isHTML(true);                                  // Set email format to HTML
+    $mail->Subject = $subject;
+    $mail->Body    = $Body;
+    $mail->AltBody = strip_tags($Body);
 
-        //Cabecera del emisor - izquierdo
-        $headers .= "From: Soporte técnico Luna Color";
-
-         //Cabecera del emisor - derecho
-        $headers .= " soportelunacolor@gmail.com";
-
-        //Si Suzy nos pide enviar copia a otro lado
-        //$headers .= "Cc: ejemplo2@gmail.com\r\n";
-
-        //Si Suzy nos pide enviar copia a otro lado de forma oculta para otros correos
-        //$headers .= "Bcc: ejemplo3@yahoo.com\r\n";
-      
-       
-
-        mail($user_mail,"Creación de cuenta",$cuerpo,$headers);
-        
- //--------------------------- Proceso que envía correo de bienvenida FIN------------------------
-
-echo "<script >
-           swal({ title: '¡Te hemos enviado un correo electrónico!',
-           text: 'Revisa tu bandeja de entrada', 
-           icon:'info',
-           type: 'info'}).then(okay => {
-           if (okay) 
-           {
-       			 swal({ title: '¡Felicidades! Su registro está casi terminado!',
-			           text: 'Para completar el registro deberá responder las siguientes preguntas de seguridad.', 
-			           icon:'success',
-			           type: 'success'}).then(okay => {
-			           if (okay) 
-			           {
-			       			window.location.href = '../vistas/PrimerIngreso/preguntaingreso.php';
-			           }
-			           else
-			           {
-			           		window.location.href = '../vistas/PrimerIngreso/preguntaingreso.php';
-			           }
-
-			       		  });
-           }
-           else
-           {
-           		swal({ title: '¡Felicidades! Su registro está casi terminado!',
-			           text: 'Para completar el registro deberá responder las siguientes preguntas de seguridad.', 
-			           icon:'success',
-			           type: 'success'}).then(okay => {
-			           if (okay) 
-			           {
-			       			window.location.href = '../vistas/PrimerIngreso/preguntaingreso.php';
-			           }
-			           else
-			           {
-			           		window.location.href = '../vistas/PrimerIngreso/preguntaingreso.php';
-			           }
-
-			       		  });
-           }
-
-       		  });
-     	   </script>";
-
-
-     	  
-	   }
-
+    $mail->send();
+    echo "<script >
+  Swal.fire
+  ({
+	  title: '¡Te hemos enviado un correo electrónico!',
+	  text: 'Revisa tu bandeja de entrada',
+	  icon: 'info',
+	  confirmButtonText: `OK`,
+			}).then((result) => 
+			{
+			  if (result.isConfirmed) 
+			  {
+			  	
+				Swal.fire
+				  ({
+					  title: '¡Felicidades! Su registro está casi terminado!',
+					  text: 'Para completar el registro deberá responder las siguientes preguntas de seguridad.',
+					  icon: 'success',
+					  confirmButtonText: `OK`,
+							}).then((result) => 
+							{
+							  if (result.isConfirmed) 
+							  {
+							  window.location = 'PrimerIngreso/preguntaingreso.php';
+							  } 
+							  else  
+							  {
+							    window.location = 'PrimerIngreso/preguntaingreso.php';
+							  }
+				  });
+			  } 
+			  else  
+			  {
+			    Swal.fire
+				  ({
+					  title: '¡Felicidades! Su registro está casi terminado!',
+					  text: 'Para completar el registro deberá responder las siguientes preguntas de seguridad.',
+					  icon: 'success',
+					  confirmButtonText: `OK`,
+							}).then((result) => 
+							{
+							  if (result.isConfirmed) 
+							  {
+							  window.location = 'PrimerIngreso/preguntaingreso.php';
+							  } 
+							  else  
+							  {
+							    window.location = 'PrimerIngreso/preguntaingreso.php';
+							  }
+				  });
+			  }
+  });
+           </script>";
+    } 
+catch (Exception $e) 
+{
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    //echo"<script type='text/javascript'>    
+      //swal('ERROR: No se pudo enviar el correo, por favor inténtelo de nuevo o contacte a su soporte técnico.', '', 'error');
+        //</script>";
 }
-	
-	
-} 
+//--------------------------- Proceso que envía correos FIN--------------------------------        
+     	  
+	   }//final de si no encuentra resultados 
 
+  }//fin 2do boton guardar (why)
+	
+	
+}//fin boton guardar 
 
  ?>

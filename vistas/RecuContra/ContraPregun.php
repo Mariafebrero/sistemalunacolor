@@ -9,7 +9,6 @@
 	<link rel="icon" type="image/png" href="../../public/img/icons/favicon.ico"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="../../public/vendor/bootstrap/css/bootstrap.min.css">
-
 	<!-- ICONOS fontawesome -->
 	<link rel="stylesheet" type="text/css" href="../../public/iconosfontawesome/css/all.css">
 <!--===============================================================================================-->
@@ -36,9 +35,7 @@
 <!--===============================================================================================-->
 </head>
 <body  style="background-color: rgb(63,63,63)">
-	<?php
-		include "../../config/Conglobal.php";
-	?>
+	
 	<!-- Botones atras y adelante -->
 	<center>
 
@@ -46,117 +43,12 @@
 		<a href="javascript:history.go(-1)" class="previous"><i class="fas fa-chevron-circle-left fa-2x" aria-hidden="true"></a></i>
 
 	</center>
-	<?php
-			
-	if(isset($_POST["BotonRespuesta"]))
-
-	{ //  --------------  Si presiona botón inicio --------------------
-		if($_POST["UsuarioPre"]!="" &&$_POST["RespuestaPre"]!="")
-		{ //  --------------  Si las casillas estan llenas inicio --------------------
-			include "../../config/Conglobal.php";
-
-
-			$respuestaB =null;
-            $respuestaI = $_POST['RespuestaPre'];
-
-			$sql="select pr.respuesta from tbl_preguntas_usuarios pr join tbl_usuarios u on u.id_usuario =pr.id_usuario where (u.usuario =\"$_POST[UsuarioPre]\" and pr.id_pregunta=\"$_POST[SelectPre]\")";
-
-			 //"select respuesta from tbl_preguntas_usuarios where (usuario=\"$_POST[UsuarioPre]\"  and id_pregunta=\"$_POST[SelectPre]\") ";
-
-
-			$query = $con->query($sql);
-
-			while ($r=$query->fetch_array()) 
-			{
-				$respuestaB=$r["respuesta"];
-				break;
-			}
-
-
-			if($respuestaB === $respuestaI)
-			{ //  --------------  Si las respuestas son iguales inicio --------------------
-			session_start();
-			$_SESSION["nombre_usuario"] = ($_POST['UsuarioPre']);
-
-
-			echo "<script >
-            swal({ title: '¡Identificación exitosa!',
-          	text: '',
-          	icon:'success',
-         	type: 'success'}).then(okay => 
-         	{
-         	if (okay)
-         	{
-       			window.location='ValidarPreguntaVista.php';
-       			exit();
-      	 	}
-      	 	else 
-      	 	{
-      	 		window.location='ValidarPreguntaVista.php';
-      	 		exit();
-      	 	}
-      	 	
-       		});
-     			 </script>";
-
-
-
-     		 $sql= "select * from tbl_usuarios where (usuario=\"$_POST[UsuarioPre]\") ";
-			
-			$query = $con->query($sql);
-
-			while ($r=$query->fetch_array()) 
-			{
-				$user_id=$r["id_usuario"];
-				$user=$r["usuario"];
-				break;
-			}
-
-
-     	 $sql= 
-     	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$user_id','9',(select now()),'Entró','Entró a Recuperación Contraseña por Pregunta Secreta','$user',(select now()))";
- 		 $con->query($sql);
-
- 		   $sql= 
-     	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$user_id','9',(select now()),'Contestó','Contestó Pregunta Secreta','$user',(select now()))";
- 		 $con->query($sql);
-
- 		  $sql= 
-     	 "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion)
-     	 VALUES('$user_id','9',(select now()),'Salió','Salió de Recuperación Contraseña por Pregunta Secreta','$user',(select now()))";
- 		 $con->query($sql);
-
- 		 
-
- 			 
-
-					//print "<script>alert('¡Identificación exitosa!'); window.location='ValidarPreguntaVista.php';</script>";	
-				
-			}  //  --------------  Si las respuestas son iguales inicio --------------------
-			else
-
-			  {  //  --------------  Si las respuestas no son iguales inicio --------------------
-			  	
-        		echo"<script type='text/javascript'>		
-	   			 swal(\"ERROR: Datos incorrectos. \", ' Inténtelo de nuevo o contacte a su soporte técnico.', 'error');
-        		</script>";
-
-			  }  //  --------------  Si las respuestas son iguales final --------------------
-	    } //  --------------  Si las casillas estan llenas final --------------------
-	} //  --------------  Si presiona botón final --------------------
-    
-
-?>			  
-					
-
-
+			  				
 	<div class="limiter"  >
 		<div class="container-login100" >
 			<div class="wrap-login100">
 
-				<form class="login100-form validate-form" method="post" autocomplete="off">
+				<form class="login100-form validate-form" method="post" action = "ContraPregunValidar.php" autocomplete="off">
 
 <!------------------------ Casilla de usuario a la pregunta personal ---------------------------->
 					<div class="wrap-input100 validate-input"  style = "position:relative;  top:-90px;" data-validate = "No puede dejar este campo vacío">
@@ -170,6 +62,7 @@
         <option value="0">Seleccione:</option>
 
            <?php
+           include "../../config/Conglobal.php";
          	 $query = $con -> query ("SELECT * FROM `tbl_preguntas` WHERE estado = 1 ");
           	while ($preguntas = mysqli_fetch_array($query)) 
           	 {

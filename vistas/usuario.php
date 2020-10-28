@@ -152,7 +152,7 @@ require 'header.php';
                        <div class="form-group col-lg-4 col-xs-12">
                           <label>Contraseña(*):</label>
                               
-                                 <input ID="confirmar_contrasena" type="Password" name="confirmar_contrasena"  Class="form-control"  pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$"  minlength="5"  maxlength="10" 
+                                 <input ID="confirmar_contrasena" type="Password" name="confirmar_contrasena"  Class="form-control"  pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,60}$"  minlength="5"  maxlength="60" 
                                  required  onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
 
 
@@ -167,7 +167,7 @@ require 'header.php';
                       <div class="form-group col-lg-4 col-xs-12">
                           <label id="Etiqueta" name ="Etiqueta">Confirmar Contraseña(*):</label>
                                
-                                 <input ID="contrasena" type="Password" name="contrasena"  Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,10}$"  minlength="5" maxlength="10" required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
+                                 <input ID="contrasena" type="Password" name="contrasena"  Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,60}$"  minlength="5" maxlength="60" required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
                                 
                                 <!-- boton monstrar Contraseña -->
                              <div class="input-group-append">
@@ -216,14 +216,14 @@ require 'header.php';
                            <div class="form-group col-lg-4 col-xs-12">
                             <label>Roles(*):</label>
                             <select id="id_rol" name="id_rol" class="form-control selectpicker" data-live-search="true" 
-                            required>
+                            >
                             </select>
                           </div>
 
                           <!-- Estado -->
                            <div class="form-group col-lg-4 col-xs-12">
                             <label>Estado(*):</label>
-                            <select id="id_estado_usuario" name="id_estado_usuario" class="form-control selectpicker" data-live-search="true" required></select>
+                            <select id="id_estado_usuario" name="id_estado_usuario" class="form-control selectpicker" data-live-search="true"></select>
                           </div>
                         </div>
                          <br>
@@ -445,13 +445,18 @@ function comprobar3(obj)
 {   
 
     function generate(length = 12) 
-  { var uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; var lowercase = 'abcdefghijklmnopqrstuvwxyz'; var numbers = '0123456789'; var symbols = '!#$%&\'*/<=>?@\\'; var all = uppercase + lowercase + numbers + symbols; var password = ''; for (var index = 0; index < length; index++) { var character = Math.floor(Math.random() * all.length); password += all.substring(character, character + 1); } return password; 
-  }
+   { var uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; var lowercase = 'abcdefghijklmnopqrstuvwxyz'; var numbers = '0123456789'; var symbols = '!#$%&\*/<=>?@\\'; var all = uppercase + lowercase + numbers + symbols; var password = ''; for (var index = 0; index < length; index++) { var character = Math.floor(Math.random() * all.length); password += all.substring(character, character + 1); } return password;
+   
+     }
+    
     if (obj.checked)
      
       document.getElementById('confirmar_contrasena').defaultValue = generate();
-      
-}
+    else
+      $("input[name$='confirmar_contrasena']").attr("value","");
+  
+
+};
 
 
 </script>

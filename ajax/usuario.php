@@ -2,6 +2,11 @@
 <?php
 session_start(); 
 require_once "../modelos/Usuario.php";
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+// Load Composer's autoloader
+require '../public/phpmailer/vendor/autoload.php';
 
 $usuarios=new Usuario();
 $id_usuario=isset($_POST["id_usuario"])? limpiarCadena($_POST["id_usuario"]):"";
@@ -43,66 +48,157 @@ switch ($_GET["op"]){
  		{
 		//echo "El usuario y/o correo electrónico ingresado ya se encuentra en uso. Inténtelo de nuevo";
  		    echo 
-           "Mensaje de prueba";
+           "El usuario y/o correo electrónico ingresado ya se encuentra en uso. Inténtelo de nuevo.";
 
 		return;
 
    		}	
 			$rspta=$usuarios->insertar($id_rol,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico,$id_estado_usuario);
-//--------------------------- Proceso que envía correo de bienvenida INICIO------------------------	
-			$user_id=null;
-			$user_name =null;
-			$user_mail =null;
-			$user_token = null;
-			
-				  $sqlmail= "select * from tbl_usuarios where (usuario=\"$_POST[usuario]\") ";
-						  ejecutarConsulta($sqlmail);
-							
 
-				           while ($r=ejecutarConsulta($sqlmail)->fetch_array()) 
+//--------------------------- Proceso que envía correos INICIO--------------------------------
+     
+    $sql= "SELECT * from tbl_usuarios where (usuario=\"$_POST[usuario]\") ";
+						  ejecutarConsulta($sql);
+							$fechaI =NULL;
+							$fechaF =NULL;
+						 
+				           while ($r=ejecutarConsulta($sql)->fetch_array()) 
 							{
 								$user_id=$r["id_usuario"];
-								$user=$r["usuario"];
-								$user_name=$r["nombre_usuario"];
-								$user_mail=$r["correo_electronico"];
-								$user_fechaI = $r["fecha_creacion"];
-								$user_fechaF = $r["fecha_vencimiento"];
+								$fechaI = $r["fecha_creacion"];
+								$fechaF = $r["fecha_vencimiento"];
 								break;
 							}
+							
+	 $sql= "SELECT valor from tbl_parametros WHERE id_parametro = 17 ";
+          
+     ejecutarConsulta($sql);
 
-  	          $cuerpo = "¡Gracias por registrarte!"  ."<br>". 
-        "Querido " . $user_name . ",". 
+     while ($r=ejecutarConsulta($sql)->fetch_array())
+
+      {
+        $Correo_host=$r["valor"];
+        break;
+      } 
+
+    $sql= "SELECT valor from tbl_parametros WHERE id_parametro = 18 ";
+          
+    ejecutarConsulta($sql);
+
+     while ($r=ejecutarConsulta($sql)->fetch_array())
+
+      {
+        $Correo_username=$r["valor"];
+        break;
+      }
+
+      $sql= "SELECT valor from tbl_parametros WHERE id_parametro = 19 ";
+          
+    ejecutarConsulta($sql);
+
+     while ($r=ejecutarConsulta($sql)->fetch_array())
+
+      {
+        $Correo_password=$r["valor"];
+        break;
+      }
+    $sql= "SELECT valor from tbl_parametros WHERE id_parametro = 20 ";
+          
+    ejecutarConsulta($sql);
+
+     while ($r=ejecutarConsulta($sql)->fetch_array()) 
+
+      {
+        $Correo_smtpsecure=$r["valor"];
+        break;
+      }
+    $sql= "SELECT valor from tbl_parametros WHERE id_parametro = 21 ";
+          
+    ejecutarConsulta($sql);
+
+     while ($r=ejecutarConsulta($sql)->fetch_array())
+
+      {
+        $Correo_port=$r["valor"];
+        break;
+      }
+
+    $sql= "SELECT valor from tbl_parametros WHERE id_parametro = 22 ";
+          
+   ejecutarConsulta($sql);
+
+     while ($r=ejecutarConsulta($sql)->fetch_array())
+
+      {
+        $Correo_nombrefrom=$r["valor"];
+        break;
+      }
+
+   // Instantiation and passing `true` enables exceptions
+$mail = new PHPMailer(true);
+
+try {
+
+    //Server settings
+    $mail->SMTPDebug = 0;                      // Enable verbose debug output
+    $mail->isSMTP();                                            // Send using SMTP
+    $mail->Host       = $Correo_host;                    // Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+    $mail->Username   = $Correo_username;                     // SMTP username
+    $mail->Password   = $Correo_password;                               // SMTP password*
+    $mail->SMTPSecure = $Correo_smtpsecure;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+    $mail->Port       = 587;
+    $mail->SMTPOptions = array(
+        'ssl' => array
+          (
+          'verify_peer' => false,
+          'verify_peer_name' => false,
+          'allow_self_signed' => true
+          )
+        );                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+    //Recipients
+    $mail->setFrom($Correo_username, $Correo_nombrefrom);
+    $mail->addAddress($correo_electronico);     // Add a recipient
+    //$mail->addAddress('ellen@example.com');               // Name is optional
+    //$mail->addReplyTo('info@example.com', 'Information');
+    //$mail->addCC('cc@example.com');
+    //$mail->addBCC('bcc@example.com');
+    $Body = $cuerpo = "¡Gracias por registrarte!"  ."<br>". 
+        "Querido " . $nombre_usuario . ",". 
         "<br>".
-        " Te damos la bienvenida al Sistema Luna Color, con fecha de creaci&oacute;n " . $user_fechaI . " y con vigencia hasta ". $user_fechaF. ".".
+        " Te damos la bienvenida al Sistema Luna Color, con fecha de creaci&oacute;n " . $fechaI . " y con vigencia hasta ". $fechaF. ".".
         "<br>".
         "La informaci&oacute;n de tu cuenta es: ".
          "<br>".
-         "Nombre de usuario: " . $user
+         "Nombre de usuario: " . $usuario
         ."<br>".
-        "Contraseña: " . "";
+        "Contrase&ntilde;a: " ;
+    // Attachments
+    //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
-        //para el envío en formato HTML
-        $headers  = "MIME-Version: 1.0\r\n";
-        $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
+    // Content
+    $subject ='Creación de cuenta';
+    $subject = utf8_decode($subject);
+    $mail->isHTML(true);                                  // Set email format to HTML
+    $mail->Subject = $subject;
+    $mail->Body    = $Body;
+    $mail->AltBody = strip_tags($Body);
 
-        //Cabecera del emisor - izquierdo
-        $headers .= "From: Soporte técnico Luna Color";
-
-         //Cabecera del emisor - derecho
-        $headers .= " soportelunacolor@gmail.com";
-
-        //Si Suzy nos pide enviar copia a otro lado
-        //$headers .= "Cc: ejemplo2@gmail.com\r\n";
-
-        //Si Suzy nos pide enviar copia a otro lado de forma oculta para otros correos
-        //$headers .= "Bcc: ejemplo3@yahoo.com\r\n";
-      
-       
-
-       		 mail($user_mail,"Creación de cuenta",$cuerpo,$headers);
-        
- //--------------------------- Proceso que envía correo de bienvenida FIN------------------------
-			echo $rspta ? "Usuario registrado " : "No se pudieron registrar todos los datos del usuario";
+    $mail->send();
+    
+    } 
+catch (Exception $e) 
+{
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    //echo"<script type='text/javascript'>    
+      //swal('ERROR: No se pudo enviar el correo, por favor inténtelo de nuevo o contacte a su soporte técnico.', '', 'error');
+        //</script>";
+}
+//--------------------------- Proceso que envía correos FIN--------------------------------        
+     	  
+			echo $rspta ? "¡Usuario registrado con éxito! Se ha enviado un correo con sus datos" : "No se pudieron registrar todos los datos del usuario";
 
 		}
 		else {
@@ -158,9 +254,17 @@ switch ($_GET["op"]){
 
 		$rspta = $roles->select();
 
+		$vuelta=null;
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->id_rol . '>' . $reg->rol . '</option>';
+					$vuelta=$vuelta+1;
+					
+					if ($vuelta==1) {
+						echo '<option value=' . $reg->id_rol . 'selected>' . $reg->rol . '</option>';
+					}else{
+						echo '<option value=' . $reg->id_rol . '>' . $reg->rol . '</option>';
+					}
+					
 				}
 	break;
 
@@ -172,9 +276,17 @@ switch ($_GET["op"]){
 
 		$rspta = $estado_usuarios->select();
 
+		$vuelta=null;
 		while ($reg = $rspta->fetch_object())
 				{
-					echo '<option value=' . $reg->id_estado_usuario . '>' . $reg->descripcion . '</option>';
+					$vuelta=$vuelta+1;
+					if ($vuelta==3) {
+
+						echo '<option value=' . $reg->id_estado_usuario . ' selected>' . $reg->descripcion . '</option>';
+					}else{
+						echo '<option value=' . $reg->id_estado_usuario . '>' . $reg->descripcion . '</option>';
+					}
+					
 				}
 	break;
 

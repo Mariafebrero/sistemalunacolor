@@ -360,7 +360,7 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
 						echo "<script >
 							  Swal.fire({
 							  title: 'Contraseña no es válida',
-							  text: 'No puede usar una contraseña antigua. Por favor ingrese una nueva.',
+							  text: 'Su nueva contraseña debe ser distinta a la actual',
 							  icon: 'info',
 							  confirmButtonText: 'OK'
 							});
