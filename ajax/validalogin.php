@@ -168,7 +168,7 @@ $clavehash = openssl_encrypt($contrasena, $ciphering,
 
                         }	
 
-                        	if ($intentos == $valor)
+                        	if ($intentos == $valor and $id_usuario2  != 1)
 							{
 
 								echo "<script >
@@ -228,8 +228,8 @@ $clavehash = openssl_encrypt($contrasena, $ciphering,
 								{
 									
 								$limite = $valor -1;
-								if ($intentos == $limite) 
-									//echo "Base:" . $valor . " Usuario " . $intentos;
+								if ($intentos == $limite  and $id_usuario2  != 1 ) 
+									
 								{
 									
 								echo "<script >
@@ -254,7 +254,7 @@ $clavehash = openssl_encrypt($contrasena, $ciphering,
 								}
 								else 
 								{
-									echo "Base:" . $valor . " Usuario " . $intentos;
+									
  		 	 					echo "<script >
 					            swal({ title: 'Usuario y/o Contraseña incorrecta',
 					          	text: 'Por favor ingrese los datos correctamente.',

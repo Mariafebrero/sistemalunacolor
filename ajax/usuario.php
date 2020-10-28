@@ -173,7 +173,7 @@ try {
          "<br>".
          "Nombre de usuario: " . $usuario
         ."<br>".
-        "Contrase&ntilde;a: " ;
+        "Contrase&ntilde;a: " . $contrasena ;
     // Attachments
     //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
     //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name

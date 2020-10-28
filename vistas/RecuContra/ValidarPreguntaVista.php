@@ -164,10 +164,44 @@
 		{
 			if($ContraNueva === $Contraconfir)
 			{
-				include "../../config/Conglobal.php"; 
-		$EncripContra=hash("SHA256",$Contraconfir);
+				include "../../config/Conglobal.php";
+				 
+//____________________________ Cifrar y descifrar contraseña INICIO ____________________________________ 
+// Método para cifrar
+$ciphering = "AES-128-CTR"; 
+  
+// Uso de OpenSSl para el método de encriptar 
+$iv_length = openssl_cipher_iv_length($ciphering); 
+$options = 0; 
+  
+// Valor de inicio para la encriptación
+$encryption_iv = '1234567891011121'; 
+  
+// Llave para la encriptación
+$encryption_key = "LunaColor"; 
+  
+// usar openssl_encrypt() para encriptar
+$encryption = openssl_encrypt($Contraconfir, $ciphering, 
+            $encryption_key, $options, $encryption_iv); 
+  
+// Mostrar el valor encriptado 
+//echo "Encrypted String: " . $encryption . "\n"; 
+  
+// Valor de inicio para la desencriptación
+//$decryption_iv = '1234567891011121'; 
+  
+//  Llave para la desencriptación 
+//$decryption_key = "LunaColor"; 
+  
+// usar openssl_encrypt() para desencriptar 
+//$decryption=openssl_decrypt ($encryption, $ciphering,  
+//        $decryption_key, $options, $decryption_iv); 
+  
+// Descrifrado 
+//echo "Decrypted String: " . $decryption;  
+//________________________________ Cifrar y descifrar contraseña FIN ____________________________________
 
-		$sql= "update tbl_usuarios set contrasena =" . "'" . $EncripContra . "'" . " WHERE usuario=" . "'" .  $NombreRecu. "'". "";
+		$sql= "update tbl_usuarios set contrasena =" . "'" . $Contraconfir . "'" . " WHERE usuario=" . "'" .  $NombreRecu. "'". "";
 		$query = $con->query($sql);
 
 		$sql= "update tbl_usuarios set id_estado_usuario =2 WHERE usuario=" . "'" .  $NombreRecu. "'". "";

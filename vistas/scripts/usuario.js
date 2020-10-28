@@ -63,7 +63,7 @@ function mostrarform(flag)
 		$("#show_password1").show();
 		$("#show_password").show();
 
-		$("#confirmar_contrasena").val("");
+		//$("#confirmar_contrasena").val("");
 
 		//$("#id_rol").val("");
 		//$("#id_estado_usuario").val("");
