@@ -217,7 +217,7 @@ function mostrar(id_usuario)
 function eliminar(id_usuario)
 {
 swal({
-  title:"¿Está Seguro de eliminar el usuario?",
+  title:"¿Está seguro de eliminar el usuario?",
   text: "",
   icon: "warning",
   buttons: true,
@@ -237,7 +237,11 @@ swal({
         	});	
     
   } else {
-    swal("No se ha eliminado");
+    swal({
+  title:"El usuario no se ha eliminado",
+  text: "",
+  icon: "warning",
+});
   }
 });
 	
