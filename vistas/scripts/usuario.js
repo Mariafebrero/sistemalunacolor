@@ -38,7 +38,6 @@ function limpiar()
 	$("#usuario").val("");
 	$("#nombre_usuario").val("");
 	$("#contrasena").val("");
-	$("#confirmar_contrasena").val("");
 	$("#imagenmuestra").attr("src","");//ojo
 	$("#imagenactual").val(""); //ojo
 	$("#correo_electronico").val("");	
@@ -51,7 +50,6 @@ function limpiar()
 function mostrarform(flag)
 {
 	limpiar();
-
 	if (flag)
 	{
 		$("#listadoregistros").hide();
@@ -59,15 +57,9 @@ function mostrarform(flag)
 		$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
 
-		//$("#id_estado_usuario").prop("disabled",true);
-
-  		//$("#id_rol").val(data."1");
-  		//$("#id_estado_usuario").val(data."3");
-
-  		
-
 		//SHOW PARA MONSTRAR EL CAMPO USUARIO CUANDO SE AGREGA UN USUARIO
 		$("#usuario").show();
+
 		$("#show_password1").show();
 		$("#show_password").show();
 
@@ -80,12 +72,9 @@ function mostrarform(flag)
 	}
 	else
 	{
-
 		$("#listadoregistros").show();
 		$("#formularioregistros").hide();
 		$("#btnagregar").show();
-		//
-
 	}
 }
 
@@ -152,7 +141,6 @@ function guardaryeditar(e)
 	          tabla.ajax.reload();
 	    }
 
-
 	});
 	limpiar();
 }
@@ -173,14 +161,15 @@ function mostrar(id_usuario)
 		$("#usuario").hide(data.usuario);
 		$("#usuario").val('refresh');
 
-		$("#nombre_usuario").val(data.nombre_usuario);
-
 		$("#contrasena").val(data.contrasena);
 		$("#confirmar_contrasena").val(data.contrasena);
-		
+
 		$("#show_password1").hide(data.show_password1);
 		$("#show_password").hide(data.show_password);
 
+
+		$("#nombre_usuario").val(data.nombre_usuario);
+		//$("#contrasena").val(data.contrasena);
 		$("#imagenmuestra").show();
 		$("#imagenmuestra").attr("src","../files/usuarios/"+data.imagen);
 		$("#imagenactual").val(data.imagen);
@@ -189,8 +178,6 @@ function mostrar(id_usuario)
 
 		$("#id_estado_usuario").val(data.id_estado_usuario);
 		$("#id_estado_usuario").selectpicker('refresh');
-		//$("#id_estado_usuario").prop("disabled",false);
-
 
 		//FECHAS 
 		//$("#fecha_creacion").val(data.fecha_creacion);
@@ -225,7 +212,7 @@ swal({
         		swal({
   			title: "",
   			text: e,
-  			icon: "warning",
+  			icon: "success",
   			button: "OK",
 			});  
         		//bootbox.alert(e);

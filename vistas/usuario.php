@@ -152,7 +152,7 @@ require 'header.php';
                        <div class="form-group col-lg-4 col-xs-12">
                           <label>Contraseña(*):</label>
                               
-                                 <input ID="confirmar_contrasena" type="Password" name="confirmar_contrasena"  Class="form-control"  pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,60}$"  minlength="5"  maxlength="60" 
+                                 <input ID="confirmar_contrasena" type="Password" name="confirmar_contrasena"  Class="form-control"  pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,65}$"  minlength="5"  maxlength="65" 
                                  required  onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
 
 
@@ -167,7 +167,7 @@ require 'header.php';
                       <div class="form-group col-lg-4 col-xs-12">
                           <label id="Etiqueta" name ="Etiqueta">Confirmar Contraseña(*):</label>
                                
-                                 <input ID="contrasena" type="Password" name="contrasena"  Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,60}$"  minlength="5" maxlength="60" required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
+                                 <input ID="contrasena" type="Password" name="contrasena"  Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,65}$"  minlength="5" maxlength="65" required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
                                 
                                 <!-- boton monstrar Contraseña -->
                              <div class="input-group-append">
@@ -223,7 +223,7 @@ require 'header.php';
                           <!-- Estado -->
                            <div class="form-group col-lg-4 col-xs-12">
                             <label>Estado(*):</label>
-                            <select id="id_estado_usuario" name="id_estado_usuario" class="form-control selectpicker" data-live-search="true"></select>
+                            <select id="id_estado_usuario" name="id_estado_usuario" class="form-control selectpicker" data-live-search="true" ></select>
                           </div>
                         </div>
                          <br>
