@@ -212,7 +212,7 @@ swal({
         		swal({
   			title: "",
   			text: e,
-  			icon: "success",
+  			icon: "warning",
   			button: "OK",
 			});  
         		//bootbox.alert(e);
