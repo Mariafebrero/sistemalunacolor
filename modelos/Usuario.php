@@ -244,7 +244,7 @@ $encryption = openssl_encrypt($contrasena, $ciphering,
 	//Función para verificar el acceso al sistema
 	public function verificar($usuario,$contrasena)
     {
-    	$sql="SELECT id_usuario,usuario,nombre_usuario,contrasena,imagen,correo_electronico FROM tbl_usuarios WHERE usuario='$usuario' AND contrasena='$contrasena' AND id_estado_usuario =2";
+    	$sql="SELECT id_usuario,id_rol,usuario,nombre_usuario,contrasena,imagen,correo_electronico FROM tbl_usuarios WHERE usuario='$usuario' AND contrasena='$contrasena' AND id_estado_usuario =2";
     	//return $sql; 
     	return ejecutarConsulta($sql);  
     	

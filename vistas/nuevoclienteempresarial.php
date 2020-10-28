@@ -12,8 +12,8 @@ else
 {
 require 'header.php';
 
-//if ($_SESSION['Cliente']==1)
-//{
+if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
+{
 
 ?>
 <!--Contenido-->
@@ -75,11 +75,11 @@ require 'header.php';
     </div><!-- /.content-wrapper -->
   <!--Fin-Contenido-->
 <?php
-//}
-//else
-//{
-  //require 'noacceso.php';
-//}
+}
+else
+{
+  require 'noacceso.php';
+}
 
 require 'footer.php';
 ?>

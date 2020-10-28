@@ -16,24 +16,8 @@ else
 require 'header.php';
 
 
-//if ($_SESSION['Usuario']==1)
-//{
-
-/*
-  include '../../config/conexion.php';
-  
-  $query=mysqli_query($mysqli,"SELECT valor FROM tbl_parametros WHERE id_parametro = '14'");
-
-
-  while($tbl_parametros = mysqli_fetch_array($query))
-                        {
-                    ?> 
-                            <?php $valor=$tbl_parametros['valor']?>
-                    <?php
-
-                        }*/
-
-
+if ($_SESSION['id_rol']==2)
+ {
 
 
 ?>
@@ -65,6 +49,7 @@ require 'header.php';
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
+                     
                           <center> <h1 ><span class="hiddenui"><i class="fas fa-users"> Mantenimiento usuario</i></span></h1> </center>
                           <br>
                             <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar nuevo usuario</button>
@@ -191,7 +176,7 @@ require 'header.php';
                  
                 
 
-                <label class="form-check-label" for="Autogenerar">Autogenerar contraseña</label>
+                <label id="letra" name="letra" class="form-check-label" for="Autogenerar">Autogenerar contraseña</label>
                 
                 <!--<label for="Autogenerar">Autogenerar contraseña</label>-->
                 <!------------------------AUTOGENERAR CONTRASEÑA FINAL----------------------------------->
@@ -341,6 +326,12 @@ require 'header.php';
 
 
 <?php
+}
+else
+{
+  require 'noacceso.php';
+}
+
 require 'footer.php';
 ?>
 

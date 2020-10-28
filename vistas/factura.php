@@ -11,8 +11,8 @@ else
 {
 require 'header.php';
 
-//if ($_SESSION['compras']==1)
-//{
+if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
+{
 ?>
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
@@ -180,8 +180,15 @@ require 'header.php';
   </div>  
   <!-- Fin modal -->
 <?php
+}
+else
+{
+  require 'noacceso.php';
+}
+
 require 'footer.php';
 ?>
+
 <script type="text/javascript" src="scripts/rol.js"></script>
 <?php 
 }

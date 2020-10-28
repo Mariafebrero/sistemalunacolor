@@ -80,6 +80,11 @@ function mostrarform(flag)
 		$("#fv").show();
 
 
+
+		$("#Autogenerar").show();
+		$("#letra").show();
+
+
 	}
 	else
 	{
@@ -202,6 +207,9 @@ function mostrar(id_usuario)
 
 		$("#fa").hide(data.fa);
 		$("#fv").hide(data.fv);
+
+		$("#Autogenerar").hide();
+		$("#letra").hide();
 
 
 		$("#id_usuario").val(data.id_usuario);

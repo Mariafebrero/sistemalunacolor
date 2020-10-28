@@ -76,6 +76,7 @@ $clavehash = openssl_encrypt($contrasena, $ciphering,
            header("Location: ../vistas/escritorio.php");
            //Declaramos las variables de sesión
 	        $_SESSION['id_usuario']=$fetch->id_usuario;
+	        $_SESSION['id_rol']=$fetch->id_rol;
 	        $_SESSION['nombre_usuario']=$fetch->nombre_usuario;
 	        $_SESSION['imagen']=$fetch->imagen;
 	        $_SESSION['usuario']=$fetch->usuario;
