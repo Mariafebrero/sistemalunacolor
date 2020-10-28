@@ -37,27 +37,59 @@ Class Usuario
 		$fecha_creacion = date("d-m-Y H:i:s", $fecha_creacion); 
 		$fecha_vencimiento = date("d-m-Y H:i:s", $fecha_vencimiento); 
 
-		$clavehash=hash("SHA256",$contrasena);
+		//$clavehash=hash("SHA256",$contrasena);
+
+		//__________ Cifrar y descifrar contraseña INICIO ____________ 
+// Método para cifrar
+$ciphering = "AES-128-CTR"; 
+  
+// Uso de OpenSSl para el método de encriptar 
+$iv_length = openssl_cipher_iv_length($ciphering); 
+$options = 0; 
+  
+// Valor de inicio para la encriptación
+$encryption_iv = '1234567891011121'; 
+  
+// Llave para la encriptación
+$encryption_key = "LunaColor"; 
+  
+// usar openssl_encrypt() para encriptar
+$encryption = openssl_encrypt($contrasena, $ciphering, 
+            $encryption_key, $options, $encryption_iv); 
+  
+// Descrifrado 
+//echo "Decrypted String: " . $decryption;  
+//___________ Cifrar y descifrar contraseña FIN _____________
+
+
 
 		$sql="INSERT INTO tbl_usuarios (id_rol,usuario,nombre_usuario,contrasena,imagen,correo_electronico,id_estado_usuario,fecha_ultima_conexion,preguntas_contestadas,fecha_creacion,intentos,fecha_vencimiento,token,fecha_inicio,fecha_final)
-			VALUES ('$id_rol','$usuario','$nombre_usuario','$clavehash','$imagen','$correo_electronico','$id_estado_usuario','','0','$fecha_creacion','0','$fecha_vencimiento','','','')";
+			VALUES ('$id_rol','$usuario','$nombre_usuario','$encryption','$imagen','$correo_electronico','3','','0','$fecha_creacion','0','$fecha_vencimiento','','','')";
 		
 		   $idusuarionew=ejecutarConsulta_retornarID($sql);
+
 
 		   if ($id_rol==0) {
 		   	$sql_rol="UPDATE tbl_usuarios SET id_rol = 1 WHERE id_usuario=(SELECT MAX(id_usuario) AS id FROM tbl_usuarios)";
 		   	ejecutarConsulta($sql_rol);
 		   }
 
+		    if ($imagen=='') {
+		   	$sql_img="UPDATE tbl_usuarios SET imagen =(select imagen from tbl_usuarios where id_usuario=1) WHERE id_usuario=(SELECT MAX(id_usuario) AS id FROM tbl_usuarios)";
+		   	ejecutarConsulta($sql_img);
+		   }
+
+		   /*
 		   if ($id_estado_usuario==0) {
 		   	$id_estado_usuario="UPDATE tbl_usuarios SET id_estado_usuario = 3 WHERE id_usuario=(SELECT MAX(id_usuario) AS id FROM tbl_usuarios)";
 		   	ejecutarConsulta($id_estado_usuario);
-		   }
+		   }*/
+		   
           
 			/*$sql_contra="INSERT INTO tbl_hist_contrasena (id_usuario, contrasena) VALUES ((SELECT MAX(id_usuario + 1) AS id FROM tbl_usuarios),' $clavehash')"; 
 			ejecutarConsulta($sql_contra);*/
 
-			$sql_contra= "INSERT INTO tbl_hist_contrasena (id_usuario, contrasena) VALUES ((select id_usuario from tbl_usuarios where usuario ='$usuario'),'$clavehash')"; 
+			$sql_contra= "INSERT INTO tbl_hist_contrasena (id_usuario, contrasena) VALUES ((select id_usuario from tbl_usuarios where usuario ='$usuario'),'$encryption')"; 
 			ejecutarConsulta($sql_contra);
 
 			//Bitacora
@@ -70,8 +102,6 @@ Class Usuario
 			ejecutarConsulta($sql_bitacora);
 
 
-
-		
 			//$num_elementos=0;
 			$sw=true;
 
@@ -116,12 +146,36 @@ Class Usuario
 			ejecutarConsulta($sql_contra);
 		}else{
 			//$clavehash=password_hash($contrasena, PASSWORD_DEFAULT);
-			$clavehash=hash("SHA256",$contrasena);
+			//$clavehash=hash("SHA256",$contrasena);
+
+			//__________ Cifrar y descifrar contraseña INICIO ____________ 
+// Método para cifrar
+$ciphering = "AES-128-CTR"; 
+  
+// Uso de OpenSSl para el método de encriptar 
+$iv_length = openssl_cipher_iv_length($ciphering); 
+$options = 0; 
+  
+// Valor de inicio para la encriptación
+$encryption_iv = '1234567891011121'; 
+  
+// Llave para la encriptación
+$encryption_key = "LunaColor"; 
+  
+// usar openssl_encrypt() para encriptar
+$encryption = openssl_encrypt($contrasena, $ciphering, 
+            $encryption_key, $options, $encryption_iv); 
+  
+// Descrifrado 
+//echo "Decrypted String: " . $decryption;  
+//___________ Cifrar y descifrar contraseña FIN _____________
+
+
 		
-			$sql_contra2="UPDATE tbl_usuarios SET contrasena ='$clavehash' WHERE id_usuario='$id_usuario'";
+			$sql_contra2="UPDATE tbl_usuarios SET contrasena ='$encryption' WHERE id_usuario='$id_usuario'";
 			ejecutarConsulta($sql_contra2);
 
-			$sql_contra3= "INSERT INTO tbl_hist_contrasena (id_usuario, contrasena) VALUES ((select id_usuario from tbl_usuarios WHERE id_usuario='$id_usuario'),'$clavehash')"; 
+			$sql_contra3= "INSERT INTO tbl_hist_contrasena (id_usuario, contrasena) VALUES ((select id_usuario from tbl_usuarios WHERE id_usuario='$id_usuario'),'$encryption')"; 
 			ejecutarConsulta($sql_contra3);
 		}
 
@@ -215,7 +269,7 @@ Class Usuario
 	        $usuario1=$_SESSION['usuario']; 
 			//Insertar datos en la bitacora
 			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-			VALUES('$id_usuario1','1',(select now()),'Eliminar','Elimino un usuario','$usuario1',(select now()))";
+			VALUES('$id_usuario1','1',(select now()),'Eliminar','Se intentó eliminar un usuario','$usuario1',(select now()))";
 			ejecutarConsulta($sql_bitacora); 
 
 		return ejecutarConsulta($sql);

@@ -36,8 +36,31 @@ $usuario1=$_SESSION['usuario'];
 // die();
 if (isset($_POST["btningresar"])){
 		//if ($usuario && $contrasena){
+
+	//__________ Cifrar y descifrar contraseña INICIO ____________ 
+// Método para cifrar
+$ciphering = "AES-128-CTR"; 
+  
+// Uso de OpenSSl para el método de encriptar 
+$iv_length = openssl_cipher_iv_length($ciphering); 
+$options = 0; 
+  
+// Valor de inicio para la encriptación
+$encryption_iv = '1234567891011121'; 
+  
+// Llave para la encriptación
+$encryption_key = "LunaColor"; 
+  
+// usar openssl_encrypt() para encriptar
+$clavehash = openssl_encrypt($contrasena, $ciphering, 
+            $encryption_key, $options, $encryption_iv); 
+  
+// Descrifrado 
+//echo "Decrypted String: " . $decryption;  
+//___________ Cifrar y descifrar contraseña FIN _____________
+
 	   
-	    $clavehash=hash("SHA256",$contrasena);
+	    //$clavehash=hash("SHA256",$contrasena);
 
 		$rspta=$usuarios1->verificar($usuario,$clavehash);
 		$fetch=$rspta->fetch_object();
@@ -172,7 +195,8 @@ if (isset($_POST["btningresar"])){
 
    								
    								
-
+   								$id_usuario1=$_SESSION['id_usuario'];
+		  						$usuario1=$_SESSION['usuario'];
    								 $sql_bitacora4= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
 		 						 VALUES('$id_usuario2','5',(select now()),'Actualizó','Actualizó Estado a: Bloqueado','$usuario',(select now()))";
  		 	 						ejecutarConsulta($sql_bitacora4);
@@ -256,6 +280,9 @@ if (isset($_POST["btningresar"])){
 
 
 								mysqli_query($mysqli, "UPDATE tbl_usuarios SET intentos = (intentos + 1) WHERE usuario = '$usuario'");
+
+								$id_usuario1=$_SESSION['id_usuario'];
+		  						$usuario1=$_SESSION['usuario'];
 
 								$sql_bitacora5= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
 		 				 		VALUES('$id_usuario2','5',(select now()),'Actualizó','Actualizó Intentos/contraseña','$usuario',(select now()))";

@@ -215,10 +215,11 @@ require 'header.php';
                            <!-- Rol -->
                            <div class="form-group col-lg-4 col-xs-12">
                             <label>Roles(*):</label>
-                            <select id="id_rol" name="id_rol" class="form-control selectpicker" data-live-search="true" 
+                            <select id="id_rol" name="id_rol" class="form-control selectpicker" data-live-search="true" required
                             >
                             </select>
                           </div>
+
 
                           <!-- Estado -->
                            <div class="form-group col-lg-4 col-xs-12">
@@ -242,6 +243,7 @@ require 'header.php';
                             <input type="hidden" name="imagenactual" id="imagenactual">
                             <img src="" width="150px" height="120px" id="imagenmuestra">
                           </div>
+
                         </div>
                         <br>
 

@@ -63,7 +63,18 @@ function mostrarform(flag)
 		$("#show_password1").show();
 		$("#show_password").show();
 
+		$("#confirmar_contrasena").val("");
 
+		//$("#id_rol").val("");
+		//$("#id_estado_usuario").val("");
+		//$("#id_estado_usuario").hide();
+		//$("#id_estado_usuario").selectpicker('val', 'Nuevo');
+
+		$("#id_estado_usuario").prop('disabled', true);
+  		//$("#id_estado_usuario").val("");
+
+
+	
 		//SHOW PARA MONSTRAR EL CAMPO FECHA ACTUAL Y VECHA VENCIMIENTO CUANDO SE AGREGA UN USUARIO
 		$("#fa").show();
 		$("#fv").show();
@@ -175,9 +186,15 @@ function mostrar(id_usuario)
 		$("#imagenactual").val(data.imagen);
 		$("#correo_electronico").val(data.correo_electronico);
 
+		
 
 		$("#id_estado_usuario").val(data.id_estado_usuario);
-		$("#id_estado_usuario").selectpicker('refresh');
+		$("#id_estado_usuario").prop('disabled', false);
+  		$("#id_estado_usuario").selectpicker('refresh');
+
+		//descri
+
+		
 
 		//FECHAS 
 		//$("#fecha_creacion").val(data.fecha_creacion);

@@ -330,15 +330,79 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
                         }
 
 				$contrasena_anterior= ($_POST["contrasena_anterior"]);
-	            $clavehash=hash("SHA256",$contrasena_anterior);
+				//__________ Cifrar y descifrar contraseña INICIO ____________ 
+// Método para cifrar
+$ciphering = "AES-128-CTR"; 
+  
+// Uso de OpenSSl para el método de encriptar 
+$iv_length = openssl_cipher_iv_length($ciphering); 
+$options = 0; 
+  
+// Valor de inicio para la encriptación
+$encryption_iv = '1234567891011121'; 
+  
+// Llave para la encriptación
+$encryption_key = "LunaColor"; 
+  
+// usar openssl_encrypt() para encriptar
+$clavehash = openssl_encrypt($contrasena_anterior, $ciphering, 
+            $encryption_key, $options, $encryption_iv); 
+  
+// Descrifrado 
+//echo "Decrypted String: " . $decryption;  
+//___________ Cifrar y descifrar contraseña FIN _____________
+
+	            //$clavehash=hash("SHA256",$contrasena_anterior);
                 
 
                 $nueva_contrasena= ($_POST["nueva_contrasena"]);
-	            $clavehash1=hash("SHA256",$nueva_contrasena);
+                //__________ Cifrar y descifrar contraseña INICIO ____________ 
+// Método para cifrar
+$ciphering = "AES-128-CTR"; 
+  
+// Uso de OpenSSl para el método de encriptar 
+$iv_length = openssl_cipher_iv_length($ciphering); 
+$options = 0; 
+  
+// Valor de inicio para la encriptación
+$encryption_iv = '1234567891011121'; 
+  
+// Llave para la encriptación
+$encryption_key = "LunaColor"; 
+  
+// usar openssl_encrypt() para encriptar
+$clavehash1 = openssl_encrypt($nueva_contrasena, $ciphering, 
+            $encryption_key, $options, $encryption_iv); 
+  
+// Descrifrado 
+//echo "Decrypted String: " . $decryption;  
+//___________ Cifrar y descifrar contraseña FIN _____________
+	            //$clavehash1=hash("SHA256",$nueva_contrasena);
                 
                 
 	            $confirmar_contrasena= ($_POST["confirmar_contrasena"]);
-	            $clavehash2=hash("SHA256",$confirmar_contrasena);
+	            //__________ Cifrar y descifrar contraseña INICIO ____________ 
+// Método para cifrar
+$ciphering = "AES-128-CTR"; 
+  
+// Uso de OpenSSl para el método de encriptar 
+$iv_length = openssl_cipher_iv_length($ciphering); 
+$options = 0; 
+  
+// Valor de inicio para la encriptación
+$encryption_iv = '1234567891011121'; 
+  
+// Llave para la encriptación
+$encryption_key = "LunaColor"; 
+  
+// usar openssl_encrypt() para encriptar
+$clavehash2 = openssl_encrypt($confirmar_contrasena, $ciphering, 
+            $encryption_key, $options, $encryption_iv); 
+  
+// Descrifrado 
+//echo "Decrypted String: " . $decryption;  
+//___________ Cifrar y descifrar contraseña FIN _____________
+	            //$clavehash2=hash("SHA256",$confirmar_contrasena);
 
 	if(isset($_POST["btn_restablecer"]))
 	{ //If del boton inicio
@@ -360,7 +424,7 @@ while($tbl_hist_contrasena = mysqli_fetch_array($query4))
 						echo "<script >
 							  Swal.fire({
 							  title: 'Contraseña no es válida',
-							  text: 'Su nueva contraseña debe ser distinta a la actual',
+							  text: 'No puede usar una contraseña antigua. Por favor ingrese una nueva.',
 							  icon: 'info',
 							  confirmButtonText: 'OK'
 							});

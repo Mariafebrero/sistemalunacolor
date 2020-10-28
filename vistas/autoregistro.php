@@ -427,13 +427,63 @@ if(isset($_POST["btnGuardar"]))
 </script>";
 */
 
-	
-	$contra2=$_POST['contrasena'];
-    $clavehash2=hash("SHA256",$contra2);
 
-	$contra =$_POST['contrasena'];
-	$ContrasinHash = $contra;
-	$clavehash=hash("SHA256",$contra);
+$contra2=$_POST['contrasena'];
+//__________ Cifrar y descifrar contraseña INICIO ____________ 
+// Método para cifrar
+$ciphering = "AES-128-CTR"; 
+  
+// Uso de OpenSSl para el método de encriptar 
+$iv_length = openssl_cipher_iv_length($ciphering); 
+$options = 0; 
+  
+// Valor de inicio para la encriptación
+$encryption_iv = '1234567891011121'; 
+  
+// Llave para la encriptación
+$encryption_key = "LunaColor"; 
+  
+// usar openssl_encrypt() para encriptar
+$clavehash2 = openssl_encrypt($contra2, $ciphering, 
+            $encryption_key, $options, $encryption_iv); 
+  
+// Descrifrado 
+//echo "Decrypted String: " . $decryption;  
+//___________ Cifrar y descifrar contraseña FIN _____________
+
+$contra =$_POST['contrasena'];
+$ContrasinHash = $contra;
+
+//__________ Cifrar y descifrar contraseña INICIO ____________ 
+// Método para cifrar
+$ciphering = "AES-128-CTR"; 
+  
+// Uso de OpenSSl para el método de encriptar 
+$iv_length = openssl_cipher_iv_length($ciphering); 
+$options = 0; 
+  
+// Valor de inicio para la encriptación
+$encryption_iv = '1234567891011121'; 
+  
+// Llave para la encriptación
+$encryption_key = "LunaColor"; 
+  
+// usar openssl_encrypt() para encriptar
+$clavehash = openssl_encrypt($contra, $ciphering, 
+            $encryption_key, $options, $encryption_iv); 
+  
+// Descrifrado 
+//echo "Decrypted String: " . $decryption;  
+//___________ Cifrar y descifrar contraseña FIN _____________
+
+
+	
+	//$contra2=$_POST['contrasena'];
+   // $clavehash2=hash("SHA256",$contra2);
+
+	//$contra = $_POST['contrasena'];
+	//$ContrasinHash = $contra;
+	//$clavehash=hash("SHA256",$contra);
 	//$clavehash2=hash("SHA256",$contra2);
 	//$clavehash3=hash("SHA256",$contra3);
 
