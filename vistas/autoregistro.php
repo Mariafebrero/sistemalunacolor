@@ -449,12 +449,12 @@ if(isset($_POST["btnGuardar"]))
 
       if (mysqli_num_rows($result)>0)
  		{
-		echo '<script>swal({
-  			title: "El usuario y/o correo ya existen.",
-  			text: "Inténtelo de nuevo",
-  			icon: "warning",
-  			button: "OK",
-			});</script>';
+		echo "<script> Swal.fire({
+			  icon: 'error',
+			  title: 'Usuario y/o correo ya existen',
+			  text: 'Inténtelo de nuevo',
+			  footer: 'Si el problema persiste contacte a su soporte técnico'
+			}) </script>";
 		
 	    }
 
