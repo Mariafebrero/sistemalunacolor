@@ -178,7 +178,7 @@ try {
         ."<br>".
          "<br>".
          "Para restablecer su contraseña " 
-        . '<a href="http://localhost/sistemalunacolor/vistas/RecuContra/ValidarCorreoVista.php?user=' . $user . '&lunaverificationcode=' . $codigo . '"> click aquí</a>';
+        . '<a href="http://localhost/sistemalunacolor/sistemalunacolor/vistas/RecuContra/ValidarCorreoVista.php?user=' . $user . '&lunaverificationcode=' . $codigo . '"> click aquí</a>';
     // Attachments
     //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
     //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name

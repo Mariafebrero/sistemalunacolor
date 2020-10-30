@@ -263,6 +263,9 @@ $encryption = openssl_encrypt($contrasena, $ciphering,
 		//Eliminar un usuario
 		$sql="DELETE FROM tbl_usuarios WHERE id_usuario = '$id_usuario'";
 
+		$sql_bloqueo="UPDATE tbl_usuarios SET id_estado_usuario = 1 WHERE id_usuario='$id_usuario'";
+		ejecutarConsulta($sql_bloqueo);
+
 			//Bitacora
 			//Incializamos las variables de seccion 
  			$id_usuario1=$_SESSION['id_usuario'];

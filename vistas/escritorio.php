@@ -19,6 +19,15 @@ require 'header.php';
 if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4 )
 {
 
+  include '../config/conexion.php';
+
+ $id_usuario1=$_SESSION['id_usuario'];
+ $usuario1=$_SESSION['usuario']; 
+//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
+ $sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+ VALUES('$id_usuario1','10',(select now()),'Entró','Entró a Escritorio','$usuario1',(select now()))";
+  ejecutarConsulta($sql_bitacora); 
+
 ?>
 
 <!--Contenido-->
@@ -134,6 +143,16 @@ function mostrarPassword(){
 });
 </script>
 
+<?php  
+include '../config/conexion.php';
+
+ $id_usuario1=$_SESSION['id_usuario'];
+ $usuario1=$_SESSION['usuario']; 
+//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
+ $sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+ VALUES('$id_usuario1','10',(select now()),'Salió','Salió de Escritorio','$usuario1',(select now()))";
+  ejecutarConsulta($sql_bitacora); 
+?>
 
 <?php 
 }

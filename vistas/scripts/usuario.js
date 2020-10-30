@@ -235,8 +235,8 @@ swal({
   if (willDelete) {
   	$.post("../ajax/usuario.php?op=eliminar", {id_usuario : id_usuario}, function(e){
         		swal({
-  			title: "",
-  			text: e,
+  			title: e,
+  			text: "Este usuario ya tiene registros en el Sistema.",
   			icon: "warning",
   			button: "OK",
 			});  
@@ -246,8 +246,8 @@ swal({
     
   } else {
     swal({
-  title:"El usuario no se ha eliminado",
-  text: "",
+  title:"El usuario no se pudo eliminar.",
+  text: "Este usuario ya tiene registro en el Sistema.",
   icon: "warning",
 });
   }

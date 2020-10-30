@@ -19,6 +19,14 @@ require 'header.php';
 if ($_SESSION['id_rol']==2)
  {
 
+include '../config/conexion.php';
+
+ $id_usuario1=$_SESSION['id_usuario'];
+ $usuario1=$_SESSION['usuario']; 
+//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
+ $sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+ VALUES('$id_usuario1','1',(select now()),'Entró','Entró a Mantenimiento de Usuario','$usuario1',(select now()))";
+  ejecutarConsulta($sql_bitacora);
 
 ?>
 
@@ -49,6 +57,13 @@ if ($_SESSION['id_rol']==2)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
+
+                      <?php
+
+                     // echo $_SESSION['Escritorio'];
+                      //echo $_SESSION['Usuario']; 
+
+                       ?>
                      
                           <center> <h1 ><span class="hiddenui"><i class="fas fa-users"> Mantenimiento usuario</i></span></h1> </center>
                           <br>
@@ -506,6 +521,16 @@ border: 0px solid #000000;
 }
 </style>
 
+<?php  
+include '../config/conexion.php';
+
+ $id_usuario1=$_SESSION['id_usuario'];
+ $usuario1=$_SESSION['usuario']; 
+//Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
+ $sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+ VALUES('$id_usuario1','1',(select now()),'Salió','Salió de Mantenimiento de Usuario','$usuario1',(select now()))";
+  ejecutarConsulta($sql_bitacora); 
+?>
 
 
 <?php 

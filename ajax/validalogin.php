@@ -81,6 +81,11 @@ $clavehash = openssl_encrypt($contrasena, $ciphering,
 	        $_SESSION['imagen']=$fetch->imagen;
 	        $_SESSION['usuario']=$fetch->usuario;
 
+			//$_SESSION['Escritorio']="Escritorio";
+			//$_SESSION['Usuario']="Usuario";
+
+
+
 	        /*
              //Obtenemos los permisos del usuario
 	    	$marcados = $usuarios1->listarmarcados($fetch->id_usuario);

@@ -117,7 +117,7 @@ if (strlen(session_id()) < 1)
             echo 
             '<li>
               <a href="escritorio.php">
-                <i class="fa fa-tasks"></i> <span>Escritorio</span>
+                <i class="fas fa-home"></i> <span> &nbsp;Escritorio</span>
               </a>
             </li>';
             }
@@ -130,8 +130,8 @@ if (strlen(session_id()) < 1)
             echo 
             ' <li class="treeview">
               <a href="#">
-                <i class="fa fa-user"></i>
-                <span>Cliente</span>
+                <i class="fas fa-user"></i> <span> &nbsp; Cliente</span>
+
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
@@ -143,18 +143,18 @@ if (strlen(session_id()) < 1)
             ?>
 
 
-             <?php 
+              <?php 
             if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4 )
             {
             echo 
-            ' <li class="treeview">
+            '<li class="treeview">
               <a href="#">
-                <i class="fa fa-shopping-cart"></i>
-                <span>Cotización</span>
+                <i class="fas fa-shopping-cart"></i> <span> &nbsp; Pedido</span>
                  <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="codcliente.php"><i class="fa fa-circle-o"></i> Cod. Cliente</a></li>
+                <li><a href="pedido.php"><i class="fa fa-circle-o"></i> Pedido</a></li>
+                 <li><a href="codcliente.php"><i class="fa fa-circle-o"></i> Cod. Cliente</a></li>
                 <li><a href="productos.php"><i class="fa fa-circle-o"></i> Productos</a></li>
                 <li><a href="carrito.php"><i class="fa fa-circle-o"></i> Carrito</a></li>
                 <li><a href="cola.php"><i class="fa fa-circle-o"></i> Cola</a></li>
@@ -170,25 +170,8 @@ if (strlen(session_id()) < 1)
             echo 
             '<li class="treeview">
               <a href="#">
-                <i class="fa fa-gift"></i>
-                <span>Pedido</span>
-                 <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="pedido.php"><i class="fa fa-circle-o"></i> Pedido</a></li>
-              </ul>
-            </li>';
-            }
-            ?>
+                <i class="fas fa-file-invoice"></i> <span>  &nbsp; Factura</span>
 
-
-              <?php 
-            if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4 )
-            {
-            echo 
-            '<li class="treeview">
-              <a href="#">
-                <i class="fa fa-file-text"></i> <span>Factura</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
@@ -205,7 +188,8 @@ if (strlen(session_id()) < 1)
             echo 
             ' <li class="treeview">
               <a href="#">
-                <i class="fa fa-cubes"></i> <span>Inventario</span>
+                <i class="fas fa-dolly-flatbed"></i> <span>  &nbsp; Inventario</span>
+
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
@@ -222,7 +206,8 @@ if (strlen(session_id()) < 1)
             echo 
             '  <li class="treeview">
               <a href="#">
-                <i class="fa fa-money"></i> <span>Compras</span>
+                <i class="fas fa-shopping-basket"></i> <span> &nbsp; Compras</span>
+
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
@@ -233,36 +218,36 @@ if (strlen(session_id()) < 1)
             ?>
 
               <?php 
-            if ($_SESSION['id_rol']==2)
+            if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
             {
-            echo 
-            '<li class="treeview">
+             echo 
+            ' <li class="treeview">
               <a href="#">
-                <i class="fa fa-user"></i> <span>Usuario</span>
+                <i class="fas fa-chart-bar"></i><span> &nbsp; Reporte</span>
+
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="usuario.php"><i class="fa fa-circle-o"></i> Usuarios</a></li>
-                <li><a href="rol.php"><i class="fa fa-circle-o"></i> Roles</a></li>
-                <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Permisos</a></li>
-                <li><a href="preguntas.php"><i class="fa fa-circle-o"></i> Preguntas</a></li>
+                <li><a href="repmatprima.php"><i class="fa fa-circle-o"></i> Reporte Materia Prima</a></li>
+                 <li><a href="repexpclientes.php"><i class="fa fa-circle-o"></i> Reporte Expedientes Clientes</a></li>                
               </ul>
             </li>';
             }
             ?>
 
              <?php 
-            if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4 )
+            if ($_SESSION['id_rol']==2)
             {
             echo 
-            ' <li class="treeview">
+            '<li class="treeview">
               <a href="#">
-                <i class="fa fa-pie-chart"></i> <span>Reporte</span>
+                <i class="fas fa-tasks"></i><span> &nbsp; Administración</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="repmatprima.php"><i class="fa fa-circle-o"></i> Reporte Materia Prima</a></li>
-                 <li><a href="repexpclientes.php"><i class="fa fa-circle-o"></i> Reporte Expedientes Clientes</a></li>                
+                <li><a href="usuario.php"><i class="fa fa-circle-o"></i> Usuarios</a></li>
+                <li><a href="gestionbd.php"><i class="fa fa-circle-o"></i> Gestión de BD</a></li>
+                <li><a href="bitacora.php"><i class="fa fa-circle-o"></i> Bitacora</a></li>
               </ul>
             </li>';
             }
@@ -274,11 +259,14 @@ if (strlen(session_id()) < 1)
             echo 
             '<li class="treeview">
               <a href="#">
-                <i class="fa fa-pie-chart"></i> <span>seguridad</span>
+                <i class="fas fa-shield-alt"></i><span> &nbsp; Seguridad</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="bitacora.php"><i class="fa fa-circle-o"></i> Bitacora</a></li>               
+                <li><a href="rol.php"><i class="fa fa-circle-o"></i> Roles</a></li>
+                <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Permisos</a></li>
+                <li><a href="preguntas.php"><i class="fa fa-circle-o"></i> Preguntas de Seguridad</a></li>
+                <li><a href="parametros.php"><i class="fa fa-circle-o"></i> Parametros</a></li>          
               </ul>
             </li>';
             }
