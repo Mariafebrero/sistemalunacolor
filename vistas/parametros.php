@@ -17,6 +17,8 @@ if ($_SESSION['id_rol']==2)
 
 ?>
 <!--Contenido-->
+
+      
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">        
         <!-- Main content -->
@@ -26,7 +28,7 @@ if ($_SESSION['id_rol']==2)
                   <div class="box">
                     <div class="box-header with-border">
 
-                      <center> <h1 ><span class="hiddenui"><i class="fas fa-list-alt"> Mantenimiento de Parametros</i></span></h1> </center>
+                      <center> <h1 ><span class="hiddenui"><i class="fas fa-user-shield"> Mantenimiento de Parámetros</i></span></h1> </center>
                           <br>
                         
                     </div>

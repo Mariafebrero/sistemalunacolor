@@ -246,8 +246,9 @@ if (strlen(session_id()) < 1)
               </a>
               <ul class="treeview-menu">
                 <li><a href="usuario.php"><i class="fa fa-circle-o"></i> Usuarios</a></li>
-                <li><a href="gestionbd.php"><i class="fa fa-circle-o"></i> Gestión de BD</a></li>
-                <li><a href="bitacora.php"><i class="fa fa-circle-o"></i> Bitacora</a></li>
+                <li><a href="gestionbd.php"><i class="fa fa-circle-o"></i> Backup</a></li>
+                 <li><a href="restore.php"><i class="fa fa-circle-o"></i> Restore</a></li>
+                <li><a href="bitacora.php"><i class="fa fa-circle-o"></i> Bitácora</a></li>
               </ul>
             </li>';
             }
@@ -266,7 +267,7 @@ if (strlen(session_id()) < 1)
                 <li><a href="rol.php"><i class="fa fa-circle-o"></i> Roles</a></li>
                 <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Permisos</a></li>
                 <li><a href="preguntas.php"><i class="fa fa-circle-o"></i> Preguntas de Seguridad</a></li>
-                <li><a href="parametros.php"><i class="fa fa-circle-o"></i> Parametros</a></li>          
+                <li><a href="parametros.php"><i class="fa fa-circle-o"></i> Parámetros</a></li>          
               </ul>
             </li>';
             }

@@ -25,7 +25,7 @@ switch ($_GET["op"]){
  		echo json_encode($rspta);
 	break;
 
-	case 'listar':
+	/*case 'listar':
 		$rspta=$bitacora->listar();
  		//Vamos a declarar un array
  		$data= Array();
@@ -53,5 +53,11 @@ switch ($_GET["op"]){
  		echo json_encode($results);
 
 	break;
+	*/
+	
+
+
+	
+
 }
 ?>

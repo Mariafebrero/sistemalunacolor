@@ -22,6 +22,8 @@ Class Bitacora
 		return ejecutarConsulta($sql);	
 	}
 
+
+
 }
 
 ?>

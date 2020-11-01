@@ -43,12 +43,14 @@ include '../config/conexion.php';
  ?>
 <!DOCTYPE html>
 <html lang="en">
+    
 <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 
 
 <!--Contenido-->
+   
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">        
         <!-- Main content -->
@@ -65,7 +67,7 @@ include '../config/conexion.php';
 
                        ?>
                      
-                          <center> <h1 ><span class="hiddenui"><i class="fas fa-users"> Mantenimiento usuario</i></span></h1> </center>
+                          <center> <h1 ><span class="hiddenui"><i class="fas fa-users"> Mantenimiento Usuario</i></span></h1> </center>
                           <br>
                             <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar nuevo usuario</button>
                         <div class="box-tools pull-right">

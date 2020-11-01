@@ -1,9 +1,10 @@
 var tabla;
 
 //Función que se ejecuta al inicio
-function init(){
+/*function init(){
 	mostrarform(false);
 	listar();
+	
 }
 
 //Función mostrar formulario
@@ -26,9 +27,13 @@ function mostrarform(flag)
 }
 
 
+
+
 //Función Listar
 function listar()
-{
+{   
+	
+
 	tabla=$('#tbllistado').dataTable(
 	{
 		"aProcessing": true,//Activamos el procesamiento del datatables
@@ -40,7 +45,7 @@ function listar()
 		            'csvHtml5',
 		            'pdf'
 		        ],
-		"ajax":
+		        "ajax":
 				{
 					url: '../ajax/bitacora.php?op=listar',
 					type : "get",
@@ -49,6 +54,7 @@ function listar()
 						console.log(e.responseText);	
 					}
 				},
+		
 		"bDestroy": true,
 		"iDisplayLength": 10,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
@@ -56,4 +62,6 @@ function listar()
 }
 
 
+
 init();
+*/

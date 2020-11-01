@@ -15,6 +15,7 @@ if ($_SESSION['id_rol']==2)
 {
 ?>
 <!--Contenido-->
+         stylesheet">
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">        
         <!-- Main content -->
