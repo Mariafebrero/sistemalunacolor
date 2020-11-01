@@ -173,16 +173,36 @@ try {
     //$mail->addReplyTo('info@example.com', 'Information');
     //$mail->addCC('cc@example.com');
     //$mail->addBCC('bcc@example.com');
-    $Body = "Querido, " . $user ."<br>". 
-        "La petici&oacute;n para el restablecimiento de su contrase&ntilde;a ha sido aceptada. El siguiente enlace tiene una duración de ".  $VigenciaMail . "hrs, en caso de que ingrese en un lapso de tiempo mayor, deberá enviar una nueva solicitud." 
-        ."<br>".
+    $Body = "  <center> <h1 > ¡Ya puedes recuperar tu cuenta " . $user . "!". " </h1> </center>
+       ".   
+    "<br><center><table width='600' border='2' cellspacing='0' cellpadding='0' style='border:2px' solid #F27830;>
+
+    <tr>
+
+<td width='170' height='170' style='border:1px solid #F27830; border-right: none; border-left: none;' align='right' valign='top'>
+<img src='https://scontent.ftgu1-2.fna.fbcdn.net/v/t1.0-9/56664589_651473938616958_3796671250516934656_o.jpg?_nc_cat=109&ccb=2&_nc_sid=09cbfe&_nc_eui2=AeHWhBDah6aUVxioIXiSBgaNbjrlQYI0KPtuOuVBgjQo-_rX40eteDVsewDthEeNFLQ5dJJZ7RMTR85stIptIO1l&_nc_ohc=KY9w-1v88WoAX8WGeOf&_nc_ht=scontent.ftgu1-2.fna&oh=cbb9cb6a95ec907ba459c390738fa8ae&oe=5FC411B0' height='180' style='padding-top:15px;'> 
+</td>
+
+<td width='430' height='170' style='padding-left:25px; font-family: Helvetica, Arial, sans-serif; font-size:13px; border:1px solid #F27830; border-left: none; border-right: none; line-height:16px;' valign='bottom'>
+
+<center><p style='font-size:18px;'><b>La petici&oacute;n para el restablecimiento de su contrase&ntilde;a ha sido aprobada</b></p></center>
+
+<p style='font-size=15px;'><b>El siguiente enlace tiene una duraci&oacute;n de ".  $VigenciaMail . "hrs, en caso de que ingrese en un lapso de tiempo mayor, deber&aacute; enviar una nueva solicitud.</b></p>
+
+<p style='line-height:19px;'>" .
          "<br>".
-         "Para restablecer su contraseña " 
-        . '<a href="http://localhost/sistemalunacolor/sistemalunacolor/vistas/RecuContra/ValidarCorreoVista.php?user=' . $user . '&lunaverificationcode=' . $codigo . '"> click aquí</a>';
+         "Para restablecer su contrase&ntilde;a " 
+        . '<a href="http://localhost/sistemalunacolor/vistas/RecuContra/ValidarCorreoVista.php?user=' . $user . '&lunaverificationcode=' . $codigo . '"> click aqu&iacute; </a>'; "
+<br>
+[Honduras]  &middot; [Francisco Morazán]  &middot; [Distrito central]</p>
+</td>
+
+</tr>
+</table>
+</center>"; 
     // Attachments
     //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
     //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-
     // Content
     $subject ='Recuperación de contraseña';
     $subject = utf8_decode($subject);

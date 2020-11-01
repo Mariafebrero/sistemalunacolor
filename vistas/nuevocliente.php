@@ -1,20 +1,18 @@
 <?php
 //Activamos el almacenamiento en el buffer
+//Documento de diseño, html, input y botones
 ob_start();
 session_start();
 
-//nombre new variable para secion
 if (!isset($_SESSION["nombre_usuario"]))
 {
-  header("Location: login1.php");
+  header("Location: login1.html");
 }
 else
 {
 require 'header.php';
-
-if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
+if ($_SESSION['id_rol']==2)
 {
-
 ?>
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
@@ -25,7 +23,9 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Categoría <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                          <center> <h1 ><span class="hiddenui"><i class="fas fa-users"> Mantenimiento de cliente natural</i></span></h1> </center>
+                          <br>
+                            <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-address-book-o "></i> Agregar nuevo cliente</button>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -34,18 +34,20 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
-                            <th>Opciones</th>
+                            <th>Cod. Cliente</th>
+                            <th>Tipo</th>
                             <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Estado</th>
+                            <th>Contacto</th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
                             <th>Opciones</th>
                             <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Estado</th>
+                            <th>Documento</th>
+                            <th>Número</th>
+                            <th>Teléfono</th>
+                            <th>Email</th>
                           </tfoot>
                         </table>
                     </div>
@@ -53,15 +55,39 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
                         <form name="formulario" id="formulario" method="POST">
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Nombre:</label>
-                            <input type="hidden" name="idcategoria" id="idcategoria">
-                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="50" placeholder="Nombre" required>
+                            <input type="hidden" name="idpersona" id="idpersona">
+                            <input type="hidden" name="tipo_persona" id="tipo_persona" value="Cliente">
+                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre del proveedor" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Descripción:</label>
-                            <input type="text" class="form-control" name="descripcion" id="descripcion" maxlength="255" placeholder="Descripción">
+                            <label>Tipo Documento:</label>
+                            <select class="form-control select-picker" name="tipo_documento" id="tipo_documento" required>
+                              <option value="DNI">DNI</option>
+                              <option value="RUC">RUC</option>
+                              <option value="CEDULA">CEDULA</option>
+                            </select>
                           </div>
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Número Documento:</label>
+                            <input type="text" class="form-control" name="num_documento" id="num_documento" maxlength="20" placeholder="Documento">
+                          </div>
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Dirección:</label>
+                            <input type="text" class="form-control" name="direccion" id="direccion" maxlength="70" placeholder="Dirección">
+                          </div>
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Teléfono:</label>
+                            <input type="text" class="form-control" name="telefono" id="telefono" maxlength="20" placeholder="Teléfono">
+                          </div>
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Email:</label>
+                            <input type="email" class="form-control" name="email" id="email" maxlength="50" placeholder="Email">
+                          </div>
+
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        
+                            <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
+
+                            <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
                           </div>
                         </form>
                     </div>
@@ -69,7 +95,6 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
                   </div><!-- /.box -->
               </div><!-- /.col -->
           </div><!-- /.row -->
-
       </section><!-- /.content -->
 
     </div><!-- /.content-wrapper -->
@@ -80,11 +105,9 @@ else
 {
   require 'noacceso.php';
 }
-
 require 'footer.php';
 ?>
-<!--<script type="text/javascript" src="scripts/categoria.js"></script>-->
-
+<script type="text/javascript" src="scripts/cliente.js"></script>
 <?php 
 }
 ob_end_flush();

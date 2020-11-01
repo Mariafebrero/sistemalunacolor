@@ -674,16 +674,33 @@ try {
     //$mail->addReplyTo('info@example.com', 'Information');
     //$mail->addCC('cc@example.com');
     //$mail->addBCC('bcc@example.com');
-    $Body = $cuerpo = "¡Gracias por registrarte!"  ."<br>". 
-        "Querido " . $user_name . ",". 
-        "<br>".
-        " Te damos la bienvenida al Sistema Luna Color, con fecha de creaci&oacute;n " . $user_fechaI . " y con vigencia hasta ". $user_fechaF. ".".
-        "<br>".
-        "La informaci&oacute;n de tu cuenta es: ".
+    $Body = "  <center> <h1 > ¡Gracias por registrarte " . $user_name . "!". " </h1> </center>
+ <center>     
+<tr> 
+<td width='170' height='170' style='border:1px solid #df203b; border-right: none; border-left: none;' align='right' valign='top'>
+<a href='https://www.facebook.com/luna.color.imprenta/' target='_blank'><img src='https://scontent.ftgu1-2.fna.fbcdn.net/v/t1.0-9/56664589_651473938616958_3796671250516934656_o.jpg?_nc_cat=109&ccb=2&_nc_sid=09cbfe&_nc_eui2=AeHWhBDah6aUVxioIXiSBgaNbjrlQYI0KPtuOuVBgjQo-_rX40eteDVsewDthEeNFLQ5dJJZ7RMTR85stIptIO1l&_nc_ohc=KY9w-1v88WoAX8WGeOf&_nc_ht=scontent.ftgu1-2.fna&oh=cbb9cb6a95ec907ba459c390738fa8ae&oe=5FC411B0' width='170' height='180'
+style='padding-top:15px;'></a>
+</td>
+<td width='430' height='170' style='padding-left:25px; font-size:13px; border:1px solid #df203b; border-left: none; border-right: none; line-height:16px;' valign='bottom'>
+<p style='font-size:18px;'><b>Te damos la bienvenida al Sistema Luna Color</b></p>
+<p><b>". 
+
          "<br>".
-         "Nombre de usuario: " . $user
-        ."<br>".
-        "Contrase&ntilde;a: " . $ContrasinHash;
+         "La informaci&oacute;n de tu cuenta es: ".
+         "<br>". "<b>".
+         "Fecha de creaci&oacute;n: </b>" . $user_fechaI .
+         "<br>". "<b>".
+         "Fecha de vencimiento: </b>" . $user_fechaF .
+         "<br>". "<b>".
+         "Nombre de usuario: </b>" . $user.
+         "<br>". "<b>".
+         "Contrase&ntilde;a: </b>" . $ContrasinHash . "
+</b></p>
+
+
+</td>
+</tr> </center>
+</table> ";   
     // Attachments
     //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
     //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
