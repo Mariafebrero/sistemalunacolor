@@ -2,6 +2,7 @@
 //Activamos el almacenamiento en el buffer
 ob_start();
 session_start();
+include '../config/conexion.php';
 
 if (!isset($_SESSION["nombre_usuario"]))
 {
@@ -10,9 +11,27 @@ if (!isset($_SESSION["nombre_usuario"]))
 else
 {
 require 'header.php';
-if ($_SESSION['id_rol']==2)
-{
+  if ($_SESSION['id_rol']==2)
+   {
+
+   $id_usuario1=$_SESSION['id_usuario'];
+   $usuario1=$_SESSION['usuario']; 
+  //Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
+   $sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+   VALUES('$id_usuario1','10',(select now()),'Entró','Entró a Mantenimiento de Productos','$usuario1',(select now()))";
+    ejecutarConsulta($sql_bitacora);
+  }
+  else
+  {
+    require 'noacceso.php';
+  }
+}
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 
+</head>
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">        
@@ -35,34 +54,33 @@ if ($_SESSION['id_rol']==2)
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
-                            <th>Opciones</th>
-                            <th>Nombre</th>
-                            <th>Categoría</th>
-                            <th>Código</th>
-                            <th>Stock</th>
-                            <th>Imagen</th>
-                            <th>Estado</th>
+                            <th><center>Opciones</center></th>
+                            <th><center>Cod. Producto</center></th>
+                            <th><center>Nombre</center></th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                            <th>Opciones</th>
-                            <th>Nombre</th>
-                            <th>Categoría</th>
-                            <th>Código</th>
-                            <th>Stock</th>
-                            <th>Imagen</th>
-                            <th>Estado</th>
+                            <th><center>Opciones</center></th>
+                            <th><center>Cod. Producto</center></th>
+                            <th><center>Nombre</center></th>
                           </tfoot>
                         </table>
                     </div>
                     <div class="panel-body" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Nombre(*):</label>
-                            <input type="hidden" name="idarticulo" id="idarticulo">
-                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre" required>
+                            <label>Código de producto</label>
+                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" disabled="true" value="Valor automático">
                           </div>
+                         
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Nombre del producto(*):</label>
+                            <input type="text" class="form-control" name="nombreproducto" 
+                            id="nombreproducto" maxlength="100" placeholder="Ingrese nombre del producto">
+
+                          </div>
+                          <!------
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Categoría(*):</label>
                             <select id="idcategoria" name="idcategoria" class="form-control selectpicker" data-live-search="true" required></select>
@@ -90,6 +108,7 @@ if ($_SESSION['id_rol']==2)
                               <svg id="barcode"></svg>
                             </div>
                           </div>
+                          --->
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
 
@@ -104,19 +123,14 @@ if ($_SESSION['id_rol']==2)
       </section><!-- /.content -->
 
     </div><!-- /.content-wrapper -->
+</html>
   <!--Fin-Contenido-->
 <?php
-}
-else
-{
-  require 'noacceso.php';
-}
 require 'footer.php';
 ?>
 <script type="text/javascript" src="../public/js/JsBarcode.all.min.js"></script>
 <script type="text/javascript" src="../public/js/jquery.PrintArea.js"></script>
 <script type="text/javascript" src="scripts/producto.js"></script>
 <?php 
-}
 ob_end_flush();
 ?>

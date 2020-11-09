@@ -1,8 +1,10 @@
 <?php 
 //Incluímos inicialmente la conexión a la base de datos
-require "../config/Conglobal.php";
+//todas las consultas de insert,select, delete y update
+require "../config/conexion.php";
 
-Class Articulo
+
+Class Producto
 {
 	//Implementamos nuestro constructor
 	public function __construct()
@@ -11,38 +13,38 @@ Class Articulo
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($idcategoria,$codigo,$nombre,$stock,$descripcion,$imagen)
+	public function insertar($nombreproducto)
 	{
-		$sql="INSERT INTO articulo (idcategoria,codigo,nombre,stock,descripcion,imagen,condicion)
-		VALUES ('$idcategoria','$codigo','$nombre','$stock','$descripcion','$imagen','1')";
+		$sql="INSERT INTO tbl_productos (nombre_producto)
+		VALUES ('$nombreproducto')";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para editar registros
-	public function editar($idarticulo,$idcategoria,$codigo,$nombre,$stock,$descripcion,$imagen)
+	public function editar($id_producto,$id_tipo_producto,$nombre_producto,$cantidad,$precio_unitario,$total)
 	{
-		$sql="UPDATE articulo SET idcategoria='$idcategoria',codigo='$codigo',nombre='$nombre',stock='$stock',descripcion='$descripcion',imagen='$imagen' WHERE idarticulo='$idarticulo'";
+		$sql="UPDATE tbl_productos SET id_tipo_producto='$id_tipo_producto',nombre_producto='$nombre_producto', cantidad='$cantidad',precio_unitario='$precio_unitario',total='$total' WHERE id_producto='$id_producto'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para desactivar registros
-	public function desactivar($idarticulo)
+	public function desactivar($id_producto)
 	{
-		$sql="UPDATE articulo SET condicion='0' WHERE idarticulo='$idarticulo'";
+		$sql="UPDATE tbl_productos SET estado='0' WHERE id_producto='$id_producto'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para activar registros
-	public function activar($idarticulo)
+	public function activar($id_producto)
 	{
-		$sql="UPDATE articulo SET condicion='1' WHERE idarticulo='$idarticulo'";
+		$sql="UPDATE tbl_productos SET estado='1' WHERE id_producto='$id_producto'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementar un método para mostrar los datos de un registro a modificar
-	public function mostrar($idarticulo)
+	public function mostrar($id_producto)
 	{
-		$sql="SELECT * FROM articulo WHERE idarticulo='$idarticulo'";
+		$sql="SELECT * FROM tbl_productos WHERE id_producto='$id_producto'";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
@@ -53,9 +55,11 @@ Class Articulo
 		//return ejecutarConsulta($sql);
 
 		$sql="SELECT * from tbl_productos";
+		//$sql="SELECT p.id_producto, tp.descripcion, p.nombre_producto, p.estado, p.cantidad, p.precio_unitario, p.total FROM tbl_productos p INNER JOIN tbl_tipo_producto tp ON p.id_tipo_producto = tp.id_tipo_producto;";
+
 		return ejecutarConsulta($sql);		
 	}
-
+/*
 	//Implementar un método para listar los registros activos
 	public function listarActivos()
 	{
@@ -69,6 +73,7 @@ Class Articulo
 		$sql="SELECT a.idarticulo,a.idcategoria,c.nombre as categoria,a.codigo,a.nombre,a.stock,(SELECT precio_venta FROM detalle_ingreso WHERE idarticulo=a.idarticulo order by iddetalle_ingreso desc limit 0,1) as precio_venta,a.descripcion,a.imagen,a.condicion FROM articulo a INNER JOIN categoria c ON a.idcategoria=c.idcategoria WHERE a.condicion='1'";
 		return ejecutarConsulta($sql);		
 	}
+	*/
 }
 
 ?>
