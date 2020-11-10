@@ -21,10 +21,19 @@ Class Producto
 	}
 
 	//Implementamos un método para editar registros
-	public function editar($id_producto,$id_tipo_producto,$nombre_producto,$cantidad,$precio_unitario,$total)
+	public function editar($id_producto,$nombreproducto)
 	{
-		$sql="UPDATE tbl_productos SET id_tipo_producto='$id_tipo_producto',nombre_producto='$nombre_producto', cantidad='$cantidad',precio_unitario='$precio_unitario',total='$total' WHERE id_producto='$id_producto'";
+		$sql="UPDATE tbl_productos SET nombre_producto='$nombreproducto' WHERE id_producto='$id_producto'";
 		return ejecutarConsulta($sql);
+	}
+	public function eliminar($id_producto)
+    
+	{
+		//Eliminar un usuario
+		$sql="DELETE FROM tbl_productos WHERE id_producto = '$id_producto'"; 
+
+		return ejecutarConsulta($sql);
+	
 	}
 
 	//Implementamos un método para desactivar registros
@@ -46,6 +55,19 @@ Class Producto
 	{
 		$sql="SELECT * FROM tbl_productos WHERE id_producto='$id_producto'";
 		return ejecutarConsultaSimpleFila($sql);
+	}
+	public function NextID()
+	{
+
+      $sql= "SELECT MAX(id_producto)+1 FROM `tbl_productos` ";
+      ejecutarConsulta($sql);
+       while ($r=ejecutarConsulta($sql)->fetch_array()) 
+        {
+           $user_id=$r["MAX(id_producto)+1"];
+            break;
+         }
+     echo $user_id;
+                            
 	}
 
 	//Implementar un método para listar los registros

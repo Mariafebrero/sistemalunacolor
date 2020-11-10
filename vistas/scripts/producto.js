@@ -14,25 +14,24 @@ function init(){
 //Función limpiar
 function limpiar()
 {
-	//$("#idproducto").val("");
-	//$("#id_tipo_producto").val("");
+	//var myinput = document.getElementById("id_producto");
+	//myinput.value = myinput.defaultValue;
+	$("#id_producto").val("");
 	$("#nombreproducto").val("");
-	//$("#estado").val("");
-	//$("#cantidad").attr("src","");
-	//$("#precio_unitario").val("");
-	//$("#total").val("");
 }
 
 //Función mostrar formulario
 function mostrarform(flag)
 {
 	limpiar();
+
 	if (flag)
 	{
 		$("#listadoregistros").hide();
 		$("#formularioregistros").show();
 		$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
+
 	}
 	else
 	{
@@ -40,7 +39,9 @@ function mostrarform(flag)
 		$("#formularioregistros").hide();
 		$("#btnagregar").show();
 	}
+
 }
+
 
 //Función cancelarform
 function cancelarform()
@@ -91,57 +92,101 @@ function guardaryeditar(e)
 	    processData: false,
 
 	    success: function(datos)
-	    {  
-	    
-	    /*
-		Swal.fire({
-		title: '<h2>'+ datos + '</h2>',
-		icon: 'success',
-		width: '400px',
-		length : '600px',
-		showConfirmButton: false,
-		timer: 2500
-		});
-		
-            Swal({
-			title: datos,
-			text: 'Se ha actualizado la lista de productos',
+	    { 
+	    if (datos == "¡El producto se ha ingresado con éxito!") 
+	    {
+			Swal.fire({
+			title:  datos ,
+			text: "La lista de productos ha sido actualizada",
 			icon: 'success',
-			confirmButtonText: 'OK'
+			showConfirmButton: false,
+			allowOutsideClick: false,
+			timer: 3500
 			});
-		//alert (datos);
-		*/
-        swal(datos, ' Intentélo de nuevo o contacte a su soporte técnico', 'error');
-
-	          mostrarform(false);
-	          tabla.ajax.reload();
+	    } 
+	    else if (datos == "El producto no se pudo registrar") 
+	    {
+	    	Swal.fire({
+			title:  datos ,
+			text: "La lista de productos no ha sido actualizada",
+			icon: 'error',
+			showConfirmButton: false,
+			allowOutsideClick: false,
+			footer: "Si el problema persiste, contacte a su soporte técnico",
+			timer: 4500
+			});
+	    }
+	    else if (datos == "Este producto ya se encuentra registrado") 
+	    {
+	    	Swal.fire({
+			title: datos,
+			text: "Intentélo de nuevo", 
+			icon:'error'  ,
+			showConfirmButton: false,
+			allowOutsideClick: false,
+			footer: "Si el problema persiste, contacte a su soporte técnico",
+			timer: 4500
+			});
+	    }
+	    else if (datos == "¡El producto ha sido actualizado!") 
+	    {
+	    	Swal.fire({
+			title: datos,
+			text: "La lista de productos ha sido actualizada", 
+			icon:'success'  ,
+			showConfirmButton: false,
+			allowOutsideClick: false,
+			timer: 4500
+			});
+	    }
+	    else if (datos == "El producto no se pudo actualizar") 
+	    {
+	    	Swal.fire({
+			title: datos,
+			text: "La lista de productos no ha sido actualizada", 
+			icon:'error'  ,
+			showConfirmButton: false,
+			allowOutsideClick: false,
+			footer: "Si el problema persiste, contacte a su soporte técnico",
+			timer: 4500
+			});
+	    }
+	    else 
+	    {
+	    	Swal.fire({
+			title: "Fallo en el sistema",
+			text: "Intentélo de nuevo más tarde", 
+			icon:'error'  ,
+			showConfirmButton: false,
+			allowOutsideClick: false,
+			footer: "Si el problema persiste, contacte a su soporte técnico",
+			timer: 4500
+			});
 	    }
 
 
+			  //setTimeout("document.location.reload(true)", 2500);
+	          mostrarform(false);
+	          tabla.ajax.reload();
+
+
+	    }
+ 
+
 	});
 	limpiar();
+
 }
 
-function mostrar(idarticulo)
+function mostrar(id_producto)
 {
-	$.post("../ajax/producto.php?op=mostrar",{idarticulo : idarticulo}, function(data, status)
+	$.post("../ajax/producto.php?op=mostrar",{id_producto : id_producto}, function(data)
 	{
 		data = JSON.parse(data);		
 		mostrarform(true);
-
+		
+		$("#id_producto").val(data.id_producto);
 		$("#nombreproducto").val(data.nombre_producto);
-		/*
-		$('#idcategoria').selectpicker('refresh');
-		$("#codigo").val(data.codigo);
-		$("#nombre").val(data.nombre);
-		$("#stock").val(data.stock);
-		$("#descripcion").val(data.descripcion);
-		$("#imagenmuestra").show();
-		$("#imagenmuestra").attr("src","../files/articulos/"+data.imagen);
-		$("#imagenactual").val(data.imagen);
- 		$("#idarticulo").val(data.idarticulo);
- 		generarbarcode();
- 		*/
 
  	})
 }
@@ -187,5 +232,6 @@ function imprimir()
 {
 	$("#print").printArea();
 }
+
 
 init();

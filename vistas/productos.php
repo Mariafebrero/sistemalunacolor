@@ -55,60 +55,29 @@ require 'header.php';
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
                             <th><center>Opciones</center></th>
-                            <th><center>Cod. Producto</center></th>
                             <th><center>Nombre</center></th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
                             <th><center>Opciones</center></th>
-                            <th><center>Cod. Producto</center></th>
                             <th><center>Nombre</center></th>
                           </tfoot>
                         </table>
                     </div>
                     <div class="panel-body" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Código de producto</label>
-                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" disabled="true" value="Valor automático">
-                          </div>
+                          
+                     
                          
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Nombre del producto(*):</label>
+                            <input type="hidden" name="id_producto" id="id_producto">
                             <input type="text" class="form-control" name="nombreproducto" 
                             id="nombreproducto" maxlength="100" placeholder="Ingrese nombre del producto">
 
                           </div>
-                          <!------
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Categoría(*):</label>
-                            <select id="idcategoria" name="idcategoria" class="form-control selectpicker" data-live-search="true" required></select>
-                          </div>
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Stock(*):</label>
-                            <input type="number" class="form-control" name="stock" id="stock" required>
-                          </div>
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Descripción:</label>
-                            <input type="text" class="form-control" name="descripcion" id="descripcion" maxlength="256" placeholder="Descripción">
-                          </div>
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Imagen:</label>
-                            <input type="file" class="form-control" name="imagen" id="imagen">
-                            <input type="hidden" name="imagenactual" id="imagenactual">
-                            <img src="" width="150px" height="120px" id="imagenmuestra">
-                          </div>
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Código:</label>
-                            <input type="text" class="form-control" name="codigo" id="codigo" placeholder="Código Barras">
-                            <button class="btn btn-success" type="button" onclick="generarbarcode()">Generar</button>
-                            <button class="btn btn-info" type="button" onclick="imprimir()">Imprimir</button>
-                            <div id="print">
-                              <svg id="barcode"></svg>
-                            </div>
-                          </div>
-                          --->
+                         
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
 
@@ -131,6 +100,44 @@ require 'footer.php';
 <script type="text/javascript" src="../public/js/JsBarcode.all.min.js"></script>
 <script type="text/javascript" src="../public/js/jquery.PrintArea.js"></script>
 <script type="text/javascript" src="scripts/producto.js"></script>
+<style type="text/css">
+  
+  #container input {
+  padding-right: 32px;
+}
+
+.input-group-append {
+  bottom: 10px;
+  cursor: pointer;
+  height: 25px;
+  position: absolute;
+  right: 10px;
+  width: 25px;
+  z-index: 10;
+}
+
+.form-clear .material-icons {
+  font-size: 24px;
+  position:absolute;
+  top:0px;
+  right:0px!important;
+}
+
+.login100-form-btn{
+
+  border-radius: 0px 0px 0px 0px;
+-moz-border-radius: 0px 0px 0px 0px;
+-webkit-border-radius: 0px 0px 0px 0px;
+border: 0px solid #000000;
+}
+
+ 
+.swal2-popup {
+  font-size: 1.6rem !important;
+}
+
+</style>
+
 <?php 
 ob_end_flush();
 ?>
