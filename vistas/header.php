@@ -13,8 +13,8 @@ if (strlen(session_id()) < 1)
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="../public/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="../public/css/font-awesome.css">
+
+    
     <!-- Theme style -->
     <link rel="stylesheet" href="../public/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -36,8 +36,22 @@ if (strlen(session_id()) < 1)
 
     <link rel="stylesheet" type="text/css" href="../public/css/bootstrap-select.min.css">
 
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
+
+<style type="text/css">
+
+  body{
+  font-family: 'Quicksand', sans-serif;
+  }
+
+  h1{
+     font-family: 'Quicksand', sans-serif;
+  }
+  
+</style>
+
   </head>
-  <body class="hold-transition skin-yellow sidebar-mini">
+  <body class="hold-transition skin-yellow sidebar-mini" style="background-color: #3F3F3F" >
     <div class="wrapper">
 
       <header class="main-header">
@@ -52,10 +66,12 @@ if (strlen(session_id()) < 1)
 
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation" style="background-color: rgb(233,118,46)">
+         
           <!-- Sidebar toggle button-->
           <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" style="background-color: rgb(233,118,46)">
-            <span class="sr-only" style="background-color: rgb(233,118,46)">Navegación</span>
+            <i class="fas fa-align-justify"></i><span class="sr-only" style="background-color: rgb(233,118,46)"></span>
           </a>
+
           <!-- Navbar Right Menu -->
           <div class="navbar-custom-menu" style="background-color: rgb(233,118,46)">
             <ul class="nav navbar-nav" style="background-color: rgb(233,118,46)">
@@ -81,16 +97,12 @@ if (strlen(session_id()) < 1)
                   <li class="user-footer" >
                     <div class="pull-right">
 
-                   
+
+
+                    <a href="editarusuario.php" class="btn btn-primary"> <i class="fas fa-user-edit">Editar Usuario</a></i>
                     <a href="../ajax/usuario.php?op=salir" class="btn btn-danger"> <i class="far fa-times-circle"> Cerrar sesión</a></i>
 
 
-                   
-
-                    <!-- INCIO MODAL-->
-                      
-                    
-                    <!-- FIN MODAL-->
 
                     </div>
                   </li>
@@ -104,12 +116,12 @@ if (strlen(session_id()) < 1)
         </nav>
       </header>
       <!-- Left side column. contains the logo and sidebar -->
-      <aside class="main-sidebar" style="background-color: rgb(61,61,61)">
+      <aside class="main-sidebar" style="background-color: #3F3F3F">
         <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar" style="background-color: rgb(61,61,61)">       
+        <section class="sidebar" style="background-color: #3F3F3F">       
           <!-- sidebar menu: : style can be found in sidebar.less -->
-          <ul class="sidebar-menu" style="background-color: rgb(61,61,61)">
-            <li class="header" style="background-color: rgb(61,61,61)"></li>
+          <ul class="sidebar-menu" style="background-color: #3F3F3F">
+            <li class="header" style="background-color: #3F3F3F"></li>
 
             <?php 
             if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4 )
@@ -136,7 +148,7 @@ if (strlen(session_id()) < 1)
               </a>
               <ul class="treeview-menu">
                 <li><a href="nuevocliente.php"><i class="fa fa-circle-o"></i> Nuevo Cliente</a></li>
-                
+                <li><a href="nuevoclienteempresarial.php"><i class="fa fa-circle-o"></i> Nuevo Empresarial</a></li>
               </ul>
             </li>';
             }
@@ -246,9 +258,8 @@ if (strlen(session_id()) < 1)
               </a>
               <ul class="treeview-menu">
                 <li><a href="usuario.php"><i class="fa fa-circle-o"></i> Usuarios</a></li>
-                <li><a href="gestionbd.php"><i class="fa fa-circle-o"></i> Backup</a></li>
-                 <li><a href="restore.php"><i class="fa fa-circle-o"></i> Restore</a></li>
-                <li><a href="bitacora.php"><i class="fa fa-circle-o"></i> Bitácora</a></li>
+                <li><a href="gestionbd.php"><i class="fa fa-circle-o"></i> Gestión de BD</a></li>
+                <li><a href="bitacora.php"><i class="fa fa-circle-o"></i> Bitacora</a></li>
               </ul>
             </li>';
             }
@@ -267,7 +278,7 @@ if (strlen(session_id()) < 1)
                 <li><a href="rol.php"><i class="fa fa-circle-o"></i> Roles</a></li>
                 <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Permisos</a></li>
                 <li><a href="preguntas.php"><i class="fa fa-circle-o"></i> Preguntas de Seguridad</a></li>
-                <li><a href="parametros.php"><i class="fa fa-circle-o"></i> Parámetros</a></li>          
+                <li><a href="parametros.php"><i class="fa fa-circle-o"></i> Parametros</a></li>          
               </ul>
             </li>';
             }

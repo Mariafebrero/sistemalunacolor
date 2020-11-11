@@ -76,9 +76,8 @@ switch ($_GET["op"]){
  				"0"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_usuario.')"><i class="fas fa-user-edit"></i></button>',
  				"1"=>$reg->usuario,
  				"2"=>$reg->nombre_usuario,
- 				"3"=>$reg->contrasena,
- 				"4"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px'>",
- 				"5"=>$reg->correo_electronico,
+ 				"3"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px'>",
+ 				"4"=>$reg->correo_electronico,
  				);
  		}
  		$results = array(

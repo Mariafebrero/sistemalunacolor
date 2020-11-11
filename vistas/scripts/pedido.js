@@ -9,6 +9,12 @@ function init(){
 	{
 		guardaryeditar(e);	
 	})
+
+	$.post("../ajax/pedido.php?op=selectCliente", function(t){
+	            $("#id_cliente").html(t);
+	            $('#id_cliente').selectpicker('refresh');
+
+   });
 }
 
 //Función limpiar
@@ -29,12 +35,43 @@ function mostrarform(flag)
 		$("#formularioregistros").show();
 		$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
+
+		//agregado
+		$("#fecha_inicio").hide();
+		$("#fecha_fin").hide();
+		$("#fecha_inicio1").hide();
+		$("#fecha_fin1").hide();
+		$("#estado_pedido").hide();
+		$("#id_estadopedido").hide();
+		$("#id_estado_pedido1").hide();
+		$("#buscar").hide();
+		$("#actualizar").hide();
+		$("#buscar1").hide();
+		$("#actualizar1").hide();
+
+
+
+
 	}
 	else
 	{
 		$("#listadoregistros").show();
 		$("#formularioregistros").hide();
 		$("#btnagregar").show();
+
+		//agregado
+		$("#fecha_inicio").show();
+		$("#fecha_fin").show();
+		$("#fecha_inicio1").show();
+		$("#fecha_fin1").show();
+		$("#estado_pedido").show();
+		$("#id_estadopedido").show();
+		$("#id_estado_pedido1").show();
+		$("#buscar").show();
+		$("#actualizar").show();
+		$("#buscar1").show();
+		$("#actualizar1").show();
+		
 	}
 }
 
@@ -53,15 +90,40 @@ function listar()
 		"aProcessing": true,//Activamos el procesamiento del datatables
 	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
 	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
-	    buttons: [		          
-		            'copyHtml5',
-		            'excelHtml5',
-		            'csvHtml5',
-		            'pdf'
-		        ],
+	    buttons: [	
+
+
+	    	{
+	    		extend: 'copyHtml5',
+	    		titleAttr: 'Copiar',
+        		footer: true,
+        		title: 'Copiar',
+        		filename: 'Bitácora_Consulta',
+        		text: '<button class="btn btn-primary" style="color: #fffff;">Copiar <i class="fas fa-copy"></i></button>'
+
+			},
+
+	    	{	
+				extend: 'excelHtml5',
+	    		titleAttr: 'Exportar a Excel',
+        		footer: true,
+        		title: 'Copiar',
+        		filename: 'Bitácora_Consulta',
+        		text: '<button class="btn btn-success" style="color: #fffff;">Exportar a Excel <i class="fas fa-file-excel"></i></button>'
+
+			},
+			{
+				extend: 'pdfHtml5',
+	    		titleAttr: 'Exportar a PDF',
+        		footer: true,
+        		title: 'Sistema Luna Color - Reporte Usuario',
+        		filename: 'Bitácora_Consulta',
+        		text: '<button class="btn btn-danger" style="color: #fffff;">Exportar a PDF <i class="fas fa-file-pdf"></i></button>'
+			},
+			],
 		"ajax":
 				{
-					url: '../ajax/rol.php?op=listar',
+					url: '../ajax/pedido.php?op=listar',
 					type : "get",
 					dataType : "json",						
 					error: function(e){

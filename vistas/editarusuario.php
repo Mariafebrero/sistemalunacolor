@@ -58,6 +58,19 @@ include '../config/conexion.php';
                   <div class="box">
                     <div class="box-header with-border">
 
+                       <!-- Editar usuario -->
+              <div class="box box-primary">
+                <div class="box-body box-profile">
+                  <img class="profile-user-img img-responsive img-circle" src="../files/usuarios/<?php echo $_SESSION['imagen']; ?>" alt="User profile picture">
+                  <h3 class="profile-username text-center"><?php echo $_SESSION['nombre_usuario']?></h3>
+                  <center>
+
+                  <!-- <div class="form-group"><a data-toggle="modal" href="#myModal"><button id="" type="button" class="btn btn-primary"> <span class="fa fa-user"></span> Editar Usuario</button></a>-->
+
+                   </center>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+
                       <?php
 
                      // echo $_SESSION['Escritorio'];
@@ -65,12 +78,9 @@ include '../config/conexion.php';
 
                        ?>
                      
-                          <center> <h1 ><span class="hiddenui"><i class="fas fa-users"> Mantenimiento usuario</i></span></h1> </center>
-                          <br>
-                            <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar nuevo usuario</button>
-                        <div class="box-tools pull-right">
-                        </div>
-                    </div>
+                          
+                            
+                    
                     <!-- /.box-header -->
                     <!-- centro -->
 
@@ -89,27 +99,20 @@ include '../config/conexion.php';
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-hover" data-page-length=<?php echo $valor1 ?>> 
                           <thead>
-                            <th>Opciones</th>
-                            <th>Rol </th>
+                            <th>Editar Usuario</th>
                             <th>Usuario </th>
                             <th>Nombre usuario</th>
-                           
                             <th>Imagen</th>
                             <th>correo_electronico</th>
-                            <th>Estado</th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                            <th>Opciones</th>
-  
-                            <th>Rol </th>
+                            <th>Editar Usuario</th>
                             <th>Usuario </th>
                             <th>Nombre usuario</th>
-                           
                             <th>Imagen</th>
                             <th>correo_electronico</th>
-                            <th>Estado</th>
                           </tfoot>
                         </table>
                     </div>
@@ -142,18 +145,16 @@ include '../config/conexion.php';
                             <!-- Usuario -->
                             <div class="row">
                           <div class="form-group col-lg-4 col-xs-12">
-                            <label>Usuario(*):</label>
                             <input type="hidden" name="id_usuario" id="id_usuario">
-                            <input type="text" class="form-control" name="usuario" id="usuario" minlength="3" maxlength="15" placeholder="Usuario" onkeyup="javascript:this.value=this.value.toUpperCase();"
-                            required  
-                            onkeypress= "return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) ">
+                            <label>Nombre usuario(*):</label>
+                            <input type="text" class="form-control" name="nombre_usuario" id="nombre_usuario" maxlength="100" placeholder="Nombre Usuario" keydown ="teclear()" onkeyup="javascript:this.value=this.value.toUpperCase();" required  
+                            onkeypress= "return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) "/>
+                           
                           </div> 
 
                           <!-- Nombre usuario -->
                            <div class="form-group col-lg-4 col-xs-12">
-                            <label>Nombre usuario(*):</label>
-                            <input type="text" class="form-control" name="nombre_usuario" id="nombre_usuario" maxlength="100" placeholder="Nombre Usuario" keydown ="teclear()" onkeyup="javascript:this.value=this.value.toUpperCase();" required  
-                            onkeypress= "return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) "/>
+                           
                           </div>
                          </div>
 
@@ -193,52 +194,7 @@ include '../config/conexion.php';
 
                        </div>
 
-                         <div class="row">
-                            <div class="form-group col-lg-4 col-xs-12">
-                <!------------------------AUTOGENERAR CONTRASEÑA INICIO----------------------------------->
-                <input type="checkbox" class="form-check-input" id="Autogenerar" name="Autogenerar" value="1" onchange ="comprobar(this);comprobar2(this);comprobar3(this)"  
-                >
-                <!--<input type="checkbox" class="form-check-input" id="conditions" name="conditions" value="1"
-                -->
-                 
-                
 
-                <label id="letra" name="letra" class="form-check-label" for="Autogenerar">Autogenerar contraseña</label>
-                
-                <!--<label for="Autogenerar">Autogenerar contraseña</label>-->
-                <!------------------------AUTOGENERAR CONTRASEÑA FINAL----------------------------------->
-              
-
-      
-
-
-
-
-
-                                <br>
-                                <br>
-                                <small style = "position:relative;  top:-20px;"><h6>*La contraseña debe tener entre 5 a 10 letras, mínimo un número, una letra mayúscula y un símbolo.</h6></small> 
-                           
-                            </div>
-                            <br>
-                         </div>
-
-                         <div class="row">
-                           <!-- Rol -->
-                           <div class="form-group col-lg-4 col-xs-12">
-                            <label>Roles(*):</label>
-                            <select id="id_rol" name="id_rol" class="form-control selectpicker" data-live-search="true" required
-                            >
-                            </select>
-                          </div>
-
-
-                          <!-- Estado -->
-                           <div class="form-group col-lg-4 col-xs-12">
-                            <label>Estado(*):</label>
-                            <select id="id_estado_usuario" name="id_estado_usuario" class="form-control selectpicker" data-live-search="true" ></select>
-                          </div>
-                        </div>
                          <br>
 
                           <div class="row">
@@ -259,78 +215,7 @@ include '../config/conexion.php';
                         </div>
                         <br>
 
-                         <!-- <div class="row">
-                        <div class="form-group col-lg-4 col-xs-12">
-                            <label>Fecha creación(*):</label>
-                            <input type="text" class="form-control" name="fecha_creacion" id="fecha_creacion">
-                        </div>
 
-                        <div class="form-group col-lg-4 col-xs-12">
-                            <label>Fecha Vencimiento(*):</label>
-                            <input type="text" class="form-control" name="fecha_vencimiento" id="fecha_vencimiento">
-                        </div>
-                        </div>-->
-                        
-<small id="fa" name="fa" style = "position:relative;  top:-10px;" ><h4> *Fecha Creación <?php
-                            $fecha_creacion=null;
-
-
-
-                             date_default_timezone_set("America/Tegucigalpa");
-                             $fecha_creacion = strtotime("now"); 
-                             $fecha_creacion = date("d-m-Y H:i:s", $fecha_creacion); 
-                             echo $fecha_creacion; 
-                             ?> 
-        </h4></small>
-
-        <br>
-        <br>
-
-<small id="fv" name="fv" style = "position:relative;  top:-10px;" ><h4> *Fecha Vencimiento <?php
-                            $fecha_vencimiento=null;  ?>
-
-
-                            <?php
-
-                     
-                        include '../config/conexion.php';
-                            $query4=mysqli_query($mysqli,"SELECT valor FROM tbl_parametros WHERE id_parametro = '14'");
-      
-                        while($tbl_parametros = mysqli_fetch_array($query4))
-                        {
-                    ?> 
-                            <?php $valor=$tbl_parametros['valor']?>
-                    <?php
-
-                        }
-
-
-                            $parametroV = "+" . $valor . " Days";
-
-                           
-                             date_default_timezone_set("America/Tegucigalpa");
-                             $fecha_creacion = strtotime("now"); 
-                             $fecha_vencimiento = strtotime($parametroV, $fecha_creacion);
-                             $fecha_vencimiento = date("d-m-Y H:i:s", $fecha_vencimiento); 
-                             echo $fecha_vencimiento; 
-                             ?> 
-        
-</h4>
-</small>                
-                           <!-- Permisos -->
-                         <!-- <div class="form-group col-lg-4 col-xs-12"> -->
-                          <!--   <label>Permisos:</label> -->
-                           <!--  <ul style="list-style: none;" id="permisos"> -->
-                          <!--   </ul> -->
-                         <!--  </div> -->
-
-                          <!--  <br> -->
-
-                          <br>
-                          <br>
-                          <br>
-                          <br>
-                          <br>
 
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
@@ -362,7 +247,7 @@ else
 require 'footer.php';
 ?>
 
-<script type="text/javascript" src="scripts/usuario.js"></script>
+<script type="text/javascript" src="scripts/editarusuarioescritorio.js"></script>
 
 
 <script type="text/javascript">

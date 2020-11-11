@@ -1,13 +1,16 @@
 <?php 
-require_once "../modelos/Pregunta.php";
+require_once "../modelos/Pedido.php";
 
-$preguntas = new Pregunta();
+$pedido = new Pedido();
 
+/*
 $id_pregunta=isset($_POST["id_pregunta"])? limpiarCadena($_POST["id_pregunta"]):"";
-$pregunta=isset($_POST["pregunta"])? limpiarCadena($_POST["pregunta"]):"";
+*/
 
 
 switch ($_GET["op"]){
+
+	/*
 	case 'guardaryeditar':
 		if (empty($id_pregunta)){
 			$rspta=$preguntas->insertar($pregunta);
@@ -29,6 +32,9 @@ switch ($_GET["op"]){
  		echo $rspta ? "Pregunta activada" : "Pregunta no se puede activar";
 	break;
 
+	
+
+
 	case 'mostrar':
 		$rspta=$preguntas->mostrar($id_pregunta);
  		//Codificar el resultado utilizando json
@@ -46,20 +52,45 @@ switch ($_GET["op"]){
 				}
 	break;
 
+	*/
+
+	case "selectCliente":
+		require_once "../modelos/Cliente.php";
+		$cliente = new Cliente();
+
+		$rspta = $cliente->select();
+
+		$vuelta=null;
+		while ($reg = $rspta->fetch_object())
+				{
+					$vuelta=$vuelta+1;
+					
+					if ($vuelta==1) {
+						echo '<option value=' . $reg->id_cliente . 'selected>' . $reg->nombre_cliente . '</option>';
+					}else{
+						echo '<option value=' . $reg->id_cliente . '>' . $reg->nombre_cliente . '</option>';
+					}
+					
+				}
+	break;
+
 	case 'listar':
-		$rspta=$preguntas->listar();
+		$rspta=$pedido->listar();
  		//Vamos a declarar un array
  		$data= Array();
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				"0"=>($reg->estado)?'<button class="btn btn-warning" onclick="mostrar('.$reg->id_pregunta.')"><i class="fas fa-user-edit"></i></button>'.
- 					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_pregunta.')"><i class="fas fa-times"></i></button>':
- 					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_pregunta.')"><i class="fas fa-user-edit"></i></button>'.
- 					' <button class="btn btn-primary" onclick="activar('.$reg->id_pregunta.')"><i class="fa fa-check"></i></button>',
- 				"1"=>$reg->pregunta,
- 				"2"=>($reg->estado)?'<span class="label bg-green">Activado</span>':
- 				'<span class="label bg-red">Desactivado</span>'
+ 				"0"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_pedido.')"><i class="fas fa-edit"></i></button>',
+ 				"1"=>$reg->id_pedido,
+ 				"2"=>$reg->nombre_cliente,
+ 				"3"=>$reg->detalle_de_pedido,
+ 				"4"=>$reg->fecha_inicial,
+ 				"5"=>$reg->fecha_entrega,
+ 				"6"=>$reg->descuento,
+ 				"7"=>$reg->impuesto,
+ 				"8"=>$reg->total,
+ 				"9"=>$reg->estado
  				);
  		}
  		$results = array(

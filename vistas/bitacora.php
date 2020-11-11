@@ -17,11 +17,7 @@ if ($_SESSION['id_rol']==2)
 ?>
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
-      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"/>
-      
-      <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-       <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-
+ 
 
       <div class="content-wrapper">        
         <!-- Main content -->
@@ -34,69 +30,78 @@ if ($_SESSION['id_rol']==2)
                     <div class="box-header with-border">
                        <center> <h1 ><span class="hiddenui"><i class="fa fa-list-alt"> Bitácora</i></span></h1> </center>  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                      
-                       
-                          <form class="form-inline" method="POST" action="">
+                        <!--<form class="form-inline" method="POST" action="">
                             <div class="col-sm-12">
                             <div class="form-group">
-                            <label>Fecha Inicio</label>
+                         <label>Fecha Inicio</label>
                           <input type="date"style="WIDTH: 300px; HEIGHT: 30px" class="form-control" name="fecha_inicio" id="fecha_inicio" >
                           <label>Fecha Fin</label>
                           <input type="date" style="WIDTH: 300px; HEIGHT: 30px" class="form-control" name="fecha_fin" id="fecha_fin" >
-                          <button class="btn btn-primary" name="search"><span class="fa fa-search"></span></button> <a href="bitacora.php" type="button" class="btn btn-success"><span class = "fa fa-sync-alt"><span></a>
+                          <button class="btn btn-primary" name="search"><span class="fa fa-search"></span></button> 
+
+                          <a href="bitacora.php" type="button" class="btn btn-success"><span class = "fa fa-sync-alt"><span></a>
+
                            
                            </div>
                            </div>
   
-                        </form>
+                        </form>-->
 
+                          <?php 
+                        date_default_timezone_set("America/Tegucigalpa");
+                        $fecha_creacion = strtotime("now"); 
+                        $fecha_creacion = date("Y-m-d", $fecha_creacion); 
+                       
+                         ?>
+
+                      <div class="panel-body table-responsive" id="listadoregistros">
+                        <div class="form-group col-lg-4 col-xs-12">
+                          <label>Fecha Inicio</label>
+                          <input type="date" class="form-control" style="WIDTH: 450px; HEIGHT: 30px" name="fecha_inicio" id="fecha_inicio" value=<?php echo $fecha_creacion; ?>>
+                        </div>
+                        <div class="form-group col-lg-4 col-xs-12">
+                          <label>Fecha Fin</label>
+                          <input type="date" class="form-control" style="WIDTH: 450px; HEIGHT: 30px" name="fecha_fin" id="fecha_fin" value=<?php echo $fecha_creacion; ?>>
+                        </div>
+
+                         <div class="form-group col-lg-4 col-xs-12">
+                          <label>Actualizar</label>
+                          <br>
+                         <a href="bitacora.php" type="button" class="btn btn-success" style="WIDTH: 50px; HEIGHT: 30px" ><span class = "fas fa-sync-alt"><span></a>
+                        </div>
                     </div>
+                   
                     <!-- /.box-header -->
                     <!-- centro -->
                     <div class="panel-body table-responsive" id="listadoregistros">
-                        <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
+                        <table id="tbllistado" class="table table-hover">
                           <thead>
-                            <td>Nº</td>
-                            <td>Fecha</td>
-                            <td>Nº de Usuario</td>
-                            <td>Id Objeto</td>
-                            <td>Objeto</td>
-                            <td>Descripcion</td>
-                            <td>Accion</td>
-                            <td>Descripcion</td>
-                            <td>Creado Por</td>
-                            <td>Fecha creación</td>
-                           
+                            <th>Nº</th>
+                            <th>Fecha Busqueda</th>
+                            <th>Nº de Usuario</th>
+                            <th>Imagen</th>
+                            <th>Creado por</th>
+                            <th>Nº de Pantalla</th>
+                            <th>Pantalla</th>
+                            <th>Descripcion</th>
+                            <th>Accion</th>
+                            <th>Descripcion</th>
+                            <th>Fecha y hora de creación</th>
                           </thead>
-                          <tbody> 
-                          <?php include'../ajax/busquedabitacora.php'?>                           
+                          <tbody>                            
                           </tbody>
                           <tfoot>
-                            <td>Nº</td>
-                            <td>Fecha</td>
-                            <td>Nº de Usuario</td>
-                            <td>Id Objeto</td>
-                            <td>Objeto</td>
-                            <td>Descripcion</td>
-                            <td>Accion</td>
-                            <td>Descripcion</td>
-                            <td>Creado Por</td>
-                            <td>Fecha creación</td>
-                           
+                            <th>Nº</th>
+                            <th>Fecha Busqueda</th>
+                            <th>Nº de Usuario</th>
+                            <th>Imagen</th>
+                            <th>Creado por</th>
+                            <th>Nº de Pantalla</th>
+                            <th>Pantalla</th>
+                            <th>Descripcion</th>
+                            <th>Accion</th>
+                            <th>Descripcion</th>
+                            <th>Fecha y hora de creación</th>
                           </tfoot>
                         </table>
                     </div>
@@ -119,7 +124,8 @@ require 'footer.php';
 ?>
 
 <script type="text/javascript" src="scripts/bitacora.js"></script>
-<script type="text/javascript">
+
+<!--<script type="text/javascript">
   $(document).ready(function(){
     $('#tbllistado').DataTable({
       language:{
@@ -150,7 +156,7 @@ require 'footer.php';
 }
     });
   });
-</script>
+</script>-->
 
 
 

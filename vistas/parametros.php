@@ -17,8 +17,6 @@ if ($_SESSION['id_rol']==2)
 
 ?>
 <!--Contenido-->
-
-      
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">        
         <!-- Main content -->
@@ -28,23 +26,35 @@ if ($_SESSION['id_rol']==2)
                   <div class="box">
                     <div class="box-header with-border">
 
-                      <center> <h1 ><span class="hiddenui"><i class="fas fa-user-shield"> Mantenimiento de Parámetros</i></span></h1> </center>
-                          <br>
+                      <center> <h1 ><span class="hiddenui"><i class="fas fa-list-alt"> Mantenimiento de Parametros</i></span></h1> </center>
+                          
                         
                     </div>
                     <!-- /.box-header -->
                     <!-- centro -->
+                   <!-- Parametro ADMIN_NUM_REGISTROS -->
+                    <?php
+                    include '../config/conexion.php';
+                    $query5=mysqli_query($mysqli,"SELECT valor FROM tbl_parametros WHERE id_parametro = '23'");      
+                    while($tbl_parametros = mysqli_fetch_array($query5))
+                        {
+                    ?> 
+                            <?php $valor1=$tbl_parametros['valor']?>
+                    <?php
+
+                        }                    
+                    ?> 
                     <div class="panel-body table-responsive" id="listadoregistros">
-                        <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
+                        <table id="tbllistado" class="table table-hover" data-page-length=<?php echo $valor1 ?>> 
                           <thead>
-                            <th>Nº</th>
+                            <th>Editar</th>
                             <th>Parametro</th>
                             <th>Valor</th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                             <th>Nº</th>
+                             <th>Editar</th>
                             <th>Parametro</th>
                             <th>Valor</th>
                           </tfoot>
@@ -54,9 +64,43 @@ if ($_SESSION['id_rol']==2)
                         <form name="formulario" id="formulario" method="POST">
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Valor:</label>
-                            <input type="hidden" name="id_parametro" id="id_parametro">
+
+
+                            <!-- Parametro ADMIN_NUM_REGISTROS -->
+                    <?php
+                    /*
+                    include '../config/conexion.php';
+                    $query1=mysqli_query($mysqli,"SELECT id_parametro FROM tbl_parametros WHERE id_parametro = '1'");      
+                    while($tbl_parametros1 = mysqli_fetch_array($query1))
+                        {
+                    ?> 
+                            <?php $id_parametro1=$tbl_parametros1['id_parametro']?>
+                    <?php
+
+                        }
+
+                    $query2=mysqli_query($mysqli,"SELECT id_parametro FROM tbl_parametros WHERE id_parametro = '2'");      
+                    while($tbl_parametros2 = mysqli_fetch_array($query2))
+                        {
+                    ?> 
+                            <?php $id_parametro2=$tbl_parametros2['id_parametro']?>
+                    <?php
+
+                        }  */
+                     //$value=0;                     
+                    ?> 
+                       <!-- <input type="hidden" name=<?php echo $id_parametro ?>, id=<?php echo $id_parametro ?>>-->
+                            
+                          <input type="hidden" name="id_parametro" id="id_parametro">
+
+                           <input type="text" class="form-control" name="valor" id="valor" maxlength="50" placeholder="valor" required>  </div>
+
+                          
+                                
+
+                           <!-- <input type="hidden" name="id_parametro" id="id_parametro">
                             <input type="text" class="form-control" name="valor" id="valor" maxlength="50" placeholder="valor" required>
-                          </div>
+                          </div>-->
                           
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
 

@@ -47,14 +47,8 @@ function cancelarform()
 //Función Listar
 function listar()
 {
-	var fecha_inicio = $("#fecha_inicio").val();
-	var fecha_fin = $("#fecha_fin").val();
-	var idcliente = $("#idcliente").val();
-
-	
 	tabla=$('#tbllistado').dataTable(
 	{
-
 		"aProcessing": true,//Activamos el procesamiento del datatables
 	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
 	    dom: 'Bfrtip',//Definimos los elementos del control de tabla

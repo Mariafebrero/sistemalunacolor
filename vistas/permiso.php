@@ -15,7 +15,6 @@ if ($_SESSION['id_rol']==2)
 {
 ?>
 <!--Contenido-->
-         stylesheet">
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">        
         <!-- Main content -->
@@ -31,7 +30,7 @@ if ($_SESSION['id_rol']==2)
                     <!-- /.box-header -->
                     <!-- centro -->
                     <div class="panel-body table-responsive" id="listadoregistros">
-                        <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
+                        <table id="tbllistado"class="table table-hover">
                           <thead>
                             <th>Nombre</th>
                           </thead>
