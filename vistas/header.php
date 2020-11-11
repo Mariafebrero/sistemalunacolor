@@ -258,7 +258,8 @@ if (strlen(session_id()) < 1)
               </a>
               <ul class="treeview-menu">
                 <li><a href="usuario.php"><i class="fa fa-circle-o"></i> Usuarios</a></li>
-                <li><a href="gestionbd.php"><i class="fa fa-circle-o"></i> Gestión de BD</a></li>
+                <li><a href="backup.php"><i class="fa fa-circle-o"></i> Backup</a></li>
+                <li><a href="importar.php"><i class="fa fa-circle-o"></i> Restore</a></li>
                 <li><a href="bitacora.php"><i class="fa fa-circle-o"></i> Bitacora</a></li>
               </ul>
             </li>';
