@@ -2,20 +2,36 @@
 //Activamos el almacenamiento en el buffer
 ob_start();
 session_start();
+include '../config/conexion.php';
 
-//nombre new variable para secion
 if (!isset($_SESSION["nombre_usuario"]))
 {
-  header("Location: login1.php");
+   header("Location: login1.html");
 }
 else
 {
 require 'header.php';
+  if ($_SESSION['id_rol']==2)
+   {
 
-if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
-{
-
+   $id_usuario1=$_SESSION['id_usuario'];
+   $usuario1=$_SESSION['usuario']; 
+  //Hacemos el insert para la tabla usuarios y mostrar en la bitacora.
+   $sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
+   VALUES('$id_usuario1','10',(select now()),'Entró','Entró a Mantenimiento de Productos','$usuario1',(select now()))";
+    ejecutarConsulta($sql_bitacora);
+  }
+  else
+  {
+    require 'noacceso.php';
+  }
+}
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 
+</head>
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">        
@@ -25,43 +41,47 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Categoría <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+
+                          <center> <h1 ><span class="hiddenui"><i class="fas fa-boxes"> Mantenimiento de productos</i></span></h1> </center>
+                          <br>
+                            <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-address-book-o "></i> Agregar nuevo producto</button>
                         <div class="box-tools pull-right">
                         </div>
+
                     </div>
                     <!-- /.box-header -->
                     <!-- centro -->
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
-                            <th>Opciones</th>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Estado</th>
+                            <th><center>Opciones</center></th>
+                            <th><center>Nombre</center></th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                            <th>Opciones</th>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Estado</th>
+                            <th><center>Opciones</center></th>
+                            <th><center>Nombre</center></th>
                           </tfoot>
                         </table>
                     </div>
-                    <div class="panel-body" style="height: 400px;" id="formularioregistros">
+                    <div class="panel-body" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
+                          
+                     
+                         
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Nombre:</label>
-                            <input type="hidden" name="idcategoria" id="idcategoria">
-                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="50" placeholder="Nombre" required>
+                            <label>Nombre del producto(*):</label>
+                            <input type="hidden" name="id_producto" id="id_producto">
+                            <input type="text" class="form-control" name="nombreproducto" 
+                            id="nombreproducto" maxlength="100" placeholder="Ingrese nombre del producto">
+
                           </div>
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Descripción:</label>
-                            <input type="text" class="form-control" name="descripcion" id="descripcion" maxlength="255" placeholder="Descripción">
-                          </div>
+                         
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        
+                            <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
+
+                            <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
                           </div>
                         </form>
                     </div>
@@ -69,23 +89,55 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
                   </div><!-- /.box -->
               </div><!-- /.col -->
           </div><!-- /.row -->
-
       </section><!-- /.content -->
 
     </div><!-- /.content-wrapper -->
+</html>
   <!--Fin-Contenido-->
 <?php
-}
-else
-{
-  require 'noacceso.php';
-}
-
 require 'footer.php';
 ?>
-<!--<script type="text/javascript" src="scripts/categoria.js"></script>-->
+<script type="text/javascript" src="../public/js/JsBarcode.all.min.js"></script>
+<script type="text/javascript" src="../public/js/jquery.PrintArea.js"></script>
+<script type="text/javascript" src="scripts/producto.js"></script>
+<style type="text/css">
+  
+  #container input {
+  padding-right: 32px;
+}
+
+.input-group-append {
+  bottom: 10px;
+  cursor: pointer;
+  height: 25px;
+  position: absolute;
+  right: 10px;
+  width: 25px;
+  z-index: 10;
+}
+
+.form-clear .material-icons {
+  font-size: 24px;
+  position:absolute;
+  top:0px;
+  right:0px!important;
+}
+
+.login100-form-btn{
+
+  border-radius: 0px 0px 0px 0px;
+-moz-border-radius: 0px 0px 0px 0px;
+-webkit-border-radius: 0px 0px 0px 0px;
+border: 0px solid #000000;
+}
+
+ 
+.swal2-popup {
+  font-size: 1.6rem !important;
+}
+
+</style>
 
 <?php 
-}
 ob_end_flush();
 ?>

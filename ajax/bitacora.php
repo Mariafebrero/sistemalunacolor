@@ -3,7 +3,7 @@
 require_once "../modelos/Bitacora.php";
 
 $bitacora = new Bitacora();
-/*
+
 $id_bicora=isset($_POST["id_bicora"])? limpiarCadena($_POST["id_bicora"]):"";
 $fecha=isset($_POST["fecha"])? limpiarCadena($_POST["fecha"]):"";
 $id_usuario=isset($_POST["id_usuario"])? limpiarCadena($_POST["id_usuario"]):"";
@@ -14,25 +14,26 @@ $accion=isset($_POST["accion"])? limpiarCadena($_POST["accion"]):"";
 $descripcion=isset($_POST["descripcion"])? limpiarCadena($_POST["descripcion"]):"";
 $creado_por=isset($_POST["creado_por"])? limpiarCadena($_POST["creado_por"]):"";
 $fecha_creacion=isset($_POST["fecha_creacion"])? limpiarCadena($_POST["fecha_creacion"]):"";
-*/
+
 
 
 switch ($_GET["op"]){
 
+	case 'mostrar':
+		$rspta=$bitacora->mostrar($id_bicora);
+ 		//Codificar el resultado utilizando json
+ 		echo json_encode($rspta);
+	break;
 
-	case 'listar':
-		
-		$fecha_inicio=$_REQUEST["fecha_inicio"];
-		$fecha_fin=$_REQUEST["fecha_fin"];
+	/*case 'listar':
+		$rspta=$bitacora->listar();
  		//Vamos a declarar un array
-
- 		$rspta=$bitacora->listar($fecha_inicio,$fecha_fin);
  		$data= Array();
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
  				"0"=>$reg->id_bitacora,
- 				"1"=>$reg->fechas,
+ 				"1"=>$reg->fecha,
  				"2"=>$reg->id_usuario,
  				"3"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px'>",
  				"4"=>$reg->creado_por,
@@ -41,7 +42,7 @@ switch ($_GET["op"]){
  				"7"=>$reg->descripcion1,
  				"8"=>$reg->accion,
  				"9"=>$reg->descripcion,
- 				"10"=>$reg->fecha_creacion
+ 				"10"=>$reg->fecha_creacion,
  				);
  		}
  		$results = array(
@@ -52,6 +53,11 @@ switch ($_GET["op"]){
  		echo json_encode($results);
 
 	break;
+	*/
+	
+
+
+	
 
 }
 ?>

@@ -109,37 +109,12 @@ function listar()
 		"aProcessing": true,//Activamos el procesamiento del datatables
 	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
 	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
-	    buttons: [	
-
-
-	    	{
-	    		extend: 'copyHtml5',
-	    		titleAttr: 'Copiar',
-        		footer: true,
-        		title: 'Copiar',
-        		filename: 'Bitácora_Consulta',
-        		text: '<button class="btn btn-primary" style="color: #fffff;">Copiar <i class="fas fa-copy"></i></button>'
-
-			},
-
-	    	{	
-				extend: 'excelHtml5',
-	    		titleAttr: 'Exportar a Excel',
-        		footer: true,
-        		title: 'Copiar',
-        		filename: 'Bitácora_Consulta',
-        		text: '<button class="btn btn-success" style="color: #fffff;">Exportar a Excel <i class="fas fa-file-excel"></i></button>'
-
-			},
-			{
-				extend: 'pdfHtml5',
-	    		titleAttr: 'Exportar a PDF',
-        		footer: true,
-        		title: 'Sistema Luna Color - Reporte Usuario',
-        		filename: 'Bitácora_Consulta',
-        		text: '<button class="btn btn-danger" style="color: #fffff;">Exportar a PDF <i class="fas fa-file-pdf"></i></button>'
-			},
-			],
+	    buttons: [		          
+		            'copyHtml5',
+		            'excelHtml5',
+		            'csvHtml5',
+		            'pdf'
+		        ],
 		"ajax":
 				{
 					url: '../ajax/usuario.php?op=listar',
@@ -150,6 +125,7 @@ function listar()
 					}
 				},
 		"bDestroy": true,
+		"iDisplayLength": 5,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }

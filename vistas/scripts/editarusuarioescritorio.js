@@ -123,13 +123,6 @@ function mostrar(id_usuario2)
 		$("#correo_electronico").val(data.correo_electronico);
 		$("#id_usuario2").val(data.id_usuario2);
 
-		$("#contrasena").val(data.contrasena);
-		$("#confirmar_contrasena").val(data.contrasena);
-
-		$("#show_password1").show(data.show_password1);
-		$("#show_password").show(data.show_password);
-
-		
 	});
 }
 

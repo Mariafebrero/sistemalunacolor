@@ -16,6 +16,8 @@ if ($_SESSION['id_rol']==2)
 
 ?>
 <!--Contenido-->
+       
+
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">        
         <!-- Main content -->
@@ -24,27 +26,16 @@ if ($_SESSION['id_rol']==2)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Pregunta <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                           <center> <h1 ><span class="hiddenui"><i class="fas fa-question"> Mantenimiento Preguntas de Seguridad</i></span></h1> </center>
+                          <br>
+                            <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar nueva pregunta</button>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
                     <!-- /.box-header -->
                     <!-- centro -->
-                     <!-- Parametro ADMIN_NUM_REGISTROS -->
-                    <?php
-                    include '../config/conexion.php';
-                    $query5=mysqli_query($mysqli,"SELECT valor FROM tbl_parametros WHERE id_parametro = '23'");      
-                    while($tbl_parametros = mysqli_fetch_array($query5))
-                        {
-                    ?> 
-                            <?php $valor1=$tbl_parametros['valor']?>
-                    <?php
-
-                        }                    
-                    ?> 
-                   
                     <div class="panel-body table-responsive" id="listadoregistros">
-                        <table id="tbllistado" class="table table-hover" data-page-length=<?php echo $valor1 ?>>
+                        <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
                             <th>Opciones</th>
                             <th>Pregunta</th>
