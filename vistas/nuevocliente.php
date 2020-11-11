@@ -34,19 +34,20 @@ if ($_SESSION['id_rol']==2)
                     <div class="panel-body table-responsive" id="listadoregistros">
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
-                            <th><center>Cod. Cliente</center></th>
-                            <th><center>Tipo</center></th>
-                            <th><center>Nombre</center></th>
-                            <th><center>Contacto</center></th>
+                            <th>Cod. Cliente</th>
+                            <th>Tipo</th>
+                            <th>Nombre</th>
+                            <th>Contacto</th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                            <th><center>Cod. Cliente</center></th>
-                            <th><center>Tipo</center></th>
-                            <th><center>Nombre</center></th>
-                            <th><center>Contacto</center></th>
-
+                            <th>Opciones</th>
+                            <th>Nombre</th>
+                            <th>Documento</th>
+                            <th>Número</th>
+                            <th>Teléfono</th>
+                            <th>Email</th>
                           </tfoot>
                         </table>
                     </div>

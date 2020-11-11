@@ -3,6 +3,7 @@
 ob_start();
 session_start();
 
+//nombre new variable para secion
 if (!isset($_SESSION["nombre_usuario"]))
 {
   header("Location: login1.php");
@@ -11,7 +12,7 @@ else
 {
 require 'header.php';
 
-if ($_SESSION['id_rol']==2)
+if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
 {
 
 ?>
@@ -24,37 +25,26 @@ if ($_SESSION['id_rol']==2)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Pregunta <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                          <h1 class="box-title">Categoría <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
                     <!-- /.box-header -->
                     <!-- centro -->
-                     <!-- Parametro ADMIN_NUM_REGISTROS -->
-                    <?php
-                    include '../config/conexion.php';
-                    $query5=mysqli_query($mysqli,"SELECT valor FROM tbl_parametros WHERE id_parametro = '23'");      
-                    while($tbl_parametros = mysqli_fetch_array($query5))
-                        {
-                    ?> 
-                            <?php $valor1=$tbl_parametros['valor']?>
-                    <?php
-
-                        }                    
-                    ?> 
-                   
                     <div class="panel-body table-responsive" id="listadoregistros">
-                        <table id="tbllistado" class="table table-hover" data-page-length=<?php echo $valor1 ?>>
+                        <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
                             <th>Opciones</th>
-                            <th>Pregunta</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
                             <th>Estado</th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
                             <th>Opciones</th>
-                            <th>Pregunta</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
                             <th>Estado</th>
                           </tfoot>
                         </table>
@@ -62,16 +52,16 @@ if ($_SESSION['id_rol']==2)
                     <div class="panel-body" style="height: 400px;" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Pregunta:</label>
-                            <input type="hidden" name="id_pregunta" id="id_pregunta">
-                            <input type="text" class="form-control" name="pregunta" id="pregunta" maxlength="100" placeholder="Preguntas" required>
+                            <label>Nombre:</label>
+                            <input type="hidden" name="idcategoria" id="idcategoria">
+                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="50" placeholder="Nombre" required>
                           </div>
-                          
-
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Descripción:</label>
+                            <input type="text" class="form-control" name="descripcion" id="descripcion" maxlength="255" placeholder="Descripción">
+                          </div>
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
-
-                            <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
+                        
                           </div>
                         </form>
                     </div>
@@ -79,6 +69,7 @@ if ($_SESSION['id_rol']==2)
                   </div><!-- /.box -->
               </div><!-- /.col -->
           </div><!-- /.row -->
+
       </section><!-- /.content -->
 
     </div><!-- /.content-wrapper -->
@@ -92,10 +83,9 @@ else
 
 require 'footer.php';
 ?>
-<script type="text/javascript" src="scripts/pregunta.js"></script>
+<!--<script type="text/javascript" src="scripts/categoria.js"></script>-->
+
 <?php 
 }
 ob_end_flush();
 ?>
-
-
