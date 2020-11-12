@@ -26,7 +26,14 @@ if ($_SESSION['id_rol']==2)
                   <div class="box">
                     <div class="box-header with-border">
 
-                      <center> <h1 ><span class="hiddenui"><i class="fas fa-list-alt"> Mantenimiento de Parametros</i></span></h1> </center>
+                      
+                        <!-- IMAGEN TITULO -->
+                      <center> 
+                          <img class="imagen" width="250" heigth="250" src="../public/img/titulos/PARAMETROS.svg">
+                      
+                      </center>
+                      <!-- FIN IMAGEN TITULO --> 
+                          <br>
                           
                         
                     </div>

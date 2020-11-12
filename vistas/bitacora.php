@@ -28,7 +28,15 @@ if ($_SESSION['id_rol']==2)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                       <center> <h1 ><span class="hiddenui"><i class="fa fa-list-alt"> Bitácora</i></span></h1> </center>  
+                       
+
+                        <!-- IMAGEN TITULO -->
+                      <center> 
+                          <img class="imagen" width="250" heigth="250" src="../public/img/titulos/BITACORA.svg">
+                      
+                      </center>
+                      <!-- FIN IMAGEN TITULO --> 
+                          <br>
 
                         <!--<form class="form-inline" method="POST" action="">
                             <div class="col-sm-12">

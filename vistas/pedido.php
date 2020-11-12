@@ -31,7 +31,7 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
                     
                        <!-- IMAGEN TITULO -->
                       <center> 
-                          <img class="imagen" width="250" heigth="250" src="../public/img/productos/titulo pedido-06.svg">
+                          <img class="imagen" width="250" heigth="250" src="../public/img/titulos/PEDIDO.svg">
                       
                       </center>
                       <!-- FIN IMAGEN TITULO --> 

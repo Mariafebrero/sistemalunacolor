@@ -65,8 +65,13 @@ include '../config/conexion.php';
 
                        ?>
                      
-                          <center> <h1 ><span class="hiddenui"><i class="fas fa-users"> Mantenimiento usuario</i></span></h1> </center>
-                          <br>
+                          <center> 
+                          <img class="imagen" width="250" heigth="250" src="../public/img/titulos/USUARIOS.svg">
+                      
+                      </center>
+                      <!-- FIN IMAGEN TITULO --> 
+                          <br> 
+
                             <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar nuevo usuario</button>
                         <div class="box-tools pull-right">
                         </div>
