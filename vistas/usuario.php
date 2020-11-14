@@ -110,7 +110,6 @@ include '../config/conexion.php';
                             <th>Rol </th>
                             <th>Usuario </th>
                             <th>Nombre usuario</th>
-                           
                             <th>Imagen</th>
                             <th>correo_electronico</th>
                             <th>Estado</th>
@@ -119,11 +118,9 @@ include '../config/conexion.php';
                           </tbody>
                           <tfoot>
                             <th>Opciones</th>
-  
                             <th>Rol </th>
                             <th>Usuario </th>
                             <th>Nombre usuario</th>
-                           
                             <th>Imagen</th>
                             <th>correo_electronico</th>
                             <th>Estado</th>

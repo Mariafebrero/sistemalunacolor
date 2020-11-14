@@ -101,6 +101,12 @@ Class Rol
 		return ejecutarConsulta($sql);		
 	}
 
+	public function select2()
+	{
+		$sql="SELECT * FROM tbl_roles where estado=1";
+		return ejecutarConsulta($sql);		
+	}
+
 
 }
 
