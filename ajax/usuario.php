@@ -1,6 +1,31 @@
 
 <?php
 session_start(); 
+
+
+include '../config/conexion.php';
+$idobjeto = $_SESSION["objeto"];
+$rol = $_SESSION['id_rol'];
+
+$sql = "SELECT * from tbl_permisos WHERE id_objeto = '$idobjeto' and id_rol = '$rol' and permiso_actualizacion = 1";
+$stmt = mysqli_query($conexion,$sql);
+if(mysqli_num_rows($stmt)>0){
+  $permisoact = true;
+}else{
+  $permisoact = false;
+}
+
+$sql1 = "SELECT * from tbl_permisos WHERE id_objeto = '$idobjeto' and id_rol = '$rol' and permiso_eliminacion = 1";
+$stmtt = mysqli_query($conexion,$sql1);
+if(mysqli_num_rows($stmtt)>0){
+  $permisoeli = true;
+}else{
+  $permisoeli = false;
+}
+ 
+
+
+
 require_once "../modelos/Usuario.php";
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -240,18 +265,22 @@ catch (Exception $e)
 
 
 	case 'listar':
+	
+	   $perm = $permisoact==false ? 'disabled' : '';
+	   $permeli = $permisoeli==false ? 'disabled' : '';
 		$rspta=$usuarios->listar();
  		//Vamos a declarar un array
  		$data= Array();
 
  		while ($reg=$rspta->fetch_object()){
+ 			
  			$data[]=array(
- 				"0"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_usuario.')"><i class="fas fa-user-edit"></i></button>'.
- 					' <button class="btn btn-danger" onclick="eliminar('.$reg->id_usuario.')"><i class="fas fa-trash"></i></button>',
+ 				"0"=>'<button class="btn btn-warning" '.$perm.'  onclick="mostrar('.$reg->id_usuario.')"><i class="fas fa-user-edit"></i></button>'.
+ 					'<button class="btn btn-danger" '.$permeli.' onclick="eliminar('.$reg->id_usuario.')"><i class="fas fa-trash"></i></button>',
  				"1"=>$reg->rol,
  				"2"=>$reg->usuario,
  				"3"=>$reg->nombre_usuario,
- 				"4"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px'>",
+ 				"4"=>"<img src='../files/usuarios/".$reg->imagen."'  height='50px' width='50px'>",
  				"5"=>$reg->correo_electronico,
  				"6"=>$reg->descripcion
  				);
