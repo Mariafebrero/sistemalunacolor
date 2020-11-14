@@ -1,4 +1,19 @@
 <?php 
+session_start(); 
+
+include '../config/conexion.php';
+$idobjeto = $_SESSION["objeto"];
+$rol = $_SESSION['id_rol'];
+
+$sql = "SELECT * from tbl_permisos WHERE id_objeto = '$idobjeto' and id_rol = '$rol' and permiso_actualizacion = 1";
+$stmt = mysqli_query($conexion,$sql);
+if(mysqli_num_rows($stmt)>0){
+  $permisoact = true;
+}else{
+  $permisoact = false;
+}
+
+
 require_once "../modelos/Producto.php";
 
 $producto=new Producto();
@@ -49,6 +64,7 @@ switch ($_GET["op"]){
 	break;
 
 	case 'listar':
+	$perm = $permisoact==false ? 'disabled' : '';
 		$rspta=$producto->listar();
  		//Vamos a declarar un array
  		$data= Array();
@@ -57,7 +73,7 @@ switch ($_GET["op"]){
  			$data[]=array(
  				//"0"=>$reg->id_producto,
  				
- 				"0"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_producto.')"><i class="fas fa-user-edit"></i></button>',
+ 				"0"=>'<button class="btn btn-warning" '.$perm.' onclick="mostrar('.$reg->id_producto.')"><i class="fas fa-user-edit"></i></button>',
  					
  				"1"=>'' . $reg->nombre_producto . ''
  				

@@ -7,7 +7,6 @@ if (strlen(session_id()) < 1)
  <?php 
  $preg = "select * from tbl_objetos";
  $stmt = mysqli_query($conexion,$preg);
- $icon =mysqli_query($conexion,$preg);
  $rol = $_SESSION['id_rol'];?>
 
 <!DOCTYPE html>
@@ -144,10 +143,9 @@ if (strlen(session_id()) < 1)
 
              <?php foreach ($stmt as $objeto) { ?>        
             <li class="treeview">
-              <?php if ($objeto["idmenupadre"] == 0) { 
-                ?>
+              <?php if ($objeto["idmenupadre"] == 0) { ?>
               <a href="#">
-                <i class= "icono" > </i> <span> &nbsp; <?php echo $objeto["objeto"] ?> </span>
+                <i class="<?= $objeto['icono']?>" ></i> <span> &nbsp; <?php echo $objeto["objeto"] ?> </span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
             <?php } ?>

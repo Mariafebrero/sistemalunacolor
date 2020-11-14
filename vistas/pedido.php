@@ -3,6 +3,24 @@
 ob_start();
 session_start();
 
+
+
+include '../config/conexion.php';
+$idobjeto = $_GET['objeto'];
+$rol = $_SESSION['id_rol'];
+
+$sql = "SELECT * from tbl_permisos WHERE id_objeto = '$idobjeto' and id_rol = '$rol' and permiso_insercion = 1";
+$stmt = mysqli_query($conexion,$sql);
+if(mysqli_num_rows($stmt)>0){
+  $permiso = true;
+}else{
+  $permiso = false;
+}
+ 
+$_SESSION["objeto"] = $_GET['objeto'];
+
+
+
 //nombre new variable para secion
 if (!isset($_SESSION["nombre_usuario"]))
 {
@@ -41,7 +59,7 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
                         <div class="row">
                           <div class="form-group col-lg-3 col-xs-12"> 
                          
-                            <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar Pedido</button>
+                            <button class="btn btn-success" id="btnagregar" <?php echo $permiso==false ? 'disabled' : '' ?> onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar Pedido</button>
                             </div>
                          </div>
                         <div class="box-tools pull-right">
