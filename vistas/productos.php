@@ -42,8 +42,15 @@ require 'header.php';
                   <div class="box">
                     <div class="box-header with-border">
 
-                          <center> <h1 ><span class="hiddenui"><i class="fas fa-boxes"> Mantenimiento de productos</i></span></h1> </center>
-                          <br>
+                         
+                        <!-- IMAGEN TITULO -->
+                      <center> 
+                          <img class="imagen" width="250" heigth="250" src="../public/img/titulos/PRODUCTOS.svg">
+                      
+                      </center>
+                      <!-- FIN IMAGEN TITULO --> 
+                          <br> 
+
                             <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-address-book-o "></i> Agregar nuevo producto</button>
                         <div class="box-tools pull-right">
                         </div>

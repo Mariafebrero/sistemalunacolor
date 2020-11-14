@@ -24,7 +24,17 @@ if ($_SESSION['id_rol']==2)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Roles <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                        
+                      <!-- IMAGEN TITULO -->
+                      <center> 
+                          <img class="imagen" width="250" heigth="250" src="../public/img/titulos/ROLES.svg">
+                      
+                      </center>
+                      <!-- FIN IMAGEN TITULO --> 
+                          <br> 
+
+                            <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-address-book-o "></i> Agregar nuevo rol</button>
+
                         <div class="box-tools pull-right">
                         </div>
                     </div>

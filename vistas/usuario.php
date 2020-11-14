@@ -2,8 +2,20 @@
 //Activamos el almacenamiento en el buffer
 ob_start();
 session_start();
+//Permisos
+include '../config/conexion.php';
+$idobjeto = $_GET['objeto'];
+$rol = $_SESSION['id_rol'];
 
-
+$sql = "SELECT * from tbl_permisos WHERE id_objeto = '$idobjeto' and id_rol = '$rol' and permiso_insercion = 1";
+$stmt = mysqli_query($conexion,$sql);
+if(mysqli_num_rows($stmt)>0){
+  $permiso = true;
+}else{
+  $permiso = false;
+}
+ 
+$_SESSION["objeto"] = $_GET['objeto'];
 
 
 //nombre new variable para secion
@@ -65,8 +77,13 @@ include '../config/conexion.php';
 
                        ?>
                      
-                          <center> <h1 ><span class="hiddenui"><i class="fas fa-users"> Mantenimiento usuario</i></span></h1> </center>
-                          <br>
+                          <center> 
+                          <img class="imagen" width="250" heigth="250" src="../public/img/titulos/USUARIOS.svg">
+                      
+                      </center>
+                      <!-- FIN IMAGEN TITULO --> 
+                          <br> 
+
                             <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar nuevo usuario</button>
                         <div class="box-tools pull-right">
                         </div>

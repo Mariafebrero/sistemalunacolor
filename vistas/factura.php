@@ -25,9 +25,13 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
                     <div class="box-header with-border">
 
                      
-                          <center> <h1 ><span class="hiddenui"><i class="fas fa-users"> Facturación</i></span></h1> </center>
+                        <!-- IMAGEN TITULO -->
+                      <center> 
+                          <img class="imagen" width="250" heigth="250" src="../public/img/titulos/FACTURACION.svg">
+                      
+                      </center>
+                      <!-- FIN IMAGEN TITULO --> 
                           <br>
-
 
                             <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar nueva factura</button>
 

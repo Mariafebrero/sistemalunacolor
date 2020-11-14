@@ -1,7 +1,13 @@
 <?php
+
+include "../config/conexion.php";
 if (strlen(session_id()) < 1) 
   session_start();
 ?>
+ <?php 
+ $preg = "select * from tbl_objetos";
+ $stmt = mysqli_query($conexion,$preg);
+ $rol = $_SESSION['id_rol'];?>
 
 <!DOCTYPE html>
 <html>
@@ -122,8 +128,7 @@ if (strlen(session_id()) < 1)
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu" style="background-color: #3F3F3F">
             <li class="header" style="background-color: #3F3F3F"></li>
-
-            <?php 
+             <?php 
             if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4 )
             {
             echo 
@@ -136,156 +141,25 @@ if (strlen(session_id()) < 1)
             ?>
 
 
-             <?php 
-            if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4 )
-            {
-            echo 
-            ' <li class="treeview">
+             <?php foreach ($stmt as $objeto) { ?>        
+            <li class="treeview">
+              <?php if ($objeto["idmenupadre"] == 0) { ?>
               <a href="#">
-                <i class="fas fa-user"></i> <span> &nbsp; Cliente</span>
-
+                <i class="fas fa-user"></i> <span> &nbsp; <?php echo $objeto["objeto"] ?> </span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
+            <?php } ?>
+            <?php
+                $cod = $objeto['id_objeto'];
+                $pregcod = "SELECT * FROM tbl_objetos t inner join tbl_permisos t2 ON t.id_objeto = t2.id_objeto where t2.id_rol = '$rol' and t2.permiso_consultar = 1 and idmenupadre = '$cod'";
+                $stmts = mysqli_query($conexion,$pregcod);
+                foreach ($stmts as $row) { ?>
               <ul class="treeview-menu">
-                <li><a href="nuevocliente.php"><i class="fa fa-circle-o"></i> Nuevo Cliente</a></li>
-                <li><a href="nuevoclienteempresarial.php"><i class="fa fa-circle-o"></i> Nuevo Empresarial</a></li>
+                <li><a href="<?php echo $row['url'].'?objeto='.$row['id_objeto'] ?>"><i class="fa fa-circle-o"></i> <?php echo $row["objeto"]  ?></a></li>
               </ul>
-            </li>';
-            }
-            ?>
-
-
-              <?php 
-            if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4 )
-            {
-            echo 
-            '<li class="treeview">
-              <a href="#">
-                <i class="fas fa-shopping-cart"></i> <span> &nbsp; Pedido</span>
-                 <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="pedido.php"><i class="fa fa-circle-o"></i> Pedido</a></li>
-                 <li><a href="codcliente.php"><i class="fa fa-circle-o"></i> Cod. Cliente</a></li>
-                <li><a href="productos.php"><i class="fa fa-circle-o"></i> Productos</a></li>
-                <li><a href="carrito.php"><i class="fa fa-circle-o"></i> Carrito</a></li>
-                <li><a href="cola.php"><i class="fa fa-circle-o"></i> Cola</a></li>
-              </ul>
-            </li>';
-            }
-            ?>
-
-
-              <?php 
-            if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4 )
-            {
-            echo 
-            '<li class="treeview">
-              <a href="#">
-                <i class="fas fa-file-invoice"></i> <span>  &nbsp; Factura</span>
-
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="factura.php"><i class="fa fa-circle-o"></i> Factura</a></li>
-              </ul>
-            </li>';
-            }
-            ?>
-
-
-              <?php 
-            if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4 )
-            {
-            echo 
-            ' <li class="treeview">
-              <a href="#">
-                <i class="fas fa-dolly-flatbed"></i> <span>  &nbsp; Inventario</span>
-
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="consultacompras.php"><i class="fa fa-circle-o"></i> Compras</a></li>
-                 <li><a href="consultaventa.php"><i class="fa fa-circle-o"></i> Ventas</a></li>           
-              </ul>
-            </li>';
-            }
-            ?>
-
-              <?php 
-            if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4 )
-            {
-            echo 
-            '  <li class="treeview">
-              <a href="#">
-                <i class="fas fa-shopping-basket"></i> <span> &nbsp; Compras</span>
-
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="compras.php"><i class="fa fa-circle-o"></i> Compras</a></li>           
-              </ul>
-            </li>';
-            }
-            ?>
-
-              <?php 
-            if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
-            {
-             echo 
-            ' <li class="treeview">
-              <a href="#">
-                <i class="fas fa-chart-bar"></i><span> &nbsp; Reporte</span>
-
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="repmatprima.php"><i class="fa fa-circle-o"></i> Reporte Materia Prima</a></li>
-                 <li><a href="repexpclientes.php"><i class="fa fa-circle-o"></i> Reporte Expedientes Clientes</a></li>                
-              </ul>
-            </li>';
-            }
-            ?>
-
-             <?php 
-            if ($_SESSION['id_rol']==2)
-            {
-            echo 
-            '<li class="treeview">
-              <a href="#">
-                <i class="fas fa-tasks"></i><span> &nbsp; Administración</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="usuario.php"><i class="fa fa-circle-o"></i> Usuarios</a></li>
-                <li><a href="backup.php"><i class="fa fa-circle-o"></i> Backup</a></li>
-                <li><a href="importar.php"><i class="fa fa-circle-o"></i> Restore</a></li>
-                <li><a href="bitacora.php"><i class="fa fa-circle-o"></i> Bitacora</a></li>
-              </ul>
-            </li>';
-            }
-            ?>
-
-              <?php 
-            if ($_SESSION['id_rol']==2)
-            {
-            echo 
-            '<li class="treeview">
-              <a href="#">
-                <i class="fas fa-shield-alt"></i><span> &nbsp; Seguridad</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="rol.php"><i class="fa fa-circle-o"></i> Roles</a></li>
-                <li><a href="permiso.php"><i class="fa fa-circle-o"></i> Permisos</a></li>
-                <li><a href="preguntas.php"><i class="fa fa-circle-o"></i> Preguntas de Seguridad</a></li>
-                <li><a href="parametros.php"><i class="fa fa-circle-o"></i> Parametros</a></li>          
-              </ul>
-            </li>';
-            }
-            ?>
-       
-            
+            <?php } ?>
+            </li>;
+            <?php } ?>
           </ul>
         </section>
         <!-- /.sidebar -->
