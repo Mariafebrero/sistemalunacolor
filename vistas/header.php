@@ -145,7 +145,7 @@ if (strlen(session_id()) < 1)
             <li class="treeview">
               <?php if ($objeto["idmenupadre"] == 0) { ?>
               <a href="#">
-                <i class="fas fa-user"></i> <span> &nbsp; <?php echo $objeto["objeto"] ?> </span>
+                <i class="<?= $objeto['icono']?>" ></i> <span> &nbsp; <?php echo $objeto["objeto"] ?> </span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
             <?php } ?>

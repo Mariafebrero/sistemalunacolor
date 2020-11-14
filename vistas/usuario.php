@@ -84,7 +84,7 @@ include '../config/conexion.php';
                       <!-- FIN IMAGEN TITULO --> 
                           <br> 
 
-                            <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar nuevo usuario</button>
+                            <button class="btn btn-success" id="btnagregar" <?php echo $permiso==false ? 'disabled' : '' ?> onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar nuevo usuario</button>
                         <div class="box-tools pull-right">
                         </div>
                     </div>

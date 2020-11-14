@@ -3,6 +3,23 @@
 ob_start();
 session_start();
 
+
+//Permisos
+include '../config/conexion.php';
+$idobjeto = $_GET['objeto'];
+$rol = $_SESSION['id_rol'];
+
+$sql = "SELECT * from tbl_permisos WHERE id_objeto = '$idobjeto' and id_rol = '$rol' and permiso_insercion = 1";
+$stmt = mysqli_query($conexion,$sql);
+if(mysqli_num_rows($stmt)>0){
+  $permiso = true;
+}else{
+  $permiso = false;
+}
+ 
+$_SESSION["objeto"] = $_GET['objeto'];
+
+
 //nombre new variable para secion
 if (!isset($_SESSION["nombre_usuario"]))
 {
