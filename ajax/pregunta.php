@@ -1,4 +1,33 @@
 <?php 
+
+session_start(); 
+
+include '../config/conexion.php';
+$idobjeto = $_SESSION["objeto"];
+$rol = $_SESSION['id_rol'];
+
+$sql = "SELECT * from tbl_permisos WHERE id_objeto = '$idobjeto' and id_rol = '$rol' and permiso_actualizacion = 1";
+$stmt = mysqli_query($conexion,$sql);
+if(mysqli_num_rows($stmt)>0){
+  $permisoact = true;
+}else{
+  $permisoact = false;
+}
+
+$sql1 = "SELECT * from tbl_permisos WHERE id_objeto = '$idobjeto' and id_rol = '$rol' and permiso_eliminacion = 1";
+$stmtt = mysqli_query($conexion,$sql1);
+if(mysqli_num_rows($stmtt)>0){
+  $permisoeli = true;
+}else{
+  $permisoeli = false;
+}
+
+
+
+
+
+
+
 require_once "../modelos/Pregunta.php";
 
 $preguntas = new Pregunta();
@@ -47,14 +76,16 @@ switch ($_GET["op"]){
 	break;
 
 	case 'listar':
+	   $perm = $permisoact==false ? 'disabled' : '';
+	   $permeli = $permisoeli==false ? 'disabled' : '';
 		$rspta=$preguntas->listar();
  		//Vamos a declarar un array
  		$data= Array();
 
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
- 				"0"=>($reg->estado)?'<button class="btn btn-warning"  onclick="mostrar('.$reg->id_pregunta.')"><i class="fas fa-user-edit"></i></button>'.
- 					' <button class="btn btn-danger" onclick="desactivar('.$reg->id_pregunta.')"><i class="fas fa-times"></i></button>':
+ 				"0"=>($reg->estado)?'<button class="btn btn-warning" '.$perm.' onclick="mostrar('.$reg->id_pregunta.')"><i class="fas fa-user-edit"></i></button>'.
+ 					' <button class="btn btn-danger" '.$permeli.' onclick="desactivar('.$reg->id_pregunta.')"><i class="fas fa-times"></i></button>':
  					'<button class="btn btn-warning" onclick="mostrar('.$reg->id_pregunta.')"><i class="fas fa-user-edit"></i></button>'.
  					' <button class="btn btn-primary" onclick="activar('.$reg->id_pregunta.')"><i class="fa fa-check"></i></button>',
  				"1"=>$reg->pregunta,
