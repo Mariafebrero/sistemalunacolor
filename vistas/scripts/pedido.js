@@ -4,6 +4,8 @@ var tabla;
 function init(){
 	mostrarform(false);
 	listar();
+	$("#fecha_inicio").change(listar);
+	$("#fecha_fin").change(listar);
 
 	$("#formulario").on("submit",function(e)
 	{
@@ -13,6 +15,19 @@ function init(){
 	$.post("../ajax/pedido.php?op=selectCliente", function(t){
 	            $("#id_cliente").html(t);
 	            $('#id_cliente').selectpicker('refresh');
+
+   });
+
+
+	$.post("../ajax/pedido.php?op=selectProducto", function(t){
+	            $("#id_producto").html(t);
+	            $('#id_producto').selectpicker('refresh');
+
+   });
+
+	$.post("../ajax/pedido.php?op=selectMaterial", function(f){
+	            $("#id_material").html(f);
+	            $('#id_material').selectpicker('refresh');
 
    });
 }
@@ -85,6 +100,10 @@ function cancelarform()
 //Función Listar
 function listar()
 {
+
+	var fecha_inicio = $("#fecha_inicio").val();
+	var fecha_fin = $("#fecha_fin").val();
+	
 	tabla=$('#tbllistado').dataTable(
 	{
 		"aProcessing": true,//Activamos el procesamiento del datatables
@@ -124,6 +143,7 @@ function listar()
 		"ajax":
 				{
 					url: '../ajax/pedido.php?op=listar',
+					data:{fecha_inicio: fecha_inicio,fecha_fin: fecha_fin},
 					type : "get",
 					dataType : "json",						
 					error: function(e){

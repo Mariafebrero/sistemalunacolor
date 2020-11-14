@@ -20,7 +20,7 @@ function limpiar()
 	
 	$("#usuario").val("");
 	$("#nombre_usuario").val("");
-	$("#contrasena").val("");
+	//$("#contrasena").val("");
 	$("#imagenmuestra").attr("src","");//ojo
 	$("#imagenactual").val(""); //ojo
 	$("#correo_electronico").val("");	
@@ -97,10 +97,16 @@ function guardaryeditar(e)
 	    processData: false,
 
 	   success: function(datos)
-	   {                    
-	          bootbox.alert(datos);	          
+	    {      
+	    	swal({
+  			title: datos,
+  			text: "",
+  			icon: "success",
+  			button: "Ok",
+			});                
+	          //bootbox.alert(datos);	          
 	          mostrarform(false);
-	         tabla.ajax.reload();
+	          tabla.ajax.reload();
 	    }
 
 	});
@@ -116,15 +122,15 @@ function mostrar(id_usuario2)
 
 		$("#usuario").val(data.usuario);
 		$("#nombre_usuario").val(data.nombre_usuario);
-		$("#contrasena").val(data.contrasena);
+		//$("#contrasena").val(data.contrasena);
 		$("#imagenmuestra").show();
 		$("#imagenmuestra").attr("src","../files/usuarios/"+data.imagen);
 		$("#imagenactual").val(data.imagen);
 		$("#correo_electronico").val(data.correo_electronico);
 		$("#id_usuario2").val(data.id_usuario2);
 
-		$("#contrasena").val(data.contrasena);
-		$("#confirmar_contrasena").val(data.contrasena);
+		//$("#contrasena").val(data.contrasena);
+		//$("#confirmar_contrasena").val(data.contrasena);
 
 		$("#show_password1").show(data.show_password1);
 		$("#show_password").show(data.show_password);

@@ -3,8 +3,14 @@ var tabla;
 //Función que se ejecuta al inicio
 function init(){
 	listar();
-	$("#fecha_inicio").change(listar);
-	$("#fecha_fin").change(listar);
+
+	//$("#fecha_inicio").change(listar);
+	//$("#fecha_fin").change(listar);
+
+	$.post("../ajax/bitacora.php?op=selectUsuario", function(r){
+	            $("#id_usuario").html(r);
+	            $('#id_usuario').selectpicker('refresh');
+	});
 }
 
 
@@ -13,6 +19,7 @@ function listar()
 {
 	var fecha_inicio = $("#fecha_inicio").val();
 	var fecha_fin = $("#fecha_fin").val();
+	var id_usuario = $("#id_usuario").val();
 
 	tabla=$('#tbllistado').dataTable(
 	{
@@ -57,7 +64,7 @@ function listar()
 		"ajax":
 				{
 					url: '../ajax/bitacora.php?op=listar',
-					data:{fecha_inicio: fecha_inicio,fecha_fin: fecha_fin},
+					data:{fecha_inicio: fecha_inicio,fecha_fin: fecha_fin,id_usuario: id_usuario},
 					type : "get",
 					dataType : "json",						
 					error: function(e){

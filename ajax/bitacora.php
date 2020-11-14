@@ -20,13 +20,27 @@ $fecha_creacion=isset($_POST["fecha_creacion"])? limpiarCadena($_POST["fecha_cre
 switch ($_GET["op"]){
 
 
+	case 'selectUsuario':
+		require_once "../modelos/Usuario.php";
+		$usuario = new Usuario();
+
+		$rspta = $usuario->listarUsuario();
+
+		while ($reg = $rspta->fetch_object())
+				{
+				echo '<option value=' . $reg->id_usuario . '>' . $reg->usuario . '</option>';
+				}
+	break;
+
+
 	case 'listar':
 		
 		$fecha_inicio=$_REQUEST["fecha_inicio"];
 		$fecha_fin=$_REQUEST["fecha_fin"];
+		$id_usuario=$_REQUEST["id_usuario"];
  		//Vamos a declarar un array
 
- 		$rspta=$bitacora->listar($fecha_inicio,$fecha_fin);
+ 		$rspta=$bitacora->listar($fecha_inicio,$fecha_fin,$id_usuario);
  		$data= Array();
 
  		while ($reg=$rspta->fetch_object()){

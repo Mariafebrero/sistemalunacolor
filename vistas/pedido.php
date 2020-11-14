@@ -56,12 +56,12 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
 
                          <div class="form-group col-lg-3 col-xs-12">
                           <label name="fecha_inicio1" id="fecha_inicio1">Fecha Inicio</label>
-                          <input type="date" class="form-control" style="WIDTH: 400px; HEIGHT: 30px" name="fecha_inicio" id="fecha_inicio" value=<?php echo $fecha_creacion; ?>>
+                          <input type="date" class="form-control" name="fecha_inicio" id="fecha_inicio" value=<?php echo $fecha_creacion; ?>>
                         </div>
 
                         <div class="form-group col-lg-3 col-xs-12">
-                          <label name="fecha_fin1" id="fecha_fin1">Fecha Fin</label>
-                          <input type="date" class="form-control" style="WIDTH: 400px; HEIGHT: 30px" name="fecha_fin" id="fecha_fin" value=<?php echo $fecha_creacion; ?>>
+                          <label name="fecha_fin1" id="fecha_fin1">Fecha Entrega</label>
+                          <input type="date" class="form-control" name="fecha_fin" id="fecha_fin" value=<?php echo $fecha_creacion; ?>>
                         </div>
 
                          
@@ -70,7 +70,6 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
                           <br>
                             <select id="id_estadopedido" name="id_estadopedido" class="form-control selectpicker" data-live-search="true" required></select>
                         </div>
-
         
                         <div class="form-group col-lg-2 col-xs-12">
                           <br>
@@ -133,15 +132,23 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
                             <input type="text" class="form-control" name="nombre" id="nombre" maxlength="50" placeholder="ID" required>
                           </div>
 
-                          <div class="form-group col-lg-3 col-xs-12">
-                            <label>Fecha de inicio</label>
-                            <input type="date" class="form-control" style="WIDTH: 400px; HEIGHT: 30px" name="fecha_inicio" id="fecha_inicio">
-                          </div>
+                    
+                          <?php 
+                        date_default_timezone_set("America/Tegucigalpa");
+                        $fecha_creacion = strtotime("now"); 
+                        $fecha_creacion = date("Y-m-d", $fecha_creacion); 
+                       
+                         ?>
 
-                          <div class="form-group col-lg-3 col-xs-12">
-                            <label>Fecha de entrega</label>
-                            <input type="date" class="form-control" style="WIDTH: 400px; HEIGHT: 30px" name="fecha_fin" id="fecha_fin">
-                          </div>
+                         <div class="form-group col-lg-3 col-xs-12">
+                          <label name="fecha_inicio1" id="fecha_inicio1">Fecha Inicio</label>
+                          <input type="date" class="form-control" name="fecha_inicial" id="fecha_inicial" value=<?php echo $fecha_creacion; ?>>
+                        </div>
+
+                        <div class="form-group col-lg-3 col-xs-12">
+                          <label name="fecha_fin1" id="fecha_fin1">Fecha Fin</label>
+                          <input type="date" class="form-control" name="fecha_entrega" id="fecha_entrega" value=<?php echo $fecha_creacion; ?>>
+                        </div>
 
                      </div>
 
@@ -241,13 +248,13 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
         <!-- Rol -->
         <div class="form-group col-lg-4 col-xs-12">
           <label style="color:#E9762F;">Producto:</label>
-          <select id="id_rol" name="id_rol" class="form-control selectpicker" data-live-search="true" required></select>
+          <select id="id_producto" name="id_producto" class="form-control selectpicker" data-live-search="true" required></select>
         </div>
 
         <!-- Estado -->
         <div class="form-group col-lg-4 col-xs-12">
           <label>Material:</label>
-          <select id="id_estado_usuario" name="id_estado_usuario" class="form-control selectpicker" data-live-search="true"></select>
+          <select id="id_material" name="id_material" class="form-control selectpicker" data-live-search="true"></select>
           </div>
                           
        <div class="form-group col-lg-4 col-xs-12">
@@ -410,6 +417,8 @@ require 'footer.php';
 ?>
 <script type="text/javascript" src="scripts/pedido.js"></script>-->
 
+<script type="text/javascript">
+  
 
 
 

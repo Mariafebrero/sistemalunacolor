@@ -55,13 +55,14 @@ Class pedido
 
 	
 
-		public function listar()
+		public function listar($fecha_inicio,$fecha_fin)
 	{
-		$sql="SELECT tpe.id_pedido, tc.nombre_cliente, tdp.comentario as detalle_de_pedido, tpe.fecha_inicial, tpe.fecha_entrega, tdp.descuento, tdp.impuesto, tdp.total, tep.descripcion as estado 
+		$sql="SELECT tpe.id_pedido, tc.nombre_cliente, tdp.comentario as detalle_de_pedido,date(tpe.fecha_inicial)  as fechas, tpe.fecha_entrega, tdp.descuento, tdp.impuesto, tdp.total, tep.descripcion as estado 
 			FROM tbl_pedidos tpe 
 			JOIN tbl_clientes tc ON tpe.id_cliente = tc.id_cliente
 			JOIN tbl_detalle_pedido tdp ON tpe.id_pedido = tdp.id_pedido
-			JOIN tbl_estado_pedido tep ON tpe.id_estado_pedido = tep.id_estado_pedido";	
+			JOIN tbl_estado_pedido tep ON tpe.id_estado_pedido = tep.id_estado_pedido
+			WHERE DATE(tpe.fecha_inicial)>='$fecha_inicio' AND DATE(tpe.fecha_inicial)<='$fecha_fin'";	
 			return ejecutarConsulta($sql);	
 	}
 

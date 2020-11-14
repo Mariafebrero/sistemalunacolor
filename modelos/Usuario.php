@@ -279,6 +279,11 @@ $encryption = openssl_encrypt($contrasena, $ciphering,
 	
 	}
 
+	 public function listarUsuario()
+	{
+		$sql="SELECT * FROM tbl_usuarios";
+		return ejecutarConsulta($sql);		
+	}
 
 
 }

@@ -55,10 +55,10 @@ switch ($_GET["op"]){
 	*/
 
 	case "selectCliente":
-		require_once "../modelos/Cliente.php";
-		$cliente = new Cliente();
+		require_once "../modelos/ClientePedido.php";
+		$clientepedido = new ClientePedido();
 
-		$rspta = $cliente->select();
+		$rspta = $clientepedido->select();
 
 		$vuelta=null;
 		while ($reg = $rspta->fetch_object())
@@ -74,8 +74,53 @@ switch ($_GET["op"]){
 				}
 	break;
 
+	case "selectProducto":
+		require_once "../modelos/PedidoProducto.php";
+		$pedidoproducto = new PedidoProducto();
+
+		$rspta = $pedidoproducto->select();
+
+		$vuelta=null;
+		while ($reg = $rspta->fetch_object())
+				{
+					$vuelta=$vuelta+1;
+					
+					if ($vuelta==1) {
+						echo '<option value=' . $reg->id_producto . 'selected>' . $reg->nombre_producto . '</option>';
+					}else{
+						echo '<option value=' . $reg->id_producto . '>' . $reg->nombre_producto . '</option>';
+					}
+					
+				}
+	break;
+
+	case "selectMaterial":
+		require_once "../modelos/Material.php";
+		$material = new Material();
+
+		$rspta = $material->selectM();
+
+		$vuelta=null;
+		while ($reg = $rspta->fetch_object())
+				{
+					$vuelta=$vuelta+1;
+					
+					if ($vuelta==1) {
+						echo '<option value=' . $reg->id_material . 'selected>' . $reg->descripcion . '</option>';
+					}else{
+						echo '<option value=' . $reg->id_material . '>' . $reg->descripcion . '</option>';
+					}
+					
+				}
+	break;
+
 	case 'listar':
-		$rspta=$pedido->listar();
+
+		$fecha_inicio=$_REQUEST["fecha_inicio"];
+		$fecha_fin=$_REQUEST["fecha_fin"];
+ 		//Vamos a declarar un array
+ 		
+		$rspta=$pedido->listar($fecha_inicio,$fecha_fin);
  		//Vamos a declarar un array
  		$data= Array();
 
@@ -85,7 +130,7 @@ switch ($_GET["op"]){
  				"1"=>$reg->id_pedido,
  				"2"=>$reg->nombre_cliente,
  				"3"=>$reg->detalle_de_pedido,
- 				"4"=>$reg->fecha_inicial,
+ 				"4"=>$reg->fechas,
  				"5"=>$reg->fecha_entrega,
  				"6"=>$reg->descuento,
  				"7"=>$reg->impuesto,

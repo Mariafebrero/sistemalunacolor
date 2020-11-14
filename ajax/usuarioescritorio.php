@@ -33,28 +33,29 @@ switch ($_GET["op"]){
 		//$clavehash=hash("SHA256",$contrasena);
 
 
-		if (empty($id_usuario2)){
+	   if (empty($id_usuario2)){
 
-		$sql1= "Select usuario,correo_electronico from tbl_usuarios where usuario ='$usuario' or correo_electronico ='$correo_electronico'";
+	   	/*
+
+	   	$correo_electronico1=$_SESSION['correo_electronico'];
+
+	   	$sql1= "Select correo_electronico from tbl_usuarios where correo_electronico <>'$correo_electronico1'";
     	$result =mysqli_query($conexion,$sql1);
 
       if (mysqli_num_rows($result)>0)
  		{
-		echo '<script>swal({
-  			title: "",
-  			text: "El usuario y correo ya existen",
-  			icon: "warning",
-  			button: "OK",
-			});</script>';
+		//echo "El usuario y/o correo electrónico ingresado ya se encuentra en uso. Inténtelo de nuevo";
+ 		    echo 
+           "El correo electrónico ingresado ya se encuentra en uso. Inténtelo de nuevo.";
+
 		return;
 
-   		}	
+   		}*/	
 
-			$rspta=$usuarioescritorio->editar($id_usuario2,$usuario,$nombre_usuario,$contrasena,$imagen,$correo_electronico);
+			$rspta=$usuarioescritorio->editar($id_usuario2,$nombre_usuario,$contrasena,$imagen,$correo_electronico);
 			echo $rspta ? "Usuario actualizado" : "Usuario no se pudo actualizar";
-		} else
-				echo $rspta ? "Usuario actualizado" : "Usuario no se pudo actualizar";
-		  	{	
+		} else{	
+			echo $rspta ? "Usuario actualizado" : "Usuario no se pudo actualizar";
 		}
 	break;
 
@@ -74,10 +75,9 @@ switch ($_GET["op"]){
  		while ($reg=$rspta->fetch_object()){
  			$data[]=array(
  				"0"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_usuario.')"><i class="fas fa-user-edit"></i></button>',
- 				"1"=>$reg->usuario,
- 				"2"=>$reg->nombre_usuario,
- 				"3"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px'>",
- 				"4"=>$reg->correo_electronico,
+ 				"1"=>$reg->nombre_usuario,
+ 				"2"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px'>",
+ 				"3"=>$reg->correo_electronico,
  				);
  		}
  		$results = array(

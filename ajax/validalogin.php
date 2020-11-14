@@ -80,6 +80,8 @@ $clavehash = openssl_encrypt($contrasena, $ciphering,
 	        $_SESSION['nombre_usuario']=$fetch->nombre_usuario;
 	        $_SESSION['imagen']=$fetch->imagen;
 	        $_SESSION['usuario']=$fetch->usuario;
+	        $_SESSION['correo_electronico']=$fetch->correo_electronico;
+	       
 
 			//$_SESSION['Escritorio']="Escritorio";
 			//$_SESSION['Usuario']="Usuario";

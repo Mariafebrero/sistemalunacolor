@@ -58,9 +58,18 @@ include '../config/conexion.php';
                   <div class="box">
                     <div class="box-header with-border">
 
+                       <!-- IMAGEN TITULO -->
+                      <center> 
+                          <img class="imagen" width="300" heigth="300" src="../public/img//titulos/EDITARUSUARIO.svg">
+                      
+                      </center>
+                      <!-- FIN IMAGEN TITULO --> 
+                          <br>
+
                        <!-- Editar usuario -->
-              <div class="box box-primary">
-                <div class="box-body box-profile">
+              <div class="box box-default">
+                <div class="box-body box-profile" >
+
                   <img class="profile-user-img img-responsive img-circle" src="../files/usuarios/<?php echo $_SESSION['imagen']; ?>" alt="User profile picture">
                   <h3 class="profile-username text-center"><?php echo $_SESSION['nombre_usuario']?></h3>
                   <center>
@@ -100,7 +109,6 @@ include '../config/conexion.php';
                         <table id="tbllistado" class="table table-hover" data-page-length=<?php echo $valor1 ?>> 
                           <thead>
                             <th>Editar Usuario</th>
-                            <th>Usuario </th>
                             <th>Nombre usuario</th>
                             <th>Imagen</th>
                             <th>correo_electronico</th>
@@ -109,7 +117,6 @@ include '../config/conexion.php';
                           </tbody>
                           <tfoot>
                             <th>Editar Usuario</th>
-                            <th>Usuario </th>
                             <th>Nombre usuario</th>
                             <th>Imagen</th>
                             <th>correo_electronico</th>
@@ -160,13 +167,64 @@ include '../config/conexion.php';
 
                          <br>
 
+
+                         <?php  
+                         $id_usuario2=$_SESSION['id_usuario'];
+    
+                        $query5 = "select contrasena FROM tbl_usuarios WHERE id_usuario='$id_usuario2'";
+                        ejecutarConsulta($query5);
+      
+
+                        while ($tbl_usuarios=ejecutarConsulta($query5)->fetch_array()) 
+                          {
+                            $clave=$tbl_usuarios["contrasena"];
+                          break;
+                          }
+
+
+
+                          // Método para cifrar
+$ciphering = "AES-128-CTR";
+
+  
+// Uso de OpenSSl para el método de encriptar 
+//$iv_length = openssl_cipher_iv_length($ciphering); 
+$options = 0; 
+
+  
+// Valor de inicio para la encriptación
+//$encryption_iv = '1234567891011121'; 
+  
+// Llave para la encriptación
+//$encryption_key = "LunaColor"; 
+  
+// usar openssl_encrypt() para encriptar
+//$encryption = openssl_encrypt($contrasena, $ciphering, 
+//$encryption_key, $options, $encryption_iv); 
+
+                          // Valor de inicio para la desencriptación
+                          $decryption_iv = '1234567891011121'; 
+                         
+  
+  
+                            //Llave para la desencriptación 
+                          $decryption_key = "LunaColor"; 
+                       
+  
+  
+                           //usar openssl_encrypt() para desencriptar 
+                          $decryption=openssl_decrypt ($clave, $ciphering,  
+                                  $decryption_key, $options, $decryption_iv);
+
+                         ?>
+
                            <div class="row">
                              <!-- Coontraseña -->  
                        <div class="form-group col-lg-4 col-xs-12">
                           <label>Contraseña(*):</label>
                               
                                  <input ID="confirmar_contrasena" type="Password" name="confirmar_contrasena"  Class="form-control"  pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,65}$"  minlength="5"  maxlength="65" 
-                                 required  onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
+                                 required  onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off value=<?php echo  $decryption; ?>>
 
 
                                 <!-- boton monstrar Contraseña -->
@@ -177,10 +235,62 @@ include '../config/conexion.php';
                 
                         </div>
 
+                              <?php  
+                         $id_usuario3=$_SESSION['id_usuario'];
+    
+
+                        $query6 = "select contrasena FROM tbl_usuarios WHERE id_usuario='$id_usuario3'";
+                        ejecutarConsulta($query6);
+      
+
+                        while ($tbl_usuarios1=ejecutarConsulta($query6)->fetch_array()) 
+                          {
+                            $clave2=$tbl_usuarios1["contrasena"];
+                          break;
+                          }
+
+                          // Método para cifrar
+
+$ciphering2 = "AES-128-CTR";  
+  
+// Uso de OpenSSl para el método de encriptar 
+//$iv_length = openssl_cipher_iv_length($ciphering); 
+
+$options2 = 0; 
+  
+// Valor de inicio para la encriptación
+//$encryption_iv = '1234567891011121'; 
+  
+// Llave para la encriptación
+//$encryption_key = "LunaColor"; 
+  
+// usar openssl_encrypt() para encriptar
+//$encryption = openssl_encrypt($contrasena, $ciphering, 
+//$encryption_key, $options, $encryption_iv); 
+
+                          // Valor de inicio para la desencriptación
+                         
+                          $decryption_iv2 = '1234567891011121'; 
+  
+  
+                            //Llave para la desencriptación 
+                        
+                          $decryption_key2 = "LunaColor"; 
+  
+  
+        
+                           $decryption2=openssl_decrypt ($clave2, $ciphering2,  
+                                  $decryption_key2, $options2, $decryption_iv2);
+
+                         ?>
+
+                         
+
                       <div class="form-group col-lg-4 col-xs-12">
                           <label id="Etiqueta" name ="Etiqueta">Confirmar Contraseña(*):</label>
                                
-                                 <input ID="contrasena" type="Password" name="contrasena"  Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,65}$"  minlength="5" maxlength="65" required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
+                                 <input ID="contrasena" type="Password" name="contrasena"  Class="form-control" pattern="^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{5,65}$"  minlength="5" maxlength="65" required onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off value=<?php echo  $decryption2; ?>> 
+
                                 
                                 <!-- boton monstrar Contraseña -->
                              <div class="input-group-append">
@@ -195,7 +305,8 @@ include '../config/conexion.php';
                        </div>
 
 
-                         <br>
+
+                                <small style = "position:relative;  top:-20px;"><h5>*La contraseña debe tener entre 5 a 10 letras, mínimo un número, una letra mayúscula y un símbolo.</h5></small> 
 
                           <div class="row">
                           <!-- Correo electronico -->
