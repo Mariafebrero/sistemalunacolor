@@ -1,9 +1,9 @@
 var tabla;
 
 //Función que se ejecuta al inicio
-//Funciones visuales, las variables con # es el nombre de los objetos de nuevocliente.php donde estan estos
+//Funciones visuales, las variables con # es el nombre_cn de los objetos de nuevocliente.php donde estan estos
 function init(){
-	mostrarform(false);
+	mostrarformcn(false);
 	listar();
 
 	$("#formulario").on("submit",function(e)
@@ -12,41 +12,71 @@ function init(){
 	})
 }
 
-//Función limpiar
-function limpiar()
+//Función limpiarcn
+function limpiarcn()
 {
-	$("#nombre").val("");
-	$("#num_documento").val("");
-	$("#direccion").val("");
-	$("#telefono").val("");
-	$("#email").val("");
-	$("#idpersona").val("");
+	$("#nombre_cn").val("");
+
+	var CampoFecha = document.getElementById("fecha_nacimiento");
+	CampoFecha.value = CampoFecha.defaultValue;
+
+	//var CampoTipoDoc = document.getElementById("tipo_doc_prin");
+	//CampoTipoDoc.value = CampoTipoDoc.defaultValue;
+	$('#tipo_doc_prin').selectpicker('val', '0');
+	$('#tipo_con_prin').selectpicker('val', '0');
+
+	$("#valor_doc_prin").val("");
+	$("#valor_doc_prin").attr("disabled","disabled");
+	$("#add_doc").attr("disabled","disabled");
+	$("#rem_doc").attr("disabled","disabled");
+
+	//var CampoTipoDocSec = document.getElementById("tipo_doc_sec");
+	//CampoTipoDocSec.value = CampoTipoDocSec.defaultValue;
+
+	$("#valor_con_prin").val("");
+	$("#valor_con_prin").attr("disabled","disabled");
+	$("#add_con").attr("disabled","disabled");
+	$("#rem_con").attr("disabled","disabled");
+
+	//var CampoTipoCon = document.getElementById("tipo_con_prin");
+	//CampoTipoCon.value = CampoTipoCon.defaultValue;
+
+	
+
+	var CampoTipoConSec = document.getElementById("tipo_con_sec");
+	CampoTipoConSec.value = CampoTipoConSec.defaultValue;
+	$("#valor_doc_sec").val("");
+	$("#valor_con_sec").val("");
+	RemoverOtroDoc();
+	RemoverOtroCon();
 }
 
 //Función mostrar formulario
-function mostrarform(flag)
+function mostrarformcn(flag)
 {
-	limpiar();
+	limpiarcn();
 	if (flag)
 	{
 		$("#listadoregistros").hide();
 		$("#formularioregistros").show();
 		$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
+		$("#btnagregare").hide();
 	}
 	else
 	{
 		$("#listadoregistros").show();
 		$("#formularioregistros").hide();
 		$("#btnagregar").show();
+		$("#btnagregare").show();
 	}
 }
 
 //Función cancelarform
-function cancelarform()
+function cancelarformcn()
 {
-	limpiar();
-	mostrarform(false);
+	limpiarcn();
+	mostrarformcn(false);
 }
 
 //Función Listar
@@ -63,7 +93,7 @@ function listar()
 		        ],
 		"ajax":
 				{
-					url: '../ajax/persona.php?op=listarc',
+					url: '../ajax/cliente.php?op=listarc',
 					type : "get",
 					dataType : "json",						
 					error: function(e){
@@ -71,7 +101,7 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 5,//Paginación
+		"iDisplayLength": 10,//Paginación
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
@@ -84,7 +114,7 @@ function guardaryeditar(e)
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/persona.php?op=guardaryeditar",
+		url: "../ajax/cliente.php?op=guardaryeditar",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
@@ -93,46 +123,159 @@ function guardaryeditar(e)
 	    success: function(datos)
 	    {                    
 	          bootbox.alert(datos);	          
-	          mostrarform(false);
+	          mostrarformcn(false);
 	          tabla.ajax.reload();
 	    }
 
 	});
-	limpiar();
+	limpiarcn();
 }
 
-function mostrar(idpersona)
+function mostrar(id_cliente)
 {
-	$.post("../ajax/persona.php?op=mostrar",{idpersona : idpersona}, function(data, status)
+	$.post("../ajax/persona.php?op=mostrar",{id_cliente : id_cliente}, function(data, status)
 	{
 		data = JSON.parse(data);		
-		mostrarform(true);
+		mostrarformcn(true);
 
-		$("#nombre").val(data.nombre);
+		$("#nombre_cn").val(data.nombre_cn);
 		$("#tipo_documento").val(data.tipo_documento);
 		$("#tipo_documento").selectpicker('refresh');
 		$("#num_documento").val(data.num_documento);
 		$("#direccion").val(data.direccion);
 		$("#telefono").val(data.telefono);
 		$("#email").val(data.email);
- 		$("#idpersona").val(data.idpersona);
+ 		$("#id_cliente").val(data.id_cliente);
 		
 
  	})
 }
 
 //Función para eliminar registros
-function eliminar(idpersona)
+function eliminar(id_cliente)
 {
 	bootbox.confirm("¿Está Seguro de eliminar el cliente?", function(result){
 		if(result)
         {
-        	$.post("../ajax/persona.php?op=eliminar", {idpersona : idpersona}, function(e){
+        	$.post("../ajax/persona.php?op=eliminar", {id_cliente : id_cliente}, function(e){
         		bootbox.alert(e);
 	            tabla.ajax.reload();
         	});	
         }
 	})
 }
+// -----------------------------Controladores del formulario CN ---------------------------------------
+function AgregarOtroDoc(obj)
+{   
+ 
+$("#div_tipo_doc_sec").removeAttr("hidden");
+$("#div_val_doc_sec").removeAttr("hidden");
+}
+
+function RemoverOtroDoc(obj)
+{
+$("#div_tipo_doc_sec").attr("hidden","true");
+$("#div_val_doc_sec").attr("hidden","true");
+var CampoTipoDoc = document.getElementById("tipo_doc_sec");
+	CampoTipoDoc.value = "Seleccione:";
+
+$("#valor_doc_prin").val("");
+}
+
+function AgregarOtroCon(obj)
+{   
+ 
+$("#div_tipo_con_sec").removeAttr("hidden");
+$("#div_valor_con_sec").removeAttr("hidden");
+}
+
+function RemoverOtroCon(obj)
+{
+$("#div_tipo_con_sec").attr("hidden","true");
+$("#div_valor_con_sec").attr("hidden","true");
+}
+
+function SelectTipoDocPrin(obj)
+{
+$("#valor_doc_prin").val("");
+$("#valor_doc_prin").removeAttr("disabled");
+$("#add_doc").removeAttr("disabled");
+$("#rem_doc").removeAttr("disabled");
+
+//$("#valor_doc_prin").trigger("unmask");
+	if (obj.value == 0) 
+	{
+		$("#valor_doc_prin").attr("disabled","disabled");
+		$("#add_doc").attr("disabled","disabled");
+		$("#rem_doc").attr("disabled","disabled");
+	}
+	else if (obj.value === "ID") 
+	{
+		$("#valor_doc_prin").mask("9999-9999-99999");
+
+	}
+	else if (obj.value === "RTN") 
+	{
+		$("#valor_doc_prin").mask("9999-9999-999999");
+
+	}
+	else if (obj.value === "Pasaporte") 
+	{
+		//$("#valor_doc_prin").attr("onkeyup","javascript:this.value=this.value.toUpperCase();");
+		$("#valor_doc_prin").mask("a999999");
+	}
+
+	else
+	{
+
+	}
+
+}
+
+function SelectTipoDocSec(obj)
+{
+$("#valor_doc_sec").val("");
+$("#valor_doc_sec").removeAttr("disabled");
+$("#add_sec").removeAttr("disabled");
+$("#rem_sec").removeAttr("disabled");
+
+//$("#valor_doc_prin").trigger("unmask");
+	if (obj.value == 0) 
+	{
+		$("#valor_doc_sec").attr("disabled","disabled");
+		$("#add_sec").attr("disabled","disabled");
+		$("#rem_sec").attr("disabled","disabled");
+	}
+	else if (obj.value === "ID") 
+	{
+		$("#valor_doc_sec").mask("9999-9999-99999");
+
+	}
+	else if (obj.value === "RTN") 
+	{
+		$("#valor_doc_sec").mask("9999-9999-999999");
+
+	}
+	else if (obj.value === "Pasaporte") 
+	{
+		//$("#valor_doc_prin").attr("onkeyup","javascript:this.value=this.value.toUpperCase();");
+		$("#valor_doc_sec").mask("a999999");
+	}
+
+	else
+	{
+
+	}
+
+}
+
+function SelectTipoConPrin(obj)
+{
+$("#valor_con_prin").removeAttr("disabled");
+$("#add_con").removeAttr("disabled");
+$("#rem_con").removeAttr("disabled");
+}
+// -----------------------------Controladores del formulario CN ---------------------------------------
+
 
 init();
