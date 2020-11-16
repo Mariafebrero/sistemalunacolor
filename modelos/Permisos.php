@@ -11,11 +11,11 @@ Class Permisos
 
 	}
 
-	public function insertar($id_rol,$id_objeto,$permiso_insercion,$permiso_eliminacion,$permiso_actualizacion,$permiso_consultar)
+	public function insertar($id_rol,$id_objeto,$permiso_insercion,$permiso_eliminacion,$permiso_actualizacion,$permiso_consultar,$permiso_menu)
 	{
 		
 		$sql="INSERT INTO tbl_permisos (id_rol,id_objeto,permiso_insercion,permiso_eliminacion,permiso_actualizacion,permiso_consultar)
-			VALUES ('$id_rol','$id_objeto','$permiso_insercion','$permiso_eliminacion','$permiso_actualizacion','$permiso_consultar')";
+			VALUES ('$id_rol','$id_objeto','$permiso_insercion','$permiso_eliminacion','$permiso_actualizacion','$permiso_consultar','$permiso_menu')";
 			
 			//Bitacora
 			//Incializamos las variables de seccion 
@@ -29,9 +29,9 @@ Class Permisos
 		return ejecutarConsulta($sql);
 	}
 
-	public function editar($id_permiso,$id_rol,$id_objeto,$permiso_insercion,$permiso_eliminacion,$permiso_actualizacion,$permiso_consultar)
+	public function editar($id_permiso,$id_rol,$id_objeto,$permiso_insercion,$permiso_eliminacion,$permiso_actualizacion,$permiso_consultar,$permiso_menu)
 	{
-		$sql="UPDATE tbl_permisos SET id_rol='$id_rol',id_objeto='$id_objeto',permiso_insercion='$permiso_insercion',permiso_eliminacion='$permiso_eliminacion',permiso_actualizacion='$permiso_actualizacion',permiso_consultar='$permiso_consultar' WHERE id_permiso='$id_permiso'";
+		$sql="UPDATE tbl_permisos SET id_rol='$id_rol',id_objeto='$id_objeto',permiso_insercion='$permiso_insercion',permiso_eliminacion='$permiso_eliminacion',permiso_actualizacion='$permiso_actualizacion',permiso_consultar='$permiso_consultar',permiso_menu='$permiso_menu' WHERE id_permiso='$id_permiso'";
 
 			//Bitacora
 			//Incializamos las variables de seccion 
@@ -48,7 +48,7 @@ Class Permisos
 	//Implementar un método para listar los registros
 	public function listar($id_rol)
 	{
-		$sql="SELECT p.id_permiso,r.rol,o.id_objeto,o.objeto,p.permiso_insercion,p.permiso_eliminacion,p.permiso_actualizacion,p.permiso_consultar 
+		$sql="SELECT p.id_permiso,r.rol,o.id_objeto,o.objeto,p.permiso_insercion,p.permiso_eliminacion,p.permiso_actualizacion,p.permiso_consultar,p.permiso_menu 
 		FROM tbl_permisos p
 		INNER JOIN tbl_roles r on p.id_rol=r.id_rol
 		INNER JOIN tbl_objetos o on p.id_objeto=o.id_objeto

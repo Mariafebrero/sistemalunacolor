@@ -159,7 +159,9 @@ if (strlen(session_id()) < 1)
             <?php } ?>
             <?php
                 $cod = $objeto['id_objeto'];
-                $pregcod = "SELECT * FROM tbl_objetos t inner join tbl_permisos t2 ON t.id_objeto = t2.id_objeto where t2.id_rol = '$rol' and t2.permiso_consultar = 1 and idmenupadre = '$cod'";
+                $pregcod = "SELECT * FROM tbl_objetos t 
+                inner join tbl_permisos t2 ON t.id_objeto = t2.id_objeto 
+                where t2.id_rol = '$rol' and t2.permiso_menu = 1 and idmenupadre = '$cod'";
                 $stmts = mysqli_query($conexion,$pregcod);
                 foreach ($stmts as $row) { ?>
               <ul class="treeview-menu">

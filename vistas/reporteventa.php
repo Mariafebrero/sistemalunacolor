@@ -61,7 +61,7 @@ if ($_SESSION['id_rol']==2)
                     <div class="box-header with-border">
                                 <!-- IMAGEN TITULO -->
                       <center> 
-                          <img class="imagen" width="250" heigth="250" src="../public/img/titulos/REPORTES.svg">
+                          <img class="imagen" width="250" heigth="250" src="../public/img/titulos/REPORTE VENTAS.svg">
                       
                       </center>
                         <div class="box-tools pull-right">

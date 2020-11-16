@@ -8,9 +8,9 @@ include '../config/conexion.php';
 $idobjeto = $_GET['objeto'];
 $rol = $_SESSION['id_rol'];
 
-$sql = "SELECT * from tbl_permisos WHERE id_objeto = '$idobjeto' and id_rol = '$rol' and permiso_insercion = 1";
-$stmt = mysqli_query($conexion,$sql);
-if(mysqli_num_rows($stmt)>0){
+$sql1 = "SELECT * from tbl_permisos WHERE id_objeto = '$idobjeto' and id_rol = '$rol' and permiso_insercion = 1";
+$stmt1 = mysqli_query($conexion,$sql1);
+if(mysqli_num_rows($stmt1)>0){
   $permiso = true;
 }else{
   $permiso = false;
@@ -61,6 +61,7 @@ if ($_SESSION['id_rol']==2)
                     </div>
                     <!-- /.box-header -->
                     <!-- centro -->
+
                      <!-- Parametro ADMIN_NUM_REGISTROS -->
                     <?php
                     include '../config/conexion.php';
@@ -73,6 +74,10 @@ if ($_SESSION['id_rol']==2)
 
                         }                    
                     ?> 
+
+                      <div class="panel-body table-responsive" id="listadoregistros">
+                        <table id="tbllistado" class="table table-hover" data-page-length=<?php echo $valor1 ?>>
+                  
                    
                      <?php 
                           $sql = "SELECT * from tbl_permisos WHERE id_objeto = '$idobjeto' and id_rol = '$rol' and permiso_consultar = 1";
@@ -80,8 +85,6 @@ if ($_SESSION['id_rol']==2)
                        if(mysqli_num_rows($stmt)>0){
                       $permisocon = true;
                       echo '
-                    <div class="panel-body table-responsive" id="listadoregistros">
-                        <table id="tbllistado" class="table table-hover">
                           <thead>
                             <th>Opciones</th>
                             <th>Pregunta</th>

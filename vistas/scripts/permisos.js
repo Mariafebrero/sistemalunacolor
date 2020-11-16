@@ -37,6 +37,7 @@ function limpiar()
 	$("#permiso_eliminacion").val("");
 	$("#permiso_actualizacion").val("");
 	$("#permiso_consultar").val("");
+	$("#permiso_menu").val("");
 	
 
 }
@@ -191,6 +192,7 @@ function mostrar(id_permiso)
 		$("#permiso_eliminacion").val(data.permiso_eliminacion);
 		$("#permiso_actualizacion").val(data.permiso_actualizacion);
 		$("#permiso_consultar").val(data.permiso_consultar);
+		$("#permiso_menu").val(data.permiso_menu);
 		
 	});
 }

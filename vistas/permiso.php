@@ -103,6 +103,7 @@ if ($_SESSION['id_rol']==2)
                             <th>Permiso Eliminacion</th>
                             <th>Permiso Actualizacion</th>
                             <th>Permiso Consultar</th>
+                            <th>Permiso Menu</th>
                           </thead>
                           <tbody>                            
                           </tbody>
@@ -116,6 +117,8 @@ if ($_SESSION['id_rol']==2)
                             <th>Permiso Eliminacion</th>
                             <th>Permiso Actualizacion</th>
                             <th>Permiso Consultar</th>
+                            <th>Permiso Menu</th>
+
                           </tfoot>
                         </table>
                           <br>
@@ -172,29 +175,37 @@ if ($_SESSION['id_rol']==2)
                 
 
                   <div class="row">
-                      <div class="form-group col-lg-3 col-xs-12">
+                      <div class="form-group col-lg-2 col-xs-12">
                         <label>Permiso Inserción:</label>
                          <input Class="form-control" name="permiso_insercion" id="permiso_insercion" type="text" minlength="1" maxlength="1" value="1" min="0" max="1" onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" required onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required pattern="[01]{1}"/>
                       </div>
 
 
-                      <div class="form-group col-lg-3 col-xs-12">
+                      <div class="form-group col-lg-2 col-xs-12">
                         <label>Permiso Eliminación:</label>
                          <input Class="form-control" name="permiso_eliminacion" id="permiso_eliminacion" type="text" minlength="1" maxlength="1" value="1" min="0" max="1" onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" required onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required pattern="[01]{1}"/>
                       </div>
 
 
-                      <div class="form-group col-lg-3 col-xs-12">
+                      <div class="form-group col-lg-2 col-xs-12">
                         <label>Permiso Actualización:</label>
                          <input Class="form-control"  name="permiso_actualizacion" id="permiso_actualizacion" type="text" minlength="1" maxlength="1" value="1" min="0" max="1" onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" required onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required pattern="[01]{1}"/>
                       </div>
 
 
-                      <div class="form-group col-lg-3 col-xs-12">
+                      <div class="form-group col-lg-2 col-xs-12">
                         <label>Permiso Consultar:</label>
                          <input Class="form-control" name="permiso_consultar" id="permiso_consultar" type="text" minlength="1" maxlength="1" value="1" min="0" max="1" onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" required onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required pattern="[01]{1}"/>
                       </div>
-                    </div>  
+
+                       <div class="form-group col-lg-2 col-xs-12">
+                        <label>Permiso Menú:</label>
+                         <input Class="form-control" name="permiso_menu" id="permiso_menu" type="text" minlength="1" maxlength="1" value="1" min="0" max="1" onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" required onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required pattern="[01]{1}"/>
+                      </div>
+
+                    </div> 
+
+                    
 
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
@@ -214,6 +225,9 @@ if ($_SESSION['id_rol']==2)
                              <br>
                               <br>
                                <br>
+                                <br>
+                                 <br>
+                                   <br>
                                 <br>
                                  <br>
 
