@@ -74,8 +74,14 @@ if ($_SESSION['id_rol']==2)
                         }                    
                     ?> 
                    
+                     <?php 
+                          $sql = "SELECT * from tbl_permisos WHERE id_objeto = '$idobjeto' and id_rol = '$rol' and permiso_consultar = 1";
+                       $stmt = mysqli_query($conexion,$sql);
+                       if(mysqli_num_rows($stmt)>0){
+                      $permisocon = true;
+                      echo '
                     <div class="panel-body table-responsive" id="listadoregistros">
-                        <table id="tbllistado" class="table table-hover" data-page-length=<?php echo $valor1 ?>>
+                        <table id="tbllistado" class="table table-hover">
                           <thead>
                             <th>Opciones</th>
                             <th>Pregunta</th>
@@ -89,7 +95,14 @@ if ($_SESSION['id_rol']==2)
                             <th>Estado</th>
                           </tfoot>
                         </table>
-                    </div>
+                    </div>';
+                      }else{
+                      $permisocon = false;
+                        }
+
+                      ?>
+
+              
                     <div class="panel-body" style="height: 400px;" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">

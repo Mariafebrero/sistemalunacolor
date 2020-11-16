@@ -15,7 +15,8 @@ if(mysqli_num_rows($stmt)>0){
   $permiso = false;
 }
 
-
+ 
+$_SESSION["objeto"] = $_GET['objeto'];
 
 
 if (!isset($_SESSION["nombre_usuario"]))
@@ -37,7 +38,12 @@ if ($_SESSION['id_rol']==2)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <center> <h1 ><span class="hiddenui"><i class="fas fa-users"> Mantenimiento de cliente</i></span></h1> </center>
+                         <!-- IMAGEN TITULO -->
+                      <center> 
+                          <img class="imagen" width="250" heigth="250" src="../public/img/titulos/CLIENTES.svg">
+                      
+                      </center>
+                      <!-- FIN IMAGEN TITULO --> 
                           <br>
                             <button class="btn btn-success" id="btnagregar" <?php echo $permiso==false ? 'disabled' : '' ?> onclick="mostrarformcn(true)"><i class="fa fa-address-book-o "></i>Particular</button>
                             <button class="btn btn-success" id="btnagregare" <?php echo $permiso==false ? 'disabled' : '' ?> onclick="mostrarformce(true)"><i class="fa fa-address-book-o "></i>Empresarial</button>

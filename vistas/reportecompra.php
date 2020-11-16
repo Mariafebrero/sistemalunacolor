@@ -3,7 +3,6 @@
 ob_start();
 session_start();
 
-//nombre new variable para secion
 if (!isset($_SESSION["nombre_usuario"]))
 {
   header("Location: login1.php");
@@ -12,8 +11,43 @@ else
 {
 require 'header.php';
 
-if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
+if ($_SESSION['id_rol']==2)
 {
+  require_once "../modelos/Consultas.php";
+  $consulta = new Consultas();
+  $rsptac = $consulta->totalcomprahoy();
+  $regc=$rsptac->fetch_object();
+  $totalc=$regc->total_compra;
+
+  $rsptav = $consulta->totalventahoy();
+  $regv=$rsptav->fetch_object();
+  $totalv=$regv->total_venta;
+
+  //Datos para mostrar el gráfico de barras de las compras
+  $compras10 = $consulta->comprasultimos_10dias();
+  $fechasc='';
+  $totalesc='';
+  while ($regfechac= $compras10->fetch_object()) {
+    $fechasc=$fechasc.'"'.$regfechac->fecha .'",';
+    $totalesc=$totalesc.$regfechac->total .','; 
+  }
+
+  //Quitamos la última coma
+  $fechasc=substr($fechasc, 0, -1);
+  $totalesc=substr($totalesc, 0, -1);
+
+   //Datos para mostrar el gráfico de barras de las ventas
+  $ventas12 = $consulta->ventasultimos_12meses();
+  $fechasv='';
+  $totalesv='';
+  while ($regfechav= $ventas12->fetch_object()) {
+    $fechasv=$fechasv.'"'.$regfechav->fecha .'",';
+    $totalesv=$totalesv.$regfechav->total .','; 
+  }
+
+  //Quitamos la última coma
+  $fechasv=substr($fechasv, 0, -1);
+  $totalesv=substr($totalesv, 0, -1);
 
 ?>
 <!--Contenido-->
@@ -25,57 +59,54 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                          <h1 class="box-title">Categoría <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-plus-circle"></i> Agregar</button></h1>
+                             <!-- IMAGEN TITULO -->
+                      <center> 
+                          <img class="imagen" width="250" heigth="250" src="../public/img/titulos/REPORTES.svg">
+                      
+                      </center>
                         <div class="box-tools pull-right">
                         </div>
                     </div>
                     <!-- /.box-header -->
                     <!-- centro -->
-                    <div class="panel-body table-responsive" id="listadoregistros">
-                        <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
-                          <thead>
-                            <th>Opciones</th>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Estado</th>
-                          </thead>
-                          <tbody>                            
-                          </tbody>
-                          <tfoot>
-                            <th>Opciones</th>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Estado</th>
-                          </tfoot>
-                        </table>
+                    <div class="panel-body">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                          <div class="small-box bg-aqua">
+                              <div class="inner">
+                                <h4 style="font-size:17px;">
+                                  <strong>Lps. <?php echo $totalc; ?></strong>
+                                </h4>
+                                <p>Compras</p>
+                              </div>
+                              <div class="icon">
+                                <i class="ion ion-bag"></i>
+                              </div>
+                              <a href="compras.php" class="small-box-footer">Compras <i class="fa fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div> 
                     </div>
-                    <div class="panel-body" style="height: 400px;" id="formularioregistros">
-                        <form name="formulario" id="formulario" method="POST">
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Nombre:</label>
-                            <input type="hidden" name="idcategoria" id="idcategoria">
-                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="50" placeholder="Nombre" required>
+                    <div class="panel-body">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                          <div class="box box-primary">
+                              <div class="box-header with-border">
+                                Compras de los últimos 10 días
+                              </div>
+                              <div class="box-body">
+                                <canvas id="compras" width="400" height="300"></canvas>
+                              </div>
                           </div>
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Descripción:</label>
-                            <input type="text" class="form-control" name="descripcion" id="descripcion" maxlength="255" placeholder="Descripción">
-                          </div>
-                          <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        </div>
                         
-                          </div>
-                        </form>
                     </div>
                     <!--Fin centro -->
                   </div><!-- /.box -->
               </div><!-- /.col -->
           </div><!-- /.row -->
-
       </section><!-- /.content -->
 
     </div><!-- /.content-wrapper -->
   <!--Fin-Contenido-->
 <?php
-
 }
 else
 {
@@ -84,9 +115,66 @@ else
 
 require 'footer.php';
 ?>
-<!--<script type="text/javascript" src="scripts/categoria.js"></script>-->
+
+<script src="../public/js/chart.min.js"></script>
+<script src="../public/js/Chart.bundle.min.js"></script> 
+<script type="text/javascript">
+var ctx = document.getElementById("compras").getContext('2d');
+var compras = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [<?php echo $fechasc; ?>],
+        datasets: [{
+            label: 'Compras en Lps. de los últimos 10 días',
+            data: [<?php echo $totalesc; ?>],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+
+
+</script>
+
+
+</script>
+
 
 <?php 
 }
 ob_end_flush();
 ?>
+
+
