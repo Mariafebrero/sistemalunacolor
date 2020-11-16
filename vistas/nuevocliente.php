@@ -85,7 +85,7 @@ if ($_SESSION['id_rol']==2)
                             <label>Nombre completo:</label>
                             <input type="hidden" name="id_cliente" id="id_cliente">
                             <input type="hidden" name="id_tipo_cliente" id="id_tipo_cliente" value="1">
-                            <input type="text" class="form-control" name="nombre_cn" id="nombre_cn" maxlength="100"  style="text-transform: uppercase;" required>
+                            <input type="text" class="form-control" name="nombre_cn" id="nombre_cn" maxlength="100"  style="text-transform: uppercase;" required onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)" min="1">
                           </div>
 
                            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -125,7 +125,7 @@ if ($_SESSION['id_rol']==2)
                             </select>
                           </div>
 
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style = "position:relative;  top:-80px;"  name="div_val_doc_sec" id="div_val_doc_sec" hidden="true">
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style = "position:relative;  top:-80px;"  name="div_val_doc_sec" id="div_val_doc_sec">
                             <label>Valor del documento secundario:</label>
                             <input type="text" class="form-control" name="valor_doc_sec" id="valor_doc_sec" maxlength="20" placeholder="Ingrese valor del documento" disabled="disabled">
                           </div>
@@ -150,7 +150,7 @@ if ($_SESSION['id_rol']==2)
 
                           <div class="form-group col-lg-5 col-xs-12" style = "position:relative;  top:-70px;">
                             <label>Valor del contacto principal:</label>
-                            <input type="text" class="form-control" name="valor_con_prin" id="valor_con_prin" maxlength="30" placeholder="Ingrese valor del documento" disabled="disabled">
+                            <input type="text" class="form-control" name="valor_con_prin" id="valor_con_prin"  placeholder="Ingrese valor del documento" disabled="disabled" >
                             <button id= "add_con" name="add_con" type="button" class="btn btn-info" style = "position:relative;  top:-34px; right: -363px;width: 75px;" onclick="AgregarOtroCon(this)"disabled="disabled">Agregar</button>
 
                              <button id= "rem_con" name="rem_con" type="button" class="btn btn-info" style = "position:relative;  top:-34px; right: -365px;width: 75px;" onclick="RemoverOtroCon(this)"disabled="disabled">Quitar</button>
@@ -158,7 +158,7 @@ if ($_SESSION['id_rol']==2)
  <hr>
                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style = "position:relative;  top:-100px;" name="div_tipo_con_sec" id="div_tipo_con_sec" hidden="true">
                             <label>Tipo de contacto secundario</label>
-                            <select class="form-control select-picker" name="tipo_con_sec" id="tipo_con_sec">
+                            <select class="form-control select-picker" name="tipo_con_sec" id="tipo_con_sec" onchange="SelectTipoConSec(this);">
                               <option value="0">Seleccione:</option>
                                <?php
                                
@@ -183,7 +183,7 @@ if ($_SESSION['id_rol']==2)
 
                             <button class="btn btn-danger" onclick="cancelarformcn()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
                           </div>
-<!-------------------------------Fin de contenido del FORM---------------------------------------------->                            
+<!----------------------------Fin de contenido del FORM------------------------------------------>                            
                           
                         </form>
                     </div>

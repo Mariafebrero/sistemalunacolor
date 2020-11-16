@@ -37,6 +37,11 @@ function limpiarcn()
 	$("#valor_con_prin").attr("disabled","disabled");
 	$("#add_con").attr("disabled","disabled");
 	$("#rem_con").attr("disabled","disabled");
+	
+	$("#valor_con_prin").removeAttr("style");
+
+$("#add_con").attr("style","position:relative;  top:-34px; right: -363px;width: 75px;");
+$("#rem_con").attr("style","position:relative;  top:-34px; right: -365px;width: 75px;");
 
 	//var CampoTipoCon = document.getElementById("tipo_con_prin");
 	//CampoTipoCon.value = CampoTipoCon.defaultValue;
@@ -176,10 +181,10 @@ function RemoverOtroDoc(obj)
 {
 $("#div_tipo_doc_sec").attr("hidden","true");
 $("#div_val_doc_sec").attr("hidden","true");
-var CampoTipoDoc = document.getElementById("tipo_doc_sec");
-	CampoTipoDoc.value = "Seleccione:";
+$("#valor_doc_sec").attr("disabled","disabled");
+$("#valor_doc_sec").val("");
+$('#tipo_doc_sec').selectpicker('val', '0');
 
-$("#valor_doc_prin").val("");
 }
 
 function AgregarOtroCon(obj)
@@ -193,6 +198,20 @@ function RemoverOtroCon(obj)
 {
 $("#div_tipo_con_sec").attr("hidden","true");
 $("#div_valor_con_sec").attr("hidden","true");
+
+//$("#valor_con_prin").attr("disabled","disabled");
+//$("#add_con").attr("disabled","disabled");
+//$("#rem_con").attr("disabled","disabled");
+
+$("#valor_con_sec").val("");
+
+//$("#valor_con_prin").removeAttr("style");
+$("#valor_con_sec").removeAttr("style");
+//$("#add_con").attr("style","position:relative;  top:-34px; right: -363px;width: 75px;");
+//$("#rem_con").attr("style","position:relative;  top:-34px; right: -365px;width: 75px;");
+
+//$('#tipo_con_prin').selectpicker('val', '0');
+$('#tipo_con_sec').selectpicker('val', '0');
 }
 
 function SelectTipoDocPrin(obj)
@@ -271,10 +290,134 @@ $("#rem_sec").removeAttr("disabled");
 
 function SelectTipoConPrin(obj)
 {
+$("#valor_con_prin").val("");	
 $("#valor_con_prin").removeAttr("disabled");
 $("#add_con").removeAttr("disabled");
 $("#rem_con").removeAttr("disabled");
+$( "#valor_con_prin" ).off();
+$("#valor_con_prin").attr("maxlength","20");
+$("#valor_con_prin").removeAttr("style");
+
+$("#add_con").attr("style","position:relative;  top:-34px; right: -363px;width: 75px;");
+$("#rem_con").attr("style","position:relative;  top:-34px; right: -365px;width: 75px;");
+
+
+//style="WIDTH: 362px; HEIGHT: 60px"
+var CampoValorConPrin = document.getElementById("valor_con_prin");
+CampoValorConPrin.value = CampoValorConPrin.defaultValue;
+
+CampoValorConPrin.pattern = "";
+CampoValorConPrin.title = "";
+
+if (obj.value == 1 || obj.value == 4 ) 
+	{
+		
+			$("#valor_con_prin").on('keypress',function(evt)
+			{
+				var theEvent = evt || window.event;
+			    var key = theEvent.keyCode || theEvent.which;
+			    key = String.fromCharCode( key );
+			    var regex = /[+\d\s]/; // dowolna liczba (+- ,.) :)
+			     
+			    var val = $(evt.target).val();
+			    if(!regex.test(key) ||  !theEvent.keyCode == 43 ||  !theEvent.keyCode == 32) 
+			    {
+			        theEvent.returnValue = false;
+			        if(theEvent.preventDefault) theEvent.preventDefault();
+			    };
+			});
+	}
+	else if (obj.value === "3") 
+	{
+
+		 CampoValorConPrin.pattern = "[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}";
+		 CampoValorConPrin.title = "Ingrese un correo válido. Ejemplo: Correo@gmail.com";
+
+	}
+	else if (obj.value === "2") 
+	{
+		$("#valor_con_prin").removeAttr("maxlength");
+		$("#valor_con_prin").attr("style","WIDTH: 362px; HEIGHT: 80px");
+		$("#add_con").attr("style","position:relative;  top:-56px; right: -363px;width: 75px;");
+		$("#rem_con").attr("style","position:relative;  top:-56px; right: -363px;width: 75px;");
+	}
+
+	else if (obj.value === "0") 
+	{
+		$("#valor_con_prin").attr("disabled","disabled");
+		$("#add_con").attr("disabled","disabled");
+		$("#rem_con").attr("disabled","disabled");
+
+	}
+
+
+	else
+	{
+
+	}
+
 }
+//esta es la 2da que falta
+function SelectTipoConSec(obj)
+{
+$("#valor_con_sec").val("");	
+$("#valor_con_sec").removeAttr("disabled");
+$("#valor_con_sec" ).off();
+$("#valor_con_sec").attr("maxlength","20");
+$("#valor_con_sec").removeAttr("style");
+
+var CampoValorConSec = document.getElementById("valor_con_sec");
+CampoValorConSec.value = CampoValorConSec.defaultValue;
+
+CampoValorConSec.pattern = "";
+CampoValorConSec.title = "";
+
+if (obj.value == 1 || obj.value == 4 ) 
+	{
+		
+			$("#valor_con_sec").on('keypress',function(evt)
+			{
+				var theEvent = evt || window.event;
+			    var key = theEvent.keyCode || theEvent.which;
+			    key = String.fromCharCode( key );
+			    var regex = /[+\d\s]/; // dowolna liczba (+- ,.) :)
+			     
+			    var val = $(evt.target).val();
+			    if(!regex.test(key) ||  !theEvent.keyCode == 43 ||  !theEvent.keyCode == 32) 
+			    {
+			        theEvent.returnValue = false;
+			        if(theEvent.preventDefault) theEvent.preventDefault();
+			    };
+			});
+	}
+	else if (obj.value === "3") 
+	{
+
+		 CampoValorConSec.pattern = "[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}";
+		 CampoValorConSec.title = "Ingrese un correo válido. Ejemplo: Correo@gmail.com";
+
+	}
+	else if (obj.value === "2") 
+	{
+		$("#valor_con_sec").removeAttr("maxlength");
+		$("#valor_con_sec").attr("style","WIDTH: 362px; HEIGHT: 80px");
+		//falta la del formulario
+	}
+
+	else if (obj.value === "0") 
+	{
+		$("#valor_con_sec").attr("disabled","disabled");
+	}
+
+
+	else
+	{
+
+	}
+
+}
+
+
 // -----------------------------Controladores del formulario CN ---------------------------------------
 
 
