@@ -81,7 +81,7 @@ function listar()
 function guardaryeditar(e)
 {
 	e.preventDefault(); //No se activará la acción predeterminada del evento
-	$("#btnGuardar").prop("disabled",true);
+	//$("#btnGuardar").prop("disabled",true);
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
@@ -93,91 +93,87 @@ function guardaryeditar(e)
 
 	    success: function(datos)
 	    { 
-	    if (datos == "¡El producto se ha ingresado con éxito!") 
-	    {
-			Swal.fire({
-			title:  datos ,
-			text: "La lista de productos ha sido actualizada",
-			icon: 'success',
-			showConfirmButton: false,
-			allowOutsideClick: false,
-			timer: 3500
-			});
-	    } 
+
+	    if (datos == "Este producto ya se encuentra registrado") 
+	          {
+	          	$("#errmsg").html("Este producto ya se encuentra registrado").show().fadeOut(3000);
+	          }
+
+	    else if (datos == "¡El producto se ha ingresado con éxito!") 
+	          {
+	          	swal({
+				    title: datos,
+				    text: "La lista de productos ha sido actualizada",
+				    icon: 'success',
+				    timer: 3000,
+				    buttons: false,
+				    closeOnClickOutside: false,
+				    });
+	          	  mostrarform(false);
+		          tabla.ajax.reload();
+		          limpiar();
+	          }
 	    else if (datos == "El producto no se pudo registrar") 
-	    {
-	    	Swal.fire({
-			title:  datos ,
-			text: "La lista de productos no ha sido actualizada",
-			icon: 'error',
-			showConfirmButton: false,
-			allowOutsideClick: false,
-			footer: "Si el problema persiste, contacte a su soporte técnico",
-			timer: 4500
-			});
-	    }
-	    else if (datos == "Este producto ya se encuentra registrado") 
-	    {
-	    	Swal.fire({
-			title: datos,
-			text: "Intentélo de nuevo", 
-			icon:'error'  ,
-			showConfirmButton: false,
-			allowOutsideClick: false,
-			footer: "Si el problema persiste, contacte a su soporte técnico",
-			timer: 4500
-			});
-	    }
+	          {
+	          	swal({
+				    title: datos,
+				    text: "La lista de productos no ha sido actualizada",
+				    icon: 'error',
+				    timer: 3000,
+				    buttons: false,
+				    closeOnClickOutside: false,
+				    });
+	          	  mostrarform(false);
+		          tabla.ajax.reload();
+		          limpiar();
+	          } 
 	    else if (datos == "¡El producto ha sido actualizado!") 
-	    {
-	    	Swal.fire({
-			title: datos,
-			text: "La lista de productos ha sido actualizada", 
-			icon:'success'  ,
-			showConfirmButton: false,
-			allowOutsideClick: false,
-			timer: 4500
-			});
+	          {
+	          	swal({
+				    title: datos,
+				    text: "La lista de productos ha sido actualizada",
+				    icon: 'success',
+				    timer: 3000,
+				    buttons: false,
+				    closeOnClickOutside: false,
+				    });
+	          	  mostrarform(false);
+		          tabla.ajax.reload();
+		          limpiar();
+	          }
+	     else if (datos == "El producto no se pudo actualizar") 
+	          {
+	          	swal({
+				    title: datos,
+				    text: "La lista de productos no ha sido actualizada",
+				    icon: 'error',
+				    timer: 3000,
+				    buttons: false,
+				    closeOnClickOutside: false,
+				    });
+	          	  mostrarform(false);
+		          tabla.ajax.reload();
+		          limpiar();
+	          }                             
+	          	
+		else
+	          {   swal({
+				    title: "Fallo en el sistema",
+				    text: "Si el problema persiste contacte a su soporte técnico",
+				    icon: 'error',
+				    timer: 3000,
+				    buttons: false,
+				    closeOnClickOutside: false,
+				    });        
+		          mostrarform(false);
+		          tabla.ajax.reload();
+		          limpiar();
+	      	  }
 	    }
-	    else if (datos == "El producto no se pudo actualizar") 
-	    {
-	    	Swal.fire({
-			title: datos,
-			text: "La lista de productos no ha sido actualizada", 
-			icon:'error'  ,
-			showConfirmButton: false,
-			allowOutsideClick: false,
-			footer: "Si el problema persiste, contacte a su soporte técnico",
-			timer: 4500
-			});
-	    }
-	    else 
-	    {
-	    	Swal.fire({
-			title: "Fallo en el sistema",
-			text: "Intentélo de nuevo más tarde", 
-			icon:'error'  ,
-			showConfirmButton: false,
-			allowOutsideClick: false,
-			footer: "Si el problema persiste, contacte a su soporte técnico",
-			timer: 4500
-			});
-	    }
-
-
-			  //setTimeout("document.location.reload(true)", 2500);
-	          mostrarform(false);
-	          tabla.ajax.reload();
-
-
-	    }
- 
 
 	});
-	limpiar();
 
 }
-
 function mostrar(id_producto)
 {
 	$.post("../ajax/producto.php?op=mostrar",{id_producto : id_producto}, function(data)
