@@ -31,6 +31,11 @@ return ejecutarConsulta($sql);
 
 
 
+
+
+
+
+
 }
 
 	//Implementamos un método para editar registros

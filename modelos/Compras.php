@@ -21,15 +21,34 @@ Class Compras
 		$sql="INSERT INTO tbl_compras ( id_usuario, id_proveedor, nro_factura, Tipo_comprobante, descuento, impuesto, Total_compra, fecha_compra, fecha_ingreso) 
         VALUES ('$id_usuario1','$id_proveedor','$nro_facturac','$tipo_comprobante','$descuento_c','$impuesto_c','$total_c','$fecha_compra',(select now()))";
 		return ejecutarConsulta($sql);
+
+
+
+
+		$sql2= "SELECT MAX(id_compra) FROM `tbl_compras`";
+		 ejecutarConsulta($sql);
+			while ($r=ejecutarConsulta($sql)->fetch_array()) 
+				{
+				    $user_id=$r["MAX(id_compra)"];
+				    break;
+				}
+
+return ejecutarConsulta($sql2);
+
+
+$sql="INSERT INTO tbl_materia_prima( id_compra, nombre_materia_prima,cantidad,precio) 
+        VALUES ('$user_id','$id_proveedor','$nro_facturac','$tipo_comprobante','$descuento_c','$impuesto_c','$total_c','$fecha_compra',(select now()))";
+		return ejecutarConsulta($sql);
+
+
+
+
+
+
 	}
 
-	//Implementamos un método para editar registros
-	//public function editar($id_producto,$nombreproducto)
-	//{
-	//	$sql="UPDATE tbl_productos SET nombre_producto='$nombreproducto' WHERE id_producto='$id_producto'";
-	//	return ejecutarConsulta($sql);
-	//}
-	     
+
+  
 	
 
 	//Implementar un método para listar los registros

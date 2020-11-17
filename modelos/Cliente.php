@@ -12,52 +12,57 @@ Class Cliente
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($id_tipo_cliente,$nombre_cn,$tipo_documento,$num_documento,$direccion,$telefono,$email)
+	public function insertar($tipo_cliente,$nombre_cliente,$contacto,$telefono,$cargo,$rtn,$correo_electronico,$direccion,$observacion)
 	{
-		$sql="INSERT INTO persona (id_tipo_cliente,nombre_cn,tipo_documento,num_documento,direccion,telefono,email)
-		VALUES ('$id_tipo_cliente','$nombre_cn','$tipo_documento','$num_documento','$direccion','$telefono','$email')";
+		$sql="INSERT INTO tbl_clientes (tipo_cliente,nombre_cliente,contacto,telefono,cargo,rtn,correo_electronico,direccion,observacion)
+		VALUES ('$tipo_cliente','$nombre_cliente','$contacto','$telefono','$cargo','$rtn','$correo_electronico','$direccion','$observacion')";
+
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para editar registros
-	public function editar($id_cliente,$id_tipo_cliente,$nombre_cn,$tipo_documento,$num_documento,$direccion,$telefono,$email)
+	public function editar($id_cliente,$tipo_cliente,$nombre_cliente,$contacto,$telefono,$cargo,$rtn,$correo_electronico,$direccion,$observacion)
 	{
-		$sql="UPDATE persona SET id_tipo_cliente='$id_tipo_cliente',nombre_cn='$nombre_cn',tipo_documento='$tipo_documento',num_documento='$num_documento',direccion='$direccion',telefono='$telefono',email='$email' WHERE id_cliente='$id_cliente'";
+		$sql="UPDATE tbl_clientes
+		SET nombre_cliente='$nombre_cliente',contacto='$contacto',telefono='$telefono',cargo='$cargo',rtn='$rtn',correo_electronico='$correo_electronico', direccion='$direccion',observacion = '$observacion' 
+		WHERE id_cliente='$id_cliente'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para eliminar categorías
 	public function eliminar($id_cliente)
 	{
-		$sql="DELETE FROM persona WHERE id_cliente='$id_cliente'";
+		$sql="DELETE FROM tbl_clientes WHERE id_cliente='$id_cliente'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementar un método para mostrar los datos de un registro a modificar
 	public function mostrar($id_cliente)
 	{
-		$sql="SELECT * FROM persona WHERE id_cliente='$id_cliente'";
+		$sql="SELECT * FROM tbl_clientes WHERE id_cliente ='$id_cliente' ";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
 	//Implementar un método para listar los registros
 	public function listarp()
 	{
-		$sql="SELECT * FROM persona WHERE id_tipo_cliente='Proveedor'";
+		$sql="BEGIN;
+				INSERT INTO tbl_clientes (id_tipo_cliente, nombre_cliente,fecha_nacimiento)
+				  VALUES('1', 'ProbandoMultipleInsert','01/02/2000');
+				  
+				INSERT INTO tbl_tipo_documento (id_cliente, descripcion, valor) 
+				  VALUES('3', 'ID','0000-0000-00000');
+
+				INSERT INTO tbl_contactos_clientes (id_cliente, id_tipo_contacto, contacto) 
+				  VALUES('3', '3','InsertMultiple@gmail.com');  
+			COMMIT;";
 		return ejecutarConsulta($sql);		
 	}
 
 	//Implementar un método para listar los registros 
 	public function listarc()
 	{
-		$sql="SELECT c.id_cliente, tc.tipo, c.nombre_cliente , td.descripcion as tipo_documento, td.valor, tipc.descripcion , cc.contacto 
-		FROM tbl_clientes c 
-		INNER JOIN tbl_tipo_cliente tc
-		ON c.id_tipo_cliente = tc.id_tipo_cliente 
-		INNER JOIN tbl_tipo_documento td ON td.id_cliente=c.id_cliente 
-		INNER JOIN tbl_contactos_clientes cc ON c.id_cliente=cc.id_cliente
-		INNER JOIN tbl_tipo_contacto tipc ON tipc.id_tipo_contacto=cc.id_tipo_contacto 
-		ORDER BY `c`.`id_cliente` ASC  ";
+		$sql="SELECT * FROM `tbl_clientes` ORDER BY `tbl_clientes`.`id_cliente` ASC";
 		return ejecutarConsulta($sql);		
 	}
 }

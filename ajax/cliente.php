@@ -4,36 +4,56 @@ require_once "../modelos/Cliente.php";
 
 //----------------------- Datos para cliente natural inicio---------------------------------------
 $Cliente=new Cliente();
+
+$tipo_cliente=isset($_POST["tipo_cliente"])? limpiarCadena($_POST["tipo_cliente"]):"";
 $id_cliente=isset($_POST["id_cliente"])? limpiarCadena($_POST["id_cliente"]):"";
-$id_tipo_cliente=isset($_POST["id_tipo_cliente"])? limpiarCadena($_POST["id_tipo_cliente"]):"";
-$nombre_cn=isset($_POST["nombre_cn"])? limpiarCadena($_POST["nombre_cn"]):"";
-$fecha_nacimiento=isset($_POST["fecha_nacimiento"])? limpiarCadena($_POST["fecha_nacimiento"]):"1900-01-01";
-$nombre_cn=strtoupper($nombre_cn);
+$nombre_cliente=isset($_POST["nombre_cliente"])? limpiarCadena($_POST["nombre_cliente"]):"";
 
+$contacto=isset($_POST["contacto"])? limpiarCadena($_POST["contacto"]):"N/A";
 
-$tipo_documento=isset($_POST["tipo_documento"])? limpiarCadena($_POST["tipo_documento"]):"";
-$num_documento=isset($_POST["num_documento"])? limpiarCadena($_POST["num_documento"]):"";
-$direccion=isset($_POST["direccion"])? limpiarCadena($_POST["direccion"]):"";
-$telefono=isset($_POST["telefono"])? limpiarCadena($_POST["telefono"]):"";
-$email=isset($_POST["email"])? limpiarCadena($_POST["email"]):"";
+$cargo=isset($_POST["cargo"])? limpiarCadena($_POST["cargo"]):"N/A";
+$rtn=isset($_POST["rtn"])? limpiarCadena($_POST["rtn"]):"N/A";
+$telefono=isset($_POST["telefono"])? limpiarCadena($_POST["telefono"]):"N/A";
+$correo_electronico=isset($_POST["correo_electronico"])? limpiarCadena($_POST["correo_electronico"]):"N/A";
+$direccion=isset($_POST["direccion"])? limpiarCadena($_POST["direccion"]):"N/A";
+$observacion=isset($_POST["observacion"])? limpiarCadena($_POST["observacion"]):"N/A";
+
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 		if (empty($id_cliente))
-		{
+		{	
+				$sql= "SELECT nombre_cliente from tbl_clientes where nombre_cliente ='$nombre_cliente'";
+		    	$result =mysqli_query($conexion,$sql);
+
+		      if (mysqli_num_rows($result)>0)
+		 		{
+		 		    echo  "Este cliente ya se encuentra registrado";
+				return;
+				}
+
+				$sql= "SELECT rtn from tbl_clientes where rtn ='$rtn' and rtn <> 'N/A' ";
+		    	$result =mysqli_query($conexion,$sql);
+
+		      if (mysqli_num_rows($result)>0)
+		 		{
+		 		    echo  "Este RTN ya ha sido registrado";
+				return;
+				}
 			
-			$rspta=$Cliente->insertar($id_tipo_cliente,$nombre_cn,$tipo_documento,$num_documento,$direccion,$telefono,$email);
-			echo $rspta ? "Cliente registrada" : "Cliente no se pudo registrar";
+				$rspta=$Cliente->insertar($tipo_cliente,$nombre_cliente,$contacto,$telefono,$cargo,$rtn,$correo_electronico,$direccion,$observacion);
+				echo $rspta ? "¡El cliente ha sido registrado con éxito!" : "El cliente no se pudo registrar";
+			
 		}
 		else {
-			$rspta=$Cliente->editar($id_cliente,$id_tipo_cliente,$nombre_cn,$tipo_documento,$num_documento,$direccion,$telefono,$email);
-			echo $rspta ? "Cliente actualizada" : "Cliente no se pudo actualizar";
+			$rspta=$Cliente->editar($id_cliente,$tipo_cliente,$nombre_cliente,$contacto,$telefono,$cargo,$rtn,$correo_electronico,$direccion,$observacion);
+			echo $rspta ? "¡El cliente ha sido actualizado con éxito!" : "El cliente no se pudo actualizar";
 		}
 	break;
 
 	case 'eliminar':
 		$rspta=$Cliente->eliminar($id_cliente);
- 		echo $rspta ? "Cliente eliminada" : "Cliente no se puede eliminar";
+ 		echo $rspta ? "¡El cliente ha sido eliminado con éxito!" : "El cliente no puede ser eliminado";
 	break;
 
 	case 'mostrar':
@@ -41,33 +61,7 @@ switch ($_GET["op"]){
  		//Codificar el resultado utilizando json
  		echo json_encode($rspta);
 	break;
-/*
-	case 'listarp':
-		$rspta=$Cliente->listarp();
- 		//Vamos a declarar un array
- 		$data= Array();
 
- 		while ($reg=$rspta->fetch_object()){
- 			$data[]=array(
- 				"0"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_cliente.')"><i class="fa fa-pencil"></i></button>'.
- 					' <button class="btn btn-danger" onclick="eliminar('.$reg->id_cliente.')"><i class="fa fa-trash"></i></button>',
- 				"1"=>$reg->tipo,
- 				"2"=>$reg->nombre_cliente,
- 				"3"=>$reg->tipo_documento,
- 				"4"=>$reg->valor,
- 				"5"=>$reg->descripcion,
- 				"6"=>$reg->contacto
- 				);
- 		}
- 		$results = array(
- 			"sEcho"=>1, //Información para el datatables
- 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
- 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
- 			"aaData"=>$data);
- 		echo json_encode($results);
-
-	break;
-*/
 	case 'listarc':
 		$rspta=$Cliente->listarc();
  		//Vamos a declarar un array
@@ -77,12 +71,15 @@ switch ($_GET["op"]){
  			$data[]=array(
  				"0"=>'<button  class="btn btn-warning btn-sm" onclick="mostrar('.$reg->id_cliente.')"><i class="fa fa-pen"></i></button>'. 
  					' <button class="btn btn-danger btn-sm" onclick="eliminar('.$reg->id_cliente.')"><i class="fa fa-trash"></i></button>',
- 				"1"=>$reg->tipo,
+ 				"1"=>$reg->tipo_cliente,
  				"2"=>$reg->nombre_cliente,
- 				"3"=>$reg->tipo_documento,
- 				"4"=>$reg->valor,
- 				"5"=>$reg->descripcion,
- 				"6"=>$reg->contacto
+ 				"3"=>$reg->contacto,
+ 				"4"=>$reg->telefono,
+ 				"5"=>$reg->cargo,
+ 				"6"=>$reg->rtn,
+ 				"7"=>$reg->correo_electronico,
+ 				"8"=>$reg->direccion,
+ 				"9"=>$reg->observacion
  				);
  		}
  		$results = array(

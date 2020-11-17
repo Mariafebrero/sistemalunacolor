@@ -15,8 +15,7 @@ if(mysqli_num_rows($stmt)>0){
   $permiso = false;
 }
 
- 
-$_SESSION["objeto"] = $_GET['objeto'];
+
 
 
 if (!isset($_SESSION["nombre_usuario"]))
@@ -38,15 +37,10 @@ if ($_SESSION['id_rol']==2)
               <div class="col-md-12">
                   <div class="box">
                     <div class="box-header with-border">
-                         <!-- IMAGEN TITULO -->
-                      <center> 
-                          <img class="imagen" width="250" heigth="250" src="../public/img/titulos/CLIENTES.svg">
-                      
-                      </center>
-                      <!-- FIN IMAGEN TITULO --> 
+                          <center> <h1 ><span class="hiddenui"><i class="fas fa-users"> Mantenimiento de cliente</i></span></h1> </center>
                           <br>
-                            <button class="btn btn-success" id="btnagregar" <?php echo $permiso==false ? 'disabled' : '' ?> onclick="mostrarformcn(true)"><i class="fa fa-address-book-o "></i>Particular</button>
-                            <button class="btn btn-success" id="btnagregare" <?php echo $permiso==false ? 'disabled' : '' ?> onclick="mostrarformce(true)"><i class="fa fa-address-book-o "></i>Empresarial</button>
+                            <button class="btn btn-success" id="btnagregar" <?php echo $permiso==false ? 'disabled' : '' ?> onclick="mostrarform(true)"><i class="fa fa-address-book-o "></i>Agregar nuevo cliente</button>
+                            
                         <div class="box-tools pull-right">
                         </div>
                     </div>
@@ -57,133 +51,94 @@ if ($_SESSION['id_rol']==2)
                           <thead>
                             <th>Opciones</th>
                             <th>Tipo de cliente</th>
-                            <th>Nombre</th>
-                            <th>Tipo de documento</th>
-                            <th> </th>
-                            <th>Método de contacto</th>
-                            <th> </th>
+                            <th>nombre</th>
+                            <th>Contacto</th>
+                            <th>Teléfono</th>
+                            <th>Cargo</th>
+                            <th>RTN</th>
+                            <th>Correo eléctronico</th>
+                            <th>Observaciones</th>
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
                             <th>Opciones</th>
                             <th>Tipo de cliente</th>
-                            <th>Nombre</th>
-                            <th>Tipo de documento</th>
-                            <th> </th>
-                            <th>Método de contacto</th>
-                        <th> </th>
-
+                            <th>nombre</th>
+                            <th>Contacto</th>
+                            <th>Teléfono</th>
+                            <th>Cargo</th>
+                            <th>RTN</th>
+                            <th>Correo eléctronico</th>
+                            <th>Observaciones</th>
                           </tfoot>
                         </table>
                     </div>
                     <div class="panel-body" style="height: 500px;" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
 <!----------------------------Inicio de contenido del FORM--------------------------------------->
-
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Nombre completo:</label>
-                            <input type="hidden" name="id_cliente" id="id_cliente">
-                            <input type="hidden" name="id_tipo_cliente" id="id_tipo_cliente" value="1">
-                            <input type="text" class="form-control" name="nombre_cn" id="nombre_cn" maxlength="100"  style="text-transform: uppercase;" required onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)" min="1">
+<!----------------------------- Formulario de CN Inicio  ---------------------------------------->
+                          
+                            <center> <span style="color: red" id="errmsg"> </span> </center>
+                          
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" name="div_tipo_cliente" id="div_tipo_cliente" >
+                            <label>Tipo de cliente:</label>
+                            <select class="form-control select-picker" name="tipo_cliente" id="tipo_cliente" required onchange="SelectTipoCliente(this);"  title="Elija una opción para empezar">
+                              <option value="0">Elija una opción para empezar</option>
+                              <option value="Particular">Particular</option>
+                              <option value="Empresarial">Empresarial</option>
+                            </select>
                           </div>
 
                            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                             <label>Fecha de nacimiento:</label>
-                             <input type="date"  class="form-control" style="text-align:center;" name="fecha_nacimiento" id="fecha_nacimiento" min = "1900-01-01"  max ="2015-01-01" value ="1900-01-01">
-                           </div>
-<hr>
+                            <label>Nombre completo:</label>
+                            <input type="hidden" name="id_cliente" id="id_cliente">
+                            <input type="text" class="form-control" name="nombre_cliente" id="nombre_cliente" maxlength="100" required disabled="disabled" onkeyup="javascript:this.value=this.value.toUpperCase();" required onkeypress= "return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32)">
+                
+                          </div>
+
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" id="div_contacto" name="div_contacto">
+                            <label>Contacto:</label>
+                            <input type="text" class="form-control" name="contacto" id="contacto" disabled="disabled" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                          </div>
+
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" id="div_cargo" name="div_cargo">
+                            <label>Cargo:</label>
+                            <input type="text" class="form-control" name="cargo" id="cargo" disabled="disabled" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                          </div>
+
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Tipo de documento principal:</label>
-                            <select class="form-control select-picker" name="tipo_doc_prin" id="tipo_doc_prin"  onchange ="SelectTipoDocPrin(this)">
-                              <option value="0" >Seleccione:</option>
-                              <option value="ID">ID</option>
-                              <option value="RTN">RTN</option>
-                              <option value="Pasaporte">Pasaporte</option>
-                            </select>
+                            <label>RTN:</label>
+                            <input type="text" class="form-control" name="rtn" id="rtn" disabled="disabled">
                           </div>
 
-                          <div class="form-group col-lg-5 col-xs-12">
-                            <label>Valor del documento principal:</label>
-                            <input type="text" class="form-control" name="valor_doc_prin" id="valor_doc_prin" maxlength="20" placeholder="Ingrese valor del documento" disabled="disabled">
-                            <div class="form-group col-lg-5 col-xs-12">
-                            <button id= "add_doc" name="add_doc" type="button" class="btn btn-info" style = "position:relative;  top:-34px; right: -350px;width: 75px;" onclick="AgregarOtroDoc(this)" disabled="disabled">Agregar</button>
-
-                             <button id= "rem_doc" name="rem_doc" type="button" class="btn btn-info" style = "position:relative;  top:-68px; right: -430px;width: 75px;" onclick="RemoverOtroDoc(this)" disabled="disabled">Quitar</button>
-
-                           </div>
-                          </div>
-<hr>
-
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style = "position:relative;  top:-80px;"  name="div_tipo_doc_sec" id="div_tipo_doc_sec" hidden="true">
-                            <label>Tipo de documento secundario:</label>
-                            <select class="form-control select-picker" name="tipo_doc_sec" id="tipo_doc_sec" onchange="SelectTipoDocSec(this);" >
-                              <option value="0">Seleccione:</option>
-                              <option value="ID">ID</option>
-                              <option value="RTN">RTN</option>
-                              <option value="Pasaporte">Pasaporte</option>
-                            </select>
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Teléfono:</label>
+                            <input type="text" class="form-control" name="telefono" id="telefono" maxlength="70" title="Separe con / los diferenres números" disabled="disabled" onkeyup="javascript:this.value=this.value.toUpperCase();"  
+                onkeypress="return (event.charCode >= 47 && event.charCode <= 57) || (event.charCode == 45)">
                           </div>
 
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style = "position:relative;  top:-80px;"  name="div_val_doc_sec" id="div_val_doc_sec">
-                            <label>Valor del documento secundario:</label>
-                            <input type="text" class="form-control" name="valor_doc_sec" id="valor_doc_sec" maxlength="20" placeholder="Ingrese valor del documento" disabled="disabled">
+                          
+                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Correo electrónico:</label>
+                            <input type="text" style="position: static;" class="form-control" name="correo_electronico" id="correo_electronico" title="Ejemplo: LunaColor@gmail.com" disabled="disabled" >
                           </div>
 
-<hr>    
-                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style = "position:relative;  top:-70px;">
-                            <label>Tipo de contacto principal</label>
-                            <select class="form-control select-picker" name="tipo_con_prin" id="tipo_con_prin" onchange="SelectTipoConPrin(this);">
-                              <option value="0">Seleccione:</option>
-                               <?php
-                               
-                               include "../config/Conglobal.php";
-                               $query = $con -> query ("SELECT * FROM `tbl_tipo_contacto` ");
-                                while ($DatoContacto = mysqli_fetch_array($query)) 
-                                 {
-                                     echo '<option value="'.$DatoContacto[id_tipo_contacto].'">'.$DatoContacto[descripcion].'</option>';
-                                 }
-                                 
-                               ?>
-                            </select>
+                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Dirección:</label>
+                            <textarea class="form-control" style="resize: none;"  id="direccion" name="direccion" disabled="disabled"></textarea>
                           </div>
 
-                          <div class="form-group col-lg-5 col-xs-12" style = "position:relative;  top:-70px;">
-                            <label>Valor del contacto principal:</label>
-                            <input type="text" class="form-control" name="valor_con_prin" id="valor_con_prin"  placeholder="Ingrese valor del documento" disabled="disabled" >
-                            <button id= "add_con" name="add_con" type="button" class="btn btn-info" style = "position:relative;  top:-34px; right: -363px;width: 75px;" onclick="AgregarOtroCon(this)"disabled="disabled">Agregar</button>
-
-                             <button id= "rem_con" name="rem_con" type="button" class="btn btn-info" style = "position:relative;  top:-34px; right: -365px;width: 75px;" onclick="RemoverOtroCon(this)"disabled="disabled">Quitar</button>
-                          </div>
- <hr>
-                         <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style = "position:relative;  top:-100px;" name="div_tipo_con_sec" id="div_tipo_con_sec" hidden="true">
-                            <label>Tipo de contacto secundario</label>
-                            <select class="form-control select-picker" name="tipo_con_sec" id="tipo_con_sec" onchange="SelectTipoConSec(this);">
-                              <option value="0">Seleccione:</option>
-                               <?php
-                               
-                               include "../config/Conglobal.php";
-                               $query = $con -> query ("SELECT * FROM `tbl_tipo_contacto` ");
-                                while ($DatoContacto = mysqli_fetch_array($query)) 
-                                 {
-                                     echo '<option value="'.$DatoContacto[id_tipo_contacto].'">'.$DatoContacto[descripcion].'</option>';
-                                 }
-                                 
-                               ?>
-                            </select>
+                            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <label>Observación:</label>
+                            <textarea class="form-control" style="resize: none;width: 206%;top: 50px"  id="observacion" name="observacion" disabled="disabled"></textarea>
                           </div>
 
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style = "position:relative;  top:-100px;" name="div_valor_con_sec" id="div_valor_con_sec" hidden="">
-                            <label>Valor del contacto secundario:</label>
-                            <input type="text" class="form-control" name="valor_con_sec" id="valor_con_sec" maxlength="20" placeholder="Ingrese valor del documento">
-                          </div>
-<hr>                          
-                          <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12"  style = "position:relative;  top:-85px;">
+                          <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="fa fa-save"></i> Guardar</button>
 
-                            <button class="btn btn-danger" onclick="cancelarformcn()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
+                            <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
                           </div>
-<!----------------------------Fin de contenido del FORM------------------------------------------>                            
                           
                         </form>
                     </div>
@@ -206,11 +161,11 @@ require 'footer.php';
 <script type="text/javascript" src="scripts/cliente.js"></script>
 <script type="text/javascript">
 
-document.getElementById("nombre_cn").addEventListener("keydown", teclear);
-document.getElementById("valor_doc_prin").addEventListener("keydown", teclear);
-document.getElementById("valor_doc_sec").addEventListener("keydown", teclear);
-document.getElementById("valor_con_prin").addEventListener("keydown", teclear);
-document.getElementById("valor_con_sec").addEventListener("keydown", teclear);
+document.getElementById("nombre_cliente").addEventListener("keydown", teclear);
+document.getElementById("contacto").addEventListener("keydown", teclear);
+document.getElementById("cargo").addEventListener("keydown", teclear);
+document.getElementById("observacion").addEventListener("keydown", teclear);
+document.getElementById("direccion").addEventListener("keydown", teclear);
 
 
 var flag = false;
