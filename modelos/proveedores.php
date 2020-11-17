@@ -22,14 +22,22 @@ Class proveedores
 $sql="INSERT INTO tbl_proveedores (nombre_proveedor,CAI,rtn,telefono,correo,direccion,descripcion)
 			VALUES ('$nombre_proveedor','$cai_proveedor','$rtn_proveedor','$Telefono_proveedores','$Correo_proveedores','$Direccion_proveedores','$Descripcion_proveedores')";
 
-
-
 return ejecutarConsulta($sql);
 
+$sql2= "SELECT MAX(id_proveedor) FROM `tbl_proveedores`";
+		 ejecutarConsulta($sql);
+			while ($r=ejecutarConsulta($sql)->fetch_array()) 
+				{
+				    $user_id=$r["MAX(id_proveedor)"];
+				    break;
+				}
+
+return ejecutarConsulta($sql2);
 
 
-
-
+$sql="INSERT INTO tbl_proveedore_refe( id_proveedor,producto,precio) 
+        VALUES ('$user_id','$Producto','$nro_facturac','$tipo_comprobante','$descuento_c','$impuesto_c','$total_c','$fecha_compra',(select now()))";
+		return ejecutarConsulta($sql);
 
 
 
@@ -39,9 +47,9 @@ return ejecutarConsulta($sql);
 }
 
 	//Implementamos un método para editar registros
-	public function editar($id_proveedor,$nombre_proveedor,$Descripcion_proveedores)
+	public function editar($id_proveedor,$nombre_proveedor,$cai_proveedor,$rtn_proveedor,$Descripcion_proveedores,$Telefono_proveedores,$Direccion_proveedores,$Correo_proveedores)
 	{
-		$sql="UPDATE tbl_proveedores SET nombre_proveedor ='$nombre_proveedor', Descripcion='$Descripcion_proveedores' WHERE id_proveedor ='$id_proveedor'";
+		$sql="UPDATE `tbl_proveedores` SET `nombre_proveedor`='$nombre_proveedor',`CAI`='$cai_proveedor',`rtn`='$rtn_proveedor',`telefono`='$Telefono_proveedores',`correo`='$Correo_proveedores',`direccion`='$Direccion_proveedores',`descripcion`='$Descripcion_proveedores' WHERE id_proveedor='$id_proveedor'";
 		
 ejecutarConsulta($sql);
 
@@ -66,25 +74,7 @@ ejecutarConsulta($sql);
 
 
 
-    public function eliminar($id_proveedor)
     
-	{
-		//Eliminar un usuario
-		$sql="DELETE FROM tbl_proveedores WHERE id_proveedor = '$id_proveedor'";
-       return ejecutarConsulta($sql);
-		
-			//Bitacora
-			//Incializamos las variables de seccion 
- 			$id_usuario1=$_SESSION['id_usuario'];
-	        $usuario1=$_SESSION['usuario']; 
-			//Insertar datos en la bitacora
-			$sql_bitacora= "INSERT INTO  tbl_bitacora(id_usuario,id_objeto,fecha,accion,descripcion,creado_por,fecha_creacion) 
-			VALUES('$id_usuario1','1',(select now()),'Eliminar','Se elimino proveedores','$usuario1',(select now()))";
-			ejecutarConsulta($sql_bitacora); 
-
-		
-	
-	}
 
 
 

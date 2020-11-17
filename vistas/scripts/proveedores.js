@@ -97,6 +97,25 @@ $.ajax({
 	    contentType: false,
 	    processData: false,
 
+
+			data:$('#mytable').serialize(),
+			success:function(data)
+			{
+				alert(data);
+				$('#mytable')[0].reset();
+			}
+		
+
+
+
+
+
+
+
+
+
+
+
 	  success: function(datos)
 	    {      
 	    	swal({
@@ -125,27 +144,16 @@ function mostrar(id_proveedor)
 		
 		$("#id_proveedor").val(data.id_proveedor);
 		$("#nombre_proveedor").val(data.nombre_proveedor);
+
 		$("#cai_proveedor").val(data.CAI);
 	    $("#rtn_proveedor").val(data.rtn);
 
         $("#Descripcion_proveedores").val(data.descripcion);
-       $("Direccion_proveedores").val(data.Direccion_proveedores);
-        $("Correo_proveedores").val(data.Correo_proveedores);
-       $("Telefono_proveedores").val(data.Telefono_proveedores);
+       $("Direccion_proveedores").val(data.direccion);
+        $("Correo_proveedores").val(data.correo);
+       $("Telefono_proveedores").val(data.telefono);
  	})
 
-function eliminar(id_proveedor)
-{
-	bootbox.confirm("¿Está Seguro de eliminar el cliente?", function(result){
-		if(result)
-        {
-        	$.post("../ajax/proveedores.php?op=eliminar", {id_proveedor : id_proveedor}, function(e){
-        		bootbox.alert(e);
-	            tabla.ajax.reload();
-        	});	
-        }
-	})
-}
 
 
 

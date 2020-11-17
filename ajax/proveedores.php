@@ -14,6 +14,10 @@ $Direccion_proveedores=isset($_POST["Direccion_proveedores"])? limpiarCadena($_P
 $Telefono_proveedores=isset($_POST["Telefono_proveedores"])? limpiarCadena($_POST["Telefono_proveedores"]):"";
 $Correo_proveedores=isset($_POST["Correo_proveedores"])? limpiarCadena($_POST["Correo_proveedores"]):"";
 
+$Nombre_producto=isset($_POST["Nombre_pro"])? limpiarCadena($_POST["Nombre_pro"]):"";
+$Cantidad_compras=isset($_POST["Cantidad_compras"])? limpiarCadena($_POST["Cantidad_compras"]):"";
+$Precio_compras=isset($_POST["Precio_compras"])? limpiarCadena($_POST["Precio_compras"]):"";
+
 
 
 
@@ -44,18 +48,13 @@ switch ($_GET["op"]){
 		
             } 
 	else {
-			$rspta=$proveedores->editar($id_proveedor,$nombre_proveedor,$Descripcion_proveedores);
+			$rspta=$proveedores->editar($id_proveedor,$nombre_proveedor,$cai_proveedor,$rtn_proveedor,$Descripcion_proveedores,$Telefono_proveedores,
+		 	$Direccion_proveedores,$Correo_proveedores);
 			echo $rspta ? "Proveedor no se pudo actualizar" : "Proveedor actualizado";
 		}
 	
 	break;
 
-    case 'eliminar':
-		$rspta=$proveedores->eliminar($id_proveedor);
-
- 		echo $rspta ? "El Proveedor fue eliminado" : "El Proveedor no se pudo eliminar";
-	break;
-     
 	case 'mostrar':
 		$rspta=$proveedores->mostrar($id_proveedor);
  		//Codificar el resultado utilizando json
