@@ -95,7 +95,7 @@ require 'header.php';
                         <form name="formulario" id="formulario" method="POST">
                           
                      
-                         
+                         <center> <span style="color: red" id="errmsg"> </span> </center>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Nombre del producto(*):</label>
                             <input type="hidden" name="id_producto" id="id_producto">
