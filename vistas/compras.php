@@ -81,18 +81,24 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                           <thead>
                           <th><center>Opciones</center></th>
+                          <th><center>Usuario</center></th>
                           <th><center>N° Factura</center></th>
                           <th><center>Proveedor</center></th>
-                          <th><center>Total de Compra</center></th>
-                            
+                           <th><center>Total Compra</center></th>
+                          <th><center>Fecha Compra</center></th>
+                          <th><center>Fecha Ingreso</center></th>
+                          
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                            <th><center>Opciones</center></th>
+                          <th><center>Opciones</center></th>
+                          <th><center>Usuario</center></th>
                           <th><center>N° Factura</center></th>
                           <th><center>Proveedor</center></th>
-                          <th><center>Total de Compra</center></th>
+                           <th><center>Total Compra</center></th>
+                          <th><center>Fecha Compra</center></th>
+                          <th><center>Fecha Ingreso</center></th>
                           </tfoot>
                         </table>
                     </div>
@@ -137,6 +143,7 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
 
                          <div class="form-group col-lg-4 col-xs-12">
                             <label>Fecha de compra:</label>
+                            <input type="hidden" name="id_compras" id="id_compras">
                             <input type="date" class="form-control" name="fecha_hora" id="fecha_hora" required="">
                           </div>
                           </div> 
@@ -169,7 +176,7 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
     <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
    
       <label>Nombre Producto:</label> <br>
-      <input id="Nombre_pro" class="form-control" type="text"   placeholder="" required=""><br>
+      <input id="Nombre_pro" class="form-control" type="text"   placeholder="" ><br>
      </div>
 
       <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">

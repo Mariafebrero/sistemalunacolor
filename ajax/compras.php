@@ -1,10 +1,9 @@
 <?php 
-require_once "../modelos/Producto.php";
+require_once "../modelos/Compras.php";
 
 $compras=new Compras();
-$id_usuario=isset($_POST["id_usuario"])? limpiarCadena($_POST["id_usuario"]):"";
+$id_proveedor=isset($_POST["id_proveedor"])? limpiarCadena($_POST["id_proveedor"]):"";
 $id_compras=isset($_POST["id_compras"])? limpiarCadena($_POST["id_compras"]):"";
-$proveedor_compras=isset($_POST["proveedor_compras"])? limpiarCadena($_POST["proveedor_compras"]):"";
 $tipo_comprobante=isset($_POST["tipo_comprobante"])? limpiarCadena($_POST["tipo_comprobante"]):"";
 $nro_facturac=isset($_POST["nro_facturac"])? limpiarCadena($_POST["nro_facturac"]):"";
 $descuento_c=isset($_POST["descuento_c"])? limpiarCadena($_POST["descuento_c"]):"";
@@ -30,28 +29,13 @@ switch ($_GET["op"]){
 
 				return;
 				}
-					$rspta=$Compras->insertar($id_usuario,$proveedor_compras,$tipo_comprobante,$nro_facturac,$descuento_c,$impuesto_c,$total_c,$Nombre_pro,$Cantidad_compras,$Precio_compras,$fecha_compra);
-					//echo $rspta ? "Producto registrado" : "Producto no se pudo registrar";
-					echo $rspta ? "¡La Factura se ha ingresado con éxito!" : "La Factura no se pudo registrar";
+	$rspta=$compras->insertar($id_proveedor,$tipo_comprobante,$nro_facturac,$descuento_c,$impuesto_c,$total_c,$fecha_compra);
+					
+	echo $rspta ? "¡La Factura de compra se ha ingresado con éxito!" : "La Factura de compra no se pudo registrar";
 				
 		}
-		else 
-		{
-			$rspta=$compras->editar($id_compras,$nombreproducto);
-			echo $rspta ? "¡El producto ha sido actualizado!" : "El producto no se pudo actualizar";
-		}
+		
 	break;
-
-	case 'desactivar':
-		$rspta=$Compras->desactivar($id_compras);
- 		echo $rspta ? "Producto Desactivado" : "Producto no se puede desactivar";
-	break;
-
-	case 'activar':
-		$rspta=$Compras->activar($id_compras);
- 		echo $rspta ? "Producto activado" : "Producto no se puede activar";
-	break;
-
 	case 'mostrar':
 		$rspta=$compras->mostrar($id_compras);
  		//Codificar el resultado utilizando json
@@ -59,20 +43,23 @@ switch ($_GET["op"]){
 	break;
 
 	case 'listar':
-		$rspta=$Compras->listar();
+		$rspta=$compras->listar();
  		//Vamos a declarar un array
  		$data= Array();
 
  		while ($reg=$rspta->fetch_object()){
- 			$data[]=array(
- 				//"0"=>$reg->id_producto,
- 				
- 				"0"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_proveedor.')"><i class="fas fa-user-edit"></i></button>',
+ 			$data[]=array(	
+ 				"0"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->id_compra.')"><i class="fas fa-user-edit"></i></button>',
  					
- 				"1"=>'' . $reg->nombre_proveedor . '',
- 				"2"=>'' . $reg->descripcion. ''
+ 				"1"=> $reg->usuario,
+ 				"2"=> $reg->nro_factura,
+ 				"3"=> $reg->nombre_proveedor,
+ 			    "4"=> $reg->Total_compra,
+ 				"5"=>$reg->fecha_compra,
+ 				"6"=> $reg->fecha_ingreso
  				
  				);
+
  		}
  		$results = array(
  			"sEcho"=>1, //Información para el datatables
@@ -83,28 +70,7 @@ switch ($_GET["op"]){
 
 	break;
 
-    case 'selectproveedor':
-		require_once "../modelos/proveedores.php";
-		$proveedores = new proveedores();
-
-		$rspta = $proveedores->select();
-
-		$vuelta=null;
-		while ($reg = $rspta->fetch_object())
-				{
-					$vuelta=$vuelta+1;
-					
-					if ($vuelta==1) {
-						echo '<option value=' . $reg->id_proveedor . 'selected>' . $reg->nombre_proveedor . '</option>';
-					}else{
-						echo '<option value=' . $reg->id_proveedor . '>' . $reg->nombre_proveedor . '</option>';
-					}
-					
-				}
-
-
-	break;
-
+   
 
 
 }

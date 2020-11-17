@@ -65,28 +65,52 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
                             
                           <th><center>Opciones</center></th>
                           <th><center>Nombre Proveedor</center></th>
-                          <th><center>Descripcion</center></th>
-                         <!-- <th><center>Tipo de contacto</center></th>-->
+                          <th><center>CAI </center></th>
+                           <th><center>RTN</center></th>
+                            <th><center>Telefono</center></th>
+                             <th><center>Correo</center></th>
+                              <th><center>Direccion</center></th>
+                               <th><center>Descripcion</center></th>
+                       
+                         
                             
                           </thead>
                           <tbody>                            
                           </tbody>
                           <tfoot>
-                          <th><center>Opciones</center></th>
+                             <th><center>Opciones</center></th>
                           <th><center>Nombre Proveedor</center></th>
-                          <th><center>Descripcion</center></th>
-                         <!--<th><center>Tipo de contacto</center></th>-->
+                          <th><center>CAI </center></th>
+                           <th><center>RTN</center></th>
+                            <th><center>Telefono</center></th>
+                             <th><center>Correo</center></th>
+                              <th><center>Direccion</center></th>
+                               <th><center>Descripcion</center></th>
+                             
+
                           </tfoot>
                         </table>
                     </div>
-                    <div class="panel-body" id="formularioregistros">
+                    <div class="panel-body" style="height: 1000px;" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
                            <div class="row">
                         
                           
                         <div class="form-group col-lg-4 col-xs-12">
                             <label>Nombre Proveedor :</label>
+                            <input type="hidden" name="id_proveedor" id="id_proveedor">
                             <input type="text" class="form-control" name="nombre_proveedor" id="nombre_proveedor" maxlength="50" placeholder="" keydown ="teclear()" onkeyup="javascript:this.value=this.value.toUpperCase();" required  
+                            onkeypress= "return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) "/>
+                          </div>
+
+                          <div class="form-group col-lg-4 col-xs-12">
+                            <label>CAI :</label>
+                            <input type="text" class="form-control" name="cai_proveedor" id="cai_proveedor" maxlength="50" placeholder=""  />
+                          </div>
+
+                          <div class="form-group col-lg-4 col-xs-12">
+                            <label>RTN :</label>
+                            <input type="text" class="form-control" name="rtn_proveedor" id="rtn_proveedor" maxlength="50" placeholder="" keydown ="teclear()" onkeyup="javascript:this.value=this.value.toUpperCase();"   
                             onkeypress= "return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode == 32) "/>
                           </div>
                          
@@ -97,68 +121,137 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
                           </div>
                       </div>
 
-              <hr size= 3 >
+                     <hr size= 3 >
                        
                         <font size="3 "> <center> <label  >Informacion de Contacto</label> </center></font>            
 
+                        <div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Agrega Contacto</h4>
+                </div>
+                <div class="modal-body">
+                    <label>Direccion</label>
+                    <input type="text" name="" id="Direccion_proveedores" class="form-control input-sm">
+                    <label>Correo Electronico</label>
+                    <input type="email" name="" id="Correo_proveedores" class="form-control input-sm"pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}">
+                    <label>Telefono Fijo</label>
+                    <input type="text" name="" id="Telefono_proveedores" class="form-control input-sm">
+                    
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" id="guardarnuevo">
+                  Agregar
+                  </button>
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+                     
+
+
+                          <div class="row">
+                          <div class="col-sm-12">
                          
+                            <table id="mytable" class="table table-hover table-condensed table-bordered">
+
+                            <caption>
+                              <button class="btn btn-primary" data-toggle="modal" id="Agregar"data-target="#modalNuevo">
+                                Agregar contacto
+                                <span class="glyphicon glyphicon-plus"></span>
+                              </button>
+
+                              <p>Articulos en la Tabla:
+                          <div id="adicionados"></div>
+                        </p>
+                            </caption>
+                              <tr>
+                                <td><center>Direccion</center></td>
+                                <td><center>Correo Electronico</center></td>
+                                <td><center>Telefono Fijo</center></td>
+                                <td><center>Eliminar</center></td>
+                           
+                                
+                              </tr>
+
+                             
+                            
+                            </table>
+                          </div>
+                        </div>
 
 
-    <div class="row">
-        <div class="form-group col-lg-4 col-xs-12">
-            <form name="add_name" id="add_name">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dynamic_field">
-                        <tr>
-                           <label>Correo electronico: </label> 
-                            <td><input type="email" name="name[]"  id="Correo_proveedores"maxlength="50" placeholder="" class="form-control "pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" /></td>
-                            <td><button type="button" name="CE_proveedor" id="CE_proveedor" class="btn btn-primary">Agregar </button></td>
-                        </tr>
-                    </table>
+
+
+
+
+ <hr size= 3 >
+                       
+                        <font size="3 "> <center> <label  >Informacion de Productos</label> </center></font>            
+
+                        <div class="modal fade" id="modalNuevop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Agrega nuevo Producto</h4>
+                </div>
+                <div class="modal-body">
+                    <label>Producto</label>
+                    <input type="text" name="" id="Producto_proveedores" class="form-control input-sm">
+                    <label>Precio</label>
+                    <input type="text" name="" id="Precio_proveedores" class="form-control input-sm">
                     
                 </div>
-            </form>
-        </div>
-    
-
-
-        
-        <div class="form-group col-lg-4 col-xs-12">
-            <form name="add_name" id="add_name">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dynamic_Direccion">
-                        <tr>
-
-                           <label  >Direccion: </label> 
-                            <td><input type="text" name="Direccion[]" id="Direccion_proveedores"placeholder="" onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="50" keydown ="teclear()"class="form-control name_list" /></td>
-                            <td><button type="button" name="D_proveedor" id="D_proveedor" class="btn btn-primary">Agregar </button></td>
-                        </tr>
-                    </table>
-                    
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" id="guardarnuevop">
+                  Agregar
+                  </button>
+                 
                 </div>
-            </form>
-        </div>
-   
-    
-  
-        <div class="form-group col-lg-4 col-xs-12">
-            <form name="add_name" id="add_name">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dynamic_Telefono">
-                        <tr>
-
-                           <label  >Telefono: </label> 
-                            <td><input type="tel" name="Telefono[]" id ="Telefono_proveedores"placeholder="" value="" maxlength="14" onkeypress="return event.charCode >= 48 && event.charCode <= 57"  class="form-control name_list" /></td>
-                            <td><button type="button" name="T_proveedor" id="T_proveedor" class="btn btn-primary">Agregar </button></td>
-                        </tr>
-                    </table>
-                    
-                </div>
-            </form>
-        </div>
-    
+              </div>
+            </div>
+          </div>
 
 
+
+                     
+
+
+                          <div class="rowp">
+                          <div class="col-sm-12">
+                         
+                            <table id="mtable" class="table table-hover table-condensed table-bordered">
+
+                            <caption>
+                              <button class="btn btn-primary" data-toggle="modal" id="Agregarp"data-target="#modalNuevop">
+                                Agregar producto
+                                <span class="glyphicon glyphicon-plus"></span>
+                              </button>
+
+                              <p>Articulos en la Tabla:
+                          <div id="adicionado"></div>
+                        </p>
+                            </caption>
+                              <tr>
+                                <td><center>Nombre Producto</center></td>
+                                <td><center>Precio</center></td>
+                                <td><center>Eliminar</center></td>
+                           
+                                
+                              </tr>
+
+                             
+                            
+                            </table>
+                          </div>
+                        </div>
 
                          
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -189,16 +282,60 @@ require 'footer.php';
 
 
 
-</script>
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+
+<script>
+    $(document).ready(function() {
+//obtenemos el valor de los input
+
+$('#guardarnuevo').click(function() {
+
+  var Direccion_proveedores = document.getElementById("Direccion_proveedores").value;
+  var Correo_proveedores= document.getElementById("Correo_proveedores").value;
+  var Telefono_proveedores = document.getElementById("Telefono_proveedores").value;
+  var i = 1; //contador para asignar id al boton que borrara la fila
+  var fila = '<tr id="row' + i + '"><td><center>' + Direccion_proveedores + '</center></td><td><center>' + Correo_proveedores + '</td><td><center>' + Telefono_proveedores + '</center></td><td><center><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Quitar</center></button></td></tr>';
+         
+
+  i++;
+
+  $('#mytable tr:first').after(fila);
+    $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
+    var nFilas = $("#mytable tr").length;
+    $("#adicionados").append(nFilas - 1);
+
+ document.getElementById("Correo_proveedores").value ="";
+    document.getElementById("Telefono_proveedores").value = "";
+    document.getElementById("Direccion_proveedores").value = "";
+    document.getElementById("Direccion_proveedores").focus();
+
+
+  });
+$(document).on('click', '.btn_remove', function() {
+  var button_id = $(this).attr("id");
+    //cuando da click obtenemos el id del boton
+    $('#row' + button_id + '').remove(); //borra la fila
+    //limpia el para que vuelva a contar las filas de la tabla
+    $("#adicionados").text("");
+    var nFilas = $("#mytable tr").length;
+    $("#adicionados").append(nFilas - 1);
+  });
+});
+
+
+
+
+</script>
 
 
 
 <script>
     $('#Telefono_proveedores').mask('0000-0000');
-    
+    $('#cai_proveedor').mask('000000-000000-000000-000000-000000-00');
+  
 
 
 document.getElementById("nombre_proveedor").addEventListener("keydown", teclear);
@@ -220,90 +357,63 @@ function teclear(event) {
 
 </script>
 
+<script>
+    $(document).ready(function() {
+//obtenemos el valor de los input
 
+$('#guardarnuevop').click(function() {
 
-
-
-
-
-
-
-
-
-<script >
+  var Producto_proveedores= document.getElementById("Producto_proveedores").value;
+  var Precio_proveedores= document.getElementById("Precio_proveedores").value;
+ 
+  var i = 1; //contador para asignar id al boton que borrara la fila
+  var fila = '<tr id="rowp' + i + '"><td><center>' + Producto_proveedores + '</center></td><td><center>' + Precio_proveedores + '</center></td><td><center><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Quitar</center></button></td></tr>';
   
-
-
-    $(document).ready(function(){
-        var i = 1;
-
-        $('#CE_proveedor').click(function () {
-            i++;
-            $('#dynamic_field').append('<tr id="row'+i+'">' +
-                                        '<td><input type="email" name="name[]" maxlength="50" placeholder="" class="form-control name_list" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"  /></td>' +
-                                        '<td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td>' +
-                                        '</tr>');
-        });
-        
-        $(document).on('click', '.btn_remove', function () {
-            var id = $(this).attr('id');
-           $('#row'+ id).remove();
-        });
-
-        
-    })
+         
 
 
 
 
-   
-$(document).ready(function(){
-        var i = 1;
 
-        $('#D_proveedor').click(function () {
-            i++;
-            $('#dynamic_Direccion').append('<tr id="Direccion'+i+'">' +
-                                        '<td><input type="text" name="Direccion[]" placeholder="" onkeyup="javascript:this.value=this.value.toUpperCase();" class="form-control keydown ="teclear()" name_list" /></td>' +
-                                        '<td><button type="button" name="remove_D" id="'+i+'" class="btn btn-danger btn_remove">X</button></td>' +
-                                        '</tr>');
-        });
-        
-        $(document).on('click', '.btn_remove', function () {
-            var id = $(this).attr('id');
-           $('#Direccion'+ id).remove();
-        });
+  i++;
 
-        
-    })
+  $('#mtable tr:first').after(fila);
+    $("#adicionado").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
+    var nFilas = $("#mtable tr").length;
+    $("#adicionado").append(nFilas - 1);
+
+ document.getElementById("Correo_proveedores").value ="";
+    document.getElementById("Telefono_proveedores").value = "";
+    document.getElementById("Direccion_proveedores").value = "";
+    document.getElementById("Direccion_proveedores").focus();
 
 
-
-$(document).ready(function(){
-        var i= 1;
-
-        $('#T_proveedor').click(function () {
-            i++;
-            $('#dynamic_Telefono').append('<tr id="telefono'+i+'">' +
-                                        '<td><input type="text" name="Telefono[]" id="Telefonod" placeholder="" onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="8" class="form-control name_list" /></td>' +
-                                        '<td><button type="button" name="remove_T" id="'+i+'" class="btn btn-danger btn_remove">X</button></td>' +
-                                        '</tr>');
-
-            
-        });
-        
-        $(document).on('click', '.btn_remove', function () {
-            var id = $(this).attr('id');
-           $('#telefono'+ id).remove();
-        });
-
-        
-    })
-
+  });
+$(document).on('click', '.btn_remove', function() {
+  var button_id = $(this).attr("id");
+    //cuando da click obtenemos el id del boton
+    $('#rowp' + button_id + '').remove(); //borra la fila
+    //limpia el para que vuelva a contar las filas de la tabla
+    $("#adicionado").text("");
+    var nFilas = $("#mtable tr").length;
+    $("#adicionado").append(nFilas - 1);
+  });
+});
 
 
 
 
 </script>
+
+
+
+
+
+
+
+
+
+
 
  
 
@@ -348,7 +458,9 @@ width: 80%;
 -webkit-border-radius: 0px 0px 0px 0px;
 border: 0px solid #000000;
 }
-
+.swal2-popup {
+  font-size: 1.6rem !important;
+}
  
 
 

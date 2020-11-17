@@ -19,6 +19,8 @@ function limpiar()
 {
 
 		$("#nombre_proveedor").val("");
+		$("#rtn_proveedor").val("");
+		$("#cai_proveedor").val("");
 		$("#Descripcion_proveedores").val("");
         $("#Direccion_proveedores").val("");
         $("#correo_proveedores").val("");
@@ -95,7 +97,7 @@ $.ajax({
 	    contentType: false,
 	    processData: false,
 
-	   success: function(datos)
+	  success: function(datos)
 	    {      
 	    	swal({
   			title: "",
@@ -110,22 +112,46 @@ $.ajax({
 
 	});
 	limpiar();
+	
 
 }
 
-/*function mostrar(id_proveedor)
+function mostrar(id_proveedor)
 {
-	$.post("../ajax/producto.php?op=mostrar",{id_proveedor: id_proveedor}, function(data)
+	$.post("../ajax/proveedores.php?op=mostrar",{id_proveedor: id_proveedor}, function(data)
 	{
 		data = JSON.parse(data);		
 		mostrarform(true);
 		
 		$("#id_proveedor").val(data.id_proveedor);
 		$("#nombre_proveedor").val(data.nombre_proveedor);
+		$("#cai_proveedor").val(data.CAI);
+	    $("#rtn_proveedor").val(data.rtn);
 
+        $("#Descripcion_proveedores").val(data.descripcion);
+       $("Direccion_proveedores").val(data.Direccion_proveedores);
+        $("Correo_proveedores").val(data.Correo_proveedores);
+       $("Telefono_proveedores").val(data.Telefono_proveedores);
  	})
+
+function eliminar(id_proveedor)
+{
+	bootbox.confirm("¿Está Seguro de eliminar el cliente?", function(result){
+		if(result)
+        {
+        	$.post("../ajax/proveedores.php?op=eliminar", {id_proveedor : id_proveedor}, function(e){
+        		bootbox.alert(e);
+	            tabla.ajax.reload();
+        	});	
+        }
+	})
 }
-*/
+
+
+
+
+}
+
 
 
 

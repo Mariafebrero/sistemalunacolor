@@ -10,16 +10,11 @@ function init(){
 		guardaryeditar(e);	
 	});
 
-$.post("../ajax/R.php?op=selectproveedor",function(t){
-
-$("#id_proveedor").html(t);
-$("#id_proveedor").selectpicker("refresh");
-	            }
 
 
 
 
-	            	);
+	            	
 
 
 
@@ -123,147 +118,29 @@ function guardaryeditar(e)
 	    contentType: false,
 	    processData: false,
 
-	    success: function(datos)
-	    { 
-	    if (datos == "¡La Factura de Compra se ha ingresado con éxito!") 
-	    {
-			Swal.fire({
-			title:  datos ,
-			text: "La lista de Facturas de compras ha sido actualizada",
-			icon: 'success',
-			showConfirmButton: false,
-			allowOutsideClick: false,
-			timer: 3500
-			});
-	    } 
-	    else if (datos == "La Factura de compras no se pudo registrar") 
-	    {
-	    	Swal.fire({
-			title:  datos ,
-			text: "La lista de Facturas de compras no ha sido actualizada",
-			icon: 'error',
-			showConfirmButton: false,
-			allowOutsideClick: false,
-			footer: "Si el problema persiste, contacte a su soporte técnico",
-			timer: 4500
-			});
-	    }
-	    else if (datos == "Este Factura de compras ya se encuentra registrado") 
-	    {
-	    	Swal.fire({
-			title: datos,
-			text: "Intentélo de nuevo", 
-			icon:'error'  ,
-			showConfirmButton: false,
-			allowOutsideClick: false,
-			footer: "Si el problema persiste, contacte a su soporte técnico",
-			timer: 4500
-			});
-	    }
-	    else if (datos == "¡La Factura ha sido actualizado!") 
-	    {
-	    	Swal.fire({
-			title: datos,
-			text: "La lista de productos ha sido actualizada", 
-			icon:'success'  ,
-			showConfirmButton: false,
-			allowOutsideClick: false,
-			timer: 4500
-			});
-	    }
-	    else if (datos == "El producto no se pudo actualizar") 
-	    {
-	    	Swal.fire({
-			title: datos,
-			text: "La lista de productos no ha sido actualizada", 
-			icon:'error'  ,
-			showConfirmButton: false,
-			allowOutsideClick: false,
-			footer: "Si el problema persiste, contacte a su soporte técnico",
-			timer: 4500
-			});
-	    }
-	    else 
-	    {
-	    	Swal.fire({
-			title: "Fallo en el sistema",
-			text: "Intentélo de nuevo más tarde", 
-			icon:'error'  ,
-			showConfirmButton: false,
-			allowOutsideClick: false,
-			footer: "Si el problema persiste, contacte a su soporte técnico",
-			timer: 4500
-			});
-	    }
-
-
-			  //setTimeout("document.location.reload(true)", 2500);
+	     success: function(datos)
+	    {      
+	    	swal({
+  			title: "",
+  			text: datos,
+  			icon: "success",
+  			button: "OK",
+			});                
+	          //bootbox.alert(datos);	          
 	          mostrarform(false);
 	          tabla.ajax.reload();
-
-
 	    }
- 
 
 	});
 	limpiar();
 
 }
 
-function mostrar(id_producto)
-{
-	$.post("../ajax/producto.php?op=mostrar",{id_producto : id_producto}, function(data)
-	{
-		data = JSON.parse(data);		
-		mostrarform(true);
-		
-		$("#id_producto").val(data.id_producto);
-		$("#nombreproducto").val(data.nombre_producto);
 
- 	})
-}
 
-//Función para desactivar registros
-function desactivar(idarticulo)
-{
-	bootbox.confirm("¿Está Seguro de desactivar el artículo?", function(result){
-		if(result)
-        {
-        	$.post("../ajax/producto.php?op=desactivar", {idarticulo : idarticulo}, function(e){
-        		bootbox.alert(e);
-	            tabla.ajax.reload();
-        	});	
-        }
-	})
-}
 
-//Función para activar registros
-function activar(idarticulo)
-{
-	bootbox.confirm("¿Está Seguro de activar el Artículo?", function(result){
-		if(result)
-        {
-        	$.post("../ajax/producto.php?op=activar", {idarticulo : idarticulo}, function(e){
-        		bootbox.alert(e);
-	            tabla.ajax.reload();
-        	});	
-        }
-	})
-}
 
-//función para generar el código de barras
-function generarbarcode()
-{
-	codigo=$("#codigo").val();
-	JsBarcode("#barcode", codigo);
-	$("#print").show();
-}
 
-//Función para imprimir el Código de barras
-function imprimir()
-{
-	$("#print").printArea();
-}
 
 
 init();
