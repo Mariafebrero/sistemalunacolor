@@ -1,8 +1,17 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <script src="../public/plugins/sweetalert/sweetalert.min.js"></script>
-</header>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+</body>
+</html>
+
 <?php
 include '../config/conexionBackup.php';
 
@@ -54,7 +63,21 @@ if($result){
     }
     if($error==1){
         
-        echo "<script>alert('Ocurrio un error inesperado al crear la copia de seguridad');window.location.href='../vistas/backup.php';</script>";
+        //echo "<script>alert('Ocurrio un error inesperado al crear la copia de seguridad');window.location.href='../vistas/backup.php';</script>";
+
+         echo '<script>
+                    setTimeout(function() {
+                    swal({
+                    title: "Ocurrio un error inesperado al crear la copia de seguridad",
+                    text: "Inténtelo de nuevo o contacte a su soporte técnico",
+                    closeOnClickOutside: false,
+                    type: "error"
+                        }, function() 
+                        {
+                            window.location = "../vistas/backup.php";
+                        });
+                    }, 1000);
+                </script>';
     }else{
         chmod(BACKUP_PATH, 0777);
         $sql.='SET FOREIGN_KEY_CHECKS=1;';
@@ -62,9 +85,38 @@ if($result){
         if(fwrite($handle, $sql)){
             fclose($handle);
 
-            echo   "<script>alert('Copia de Seguridad Realizada con Exito');window.location.href='../vistas/backup.php';</script>"; 
+            //echo   "<script>alert('Copia de Seguridad Realizada con Exito');window.location.href='../vistas/backup.php';</script>";
+            echo '<script>
+                    setTimeout(function() {
+                    swal({
+                    title: "¡La copia de seguridad se ha realizado con éxito!",
+                    text: "",
+                    closeOnClickOutside: false,
+                    type: "success"
+                        }, function() 
+                        {
+                            window.location = "../vistas/backup.php";
+                        });
+                    }, 1000);
+                </script>';
+
+
+
         }else{
-            echo "<script>alert('Ocurrio un error inesperado al crear la copia de seguridad');window.location.href='../vistas/backup.php';</script>";
+            //echo "<script>alert('Ocurrio un error inesperado al crear la copia de seguridad');window.location.href='../vistas/backup.php';</script>";
+             echo '<script>
+                    setTimeout(function() {
+                    swal({
+                    title: "Ocurrio un error inesperado al crear la copia de seguridad",
+                    text: "Inténtelo de nuevo o contacte a su soporte técnico",
+                    closeOnClickOutside: false,
+                    type: "error"
+                        }, function() 
+                        {
+                            window.location = "../vistas/backup.php";
+                        });
+                    }, 1000);
+                </script>';
 
         }
     }
