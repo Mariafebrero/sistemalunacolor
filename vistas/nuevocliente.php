@@ -57,6 +57,7 @@ if ($_SESSION['id_rol']==2)
                             <th>Cargo</th>
                             <th>RTN</th>
                             <th>Correo eléctronico</th>
+                            <th>Dirección</th>
                             <th>Observaciones</th>
                           </thead>
                           <tbody>                            
@@ -70,6 +71,7 @@ if ($_SESSION['id_rol']==2)
                             <th>Cargo</th>
                             <th>RTN</th>
                             <th>Correo eléctronico</th>
+                             <th>Dirección</th>
                             <th>Observaciones</th>
                           </tfoot>
                         </table>
