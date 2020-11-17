@@ -2,6 +2,22 @@
 //Activamos el almacenamiento en el buffer
 ob_start();
 session_start();
+
+include '../config/conexion.php';
+$idobjeto = $_GET['objeto'];
+$rol = $_SESSION['id_rol'];
+
+$sql = "SELECT * from tbl_permisos WHERE id_objeto = '$idobjeto' and id_rol = '$rol' and permiso_insercion = 1";
+$stmt = mysqli_query($conexion,$sql);
+if(mysqli_num_rows($stmt)>0){
+  $permiso = true;
+}else{
+  $permiso = false;
+}
+
+ 
+$_SESSION["objeto"] = $_GET['objeto'];
+
 include '../config/conexion.php';
 //nombre new variable para secion
 if (!isset($_SESSION["nombre_usuario"]))
@@ -47,9 +63,17 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
                   <div class="box">
                     <div class="box-header with-border">
 
-                          <center> <h1 ><span class="hiddenui"><i class="fas fa-boxes"> Mantenimiento de Proveedores</i></span></h1> </center>
+                      
+
+                      <!-- IMAGEN TITULO -->
+                      <center> 
+                          <img class="imagen" width="250" heigth="250" src="../public/img/titulos/PROVEEDORES.svg">
+                      
+                      </center>
+                      <!-- FIN IMAGEN TITULO -->
+
                           <br>
-                            <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="fa fa-address-book-o "></i> Agregar Proveedor</button>
+                            <button class="btn btn-success" id="btnagregar" <?php echo $permiso==false ? 'disabled' : '' ?>  onclick="mostrarform(true)"><i class="fa fa-address-book-o "></i> Agregar Proveedor</button>
                  
 
 

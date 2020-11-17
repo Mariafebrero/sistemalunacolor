@@ -2,8 +2,6 @@
 //Activamos el almacenamiento en el buffer
 ob_start();
 session_start();
-
-//Permisos
 include '../config/conexion.php';
 $idobjeto = $_GET['objeto'];
 $rol = $_SESSION['id_rol'];
@@ -17,6 +15,9 @@ if(mysqli_num_rows($stmt)>0){
 }
  
 $_SESSION["objeto"] = $_GET['objeto'];
+
+
+
 
 
 
@@ -69,7 +70,7 @@ require 'header.php';
                       <!-- FIN IMAGEN TITULO --> 
                           <br> 
 
-                            <button class="btn btn-success" id="btnagregar" <?php echo $permiso==false ? 'disabled' : '' ?> onclick="mostrarform(true)"><i class="fa fa-address-book-o "></i> Agregar nuevo producto</button>
+                            <button class="btn btn-success" id="btnagregar" <?php echo $permiso==false ? 'disabled' : '' ?>  onclick="mostrarform(true)"><i class="fa fa-address-book-o "></i> Agregar nuevo producto</button>
                         <div class="box-tools pull-right">
                         </div>
 

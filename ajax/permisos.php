@@ -13,14 +13,15 @@ $permiso_insercion=isset($_POST["permiso_insercion"])? limpiarCadena($_POST["per
 $permiso_eliminacion=isset($_POST["permiso_eliminacion"])? limpiarCadena($_POST["permiso_eliminacion"]):"";
 $permiso_actualizacion=isset($_POST["permiso_actualizacion"])? limpiarCadena($_POST["permiso_actualizacion"]):"";
 $permiso_consultar=isset($_POST["permiso_consultar"])? limpiarCadena($_POST["permiso_consultar"]):"";
+$permiso_menu=isset($_POST["permiso_menu"])? limpiarCadena($_POST["permiso_menu"]):"";
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
 	if (empty($id_permiso)){
-	$rspta=$permisos->insertar($id_rol,$id_objeto,$permiso_insercion,$permiso_eliminacion,$permiso_actualizacion,$permiso_consultar);
+	$rspta=$permisos->insertar($id_rol,$id_objeto,$permiso_insercion,$permiso_eliminacion,$permiso_actualizacion,$permiso_consultar,$permiso_menu);
 		echo $rspta ? "Permiso registrado" : "Permiso no se pudo registrar";
 } else{	
-	$rspta=$permisos->editar($id_permiso,$id_rol,$id_objeto,$permiso_insercion,$permiso_eliminacion,$permiso_actualizacion,$permiso_consultar);
+	$rspta=$permisos->editar($id_permiso,$id_rol,$id_objeto,$permiso_insercion,$permiso_eliminacion,$permiso_actualizacion,$permiso_consultar,$permiso_menu);
 		echo $rspta ? "Permiso actualizado" : "Permiso no se pudo actualizar";
 		  	
 		}
@@ -88,7 +89,8 @@ switch ($_GET["op"]){
  				"5"=>$reg->permiso_insercion,
  				"6"=>$reg->permiso_eliminacion,
  				"7"=>$reg->permiso_actualizacion,
- 				"8"=>$reg->permiso_consultar
+ 				"8"=>$reg->permiso_consultar,
+ 				"9"=>$reg->permiso_menu
  				);
  		}
  		$results = array(

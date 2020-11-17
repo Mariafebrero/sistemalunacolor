@@ -29,7 +29,15 @@ if (strlen(session_id()) < 1)
     <link rel="apple-touch-icon" href="../public/img/ICONOSLC.png">
     <link rel="shortcut icon" href="../public/img/favicon.ico">
 
-   
+   <!--==========================================ALERT2==================================================-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="sweetalert2.all.min.js"></script>
+<!-- Optional: include a polyfill for ES6 Promises for IE11 -->
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
     <!-- ICONOS fontawesome -->
   <link rel="stylesheet" type="text/css" href="../public/iconosfontawesome/css/all.css">
     
@@ -151,7 +159,9 @@ if (strlen(session_id()) < 1)
             <?php } ?>
             <?php
                 $cod = $objeto['id_objeto'];
-                $pregcod = "SELECT * FROM tbl_objetos t inner join tbl_permisos t2 ON t.id_objeto = t2.id_objeto where t2.id_rol = '$rol' and t2.permiso_consultar = 1 and idmenupadre = '$cod'";
+                $pregcod = "SELECT * FROM tbl_objetos t 
+                inner join tbl_permisos t2 ON t.id_objeto = t2.id_objeto 
+                where t2.id_rol = '$rol' and t2.permiso_menu = 1 and idmenupadre = '$cod'";
                 $stmts = mysqli_query($conexion,$pregcod);
                 foreach ($stmts as $row) { ?>
               <ul class="treeview-menu">

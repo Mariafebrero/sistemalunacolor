@@ -17,10 +17,9 @@ CREATE TABLE `tbl_bitacora` (
   `fecha_creacion` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id_bitacora`),
   KEY `FK_tblusuarios` (`id_usuario`),
-  KEY `FK_tblobjetos` (`id_objeto`),
-  CONSTRAINT `FK_tblobjetos` FOREIGN KEY (`id_objeto`) REFERENCES `tbl_objetos` (`id_objeto`) ON UPDATE CASCADE,
+  KEY `FK_tblobjetos` (`id_objeto`) USING BTREE,
   CONSTRAINT `FK_tblusuarios` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_usuarios` (`id_usuario`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=502 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=576 DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO tbl_bitacora VALUES("120","1","5","2020-10-27 17:20:55","Salió","Salió de login","ADMIN","2020-10-27 17:20:55");
 INSERT INTO tbl_bitacora VALUES("121","1","5","2020-10-27 17:20:55","Entrada","Entró al Sistema","ADMIN","2020-10-27 17:20:55");
@@ -197,110 +196,228 @@ INSERT INTO tbl_bitacora VALUES("344","1","1","2020-11-10 00:06:44","Entró","En
 INSERT INTO tbl_bitacora VALUES("345","1","1","2020-11-10 00:06:44","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 00:06:44");
 INSERT INTO tbl_bitacora VALUES("346","1","5","2020-11-10 14:14:36","Salió","Salió de login","ADMIN","2020-11-10 14:14:36");
 INSERT INTO tbl_bitacora VALUES("347","1","5","2020-11-10 14:14:37","Entrada","Entró al Sistema","ADMIN","2020-11-10 14:14:37");
-INSERT INTO tbl_bitacora VALUES("352","1","5","2020-11-10 17:49:43","Salió","Salió de login","ADMIN","2020-11-10 17:49:43");
-INSERT INTO tbl_bitacora VALUES("353","1","5","2020-11-10 17:49:43","Entrada","Entró al Sistema","ADMIN","2020-11-10 17:49:43");
-INSERT INTO tbl_bitacora VALUES("356","1","5","2020-11-10 21:02:05","Salió","Salió de login","ADMIN","2020-11-10 21:02:05");
-INSERT INTO tbl_bitacora VALUES("357","1","5","2020-11-10 21:02:05","Entrada","Entró al Sistema","ADMIN","2020-11-10 21:02:05");
-INSERT INTO tbl_bitacora VALUES("360","1","1","2020-11-10 21:23:33","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:23:33");
-INSERT INTO tbl_bitacora VALUES("361","1","1","2020-11-10 21:23:33","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:23:33");
-INSERT INTO tbl_bitacora VALUES("362","1","1","2020-11-10 21:24:50","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:24:50");
-INSERT INTO tbl_bitacora VALUES("363","1","1","2020-11-10 21:24:50","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:24:50");
-INSERT INTO tbl_bitacora VALUES("364","1","2","2020-11-10 21:25:13","Actualizó","Actualizó el valor de un Parametro","ADMIN","2020-11-10 21:25:13");
-INSERT INTO tbl_bitacora VALUES("365","1","2","2020-11-10 21:25:31","Actualizó","Actualizó el valor de un Parametro","ADMIN","2020-11-10 21:25:31");
-INSERT INTO tbl_bitacora VALUES("374","1","1","2020-11-10 21:33:19","Salida","Salió del sistema","ADMIN","2020-11-10 21:33:19");
-INSERT INTO tbl_bitacora VALUES("375","1","5","2020-11-10 21:33:30","Salió","Salió de login","ADMIN","2020-11-10 21:33:30");
-INSERT INTO tbl_bitacora VALUES("376","1","5","2020-11-10 21:33:30","Entrada","Entró al Sistema","ADMIN","2020-11-10 21:33:30");
-INSERT INTO tbl_bitacora VALUES("392","1","1","2020-11-10 21:38:16","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:38:16");
-INSERT INTO tbl_bitacora VALUES("393","1","1","2020-11-10 21:38:16","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:38:16");
-INSERT INTO tbl_bitacora VALUES("394","1","1","2020-11-10 21:43:05","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:43:05");
-INSERT INTO tbl_bitacora VALUES("395","1","1","2020-11-10 21:43:05","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:43:05");
-INSERT INTO tbl_bitacora VALUES("396","1","1","2020-11-10 21:43:29","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:43:29");
-INSERT INTO tbl_bitacora VALUES("397","1","1","2020-11-10 21:43:29","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:43:29");
-INSERT INTO tbl_bitacora VALUES("398","1","1","2020-11-10 21:43:45","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:43:45");
-INSERT INTO tbl_bitacora VALUES("399","1","1","2020-11-10 21:43:45","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:43:45");
-INSERT INTO tbl_bitacora VALUES("400","1","1","2020-11-10 21:43:51","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:43:51");
-INSERT INTO tbl_bitacora VALUES("401","1","1","2020-11-10 21:43:51","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:43:51");
-INSERT INTO tbl_bitacora VALUES("402","1","1","2020-11-10 21:44:54","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:44:54");
-INSERT INTO tbl_bitacora VALUES("403","1","1","2020-11-10 21:44:54","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:44:54");
-INSERT INTO tbl_bitacora VALUES("404","1","1","2020-11-10 21:44:56","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:44:56");
-INSERT INTO tbl_bitacora VALUES("405","1","1","2020-11-10 21:44:56","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:44:56");
-INSERT INTO tbl_bitacora VALUES("406","1","1","2020-11-10 21:48:56","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:48:56");
-INSERT INTO tbl_bitacora VALUES("407","1","1","2020-11-10 21:48:56","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:48:56");
-INSERT INTO tbl_bitacora VALUES("408","1","1","2020-11-10 21:52:45","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:52:45");
-INSERT INTO tbl_bitacora VALUES("409","1","1","2020-11-10 21:52:45","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:52:45");
-INSERT INTO tbl_bitacora VALUES("410","1","1","2020-11-10 21:55:26","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:55:26");
-INSERT INTO tbl_bitacora VALUES("411","1","1","2020-11-10 21:55:26","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:55:26");
-INSERT INTO tbl_bitacora VALUES("412","1","1","2020-11-10 21:55:57","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:55:57");
-INSERT INTO tbl_bitacora VALUES("413","1","1","2020-11-10 21:55:57","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:55:57");
-INSERT INTO tbl_bitacora VALUES("414","1","1","2020-11-10 21:56:35","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:56:35");
-INSERT INTO tbl_bitacora VALUES("415","1","1","2020-11-10 21:56:35","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:56:35");
-INSERT INTO tbl_bitacora VALUES("416","1","1","2020-11-10 21:56:56","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:56:56");
-INSERT INTO tbl_bitacora VALUES("417","1","1","2020-11-10 21:56:56","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:56:56");
-INSERT INTO tbl_bitacora VALUES("418","1","1","2020-11-10 21:56:57","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:56:57");
-INSERT INTO tbl_bitacora VALUES("419","1","1","2020-11-10 21:56:57","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:56:57");
-INSERT INTO tbl_bitacora VALUES("420","1","1","2020-11-10 21:57:20","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:57:20");
-INSERT INTO tbl_bitacora VALUES("421","1","1","2020-11-10 21:57:20","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:57:20");
-INSERT INTO tbl_bitacora VALUES("422","1","1","2020-11-10 21:57:56","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:57:56");
-INSERT INTO tbl_bitacora VALUES("423","1","1","2020-11-10 21:57:56","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:57:56");
-INSERT INTO tbl_bitacora VALUES("424","1","1","2020-11-10 21:58:32","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:58:32");
-INSERT INTO tbl_bitacora VALUES("425","1","1","2020-11-10 21:58:32","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:58:32");
-INSERT INTO tbl_bitacora VALUES("426","1","1","2020-11-10 21:58:41","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:58:41");
-INSERT INTO tbl_bitacora VALUES("427","1","1","2020-11-10 21:58:41","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:58:41");
-INSERT INTO tbl_bitacora VALUES("428","1","1","2020-11-10 21:59:14","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:59:14");
-INSERT INTO tbl_bitacora VALUES("429","1","1","2020-11-10 21:59:14","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:59:14");
-INSERT INTO tbl_bitacora VALUES("430","1","1","2020-11-10 21:59:40","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 21:59:40");
-INSERT INTO tbl_bitacora VALUES("431","1","1","2020-11-10 21:59:40","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 21:59:40");
-INSERT INTO tbl_bitacora VALUES("432","1","1","2020-11-10 22:07:50","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:07:50");
-INSERT INTO tbl_bitacora VALUES("433","1","1","2020-11-10 22:07:50","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:07:50");
-INSERT INTO tbl_bitacora VALUES("434","1","1","2020-11-10 22:08:01","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:08:01");
-INSERT INTO tbl_bitacora VALUES("435","1","1","2020-11-10 22:08:01","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:08:01");
-INSERT INTO tbl_bitacora VALUES("436","1","1","2020-11-10 22:08:43","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:08:43");
-INSERT INTO tbl_bitacora VALUES("437","1","1","2020-11-10 22:08:43","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:08:43");
-INSERT INTO tbl_bitacora VALUES("438","1","1","2020-11-10 22:09:23","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:09:23");
-INSERT INTO tbl_bitacora VALUES("439","1","1","2020-11-10 22:09:23","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:09:23");
-INSERT INTO tbl_bitacora VALUES("440","1","1","2020-11-10 22:09:38","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:09:38");
-INSERT INTO tbl_bitacora VALUES("441","1","1","2020-11-10 22:09:38","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:09:38");
-INSERT INTO tbl_bitacora VALUES("442","1","1","2020-11-10 22:10:15","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:10:15");
-INSERT INTO tbl_bitacora VALUES("443","1","1","2020-11-10 22:10:15","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:10:15");
-INSERT INTO tbl_bitacora VALUES("444","1","1","2020-11-10 22:10:17","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:10:17");
-INSERT INTO tbl_bitacora VALUES("445","1","1","2020-11-10 22:10:17","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:10:17");
-INSERT INTO tbl_bitacora VALUES("446","1","1","2020-11-10 22:10:19","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:10:19");
-INSERT INTO tbl_bitacora VALUES("447","1","1","2020-11-10 22:10:19","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:10:19");
-INSERT INTO tbl_bitacora VALUES("448","1","1","2020-11-10 22:10:22","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:10:22");
-INSERT INTO tbl_bitacora VALUES("449","1","1","2020-11-10 22:10:22","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:10:22");
-INSERT INTO tbl_bitacora VALUES("450","1","1","2020-11-10 22:10:59","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:10:59");
-INSERT INTO tbl_bitacora VALUES("451","1","1","2020-11-10 22:10:59","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:10:59");
-INSERT INTO tbl_bitacora VALUES("452","1","1","2020-11-10 22:11:04","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:11:04");
-INSERT INTO tbl_bitacora VALUES("453","1","1","2020-11-10 22:11:04","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:11:04");
-INSERT INTO tbl_bitacora VALUES("454","1","1","2020-11-10 22:11:08","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:11:08");
-INSERT INTO tbl_bitacora VALUES("455","1","1","2020-11-10 22:11:08","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:11:08");
-INSERT INTO tbl_bitacora VALUES("456","1","1","2020-11-10 22:11:10","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:11:10");
-INSERT INTO tbl_bitacora VALUES("457","1","1","2020-11-10 22:11:10","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:11:10");
-INSERT INTO tbl_bitacora VALUES("458","1","1","2020-11-10 22:14:06","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:14:06");
-INSERT INTO tbl_bitacora VALUES("459","1","1","2020-11-10 22:14:06","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:14:06");
-INSERT INTO tbl_bitacora VALUES("460","1","1","2020-11-10 22:14:14","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:14:14");
-INSERT INTO tbl_bitacora VALUES("461","1","1","2020-11-10 22:14:14","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:14:14");
-INSERT INTO tbl_bitacora VALUES("462","1","1","2020-11-10 22:14:17","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:14:17");
-INSERT INTO tbl_bitacora VALUES("463","1","1","2020-11-10 22:14:17","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:14:17");
-INSERT INTO tbl_bitacora VALUES("464","1","1","2020-11-10 22:15:10","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:15:10");
-INSERT INTO tbl_bitacora VALUES("465","1","1","2020-11-10 22:15:10","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:15:10");
-INSERT INTO tbl_bitacora VALUES("466","1","1","2020-11-10 22:15:39","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:15:39");
-INSERT INTO tbl_bitacora VALUES("467","1","1","2020-11-10 22:15:39","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:15:39");
-INSERT INTO tbl_bitacora VALUES("468","1","1","2020-11-10 22:16:31","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-10 22:16:31");
-INSERT INTO tbl_bitacora VALUES("469","1","1","2020-11-10 22:16:31","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-10 22:16:31");
-INSERT INTO tbl_bitacora VALUES("470","1","5","2020-11-11 13:20:24","Salió","Salió de login","ADMIN","2020-11-11 13:20:24");
-INSERT INTO tbl_bitacora VALUES("471","1","5","2020-11-11 13:20:24","Entrada","Entró al Sistema","ADMIN","2020-11-11 13:20:24");
-INSERT INTO tbl_bitacora VALUES("476","1","1","2020-11-11 13:20:30","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-11 13:20:30");
-INSERT INTO tbl_bitacora VALUES("477","1","1","2020-11-11 13:20:30","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-11 13:20:30");
-INSERT INTO tbl_bitacora VALUES("478","1","1","2020-11-11 13:20:44","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-11 13:20:44");
-INSERT INTO tbl_bitacora VALUES("479","1","1","2020-11-11 13:20:44","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-11 13:20:44");
-INSERT INTO tbl_bitacora VALUES("480","1","1","2020-11-11 14:07:33","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-11 14:07:33");
-INSERT INTO tbl_bitacora VALUES("481","1","1","2020-11-11 14:07:33","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-11 14:07:33");
-INSERT INTO tbl_bitacora VALUES("482","1","1","2020-11-11 14:39:29","Salida","Salió del sistema","ADMIN","2020-11-11 14:39:29");
-INSERT INTO tbl_bitacora VALUES("483","1","5","2020-11-11 14:39:46","Salió","Salió de login","ADMIN","2020-11-11 14:39:46");
-INSERT INTO tbl_bitacora VALUES("484","1","5","2020-11-11 14:39:46","Entrada","Entró al Sistema","ADMIN","2020-11-11 14:39:46");
-INSERT INTO tbl_bitacora VALUES("492","1","1","2020-11-11 14:46:32","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-11 14:46:32");
-INSERT INTO tbl_bitacora VALUES("493","1","1","2020-11-11 14:46:32","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-11 14:46:32");
+INSERT INTO tbl_bitacora VALUES("352","1","5","2020-11-12 22:45:55","Salió","Salió de login","ADMIN","2020-11-12 22:45:55");
+INSERT INTO tbl_bitacora VALUES("353","1","5","2020-11-12 22:45:56","Entrada","Entró al Sistema","ADMIN","2020-11-12 22:45:56");
+INSERT INTO tbl_bitacora VALUES("356","1","1","2020-11-12 22:50:52","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-12 22:50:52");
+INSERT INTO tbl_bitacora VALUES("357","1","1","2020-11-12 22:50:52","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-12 22:50:52");
+INSERT INTO tbl_bitacora VALUES("358","1","1","2020-11-12 22:51:49","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-12 22:51:49");
+INSERT INTO tbl_bitacora VALUES("359","1","1","2020-11-12 22:51:49","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-12 22:51:49");
+INSERT INTO tbl_bitacora VALUES("360","1","1","2020-11-12 22:55:57","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-12 22:55:57");
+INSERT INTO tbl_bitacora VALUES("361","1","1","2020-11-12 22:55:58","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-12 22:55:58");
+INSERT INTO tbl_bitacora VALUES("362","1","1","2020-11-13 01:53:42","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 01:53:42");
+INSERT INTO tbl_bitacora VALUES("363","1","1","2020-11-13 01:53:42","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 01:53:42");
+INSERT INTO tbl_bitacora VALUES("364","1","1","2020-11-13 01:54:26","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 01:54:26");
+INSERT INTO tbl_bitacora VALUES("365","1","1","2020-11-13 01:54:26","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 01:54:26");
+INSERT INTO tbl_bitacora VALUES("366","1","1","2020-11-13 02:04:31","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:04:31");
+INSERT INTO tbl_bitacora VALUES("367","1","1","2020-11-13 02:04:31","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:04:31");
+INSERT INTO tbl_bitacora VALUES("368","1","1","2020-11-13 02:06:53","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:06:53");
+INSERT INTO tbl_bitacora VALUES("369","1","1","2020-11-13 02:06:54","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:06:54");
+INSERT INTO tbl_bitacora VALUES("370","1","1","2020-11-13 02:07:16","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:07:16");
+INSERT INTO tbl_bitacora VALUES("371","1","1","2020-11-13 02:07:16","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:07:16");
+INSERT INTO tbl_bitacora VALUES("372","1","1","2020-11-13 02:07:38","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:07:38");
+INSERT INTO tbl_bitacora VALUES("373","1","1","2020-11-13 02:07:38","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:07:38");
+INSERT INTO tbl_bitacora VALUES("374","1","1","2020-11-13 02:08:18","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:08:18");
+INSERT INTO tbl_bitacora VALUES("375","1","1","2020-11-13 02:08:18","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:08:18");
+INSERT INTO tbl_bitacora VALUES("376","1","1","2020-11-13 02:09:16","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:09:16");
+INSERT INTO tbl_bitacora VALUES("377","1","1","2020-11-13 02:09:16","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:09:16");
+INSERT INTO tbl_bitacora VALUES("378","1","1","2020-11-13 02:10:08","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:10:08");
+INSERT INTO tbl_bitacora VALUES("379","1","1","2020-11-13 02:10:09","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:10:09");
+INSERT INTO tbl_bitacora VALUES("380","1","1","2020-11-13 02:11:13","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:11:13");
+INSERT INTO tbl_bitacora VALUES("381","1","1","2020-11-13 02:11:13","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:11:13");
+INSERT INTO tbl_bitacora VALUES("382","1","1","2020-11-13 02:12:15","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:12:15");
+INSERT INTO tbl_bitacora VALUES("383","1","1","2020-11-13 02:12:15","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:12:15");
+INSERT INTO tbl_bitacora VALUES("384","1","1","2020-11-13 02:13:54","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:13:54");
+INSERT INTO tbl_bitacora VALUES("385","1","1","2020-11-13 02:13:54","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:13:54");
+INSERT INTO tbl_bitacora VALUES("386","1","1","2020-11-13 02:14:01","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:14:01");
+INSERT INTO tbl_bitacora VALUES("387","1","1","2020-11-13 02:14:01","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:14:01");
+INSERT INTO tbl_bitacora VALUES("388","1","1","2020-11-13 02:15:00","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:15:00");
+INSERT INTO tbl_bitacora VALUES("389","1","1","2020-11-13 02:15:01","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:15:01");
+INSERT INTO tbl_bitacora VALUES("390","1","1","2020-11-13 02:16:39","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:16:39");
+INSERT INTO tbl_bitacora VALUES("391","1","1","2020-11-13 02:16:40","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:16:40");
+INSERT INTO tbl_bitacora VALUES("392","1","1","2020-11-13 02:17:36","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:17:36");
+INSERT INTO tbl_bitacora VALUES("393","1","1","2020-11-13 02:17:37","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:17:37");
+INSERT INTO tbl_bitacora VALUES("394","1","1","2020-11-13 02:17:40","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:17:40");
+INSERT INTO tbl_bitacora VALUES("395","1","1","2020-11-13 02:17:40","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:17:40");
+INSERT INTO tbl_bitacora VALUES("396","1","1","2020-11-13 02:17:45","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:17:45");
+INSERT INTO tbl_bitacora VALUES("397","1","1","2020-11-13 02:17:45","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:17:45");
+INSERT INTO tbl_bitacora VALUES("398","1","1","2020-11-13 02:18:40","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:18:40");
+INSERT INTO tbl_bitacora VALUES("399","1","1","2020-11-13 02:18:40","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:18:40");
+INSERT INTO tbl_bitacora VALUES("400","1","1","2020-11-13 02:19:13","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:19:13");
+INSERT INTO tbl_bitacora VALUES("401","1","1","2020-11-13 02:19:13","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:19:13");
+INSERT INTO tbl_bitacora VALUES("402","1","1","2020-11-13 02:20:13","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:20:13");
+INSERT INTO tbl_bitacora VALUES("403","1","1","2020-11-13 02:20:13","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:20:13");
+INSERT INTO tbl_bitacora VALUES("404","1","1","2020-11-13 02:20:43","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:20:43");
+INSERT INTO tbl_bitacora VALUES("405","1","1","2020-11-13 02:20:43","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:20:43");
+INSERT INTO tbl_bitacora VALUES("406","1","1","2020-11-13 02:21:37","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:21:37");
+INSERT INTO tbl_bitacora VALUES("407","1","1","2020-11-13 02:21:37","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:21:37");
+INSERT INTO tbl_bitacora VALUES("408","1","1","2020-11-13 02:22:22","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:22:22");
+INSERT INTO tbl_bitacora VALUES("409","1","1","2020-11-13 02:22:22","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:22:22");
+INSERT INTO tbl_bitacora VALUES("410","1","1","2020-11-13 02:22:30","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:22:30");
+INSERT INTO tbl_bitacora VALUES("411","1","1","2020-11-13 02:22:30","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:22:30");
+INSERT INTO tbl_bitacora VALUES("412","1","1","2020-11-13 02:23:07","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:23:07");
+INSERT INTO tbl_bitacora VALUES("413","1","1","2020-11-13 02:23:08","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:23:08");
+INSERT INTO tbl_bitacora VALUES("414","1","1","2020-11-13 02:24:10","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:24:10");
+INSERT INTO tbl_bitacora VALUES("415","1","1","2020-11-13 02:24:11","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:24:11");
+INSERT INTO tbl_bitacora VALUES("416","1","1","2020-11-13 02:26:28","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:26:28");
+INSERT INTO tbl_bitacora VALUES("417","1","1","2020-11-13 02:26:28","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:26:28");
+INSERT INTO tbl_bitacora VALUES("418","1","1","2020-11-13 02:27:16","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:27:16");
+INSERT INTO tbl_bitacora VALUES("419","1","1","2020-11-13 02:27:16","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:27:16");
+INSERT INTO tbl_bitacora VALUES("420","1","1","2020-11-13 02:27:34","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:27:34");
+INSERT INTO tbl_bitacora VALUES("421","1","1","2020-11-13 02:27:34","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:27:34");
+INSERT INTO tbl_bitacora VALUES("422","1","1","2020-11-13 02:30:51","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:30:51");
+INSERT INTO tbl_bitacora VALUES("423","1","1","2020-11-13 02:30:52","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:30:52");
+INSERT INTO tbl_bitacora VALUES("424","1","1","2020-11-13 02:31:39","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:31:39");
+INSERT INTO tbl_bitacora VALUES("425","1","1","2020-11-13 02:31:39","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:31:39");
+INSERT INTO tbl_bitacora VALUES("426","1","1","2020-11-13 02:32:24","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:32:24");
+INSERT INTO tbl_bitacora VALUES("427","1","1","2020-11-13 02:32:24","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:32:24");
+INSERT INTO tbl_bitacora VALUES("428","1","1","2020-11-13 02:33:54","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:33:54");
+INSERT INTO tbl_bitacora VALUES("429","1","1","2020-11-13 02:33:54","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:33:54");
+INSERT INTO tbl_bitacora VALUES("430","1","1","2020-11-13 02:35:45","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:35:45");
+INSERT INTO tbl_bitacora VALUES("431","1","1","2020-11-13 02:35:46","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:35:46");
+INSERT INTO tbl_bitacora VALUES("432","1","1","2020-11-13 02:40:37","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:40:37");
+INSERT INTO tbl_bitacora VALUES("433","1","1","2020-11-13 02:40:37","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:40:37");
+INSERT INTO tbl_bitacora VALUES("434","1","1","2020-11-13 02:41:31","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:41:31");
+INSERT INTO tbl_bitacora VALUES("435","1","1","2020-11-13 02:41:32","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:41:32");
+INSERT INTO tbl_bitacora VALUES("436","1","1","2020-11-13 02:42:14","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:42:14");
+INSERT INTO tbl_bitacora VALUES("437","1","1","2020-11-13 02:42:14","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:42:14");
+INSERT INTO tbl_bitacora VALUES("438","1","1","2020-11-13 02:43:03","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:43:03");
+INSERT INTO tbl_bitacora VALUES("439","1","1","2020-11-13 02:43:03","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:43:03");
+INSERT INTO tbl_bitacora VALUES("440","1","1","2020-11-13 02:49:12","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:49:12");
+INSERT INTO tbl_bitacora VALUES("441","1","1","2020-11-13 02:49:12","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:49:12");
+INSERT INTO tbl_bitacora VALUES("442","1","1","2020-11-13 02:49:17","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:49:17");
+INSERT INTO tbl_bitacora VALUES("443","1","1","2020-11-13 02:49:17","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:49:17");
+INSERT INTO tbl_bitacora VALUES("444","1","1","2020-11-13 02:52:10","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:52:10");
+INSERT INTO tbl_bitacora VALUES("445","1","1","2020-11-13 02:52:10","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:52:10");
+INSERT INTO tbl_bitacora VALUES("446","1","1","2020-11-13 02:52:51","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:52:51");
+INSERT INTO tbl_bitacora VALUES("447","1","1","2020-11-13 02:52:51","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:52:51");
+INSERT INTO tbl_bitacora VALUES("448","1","1","2020-11-13 02:53:23","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:53:23");
+INSERT INTO tbl_bitacora VALUES("449","1","1","2020-11-13 02:53:23","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:53:23");
+INSERT INTO tbl_bitacora VALUES("450","1","1","2020-11-13 02:54:04","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:54:04");
+INSERT INTO tbl_bitacora VALUES("451","1","1","2020-11-13 02:54:04","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:54:04");
+INSERT INTO tbl_bitacora VALUES("452","1","1","2020-11-13 02:56:23","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:56:23");
+INSERT INTO tbl_bitacora VALUES("453","1","1","2020-11-13 02:56:23","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:56:23");
+INSERT INTO tbl_bitacora VALUES("454","1","1","2020-11-13 02:57:16","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:57:16");
+INSERT INTO tbl_bitacora VALUES("455","1","1","2020-11-13 02:57:16","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:57:16");
+INSERT INTO tbl_bitacora VALUES("456","1","1","2020-11-13 02:58:14","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 02:58:14");
+INSERT INTO tbl_bitacora VALUES("457","1","1","2020-11-13 02:58:14","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 02:58:14");
+INSERT INTO tbl_bitacora VALUES("458","1","1","2020-11-13 03:01:44","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 03:01:44");
+INSERT INTO tbl_bitacora VALUES("459","1","1","2020-11-13 03:01:44","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 03:01:44");
+INSERT INTO tbl_bitacora VALUES("460","1","1","2020-11-13 03:02:45","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 03:02:45");
+INSERT INTO tbl_bitacora VALUES("461","1","1","2020-11-13 03:02:45","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 03:02:45");
+INSERT INTO tbl_bitacora VALUES("462","1","1","2020-11-13 03:03:25","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 03:03:25");
+INSERT INTO tbl_bitacora VALUES("463","1","1","2020-11-13 03:03:25","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 03:03:25");
+INSERT INTO tbl_bitacora VALUES("464","1","5","2020-11-13 18:44:08","Salió","Salió de login","ADMIN","2020-11-13 18:44:08");
+INSERT INTO tbl_bitacora VALUES("465","1","5","2020-11-13 18:44:08","Entrada","Entró al Sistema","ADMIN","2020-11-13 18:44:08");
+INSERT INTO tbl_bitacora VALUES("466","1","10","2020-11-13 18:44:09","Entró","Entró a Escritorio","ADMIN","2020-11-13 18:44:09");
+INSERT INTO tbl_bitacora VALUES("467","1","10","2020-11-13 18:44:09","Salió","Salió de Escritorio","ADMIN","2020-11-13 18:44:09");
+INSERT INTO tbl_bitacora VALUES("468","1","5","2020-11-13 18:44:10","Salió","Salió de login","ADMIN","2020-11-13 18:44:10");
+INSERT INTO tbl_bitacora VALUES("469","1","5","2020-11-13 18:44:10","Entrada","Entró al Sistema","ADMIN","2020-11-13 18:44:10");
+INSERT INTO tbl_bitacora VALUES("470","1","10","2020-11-13 18:44:10","Entró","Entró a Escritorio","ADMIN","2020-11-13 18:44:10");
+INSERT INTO tbl_bitacora VALUES("471","1","10","2020-11-13 18:44:11","Salió","Salió de Escritorio","ADMIN","2020-11-13 18:44:11");
+INSERT INTO tbl_bitacora VALUES("472","1","10","2020-11-13 18:46:05","Entró","Entró a Escritorio","ADMIN","2020-11-13 18:46:05");
+INSERT INTO tbl_bitacora VALUES("473","1","10","2020-11-13 18:46:05","Salió","Salió de Escritorio","ADMIN","2020-11-13 18:46:05");
+INSERT INTO tbl_bitacora VALUES("474","1","10","2020-11-13 18:58:30","Entró","Entró a Escritorio","ADMIN","2020-11-13 18:58:30");
+INSERT INTO tbl_bitacora VALUES("475","1","10","2020-11-13 18:58:30","Salió","Salió de Escritorio","ADMIN","2020-11-13 18:58:30");
+INSERT INTO tbl_bitacora VALUES("476","1","10","2020-11-13 19:08:44","Entró","Entró a Escritorio","ADMIN","2020-11-13 19:08:44");
+INSERT INTO tbl_bitacora VALUES("477","1","10","2020-11-13 19:08:44","Salió","Salió de Escritorio","ADMIN","2020-11-13 19:08:44");
+INSERT INTO tbl_bitacora VALUES("478","1","10","2020-11-13 19:24:43","Entró","Entró a Escritorio","ADMIN","2020-11-13 19:24:43");
+INSERT INTO tbl_bitacora VALUES("479","1","10","2020-11-13 19:24:43","Salió","Salió de Escritorio","ADMIN","2020-11-13 19:24:43");
+INSERT INTO tbl_bitacora VALUES("480","1","10","2020-11-13 19:25:10","Entró","Entró a Mantenimiento de Productos","ADMIN","2020-11-13 19:25:10");
+INSERT INTO tbl_bitacora VALUES("481","1","1","2020-11-13 19:25:37","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 19:25:37");
+INSERT INTO tbl_bitacora VALUES("482","1","1","2020-11-13 19:25:37","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 19:25:37");
+INSERT INTO tbl_bitacora VALUES("483","1","1","2020-11-13 19:30:10","Salida","Salió del sistema","ADMIN","2020-11-13 19:30:10");
+INSERT INTO tbl_bitacora VALUES("484","1","5","2020-11-13 19:30:14","Salió","Salió de login","ADMIN","2020-11-13 19:30:14");
+INSERT INTO tbl_bitacora VALUES("485","1","5","2020-11-13 19:30:14","Entrada","Entró al Sistema","ADMIN","2020-11-13 19:30:14");
+INSERT INTO tbl_bitacora VALUES("486","1","10","2020-11-13 19:30:14","Entró","Entró a Escritorio","ADMIN","2020-11-13 19:30:14");
+INSERT INTO tbl_bitacora VALUES("487","1","10","2020-11-13 19:30:14","Salió","Salió de Escritorio","ADMIN","2020-11-13 19:30:14");
+INSERT INTO tbl_bitacora VALUES("488","1","10","2020-11-13 19:30:24","Entró","Entró a Escritorio","ADMIN","2020-11-13 19:30:24");
+INSERT INTO tbl_bitacora VALUES("489","1","10","2020-11-13 19:30:24","Salió","Salió de Escritorio","ADMIN","2020-11-13 19:30:24");
+INSERT INTO tbl_bitacora VALUES("490","1","10","2020-11-13 19:31:07","Entró","Entró a Escritorio","ADMIN","2020-11-13 19:31:07");
+INSERT INTO tbl_bitacora VALUES("491","1","10","2020-11-13 19:31:07","Salió","Salió de Escritorio","ADMIN","2020-11-13 19:31:07");
+INSERT INTO tbl_bitacora VALUES("492","1","10","2020-11-13 19:32:59","Entró","Entró a Escritorio","ADMIN","2020-11-13 19:32:59");
+INSERT INTO tbl_bitacora VALUES("493","1","10","2020-11-13 19:32:59","Salió","Salió de Escritorio","ADMIN","2020-11-13 19:32:59");
+INSERT INTO tbl_bitacora VALUES("494","1","10","2020-11-13 19:46:22","Entró","Entró a Escritorio","ADMIN","2020-11-13 19:46:22");
+INSERT INTO tbl_bitacora VALUES("495","1","10","2020-11-13 19:46:22","Salió","Salió de Escritorio","ADMIN","2020-11-13 19:46:22");
+INSERT INTO tbl_bitacora VALUES("496","1","1","2020-11-13 19:52:56","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 19:52:56");
+INSERT INTO tbl_bitacora VALUES("497","1","1","2020-11-13 19:52:56","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 19:52:56");
+INSERT INTO tbl_bitacora VALUES("498","1","1","2020-11-13 19:53:08","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 19:53:08");
+INSERT INTO tbl_bitacora VALUES("499","1","1","2020-11-13 19:53:08","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 19:53:08");
+INSERT INTO tbl_bitacora VALUES("500","1","1","2020-11-13 19:53:49","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 19:53:49");
+INSERT INTO tbl_bitacora VALUES("501","1","1","2020-11-13 19:53:49","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 19:53:49");
+INSERT INTO tbl_bitacora VALUES("502","1","1","2020-11-13 19:53:53","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 19:53:53");
+INSERT INTO tbl_bitacora VALUES("503","1","1","2020-11-13 19:53:53","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 19:53:53");
+INSERT INTO tbl_bitacora VALUES("504","1","1","2020-11-13 19:53:56","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 19:53:56");
+INSERT INTO tbl_bitacora VALUES("505","1","1","2020-11-13 19:53:56","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 19:53:56");
+INSERT INTO tbl_bitacora VALUES("506","1","1","2020-11-13 19:54:38","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 19:54:38");
+INSERT INTO tbl_bitacora VALUES("507","1","1","2020-11-13 19:54:38","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 19:54:38");
+INSERT INTO tbl_bitacora VALUES("508","1","1","2020-11-13 19:55:07","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 19:55:07");
+INSERT INTO tbl_bitacora VALUES("509","1","1","2020-11-13 19:55:07","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 19:55:07");
+INSERT INTO tbl_bitacora VALUES("510","1","1","2020-11-13 19:56:02","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 19:56:02");
+INSERT INTO tbl_bitacora VALUES("511","1","1","2020-11-13 19:56:02","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 19:56:02");
+INSERT INTO tbl_bitacora VALUES("512","1","1","2020-11-13 19:56:23","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 19:56:23");
+INSERT INTO tbl_bitacora VALUES("513","1","1","2020-11-13 19:56:23","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 19:56:23");
+INSERT INTO tbl_bitacora VALUES("514","1","10","2020-11-13 20:12:25","Entró","Entró a Escritorio","ADMIN","2020-11-13 20:12:25");
+INSERT INTO tbl_bitacora VALUES("515","1","10","2020-11-13 20:12:25","Salió","Salió de Escritorio","ADMIN","2020-11-13 20:12:25");
+INSERT INTO tbl_bitacora VALUES("516","1","10","2020-11-13 20:13:09","Entró","Entró a Escritorio","ADMIN","2020-11-13 20:13:09");
+INSERT INTO tbl_bitacora VALUES("517","1","10","2020-11-13 20:13:09","Salió","Salió de Escritorio","ADMIN","2020-11-13 20:13:09");
+INSERT INTO tbl_bitacora VALUES("518","1","10","2020-11-13 20:15:55","Entró","Entró a Escritorio","ADMIN","2020-11-13 20:15:55");
+INSERT INTO tbl_bitacora VALUES("519","1","10","2020-11-13 20:15:55","Salió","Salió de Escritorio","ADMIN","2020-11-13 20:15:55");
+INSERT INTO tbl_bitacora VALUES("520","1","10","2020-11-13 20:23:02","Entró","Entró a Escritorio","ADMIN","2020-11-13 20:23:02");
+INSERT INTO tbl_bitacora VALUES("521","1","10","2020-11-13 20:23:02","Salió","Salió de Escritorio","ADMIN","2020-11-13 20:23:02");
+INSERT INTO tbl_bitacora VALUES("522","1","10","2020-11-13 20:23:19","Entró","Entró a Escritorio","ADMIN","2020-11-13 20:23:19");
+INSERT INTO tbl_bitacora VALUES("523","1","10","2020-11-13 20:23:19","Salió","Salió de Escritorio","ADMIN","2020-11-13 20:23:19");
+INSERT INTO tbl_bitacora VALUES("524","1","10","2020-11-13 20:24:22","Entró","Entró a Escritorio","ADMIN","2020-11-13 20:24:22");
+INSERT INTO tbl_bitacora VALUES("525","1","10","2020-11-13 20:24:22","Salió","Salió de Escritorio","ADMIN","2020-11-13 20:24:22");
+INSERT INTO tbl_bitacora VALUES("526","1","10","2020-11-13 20:31:18","Entró","Entró a Escritorio","ADMIN","2020-11-13 20:31:18");
+INSERT INTO tbl_bitacora VALUES("527","1","10","2020-11-13 20:31:18","Salió","Salió de Escritorio","ADMIN","2020-11-13 20:31:18");
+INSERT INTO tbl_bitacora VALUES("528","1","1","2020-11-13 20:31:23","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 20:31:23");
+INSERT INTO tbl_bitacora VALUES("529","1","1","2020-11-13 20:31:25","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 20:31:25");
+INSERT INTO tbl_bitacora VALUES("530","1","1","2020-11-13 20:59:48","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 20:59:48");
+INSERT INTO tbl_bitacora VALUES("531","1","1","2020-11-13 20:59:48","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 20:59:48");
+INSERT INTO tbl_bitacora VALUES("532","1","1","2020-11-13 21:05:01","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 21:05:01");
+INSERT INTO tbl_bitacora VALUES("533","1","1","2020-11-13 21:05:01","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 21:05:01");
+INSERT INTO tbl_bitacora VALUES("534","1","1","2020-11-13 21:24:49","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-13 21:24:49");
+INSERT INTO tbl_bitacora VALUES("535","1","1","2020-11-13 21:24:49","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-13 21:24:49");
+INSERT INTO tbl_bitacora VALUES("536","1","5","2020-11-13 23:07:54","Salió","Salió de login","ADMIN","2020-11-13 23:07:54");
+INSERT INTO tbl_bitacora VALUES("537","1","5","2020-11-13 23:07:54","Entrada","Entró al Sistema","ADMIN","2020-11-13 23:07:54");
+INSERT INTO tbl_bitacora VALUES("538","1","10","2020-11-13 23:07:55","Entró","Entró a Escritorio","ADMIN","2020-11-13 23:07:55");
+INSERT INTO tbl_bitacora VALUES("539","1","10","2020-11-13 23:07:55","Salió","Salió de Escritorio","ADMIN","2020-11-13 23:07:55");
+INSERT INTO tbl_bitacora VALUES("540","1","10","2020-11-13 23:08:21","Entró","Entró a Mantenimiento de Productos","ADMIN","2020-11-13 23:08:21");
+INSERT INTO tbl_bitacora VALUES("541","1","10","2020-11-13 23:11:03","Entró","Entró a Mantenimiento de Productos","ADMIN","2020-11-13 23:11:03");
+INSERT INTO tbl_bitacora VALUES("542","1","10","2020-11-13 23:11:34","Entró","Entró a Mantenimiento de Productos","ADMIN","2020-11-13 23:11:34");
+INSERT INTO tbl_bitacora VALUES("543","1","10","2020-11-13 23:24:10","Entró","Entró a Mantenimiento de Productos","ADMIN","2020-11-13 23:24:10");
+INSERT INTO tbl_bitacora VALUES("544","1","10","2020-11-13 23:24:15","Entró","Entró a Mantenimiento de Productos","ADMIN","2020-11-13 23:24:15");
+INSERT INTO tbl_bitacora VALUES("545","1","10","2020-11-13 23:24:20","Entró","Entró a Mantenimiento de Productos","ADMIN","2020-11-13 23:24:20");
+INSERT INTO tbl_bitacora VALUES("546","1","10","2020-11-14 17:53:03","Entró","Entró a Escritorio","ADMIN","2020-11-14 17:53:03");
+INSERT INTO tbl_bitacora VALUES("547","1","10","2020-11-14 17:53:03","Salió","Salió de Escritorio","ADMIN","2020-11-14 17:53:03");
+INSERT INTO tbl_bitacora VALUES("548","1","5","2020-11-14 18:20:25","Salió","Salió de login","ADMIN","2020-11-14 18:20:25");
+INSERT INTO tbl_bitacora VALUES("549","1","5","2020-11-14 18:20:25","Entrada","Entró al Sistema","ADMIN","2020-11-14 18:20:25");
+INSERT INTO tbl_bitacora VALUES("550","1","10","2020-11-14 18:20:25","Entró","Entró a Escritorio","ADMIN","2020-11-14 18:20:25");
+INSERT INTO tbl_bitacora VALUES("551","1","10","2020-11-14 18:20:25","Salió","Salió de Escritorio","ADMIN","2020-11-14 18:20:25");
+INSERT INTO tbl_bitacora VALUES("552","1","5","2020-11-16 12:01:47","Salió","Salió de login","ADMIN","2020-11-16 12:01:47");
+INSERT INTO tbl_bitacora VALUES("553","1","5","2020-11-16 12:01:47","Entrada","Entró al Sistema","ADMIN","2020-11-16 12:01:47");
+INSERT INTO tbl_bitacora VALUES("554","1","10","2020-11-16 12:01:47","Entró","Entró a Escritorio","ADMIN","2020-11-16 12:01:47");
+INSERT INTO tbl_bitacora VALUES("555","1","10","2020-11-16 12:01:47","Salió","Salió de Escritorio","ADMIN","2020-11-16 12:01:47");
+INSERT INTO tbl_bitacora VALUES("556","1","1","2020-11-16 12:04:35","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-16 12:04:35");
+INSERT INTO tbl_bitacora VALUES("557","1","1","2020-11-16 12:04:35","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-16 12:04:35");
+INSERT INTO tbl_bitacora VALUES("558","1","1","2020-11-16 12:04:47","Actualizó","Editó su usuario","ADMIN","2020-11-16 12:04:47");
+INSERT INTO tbl_bitacora VALUES("559","1","1","2020-11-16 12:04:56","Actualizó","Editó su usuario","ADMIN","2020-11-16 12:04:56");
+INSERT INTO tbl_bitacora VALUES("560","1","1","2020-11-16 12:05:14","Actualizó","Editó su usuario","ADMIN","2020-11-16 12:05:14");
+INSERT INTO tbl_bitacora VALUES("561","1","10","2020-11-16 12:05:22","Entró","Entró a Escritorio","ADMIN","2020-11-16 12:05:22");
+INSERT INTO tbl_bitacora VALUES("562","1","10","2020-11-16 12:05:22","Salió","Salió de Escritorio","ADMIN","2020-11-16 12:05:22");
+INSERT INTO tbl_bitacora VALUES("563","1","10","2020-11-16 12:05:27","Entró","Entró a Mantenimiento de Productos","ADMIN","2020-11-16 12:05:27");
+INSERT INTO tbl_bitacora VALUES("564","1","2","2020-11-16 12:06:09","Actualizó","Actualizó el valor de un Parametro","ADMIN","2020-11-16 12:06:09");
+INSERT INTO tbl_bitacora VALUES("565","1","10","2020-11-16 12:06:14","Entró","Entró a Mantenimiento de Productos","ADMIN","2020-11-16 12:06:14");
+INSERT INTO tbl_bitacora VALUES("566","1","10","2020-11-16 12:10:24","Entró","Entró a Mantenimiento de Productos","ADMIN","2020-11-16 12:10:24");
+INSERT INTO tbl_bitacora VALUES("567","1","10","2020-11-16 12:10:29","Entró","Entró a Mantenimiento de Compras","ADMIN","2020-11-16 12:10:29");
+INSERT INTO tbl_bitacora VALUES("568","1","10","2020-11-16 12:10:48","Entró","Entró a Mantenimiento de Proveedores","ADMIN","2020-11-16 12:10:48");
+INSERT INTO tbl_bitacora VALUES("569","1","10","2020-11-16 12:34:07","Entró","Entró a Mantenimiento de Proveedores","ADMIN","2020-11-16 12:34:07");
+INSERT INTO tbl_bitacora VALUES("570","1","1","2020-11-16 13:57:59","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-16 13:57:59");
+INSERT INTO tbl_bitacora VALUES("571","1","1","2020-11-16 13:57:59","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-16 13:57:59");
+INSERT INTO tbl_bitacora VALUES("572","1","2","2020-11-16 13:58:19","Actualizó","Actualizó el valor de un Parametro","ADMIN","2020-11-16 13:58:19");
+INSERT INTO tbl_bitacora VALUES("573","1","1","2020-11-16 14:00:10","Entró","Entró a Mantenimiento de Usuario","ADMIN","2020-11-16 14:00:10");
+INSERT INTO tbl_bitacora VALUES("574","1","1","2020-11-16 14:00:10","Salió","Salió de Mantenimiento de Usuario","ADMIN","2020-11-16 14:00:10");
+INSERT INTO tbl_bitacora VALUES("575","1","1","2020-11-16 14:01:23","Actualizar","Editó un usuario","ADMIN","2020-11-16 14:01:23");
 
 
 
@@ -374,16 +491,17 @@ CREATE TABLE `tbl_contactos_clientes` (
   `id_contacto` int(11) NOT NULL AUTO_INCREMENT,
   `id_cliente` int(11) NOT NULL,
   `id_tipo_contacto` int(11) NOT NULL,
-  `valor` varchar(50) DEFAULT NULL,
+  `contacto` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_contacto`),
   KEY `FK_tblclientes` (`id_cliente`),
   KEY `FK_tbl_tipo_contacto` (`id_tipo_contacto`),
   CONSTRAINT `FK_tbl_tipo_contacto` FOREIGN KEY (`id_tipo_contacto`) REFERENCES `tbl_tipo_contacto` (`id_tipo_contacto`) ON UPDATE CASCADE,
   CONSTRAINT `FK_tblclientes` FOREIGN KEY (`id_cliente`) REFERENCES `tbl_clientes` (`id_cliente`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO tbl_contactos_clientes VALUES("1","1","1","32832912");
 INSERT INTO tbl_contactos_clientes VALUES("2","2","3","mache@gmail.com");
+INSERT INTO tbl_contactos_clientes VALUES("3","1","1","22240161");
 
 
 
@@ -523,7 +641,7 @@ CREATE TABLE `tbl_hist_contrasena` (
   PRIMARY KEY (`id_hist`),
   KEY `FK_tbl_usuarios` (`id_usuario`),
   CONSTRAINT `FK_tbl_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_usuarios` (`id_usuario`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO tbl_hist_contrasena VALUES("8","91","ca29863b8b4be2fd63b5bc73276c8e407cda29e03da5c4646b96612110aaf901");
 INSERT INTO tbl_hist_contrasena VALUES("9","91","fc6d282c72b8dd14058abe01ae03a1cf81a50af056d5fbd1e7f3bed00c713f71");
@@ -532,6 +650,9 @@ INSERT INTO tbl_hist_contrasena VALUES("12","94","1sxqpS6ce44=");
 INSERT INTO tbl_hist_contrasena VALUES("13","95","1sxqpS6ce44=");
 INSERT INTO tbl_hist_contrasena VALUES("14","96","1sxqpS6ce44=");
 INSERT INTO tbl_hist_contrasena VALUES("15","97","1sxqpS6ce44=");
+INSERT INTO tbl_hist_contrasena VALUES("16","1","1sxqpS6ce44=");
+INSERT INTO tbl_hist_contrasena VALUES("17","1","1sxqpS6ce44=");
+INSERT INTO tbl_hist_contrasena VALUES("18","1","1sxqpS6ce44=");
 
 
 
@@ -618,19 +739,39 @@ CREATE TABLE `tbl_objetos` (
   `id_objeto` int(11) NOT NULL AUTO_INCREMENT,
   `objeto` varchar(100) DEFAULT NULL,
   `descripcion` varchar(100) DEFAULT NULL,
-  `tipo_objeto` varchar(15) DEFAULT NULL,
+  `url` varchar(50) DEFAULT NULL,
+  `icono` varchar(50) NOT NULL,
+  `estado` tinyint(4) NOT NULL,
+  `idmenupadre` int(11) NOT NULL,
   PRIMARY KEY (`id_objeto`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO tbl_objetos VALUES("1","Usuarios","Gestión de Usuarios","Prueba");
-INSERT INTO tbl_objetos VALUES("2","Usuarios","Gestión de roles","Formulario");
-INSERT INTO tbl_objetos VALUES("3","Usuarios","Gestión de Preguntas","Formulario");
-INSERT INTO tbl_objetos VALUES("4","Seguridad","Gestión Bitácora ","Formulario");
-INSERT INTO tbl_objetos VALUES("5","Login","Gestión login","Formulario");
-INSERT INTO tbl_objetos VALUES("6","Primer Ingreso","Gestión Primer Ingreso","Formulario");
-INSERT INTO tbl_objetos VALUES("7","Auto registro ","Gestión Auto Registro ","Formulario");
-INSERT INTO tbl_objetos VALUES("8","Recu. Por Correo","Gestión Recuperación de contraseña por correo ","Formulario");
-INSERT INTO tbl_objetos VALUES("9","Recu. Por Pregunta Secreta","Gestión Recuperación de contraseña por pregunta Secreta","Formulario");
+INSERT INTO tbl_objetos VALUES("2","Cliente","Clientes de la empresa","","fas fa-user","1","0");
+INSERT INTO tbl_objetos VALUES("3","Pedido","Pedidos de la empresa","","fas fa-shopping-cart","1","0");
+INSERT INTO tbl_objetos VALUES("4","Factura","Factura del sistema","","fas fa-file-invoice","1","0");
+INSERT INTO tbl_objetos VALUES("5","Inventario","Inventario del sistema","","fas fa-dolly-flatbed","1","0");
+INSERT INTO tbl_objetos VALUES("6","Compras","Compras del sistema","","fas fa-shopping-basket","1","0");
+INSERT INTO tbl_objetos VALUES("7","Reportes","Reportes del sistema","","fas fa-chart-bar","1","0");
+INSERT INTO tbl_objetos VALUES("8","Administracion","Administracion de la empresa","","fas fa-tasks","1","0");
+INSERT INTO tbl_objetos VALUES("9","Seguridad","Seguridad del sistema","","fas fa-shield-alt","1","0");
+INSERT INTO tbl_objetos VALUES("10","Nuevo cliente","Clientes de la empresa","nuevocliente.php","","1","2");
+INSERT INTO tbl_objetos VALUES("11","Pedidos","Pedidos de la empresa","pedido.php","","1","3");
+INSERT INTO tbl_objetos VALUES("13","Usuarios","Usuarios del sistema","usuario.php","","1","8");
+INSERT INTO tbl_objetos VALUES("14","Productos","Productos de la empresa","productos.php","","1","3");
+INSERT INTO tbl_objetos VALUES("15","Reporte de compras","Reporte de compras de la empresa","reportecompra.php","","1","7");
+INSERT INTO tbl_objetos VALUES("16","Reporte de ventas","Reporte de ventas de la empresa","reporteventa.php","","1","7");
+INSERT INTO tbl_objetos VALUES("17","Factura","Facturas de la empresa","factura.php","","1","4");
+INSERT INTO tbl_objetos VALUES("18","Materia prima","Materia prima de la empresa","materiaprima.php","","1","5");
+INSERT INTO tbl_objetos VALUES("19","Compras","Compras de la empresa","compras.php","","1","6");
+INSERT INTO tbl_objetos VALUES("20","Proveedores","Proveedores de la empresa","proveedores.php","","1","6");
+INSERT INTO tbl_objetos VALUES("21","Backup","Backup de la base de datos","backup.php","","1","8");
+INSERT INTO tbl_objetos VALUES("22","Restore","Restore de la base de datos","importar.php","","1","8");
+INSERT INTO tbl_objetos VALUES("23","Bitácora ","Bitacora del sistema","bitacora.php","","1","8");
+INSERT INTO tbl_objetos VALUES("24","Roles","Roles del sistema","rol.php","","1","9");
+INSERT INTO tbl_objetos VALUES("25","Permisos","Permisos del sistema","permiso.php","","1","9");
+INSERT INTO tbl_objetos VALUES("26","Preguntas de seguridad","Preguntas del sistema","preguntas.php","","1","9");
+INSERT INTO tbl_objetos VALUES("27","Parámetros","Parametros del sistema","parametros.php","","1","9");
+INSERT INTO tbl_objetos VALUES("28","Menú-Objetos","Menu del sistema","objetos.php","","1","9");
 
 
 
@@ -685,7 +826,7 @@ INSERT INTO tbl_parametros VALUES("19","CORREO_PASSWORD","Teamluna1*","1","2020-
 INSERT INTO tbl_parametros VALUES("20","CORREO_SMTPSECURE","TLS","1","2020-10-25","2020-10-25");
 INSERT INTO tbl_parametros VALUES("21","CORREO_PORT","587","1","2020-10-25","2020-10-25");
 INSERT INTO tbl_parametros VALUES("22","CORREO_NAMEFROM","Soporte luna color","1","2020-10-26","2020-10-26");
-INSERT INTO tbl_parametros VALUES("23","ADMIN_NUM_REGISTROS","5","1","","");
+INSERT INTO tbl_parametros VALUES("23","ADMIN_NUM_REGISTRO","5","1","","");
 
 
 
@@ -699,7 +840,7 @@ CREATE TABLE `tbl_pedidos` (
   `fecha_entrega` date DEFAULT NULL,
   `cantidad` int(11) NOT NULL,
   `precio_unitario` decimal(10,2) NOT NULL,
-  `descuento_por_producto` decimal(10,2) NOT NULL,
+  `descuento por producto` decimal(10,2) NOT NULL,
   `subtotal` decimal(10,2) NOT NULL,
   `id_estado_pedido` int(11) NOT NULL,
   `comentario` varchar(254) NOT NULL,
@@ -739,17 +880,35 @@ CREATE TABLE `tbl_permisos` (
   `id_permiso` int(11) NOT NULL AUTO_INCREMENT,
   `id_rol` int(11) NOT NULL,
   `id_objeto` int(11) NOT NULL,
-  `permiso_insercion` varchar(1) DEFAULT NULL,
-  `permiso_eliminacion` varchar(1) DEFAULT NULL,
-  `permiso_actualizacion` varchar(1) DEFAULT NULL,
-  `permiso_consultar` varchar(1) DEFAULT NULL,
+  `permiso_insercion` tinyint(4) DEFAULT NULL,
+  `permiso_eliminacion` tinyint(4) DEFAULT NULL,
+  `permiso_actualizacion` tinyint(4) DEFAULT NULL,
+  `permiso_consultar` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id_permiso`),
   KEY `FK_tbroles` (`id_rol`),
   KEY `FK_tbobjetos` (`id_objeto`),
-  CONSTRAINT `FK_tbobjetos` FOREIGN KEY (`id_objeto`) REFERENCES `tbl_objetos` (`id_objeto`) ON UPDATE CASCADE,
   CONSTRAINT `FK_tbroles` FOREIGN KEY (`id_rol`) REFERENCES `tbl_roles` (`id_rol`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
 
+INSERT INTO tbl_permisos VALUES("1","2","10","1","1","1","1");
+INSERT INTO tbl_permisos VALUES("2","2","13","1","1","1","1");
+INSERT INTO tbl_permisos VALUES("3","2","11","1","1","1","1");
+INSERT INTO tbl_permisos VALUES("4","2","12","1","1","1","1");
+INSERT INTO tbl_permisos VALUES("5","2","14","1","1","1","1");
+INSERT INTO tbl_permisos VALUES("6","2","15","1","1","1","1");
+INSERT INTO tbl_permisos VALUES("7","2","16","1","1","1","1");
+INSERT INTO tbl_permisos VALUES("8","2","17","1","1","1","1");
+INSERT INTO tbl_permisos VALUES("9","2","18","1","1","1","1");
+INSERT INTO tbl_permisos VALUES("10","2","19","1","1","1","1");
+INSERT INTO tbl_permisos VALUES("11","2","20","1","1","1","1");
+INSERT INTO tbl_permisos VALUES("12","2","21","1","1","1","1");
+INSERT INTO tbl_permisos VALUES("13","2","22","0","1","0","1");
+INSERT INTO tbl_permisos VALUES("14","2","23","1","1","1","1");
+INSERT INTO tbl_permisos VALUES("15","2","25","1","1","1","1");
+INSERT INTO tbl_permisos VALUES("16","2","24","0","0","0","1");
+INSERT INTO tbl_permisos VALUES("17","2","26","0","0","0","1");
+INSERT INTO tbl_permisos VALUES("18","2","27","1","1","1","1");
+INSERT INTO tbl_permisos VALUES("19","2","28","1","1","1","1");
 
 
 
@@ -1136,7 +1295,7 @@ DROP TABLE IF EXISTS tbl_tipo_cliente;
 
 CREATE TABLE `tbl_tipo_cliente` (
   `id_tipo_cliente` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(50) DEFAULT NULL,
+  `tipo` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_tipo_cliente`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
@@ -1262,7 +1421,7 @@ CREATE TABLE `tbl_usuarios` (
   CONSTRAINT `FK_tbl_roles` FOREIGN KEY (`id_rol`) REFERENCES `tbl_roles` (`id_rol`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO tbl_usuarios VALUES("1","2","ADMIN","ADMIN","1sxqpS6ce44=","1603094717.png","admin@gmail.com","2","2020-10-19 12:54:59","0","2020-10-19 12:54:59","1","2020-10-19 12:54:59","","0000-00-00 00:00:00","0000-00-00 00:00:00");
+INSERT INTO tbl_usuarios VALUES("1","2","ADMIN","SUPERUSUARIO","1sxqpS6ce44=","1603094717.png","admin@gmail.com","2","2020-10-19 12:54:59","0","2020-10-19 12:54:59","1","2020-10-19 12:54:59","","0000-00-00 00:00:00","0000-00-00 00:00:00");
 INSERT INTO tbl_usuarios VALUES("2","2","NESTO","NESTO","8d22900f61f6312e7d35be3132110c6ffdf6592ecdfcf058fa68d5f56613bd69","1603134666.png","aaa@gmail.com","2","0000-00-00 00:00:00","3","0000-00-00 00:00:00","1","0000-00-00 00:00:00","owUhIk7A6l4ymJ0","0000-00-00 00:00:00","0000-00-00 00:00:00");
 INSERT INTO tbl_usuarios VALUES("4","2","CAMPEON","CAMPEON","ca29863b8b4be2fd63b5bc73276c8e407cda29e03da5c4646b96612110aaf901","1603137139.png","campeon@gmail.com","3","0000-00-00 00:00:00","0","0000-00-00 00:00:00","1","0000-00-00 00:00:00","","0000-00-00 00:00:00","0000-00-00 00:00:00");
 INSERT INTO tbl_usuarios VALUES("5","2","COPA","COPA","ca29863b8b4be2fd63b5bc73276c8e407cda29e03da5c4646b96612110aaf901","1603137287.png","copa@gmail.com","3","0000-00-00 00:00:00","0","0000-00-00 00:00:00","1","0000-00-00 00:00:00","","0000-00-00 00:00:00","0000-00-00 00:00:00");
@@ -1279,7 +1438,7 @@ INSERT INTO tbl_usuarios VALUES("93","3","CLAU","CLAU","ca29863b8b4be2fd63b5bc73
 INSERT INTO tbl_usuarios VALUES("94","1","VALERIA","VALERIA","1sxqpS6ce44=","","valeria@hotmail.com","1","0000-00-00 00:00:00","0","0000-00-00 00:00:00","1","0000-00-00 00:00:00","","0000-00-00 00:00:00","0000-00-00 00:00:00");
 INSERT INTO tbl_usuarios VALUES("95","3","RITA","RITA","1sxqpS6ce44=","1603094717.png","carolinaflorentino_98@hotmail.com","3","0000-00-00 00:00:00","0","0000-00-00 00:00:00","0","0000-00-00 00:00:00","","0000-00-00 00:00:00","0000-00-00 00:00:00");
 INSERT INTO tbl_usuarios VALUES("96","3","CAROL","CAROL","1sxqpS6ce44=","1603094717.png","carolflorentino398@gmail.com","3","0000-00-00 00:00:00","0","0000-00-00 00:00:00","0","0000-00-00 00:00:00","","0000-00-00 00:00:00","0000-00-00 00:00:00");
-INSERT INTO tbl_usuarios VALUES("97","1","CLAR","CLAR","1sxqpS6ce44=","1603094717.png","clar@gmail.com","3","0000-00-00 00:00:00","0","0000-00-00 00:00:00","0","0000-00-00 00:00:00","","0000-00-00 00:00:00","0000-00-00 00:00:00");
+INSERT INTO tbl_usuarios VALUES("97","1","CLAR","CLARR","1sxqpS6ce44=","1603094717.png","clar@gmail.com","3","0000-00-00 00:00:00","0","0000-00-00 00:00:00","0","0000-00-00 00:00:00","","0000-00-00 00:00:00","0000-00-00 00:00:00");
 
 
 

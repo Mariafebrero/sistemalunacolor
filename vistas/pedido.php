@@ -9,6 +9,7 @@ include '../config/conexion.php';
 $idobjeto = $_GET['objeto'];
 $rol = $_SESSION['id_rol'];
 
+//PERMISO
 $sql = "SELECT * from tbl_permisos WHERE id_objeto = '$idobjeto' and id_rol = '$rol' and permiso_insercion = 1";
 $stmt = mysqli_query($conexion,$sql);
 if(mysqli_num_rows($stmt)>0){
@@ -16,6 +17,7 @@ if(mysqli_num_rows($stmt)>0){
 }else{
   $permiso = false;
 }
+
  
 $_SESSION["objeto"] = $_GET['objeto'];
 
@@ -97,10 +99,13 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
                         </div>
                     </div>
                     <!-- FIN CONSULTA --> 
-
-                
-                    <!-- DATATABLE DE PEDIDO -->
-                    <div class="panel-body table-responsive" id="listadoregistros">
+                   
+                   <?php 
+                   $sql = "SELECT * from tbl_permisos WHERE id_objeto = '$idobjeto' and id_rol = '$rol' and permiso_consultar= 1";
+                   $stmt = mysqli_query($conexion,$sql);
+                   if(mysqli_num_rows($stmt)>0){
+                   $permisocon = true;
+                   echo '<div class="panel-body table-responsive"  id="listadoregistros">
                         <table id="tbllistado" class="table table-hover">
                           <thead>
                             <th>Opciones</th>
@@ -129,7 +134,14 @@ if ($_SESSION['id_rol']==2 || $_SESSION['id_rol']==3 || $_SESSION['id_rol']==4)
                             <th>Estado</th>
                           </tfoot>
                         </table>
-                    </div>
+                    </div>';
+                  }else{
+                   $permisocon = false;
+                   }
+                   ?>
+                
+                    <!-- DATATABLE DE PEDIDO -->
+                    
                     <!-- FIN DATATABLE DE PEDIDO -->
 
 
